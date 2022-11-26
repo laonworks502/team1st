@@ -22,7 +22,7 @@ public class Config {
 
         factoryBean.setDataSource(dataSource);
         factoryBean.setMapperLocations(
-                new PathMatchingResourcePatternResolver().getResources("static/mapper/*.xml")
+                new PathMatchingResourcePatternResolver().getResources("static/mapper/**/*.xml")
         );
 
         /* Alias 설정 */
