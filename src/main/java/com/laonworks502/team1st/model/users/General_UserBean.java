@@ -7,9 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class General_UserBean {
-    private String email;
-    private String passwd;
+public class General_UserBean extends UserBean{
     private String name;
     private String post;
     private String address1;
@@ -21,4 +19,23 @@ public class General_UserBean {
     private String resume;
     private String exit_reason;
 
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.email=email;
+    }
+
+    @Override
+    public String getPasswd() {
+        return passwd;
+    }
+
+    @Override
+    public void setPasswd(String passwd) {
+        this.passwd=passwd;
+    }
 }
