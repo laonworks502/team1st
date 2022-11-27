@@ -1,13 +1,11 @@
-package com.laonworks502.team1st.model.boards;
+package com.laonworks502.team1st.model.board;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
-public class BoardsBean {
+public class BoardBean {
     private String name;
     private String identifier;
 

@@ -1,11 +1,11 @@
-package com.laonworks502.team1st.model.posts;
+package com.laonworks502.team1st.model.post;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class PostsBean {
+public class PostBean {
     private int no;
     private String board_id;
     private String title;

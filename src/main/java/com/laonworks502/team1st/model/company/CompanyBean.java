@@ -1,4 +1,4 @@
-package com.laonworks502.team1st.model.companies;
+package com.laonworks502.team1st.model.company;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class CompaniesBean {
+public class CompanyBean {
     private String company_name;
     private String field;
     private String post;

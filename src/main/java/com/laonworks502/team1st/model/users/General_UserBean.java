@@ -7,13 +7,18 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class Company_UsersBean {
+public class General_UserBean {
     private String email;
     private String passwd;
-    private String company_name;
+    private String name;
+    private String post;
+    private String address1;
+    private String address2;
     private String tel1;
     private String tel2;
     private String te13;
     private Date register_date;
+    private String resume;
+    private String exit_reason;
 
 }

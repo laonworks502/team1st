@@ -1,11 +1,11 @@
-package com.laonworks502.team1st.model.studygroups;
+package com.laonworks502.team1st.model.studygroup;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Study_GroupsBean {
+public class Study_GroupBean {
     private int no;
     private String host_email;
     private int total_members;
