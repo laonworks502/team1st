@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class General_UserBean extends UserBean{
+public class GeneralUserBean extends UserBean{
     private String name;
     private String post;
     private String address1;

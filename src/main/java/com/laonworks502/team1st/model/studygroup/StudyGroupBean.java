@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Study_GroupBean {
+public class StudyGroupBean {
     private int no;
     private String host_email;
     private int total_members;

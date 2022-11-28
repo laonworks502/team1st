@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class Company_UserBean extends UserBean{
+public class CompanyUserBean extends UserBean{
     private String company_name;
     private String name;
     private String tel1;

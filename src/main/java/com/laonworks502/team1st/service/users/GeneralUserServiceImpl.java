@@ -1,10 +1,10 @@
 package com.laonworks502.team1st.service.users;
 
-import com.laonworks502.team1st.model.users.General_UserBean;
+import com.laonworks502.team1st.model.users.GeneralUserBean;
 import org.springframework.stereotype.Service;
 
 @Service
-public class General_UserServiceImpl implements General_UserService {
+public class GeneralUserServiceImpl implements GeneralUserService {
 
     @Override
     public String loginUser(String email, String passwd) {
@@ -17,17 +17,17 @@ public class General_UserServiceImpl implements General_UserService {
     }
 
     @Override
-    public String joinCompany_User(General_UserBean general_userBean) {
+    public String joinCompany_User(GeneralUserBean general_userBean) {
         return null;
     }
 
     @Override
-    public String amendCompany_User(General_UserBean general_userBean) {
+    public String amendCompany_User(GeneralUserBean general_userBean) {
         return null;
     }
 
     @Override
-    public String findPasswdGeneral_User(General_UserBean general_userBean) {
+    public String findPasswdGeneral_User(GeneralUserBean general_userBean) {
         return null;
     }
 
