@@ -11,6 +11,4 @@ import java.util.Date;
 public class ScrapBean {
     private String user_email;
     private String scrap_list;
-    private Timestamp date;
-
 }
