@@ -7,5 +7,8 @@
 </head>
 <body>
 인덱스 페이지
+<script>
+    location.href="adminlogin";
+</script>
 </body>
 </html>
