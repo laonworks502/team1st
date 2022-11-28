@@ -16,23 +16,4 @@ public class CompanyUserBean extends UserBean{
     private Timestamp register_date;
     private String exit_reason;
 
-    @Override
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
-    public void setEmail(String email) {
-        this.email=email;
-    }
-
-    @Override
-    public String getPasswd() {
-        return passwd;
-    }
-
-    @Override
-    public void setPasswd(String passwd) {
-        this.passwd=passwd;
-    }
 }

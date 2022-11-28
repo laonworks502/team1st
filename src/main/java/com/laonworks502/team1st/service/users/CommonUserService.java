@@ -1,11 +1,13 @@
 package com.laonworks502.team1st.service.users;
 
+import com.laonworks502.team1st.model.users.UserBean;
+
 public interface CommonUserService {
 
     // 로그인
-    public String loginUser(String email, String passwd);
+    String loginUser(UserBean userBean);
 
     // 로그아웃
-    public String logoutUser();
+    String logoutUser();
 
 }

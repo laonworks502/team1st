@@ -1,13 +1,14 @@
 package com.laonworks502.team1st.service.users;
 
 import com.laonworks502.team1st.model.users.GeneralUserBean;
+import com.laonworks502.team1st.model.users.UserBean;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GeneralUserServiceImpl implements GeneralUserService {
 
     @Override
-    public String loginUser(String email, String passwd) {
+    public String loginUser(UserBean userBean) {
         return null;
     }
 
