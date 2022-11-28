@@ -11,6 +11,7 @@
     <title>관리자 로그인</title>
 </head>
 <body>
+<<<<<<< HEAD
 <form>
     <!-- Email input -->
     <div class="form-outline mb-4">
@@ -64,6 +65,8 @@
         </button>
     </div>
 </form>
+=======
+>>>>>>> origin/dev_minyoung
 
 </body>
 </html>
