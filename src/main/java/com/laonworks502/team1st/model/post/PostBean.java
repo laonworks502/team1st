@@ -3,6 +3,8 @@ package com.laonworks502.team1st.model.post;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 public class PostBean {
@@ -11,6 +13,6 @@ public class PostBean {
     private String title;
     private String writer;
     private String content;
-    private String date_posted;
+    private Timestamp date;
 
 }

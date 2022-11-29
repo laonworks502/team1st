@@ -3,7 +3,7 @@ package com.laonworks502.team1st.model.notice;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -11,6 +11,6 @@ public class NoticeBean {
     private int no;
     private String title;
     private String content;
-    private Date date_noticed;
+    private Timestamp date;
 
 }
