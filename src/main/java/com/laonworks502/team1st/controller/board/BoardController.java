@@ -20,12 +20,24 @@ public class BoardController {
     }
 
     // 글 목록
-    @GetMapping(value = "")
+    @GetMapping(value = {"/board/{board_id}", "/board/{board_id}/{page}"})
     public String callBoardList(
             @PathVariable(value = "board_id") int board_id,
-            @PathVariable(value = "page",required = false) int page){
+            @PathVariable(value = "page",required = false) Integer page){
+        if (page != null) page = 1;
+
+
+
 
         return null;
+    }
+
+    // 글 상세보기
+    @GetMapping(value = "/board/{board_id}/{page}/{no}")
+    public String callPostByNo(@PathVariable(value = "board_id") int board_id,
+                               @PathVariable(value = "page") int page,
+                               @PathVariable(value = "no") int no){
+
     }
 
     // 글 수정
