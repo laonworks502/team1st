@@ -5,7 +5,7 @@
     <title>관리자 로그인</title>
 </head>
 <body>
-<form id="form">
+<form method="post" action="adminloginok" id="form">
     <!-- Email input -->
     <div class="form-outline mb-4">
         <label class="form-label" for="adminid">관리자 아이디</label>
@@ -22,20 +22,20 @@
     <button type="submit" class="btn btn-primary btn-block mb-4">로그인</button>
 
 </form>
-<script>
-    const form = document.getElementById('form');
-    const adminId = document.getElementById('adminid');
-    const adminPw = document.getElementById('adminpw');
+<%--<script>--%>
+<%--    const form = document.getElementById('form');--%>
+<%--    const adminId = document.getElementById('adminid');--%>
+<%--    const adminPw = document.getElementById('adminpw');--%>
 
-    form.addEventListener('submit', function(e){
-        e.preventDefault();
+<%--    form.addEventListener('submit', function(e){--%>
+<%--        e.preventDefault();--%>
 
-        const adminIdValue = adminId.value;
-        const adminPwValue = adminPw.value;
+<%--        const adminIdValue = adminId.value;--%>
+<%--        const adminPwValue = adminPw.value;--%>
 
-        localStorage.setItem('adminId', adminIdValue);
-        localStorage.setItem('adminPw', adminPwValue);
-    })
-</script>
+<%--        localStorage.setItem('adminId', adminIdValue);--%>
+<%--        localStorage.setItem('adminPw', adminPwValue);--%>
+<%--    })--%>
+<%--</script>--%>
 </body>
 </html>

@@ -4,6 +4,6 @@
     <title>Title</title>
 </head>
 <body>
-
+관리자님, 환영합니다.
 </body>
 </html>
