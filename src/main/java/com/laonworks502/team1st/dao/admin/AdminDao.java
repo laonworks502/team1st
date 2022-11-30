@@ -5,6 +5,7 @@ import com.laonworks502.team1st.service.admin.AdminService;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface AdminDao {
@@ -15,3 +16,4 @@ public interface AdminDao {
         return (AdminBean) sqlSession.selectOne("adminlogin_check", id);
     }
 }
+
