@@ -30,7 +30,7 @@ public class BoardController {
         model.addAttribute("board_id",board_id);
         model.addAttribute("page",page);
 
-        return "boards/postwrite";
+        return "board/postwrite";
     }
 
     // 글 작성
@@ -72,7 +72,7 @@ public class BoardController {
         model.addAttribute("board_id",board_id);
         String boardName = bs.getBoardNameById(board_id);
 
-        return "boards/boardlist/" + board_id + "/" + page;
+        return "board/boardlist/" + board_id + "/" + page;
     }
 
     // 글 상세보기
@@ -90,7 +90,7 @@ public class BoardController {
         String boardName = bs.getBoardNameById(board_id);
         model.addAttribute("boardName", boardName);
 
-        return "boards/postview/" + board_id + "/" + page + "/" + no;
+        return "board/postview/" + board_id + "/" + page + "/" + no;
     }
 
     // 글 수정 폼
@@ -111,7 +111,7 @@ public class BoardController {
         model.addAttribute("page", page);
         model.addAttribute("PostBean", postBean);
 
-        return "post/posteditform" + "/" + boardName + "/" + page + "/" + no;
+        return "board/posteditform" + "/" + boardName + "/" + page + "/" + no;
 
     }
 
@@ -140,7 +140,7 @@ public class BoardController {
         model.addAttribute("page", page);
         model.addAttribute("no", no2);
 
-        return "redirect:/" + boardName + "/" + page + "/" + no2;    // 글 상세보기 메소드로 리턴
+        return "redirect:/posts" + board_id + "/" + page + "/" + no;    // 글 상세보기 메소드로 리턴
     }
 
     // 글 삭제
