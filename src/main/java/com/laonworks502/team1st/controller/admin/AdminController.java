@@ -30,7 +30,6 @@ public class AdminController {
     // 로그인 인증
     @RequestMapping(value = "adminloginok", method = RequestMethod.POST)
     public String member_login_ok(@RequestParam(value = "id", required = false) String id,
-                                  @RequestParam(value = "passwd", required = false) String passwd,
                                   HttpSession session,
                                   Model model) throws Exception {
         int result = 0;
