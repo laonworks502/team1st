@@ -19,8 +19,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<PostBean> callBoardList(int board_id, int startPostNo, int endPostNo) throws Exception {
-        return boardDao.callBoardList(board_id, startPostNo, endPostNo);
+    public List<PostBean> callBoardList(int board_id, int startPostNo, int PAGES_COUNT) throws Exception {
+        return boardDao.callBoardList(board_id, startPostNo, PAGES_COUNT);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public PostBean callPostByNo(int no) throws Exception {
-        return boardDao.callPostByNo(no);
+    public PostBean callPostByNo(int board_id, int no) throws Exception {
+        return boardDao.callPostByNo(board_id, no);
     }
 
     @Override

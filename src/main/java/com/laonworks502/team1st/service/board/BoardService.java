@@ -10,7 +10,7 @@ public interface BoardService {
     int writePost(PostBean postBean) throws Exception;
 
     // 글 리스트 불러 오기
-    List<PostBean> callBoardList(int board_id, int startPostNo, int endPostNo) throws Exception;
+    List<PostBean> callBoardList(int board_id, int startPostNo, int PAGES_COUNT) throws Exception;
 
     // 게시물 전체 개수
     int countAllPosts(int board_id) throws Exception;
@@ -19,7 +19,7 @@ public interface BoardService {
     String getBoardNameById(int board_id) throws Exception;
 
     // 글 상세 보기
-    PostBean callPostByNo(int no) throws Exception;
+    PostBean callPostByNo(int board_id, int no) throws Exception;
 
     // 글 수정
     String amendPost(PostBean postBean) throws Exception;

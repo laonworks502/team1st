@@ -20,10 +20,24 @@ public class BoardController {
     @Autowired
     private BoardServiceImpl bs;
 
+    // 글 작성 폼
+    @GetMapping(value = "/postwriteform/{board_id}/{page}")
+    public String postwriteform(
+            @PathVariable("board_id") int board_id,
+            @PathVariable("page") int page,
+            Model model){
+
+        model.addAttribute("board_id",board_id);
+        model.addAttribute("page",page);
+
+        return "board/postwrite";
+    }
+
     // 글 작성
-    @PostMapping(value = "/postwrite/{board_id}")
+    @PostMapping(value = "/postwrite/{board_id}/{page}")
     public String writePost(
             @PathVariable(value = "board_id") int board_id,
+            @PathVariable(value = "page") int page,
             HttpServletRequest request,
             HttpSession session) throws Exception {
 
@@ -34,8 +48,6 @@ public class BoardController {
         post.setWriter((String)request.getAttribute("writer"));
         post.setContent((String)request.getAttribute("content"));
 
-        // 리다이렉트 할 페이지
-        int page = (int)request.getAttribute("page");
         int no = bs.writePost(post);
 
         String boardName = bs.getBoardNameById(board_id);
@@ -44,7 +56,7 @@ public class BoardController {
     }
 
     // 글 목록
-    @GetMapping(value = {"/board/{board_id}", "/board/{board_id}/{page}"})
+    @GetMapping(value = {"/boards/{board_id}", "/boards/{board_id}/{page}"})
     public String callBoardList(
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "page",required = false) Integer page, Model model) throws Exception {
@@ -55,8 +67,9 @@ public class BoardController {
         Pagination pg = new Pagination(board_id, postTotal, 10);
         model.addAttribute("pg", pg);
 
-        List<PostBean> postList = bs.callBoardList(board_id, pg.getStartPostNo(), pg.getEndPostNo());
+        List<PostBean> postList = bs.callBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
         model.addAttribute("postList", postList);
+        model.addAttribute("board_id",board_id);
 
         String boardName = bs.getBoardNameById(board_id);
 
@@ -64,12 +77,20 @@ public class BoardController {
     }
 
     // 글 상세보기
-    @GetMapping(value = "/{boardName}/{page}/{no}")
-    public String callPostByNo(@PathVariable(value = "boardName") String boardName,
+    @GetMapping(value = "/posts/{board_id}/{page}/{no}")
+    public String callPostByNo(@PathVariable(value = "board_id") int board_id,
                                @PathVariable(value = "page") int page,
-                               @PathVariable(value = "no") int no){
+                               @PathVariable(value = "no") int no, Model model) throws Exception {
 
-        return null;
+        PostBean post = bs.callPostByNo(board_id, no);
+
+        model.addAttribute("post", post);
+        model.addAttribute("board_id", board_id);
+        model.addAttribute("page", page);
+
+        String boardName = bs.getBoardNameById(board_id);
+
+        return boardName + "/" + page + "/" + no;
     }
 
     // 글 수정
