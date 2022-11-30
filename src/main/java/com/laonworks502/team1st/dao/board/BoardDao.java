@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface BoardDao {
+
     int writePost(PostBean postBean) throws Exception;
     List<PostBean> callBoardList(int board_id, int startPage, int PAGES_COUNT) throws Exception;
     int countAllPosts(int board_id) throws Exception;
