@@ -6,7 +6,6 @@ import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
-@Alias("admin")
 public class AdminBean {
     private String id;
     private String passwd;

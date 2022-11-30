@@ -3,5 +3,7 @@ package com.laonworks502.team1st.service.admin;
 import com.laonworks502.team1st.model.admin.AdminBean;
 
 public interface AdminService {
-    public AdminBean userCheck(String id) throws Exception;
+
+    public AdminBean getAdminInfo(String adminId);
+
 }
