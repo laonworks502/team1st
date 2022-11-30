@@ -28,26 +28,37 @@ public class AdminController<model> {
     }
 
     // 관리자 로그인 하기 
-    @RequestMapping(value = "adminlogin", method = RequestMethod.POST)
+ //   @SuppressWarnings("unlikely-arg-type")
+	@RequestMapping(value = "adminlogin", method = RequestMethod.POST)
     public String adminlogin(@RequestParam String adminId, @RequestParam String adminPw, HttpSession session,
                                 Model model) throws Exception {
 
-        log.info("관리자 로그인 실행 메소드 진입");
+        log.info("*****관리자 로그인 실행 메소드 진입*****");
 
         //관리자 계정 정보 가져오기
         AdminBean adminBean = adminService.getAdminInfo(adminId);
-        adminService.getAdminInfo(adminPw);
         
+//        adminService.getAdminInfo(adminPw);
+        
+//        AdminBean tempId = new AdminBean();
+//        tempId.setId(adminId);
+//        tempId.setPasswd(adminPw);
+//        
+//        adminService.loginAdmin(tempId);
+//        
+//        <select id="loginAdmin">
+//        	select * from admin where id = #{id} and passwd = #{passwd}
+//        </select>
         //폼에서 입력한 계정 정보와 DB에서 가져온 계정 정보 비교
         int result = 0;
 
-        if (adminBean.equals(adminId) && adminBean.equals(adminPw)) {    // 관리자 아이디 && 비밀번호 일치
+        if (adminPw.equals(adminBean.getPasswd())) {    // 관리자 아이디 && 비밀번호 일치
 
-                log.info("관리자 로그인 성공");
+                log.info("*****관리자 로그인 성공*****");
                     
                 session.setAttribute("adminId", adminId);
                 
-                log.info("관리자 계정정보 세션 공유 성공");
+                log.info("*****관리자 계정정보 세션 공유 성공*****");
                         
                 model.addAttribute("admeanBean" , adminBean);
 
@@ -55,7 +66,7 @@ public class AdminController<model> {
 
             } else {                                                // 관리자 아이디 ||비밀번호 불일치
 
-                log.info("관리자 로그인 실패");
+                log.info("*****관리자 로그인 실패*****");
                 result = 1;
                 model.addAttribute("result", result);
 

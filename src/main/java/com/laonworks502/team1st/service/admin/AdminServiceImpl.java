@@ -12,7 +12,7 @@ public class AdminServiceImpl {
     @Autowired
     private AdminDao adminDao;
 
-    public AdminBean getAdminInfo (String adminId) {
+    public AdminBean getAdminInfo (String adminId) throws Exception{
 
         return adminDao.getAdminInfo(adminId);
     }

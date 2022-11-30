@@ -1,40 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"/>
-    <title class="title">관리자 로그인</title>
-    <script>
-
-        function check() {
-            if ($.trim($("#adminid").val()) == "") {
-                alert("아이디를 입력해주세요");
-                $("#adminid").val("").focus();
-                return false;
-            }
-            if ($.trim($("#adminpw").val()) == "") {
-                alert("비밀번호를 입력해주세요");
-                $("#adminpw").val("").focus();
-                return false;
-            }
-        }
-
-    </script>
+<meta charset="UTF-8" />
+<title class="title">관리자 로그인</title>
+<script>
+	function check() {
+		if ($.trim($("#adminid").val()) == "") {
+			alert("아이디를 입력해주세요");
+			$("#adminid").val("").focus();
+			return false;
+		}
+		if ($.trim($("#adminpw").val()) == "") {
+			alert("비밀번호를 입력해주세요");
+			$("#adminpw").val("").focus();
+			return false;
+		}
+	}
+</script>
 </head>
 <body>
-<div class="wrapper" align="center">
-    <div class="inner-warpper text-center">
-        <h2 class="title">관리자 로그인</h2><br>
-    <br>
-    <form action="<%=request.getContextPath()%>/adminloginform" method="post" onsubmit="return check()">
-        <input type="text" class="form-control" name="adminid" id="adminid" placeholder="관리자 아이디" style="width:400"/>
-        <br>
-        <input type="password" class="form-control" name="adminpw" id="adminpw" placeholder="관리자 비밀번호"
-               style="width:400"/>
-        <br><br>
-        <button type="submit" class="btn btn-primary" id="login">로그인</button>
-    </form>
+	<div class="wrapper" align="center">
+		<div class="inner-warpper text-center">
+			<h2 class="title">관리자 로그인</h2>
+			<br> <br>
+			<form action="<%=request.getContextPath()%>/adminlogin" method="post"
+				onsubmit="return check()">
+				<input type="text" class="form-control" name="adminId" id="adminId"
+					placeholder="관리자 아이디" style="width: 400" /> <br> <input
+					type="password" class="form-control" name="adminPw" id="adminPw"
+					placeholder="관리자 비밀번호" style="width: 400" /> <br>
+				<br>
+				<button type="submit" class="btn btn-primary" id="login">로그인</button>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
 

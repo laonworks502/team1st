@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.laonworks502.team1st.dao.*">
+<mapper namespace="com.laonworks502.team1st.dao.admin.AdminDao">
     <select id="getAdminInfo" parameterType="String" resultType="com.laonworks502.team1st.model.admin.AdminBean">
         select * from admin where id=#{id}
     </select>
