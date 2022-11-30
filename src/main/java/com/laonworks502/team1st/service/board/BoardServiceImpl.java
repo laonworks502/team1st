@@ -39,12 +39,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public String amendPost(PostBean postBean) throws Exception {
+    public int amendPost(PostBean postBean) throws Exception {
         return boardDao.amendPost(postBean);
     }
 
     @Override
-    public String deletePost(int no) throws Exception {
+    public int deletePost(int no) throws Exception {
         return boardDao.deletePost(no);
     }
 }
