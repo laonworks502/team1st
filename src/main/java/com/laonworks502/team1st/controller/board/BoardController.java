@@ -101,7 +101,7 @@ public class BoardController {
             @PathVariable(value = "no") int no,
             Model model) throws Exception {
 
-        PostBean postBean = bs.callPostByNo(no);
+        PostBean postBean = bs.callPostByNo(board_id, no);
 
         postBean.setContent(postBean.getContent().replace("\n", "<br>"));
 
@@ -125,9 +125,9 @@ public class BoardController {
 
         int no2;
 
-        PostBean pb = bs.callPostByNo(no);
+        PostBean pb = bs.callPostByNo(board_id, no);
 
-        if (pb.getBoard_id().equals(postBean.getBoard_id())) {
+        if (pb.getBoard_id() == postBean.getBoard_id()) {
             no2 = bs.amendPost(postBean);
         } else {
             return null;        // 글 수정 삭제 메세지 띄우든지 멀 하든지 ..

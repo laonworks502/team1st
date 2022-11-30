@@ -30,13 +30,22 @@
 
     <!-- 글 상세 보기-->
     <select id="callPostByNo" parameterType="int" resultType="com.laonworks502.team1st.model.post.PostBean">
-        select * from posts where no = #{no}
+        select * from posts where board_id = #{board_id} and no = #{no}
     </select>
 
     <!-- 글 수정 -->
+    <update id="amendPost" parameterType="com.laonworks502.team1st.model.post.PostBean">
+        update posts set title=#{title}, writer=#{writer}, content=#{content}, where no=#{no}
 
+        <selectKey keyProperty="no" resultType="int" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+    </update>
 
     <!-- 글 삭제 -->
+    <delete id="deletePost">
+        delete from posts where no = {no}
+    </delete>
 
 
 
