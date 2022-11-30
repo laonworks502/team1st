@@ -44,9 +44,9 @@ public class BoardController {
         // PostBean 생성
         PostBean post = new PostBean();
         post.setBoard_id(board_id);
-        post.setTitle((String)request.getAttribute("title"));
-        post.setWriter((String)request.getAttribute("writer"));
-        post.setContent((String)request.getAttribute("content"));
+        post.setTitle((String)request.getParameter("title"));
+        post.setWriter((String)request.getParameter("writer"));
+        post.setContent((String)request.getParameter("content"));
 
         int no = bs.writePost(post);
 
@@ -70,10 +70,9 @@ public class BoardController {
         List<PostBean> postList = bs.callBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
         model.addAttribute("postList", postList);
         model.addAttribute("board_id",board_id);
-
         String boardName = bs.getBoardNameById(board_id);
 
-        return boardName + "/" + page;
+        return "board/boardlist/" + board_id + "/" + page;
     }
 
     // 글 상세보기
@@ -89,8 +88,9 @@ public class BoardController {
         model.addAttribute("page", page);
 
         String boardName = bs.getBoardNameById(board_id);
+        model.addAttribute("boardName", boardName);
 
-        return boardName + "/" + page + "/" + no;
+        return "board/postview/" + board_id + "/" + page + "/" + no;
     }
 
     // 글 수정
