@@ -14,9 +14,9 @@ public interface BoardService {
     public PostBean callPostByNo(int no) throws Exception;
 
     // 글 수정
-    public String amendPost(PostBean postBean) throws Exception;
+    public int amendPost(PostBean postBean) throws Exception;
 
     // 글 삭제
-    public String deletePost(int no) throws Exception;
+    public int deletePost(int no) throws Exception;
 
 }
