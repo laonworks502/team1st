@@ -14,7 +14,7 @@ public class Pagination {
     private int startPostNo;    // 페이지 게시물 처음 번호
     private int endPostNo;      // 페이지 게시물 마지막 번호
 
-    final int PAGESCOUNT = 10;     // 페이징 페이지 크기
+    final int PAGES_COUNT = 10;     // 페이징 페이지 크기
     private int startPage;      // 페이징 시작 페이지 번호
     private int endPage;        // 페이징 마지막 페이지 번호
 
@@ -26,11 +26,12 @@ public class Pagination {
         this.page = 1;
         this.postsTotal = postsTotal;
         this.pagePostsCount = pagePostsCount;
-        pagesTotal = (postsTotal % pagePostsCount == 0) ? postsTotal / pagePostsCount : (postsTotal / pagePostsCount) + 1;
+        pagesTotal = (postsTotal % pagePostsCount == 0) ?
+                postsTotal / pagePostsCount : (postsTotal / pagePostsCount) + 1;
         startPostNo = postsTotal - ((page - 1) * pagePostsCount);
-        endPostNo = (startPostNo > PAGESCOUNT) ? startPostNo - pagePostsCount + 1 : 1;
-        startPage = ((page - 1) / PAGESCOUNT) * PAGESCOUNT + 1;
-        endPage = (startPage + (PAGESCOUNT-1) > pagesTotal) ? pagesTotal : startPage + (PAGESCOUNT - 1);
+        endPostNo = (startPostNo > PAGES_COUNT) ? startPostNo - pagePostsCount + 1 : 1;
+        startPage = ((page - 1) / PAGES_COUNT) * PAGES_COUNT + 1;
+        endPage = (startPage + (PAGES_COUNT-1) > pagesTotal) ? pagesTotal : startPage + (PAGES_COUNT - 1);
     }
 
     public Pagination(int board_id, int page, int postsTotal, int pagePostsCount) {
@@ -38,11 +39,12 @@ public class Pagination {
         this.page = page;
         this.postsTotal = postsTotal;
         this.pagePostsCount = pagePostsCount;
-        pagesTotal = (postsTotal % pagePostsCount == 0) ? postsTotal / pagePostsCount : (postsTotal / pagePostsCount) + 1;
+        pagesTotal = (postsTotal % pagePostsCount == 0) ?
+                postsTotal / pagePostsCount : (postsTotal / pagePostsCount) + 1;
         startPostNo = postsTotal - ((page - 1) * pagePostsCount);
         endPostNo = (startPostNo > 10) ? startPostNo - pagePostsCount + 1 : 1;
-        startPage = ((page - 1) / PAGESCOUNT) * PAGESCOUNT + 1;
-        endPage = (startPage + (PAGESCOUNT-1) > pagesTotal) ? pagesTotal : startPage + (PAGESCOUNT - 1);
+        startPage = ((page - 1) / PAGES_COUNT) * PAGES_COUNT + 1;
+        endPage = (startPage + (PAGES_COUNT-1) > pagesTotal) ? pagesTotal : startPage + (PAGES_COUNT - 1);
     }
 
 }
