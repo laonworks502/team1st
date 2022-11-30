@@ -9,19 +9,19 @@ public interface CommonUserService {
     String loginUser(UserBean userBean);
 
     // 로그아웃
-    String logoutUser();
+    String logoutUser(UserBean userBean);
 
     // 기업 회원 가입
-    String joinCompany_User(UserBean userBean);
+    int joinUser(UserBean userBean) throws Exception;
 
     // 기업 회원 수정
-    String amendCompany_User(UserBean userBean);
+    String amendUser(UserBean userBean);
 
     // 기업 회원 비밀번호 찾기
-    String findPasswdCompany_User(UserBean userBean);
+    String findPasswdUser(UserBean userBean);
 
     // 기업 회원 탈퇴
-    String quitCompany_User(UserBean userBean);
+    String quitUser(UserBean userBean);
 
 
 }

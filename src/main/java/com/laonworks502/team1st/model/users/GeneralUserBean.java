@@ -14,7 +14,7 @@ public class GeneralUserBean extends UserBean{
     private String address2;
     private String tel1;
     private String tel2;
-    private String te13;
+    private String tel3;
     private Timestamp register_date;
     private String resume;
     private String exit_reason;
