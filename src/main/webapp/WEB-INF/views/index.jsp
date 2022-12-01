@@ -7,5 +7,8 @@
 </head>
 <body>
 인덱스페이지
+<script>
+    location.href="/boards/1";
+</script>
 </body>
 </html>

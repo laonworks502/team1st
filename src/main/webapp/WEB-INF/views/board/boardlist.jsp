@@ -16,7 +16,7 @@
 
         <div class="card mb-4">
             <div class="card-header">
-                <button type="button" class="btn btn-primary float-end" onClick="location.href='/postwrite/${board_id}/${pg.page}';"> <!-- <i class="fas fa-table me-1"></i> -->
+                <button type="button" class="btn btn-primary float-end" onClick="location.href='/postwriteform/${board_id}/${pg.page}';"> <!-- <i class="fas fa-table me-1"></i> -->
                     <i class="fas fa-edit"></i>글 작성
                 </button>
             </div>
