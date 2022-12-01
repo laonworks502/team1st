@@ -26,7 +26,7 @@ public class GeneralUserController {
     private GeneralUserServiceImpl gus;
 
     // 로그인 폼
-    @RequestMapping("loginForm")
+    @RequestMapping("generalloginForm")
     public String generaluserloginForm() throws Exception{
 
         return "generaluser/loginForm";
@@ -170,5 +170,11 @@ public class GeneralUserController {
         session.invalidate();
 
         return "generaluser/loginForm";
+    }
+
+    @RequestMapping("loginselect")
+    public String general_company_login(){
+
+        return "generaluser/loginselect";
     }
 }
