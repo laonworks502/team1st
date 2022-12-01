@@ -23,4 +23,18 @@ public interface AdminService {
     public int ago2wJoinTotal() throws Exception;
     public int ago1wJoinTotal() throws Exception;
     
+    // 최근 12개월간 가입자 수
+    public int ago12mJoinTotal() throws Exception;
+    public int ago11mJoinTotal() throws Exception;
+    public int ago10mJoinTotal() throws Exception;
+    public int ago9mJoinTotal() throws Exception;
+    public int ago8mJoinTotal() throws Exception;
+    public int ago7mJoinTotal() throws Exception;
+    public int ago6mJoinTotal() throws Exception;
+    public int ago5mJoinTotal() throws Exception;
+    public int ago4mJoinTotal() throws Exception;
+    public int ago3mJoinTotal() throws Exception;
+    public int ago2mJoinTotal() throws Exception;
+    public int ago1mJoinTotal() throws Exception;
+
 }

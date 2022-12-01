@@ -10,7 +10,7 @@
 <body>
 
 	<br>
-	<h4>회원수 추이</h4>
+	<h4>일별 회원수 추이</h4>
 	<br>
 	<div style="width: 400px; height: auto; align: center">
 		<canvas id="userJoinChartDate">
@@ -34,7 +34,7 @@
 			}]
 		}
 
-	})
+	});
 
 	</script>
 </body>		

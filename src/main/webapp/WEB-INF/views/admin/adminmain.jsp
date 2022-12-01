@@ -11,10 +11,14 @@
 <body>
 	<h1>관리자님, 환영합니다.</h1>
 	<button type="button" class="btn text-white"
-		style="background-color: #fff;" onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</button>
+		style="background-color: #fff;"
+		onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</button>
 
 	<button type="button" id="userJoinChartDateButton" value="일별 가입자 수"
 		onclick="joinChartDate()">일별 가입자</button>
+
+	<button type="button" id="userJoinChartWeekButton" value="주별 가입자 수"
+		onclick="joinChartWeek()">주별 가입자</button>
 
 	<button type="button" id="userJoinChartMonthButton" value="월별 가입자 수"
 		onclick="joinChartMonth()">월별 가입자</button>
@@ -24,12 +28,19 @@
 
 
 	<script>
+		//일별 
 		function joinChartDate() {
 			$('#chart').load('adminstat1') // load('컨트롤러 안에 "" 이름쓰기"')
 		}
-
-		function joinChartMonth() {
+		
+		//주별
+		function joinChartWeek() {
 			$('#chart').load('adminstat2')
+		}
+		
+		//월별
+		function joinChartMonth() {
+			$('#chart').load('adminstat3')
 		}
 	</script>
 

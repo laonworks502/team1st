@@ -3,6 +3,7 @@ package com.laonworks502.team1st.controller.admin;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,9 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 @Controller
 public class AdminController {
-
+ 
 	@Autowired
+	@Qualifier("admin")
 	private AdminServiceImpl adminservice;
 
 	// 관리자 로그인 폼으로 이동
@@ -106,7 +108,7 @@ public class AdminController {
 		return "admin/adminstat1";
 	}
 	
-	// 월별 가입자 수 차트
+	// 주별 가입자 수 차트
 	@RequestMapping("adminstat2")
 	public String adminstat2(Model model) throws Exception {
 		
@@ -124,166 +126,39 @@ public class AdminController {
 		return "admin/adminstat2";
 	}
 
-}
+	// 월별 가입자 수 차트
+	@RequestMapping("adminstat3")
+	public String adminstat3(Model model) throws Exception {
+		
+		//월별 가입자 수
+		int ago12mJoinTotal = adminservice.ago12mJoinTotal();
+		int ago11mJoinTotal = adminservice.ago11mJoinTotal();
+		int ago10mJoinTotal = adminservice.ago10mJoinTotal();
+		int ago9mJoinTotal = adminservice.ago9mJoinTotal();
+		int ago8mJoinTotal = adminservice.ago8mJoinTotal();
+		int ago7mJoinTotal = adminservice.ago7mJoinTotal();
+		int ago6mJoinTotal = adminservice.ago6mJoinTotal();
+		int ago5mJoinTotal = adminservice.ago5mJoinTotal();
+		int ago4mJoinTotal = adminservice.ago4mJoinTotal();
+		int ago3mJoinTotal = adminservice.ago3mJoinTotal();
+		int ago2mJoinTotal = adminservice.ago2mJoinTotal();
+		int ago1mJoinTotal = adminservice.ago1mJoinTotal();
+		
+		
+		model.addAttribute("ago12mJoinTotal", ago12mJoinTotal);
+		model.addAttribute("ago11mJoinTotal", ago11mJoinTotal);
+		model.addAttribute("ago10mJoinTotal", ago10mJoinTotal);
+		model.addAttribute("ago9mJoinTotal", ago9mJoinTotal);
+		model.addAttribute("ago8mJoinTotal", ago8mJoinTotal);
+		model.addAttribute("ago7mJoinTotal", ago7mJoinTotal);
+		model.addAttribute("ago6mJoinTotal", ago6mJoinTotal);
+		model.addAttribute("ago5mJoinTotal", ago5mJoinTotal);
+		model.addAttribute("ago4mJoinTotal", ago4mJoinTotal);
+		model.addAttribute("ago3mJoinTotal", ago3mJoinTotal);
+		model.addAttribute("ago2mJoinTotal", ago2mJoinTotal);
+		model.addAttribute("ago1mJoinTotal", ago1mJoinTotal);
 
-//package com.laonworks502.team1st.controller.admin;
-//
-//import com.laonworks502.team1st.model.admin.AdminBean;
-//import com.laonworks502.team1st.service.admin.AdminService;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.RequestParam;
-//
-//import javax.servlet.http.HttpSession;
-//
-//@Slf4j
-//@Controller
-//public class AdminController<model> {
-//
-//    @Autowired
-//    private AdminService adminService;
-//    
-//    //관리자 로그인 폼 진입
-//    @RequestMapping(value="adminloginform")
-//    public String adiminloginform() throws Exception {
-//        log.info("*****관리자 로그인 폼 진입*****");
-//
-//        return "admin/adminloginform";
-//    }
-//
-//    // 관리자 로그인 하기 
-// //   @SuppressWarnings("unlikely-arg-type")
-//	@RequestMapping(value = "adminlogin", method = RequestMethod.POST)
-//    public String adminlogin(@RequestParam("adminId") String adminId, 
-//    						 @RequestParam("adminPw") String adminPw, HttpSession session,
-//                                Model model) throws Exception {
-//
-//        log.info("*****관리자 로그인 실행 메소드 진입*****");
-//        log.info("adminId:"+adminId);
-//        log.info("adminPw:"+adminPw);
-//        
-//
-//        //관리자 계정 정보 가져오기
-//        AdminBean adminBean = adminService.getAdminInfo(adminId);
-//        
-//        System.out.println("adminBean:"+adminBean);
-//        
-////        adminService.getAdminInfo(adminPw);
-//        
-////        AdminBean tempId = new AdminBean();
-////        tempId.setId(adminId);
-////        tempId.setPasswd(adminPw);
-////        
-////        adminService.loginAdmin(tempId);
-////        
-////        <select id="loginAdmin">
-////        	select * from admin where id = #{id} and passwd = #{passwd}
-////        </select>
-//        //폼에서 입력한 계정 정보와 DB에서 가져온 계정 정보 비교
-//        int result = 0;
-//
-//        if (adminPw.equals(adminBean.getPasswd())) {    // 관리자 아이디 && 비밀번호 일치
-//
-//                log.info("*****관리자 로그인 성공*****");
-//                    
-//                session.setAttribute("adminId", adminId);
-//                
-//                log.info("*****관리자 계정정보 세션 공유 성공*****");
-//                        
-//                model.addAttribute("admeanBean" , adminBean);
-//
-//                return "admin/adminmain";
-//
-//            } else {                                                // 관리자 아이디 ||비밀번호 불일치
-//
-//                log.info("*****관리자 로그인 실패*****");
-//                result = 1;
-//                model.addAttribute("result", result);
-//
-//                return "adminloginfail";
-//            }
-//        } // if - else end
-//    }
-//
-//
-//
-//
-////package com.laonworks502.team1st.controller.admin;
-////
-////import org.springframework.stereotype.Controller;
-////import org.springframework.ui.Model;
-////import org.springframework.web.bind.annotation.*;
-////
-////@Controller
-////public class AdminController {
-////
-//////    @Autowired
-//////    private AdminServiceImpl adminService;
-////
-//////    @RequestMapping(value = "adminlogin", method = RequestMethod.GET)
-//////            public String adminLogin() {
-//////        return "admin/adminlogin";
-//////    }
-////
-//////    @RequestMapping(value = "/adminlogin", method = RequestMethod.POST)
-//////    public String adminmain(Model model, @RequestParam String adminId, @RequestParam String adminPw) {
-//////        if(adminId.equals("admin") && adminPw.equals("admin502")){
-//////            model.addAttribute("adminId", adminId);
-//////            return "adminloginmain";
-//////        }
-////////        model.put("errorMessage", "아이디나 비밀번호를 확인하세요.");
-//////        return "admin/adminlogin";
-//////    }
-////////
-////
-////
-////    //로그인 폼 뷰
-////    @RequestMapping(value = "adminlogin")
-////    public String adminlogin() throws Exception {
-////        return "admin/adminlogin";
-////    }
-////
-////    // 로그인 인증
-////    @RequestMapping(value = "adminloginok", method = RequestMethod.POST)
-////    public String member_login_ok(@RequestParam(value = "id", required = false) String id,
-////                                  HttpSession session,
-////                                  Model model) throws Exception {
-////        int result = 0;
-////        AdminBean adm = adminService.userCheck(id);
-////
-////        if (adm == null) {    // 등록되지 않은 회원일때
-////
-////            result = 1;
-////            model.addAttribute("result", result);
-////
-////            return "admin/adminloginresult";
-////
-////        } else {            // 등록된 회원일때
-////            if (adm.getPasswd().equals(passwd)) {// 비번이 같을때
-////                session.setAttribute("id", id);
-////
-////                String adminid = adm.getId();
-////                String adminpasswd = adm.getPasswd();
-////
-////                model.addAttribute("adminid", adminid);
-////                model.addAttribute("adminpw", adminpasswd);
-////
-////                return "admin/adminmain";
-////
-////            } else {// 비번이 다를때
-////                result = 2;
-////                model.addAttribute("result", result);
-////
-////                return "admin/adminloginresult";
-////            }
-////        }
-////
-////    }
-////}
-////
-////
+		return "admin/adminstat3";
+	}
+	
+}

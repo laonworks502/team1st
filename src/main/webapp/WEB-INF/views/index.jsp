@@ -8,4 +8,7 @@
 <body>
 인덱스페이지
 </body>
+<script>
+location.href= "adminloginform";
+</script>
 </html>

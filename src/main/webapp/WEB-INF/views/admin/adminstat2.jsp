@@ -9,16 +9,16 @@
 </head>
 <body>
 	<br>
-	<h4>회원수 추이</h4>
+	<h4>월별 회원수 추이</h4>
 	<br>
 	<div style="width: 400px; height: auto; align: center">
-				<canvas id="userJoinChartMonth">
+				<canvas id="userJoinChartWeek">
 				</canvas>
 	</div>
 	<script>
 	
 	// 1주전 ~ 4주전 까지 가입자 수 통계
-	new Chart(document.getElementById("userJoinChartMonth"), {
+	new Chart(document.getElementById("userJoinChartWeek"), {
 		type: 'line', 
 		data: {
 			labels: ['4주전', '3주전', '2주전', '1주전'], //x축
@@ -32,7 +32,7 @@
 			}]
 		}
 
-	})
+	});
 	
 	
 	</script>

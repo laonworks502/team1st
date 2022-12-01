@@ -6,7 +6,7 @@ import com.laonworks502.team1st.model.admin.AdminBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("admin")
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
@@ -65,4 +65,55 @@ public class AdminServiceImpl implements AdminService {
     public int ago1wJoinTotal() throws Exception{
     	return admindao.ago1wJoinTotal();
     }
+    
+    // 월별 가입자 수
+    public int ago12mJoinTotal() throws Exception{
+    	return admindao.ago12mJoinTotal();
+    }
+    
+    public int ago11mJoinTotal() throws Exception{
+    	return admindao.ago11mJoinTotal();
+    }
+    
+    public int ago10mJoinTotal() throws Exception{
+    	return admindao.ago10mJoinTotal();
+    }
+    
+    public int ago9mJoinTotal() throws Exception{
+    	return admindao.ago9mJoinTotal();
+    }
+    
+    public int ago8mJoinTotal() throws Exception{
+    	return admindao.ago8mJoinTotal();
+    }
+
+    public int ago7mJoinTotal() throws Exception{
+    	return admindao.ago7mJoinTotal();
+    }
+    
+    public int ago6mJoinTotal() throws Exception{
+    	return admindao.ago6mJoinTotal();
+    }
+    
+    public int ago5mJoinTotal() throws Exception{
+    	return admindao.ago5mJoinTotal();
+    }
+    
+    public int ago4mJoinTotal() throws Exception{
+    	return admindao.ago4mJoinTotal();
+    }
+    
+    public int ago3mJoinTotal() throws Exception{
+    	return admindao.ago3mJoinTotal();
+    }
+    
+    public int ago2mJoinTotal() throws Exception{
+    	return admindao.ago2mJoinTotal();
+    }
+    
+    public int ago1mJoinTotal() throws Exception{
+    	return admindao.ago1mJoinTotal();
+    }
+}
+
     

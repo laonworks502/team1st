@@ -33,15 +33,15 @@
 							<textarea class="form-control" name="content" rows="3"
                                       style="width:90%; height:600px; resize:none;" readonly>${post.content}</textarea>
                             </div>
-                            <button type="button" class="btn btn-outline-dark>스크랩</button>
+                            <button type="button" class="btn btn-outline-dark">스크랩</button>
                         </div>
                         <div class="board-footer">
-                            <!--<c:if test="${post.writer == }">-->
+                            <%--<c:if test="${post.writer == }">--%>
                                 <button type="button" class="btn btn-outline-primary"
                                         onclick="location.href='/posteditform/${board_id}/${page}/${no}'">수정</button>
                                 <button type="button" class="btn btn-outline-danger"
                                         onclick="deletepost()">삭제</button>
-                            <!--</c:if>-->
+                            <%--</c:if>--%>
                             <button type="button" class="btn btn-outline-secondary"
                                     onclick="history.go(-1);">뒤로가기</button>
                         </div>
