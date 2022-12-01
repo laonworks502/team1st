@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class GeneralUserController {
 
+
     @Autowired
     private GeneralUserServiceImpl gus;
 
@@ -172,63 +173,6 @@ public class GeneralUserController {
         return "companyuser/pwfind";
     }
 
-//    /*[비번 찾기 메일 보내기] */
-//    @RequestMapping("pwfind_ok")
-//    public String member_pw_find_ok(@ModelAttribute GeneralUserBean gub,
-//                                    HttpServletResponse response,
-//                                    Model model)throws Exception {
-//        log.info("컨트롤러 들어옴(pwfind_ok)");
-//
-//        response.setContentType("text/html; charset=UTF-8");
-//
-//        GeneralUserBean findpassgub = gus.findPasswdUser(gub); //[findPasswdUser()메소드 : 비번 찾기 메소드]
-//        // GeneralUserBean company = gus.findPasswdUser(gub);
-//
-//        //값이 없는 경우
-//        if(findpassgub == null) {
-//
-//            return "pwresult";
-//
-//            //메일 전송
-//        }else {
-//            // Mail Server 설정
-//            String charSet = "utf-8";
-//            String hostSMTP = "smtp.naver.com";
-//            String hostSMTPid = "";
-//            String hostSMTPpwd = "";
-//
-//            // 보내는 사람
-//            String fromEmail = "";
-//            String fromName = "관리자";
-//            String subject = "비밀번호 찾기";
-//
-//            // 받는 사람
-//            String mail = findpassgub.getEmail();
-//
-//            try {
-//                HtmlEmail email = new HtmlEmail();
-//                email.setDebug(true);
-//                email.setCharset(charSet);
-//                email.setSSL(true);
-//                email.setHostName(hostSMTP);
-//                email.setSmtpPort(587);
-//
-//                email.setAuthentication(hostSMTPid, hostSMTPpwd);
-//                email.setTLS(true);
-//                email.addTo(mail, charSet);
-//                email.setFrom(fromEmail, fromName, charSet);
-//                email.setSubject(subject);
-//                email.setHtmlMsg("<p align = 'center'>비밀번호 찾기</p><br>" + "<div align='center'> 비밀번호 : "
-//                        + findpassgub.getPasswd() + "</div>");
-//                email.send();
-//            } catch (Exception e) {
-//                System.out.println(e);
-//            }
-//            model.addAttribute("pwdok", "등록된 email을 확인 하세요.");
-//            return "companyuser/pwfind";
-//        }
-//
-//    }
 
     @RequestMapping("loginselect")
     public String general_company_login(){
