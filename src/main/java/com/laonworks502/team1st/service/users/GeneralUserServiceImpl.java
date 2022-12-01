@@ -1,11 +1,18 @@
 package com.laonworks502.team1st.service.users;
 
+
+import com.laonworks502.team1st.dao.users.GeneralUserDao;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.UserBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("general")
 public class GeneralUserServiceImpl implements CommonUserService {
+
+    @Autowired
+    private GeneralUserDao gud;
 
     @Override
     public String loginUser(UserBean userBean) {
@@ -13,27 +20,42 @@ public class GeneralUserServiceImpl implements CommonUserService {
     }
 
     @Override
-    public String logoutUser() {
+    public String logoutUser(UserBean userBean) {
         return null;
     }
 
     @Override
-    public String joinCompany_User(UserBean userBean) {
-        return null;
+    public int joinUser(UserBean userBean) throws Exception {
+        return gud.joinGeneraluser(userBean);
+
     }
 
     @Override
-    public String amendCompany_User(UserBean userBean) {
-        return null;
+    public int amendUser(UserBean userBean) throws Exception {
+        return gud.updateGeneraluser(userBean);
     }
 
-    @Override
-    public String findPasswdCompany_User(UserBean userBean) {
-        return null;
-    }
 
     @Override
-    public String quitCompany_User(UserBean userBean) {
-        return null;
+    public int quitUser(UserBean userBean) throws Exception {
+        return gud.deleteGeneraluser(userBean);
     }
+
+
+    public int emailDuplicatecheck(String email) throws Exception{
+        return gud.emailDuplicatecheck(email);
+    }
+
+    public GeneralUserBean checkGeneraluser(String email) throws Exception{
+        return gud.checkGeneraluser(email);
+    }
+
+    public int updateGeneraluser(GeneralUserBean gub) throws Exception{
+        return gud.updateGeneraluser(gub);
+    }
+
+    public int deleteGeneraluser(GeneralUserBean gub) throws Exception{
+        return gud.deleteGeneraluser(gub);
+    }
+
 }
