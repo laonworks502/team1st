@@ -1,24 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-		 pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ include file="../common/commonlist.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>일반 회원 탈퇴</title>
+<title>기업 회원 탈퇴</title>
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="js/companyuser_delete.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>   
+<script src="js/companyuser_delete.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 <body>
 	<div align="center" style="margin-top: 10%;">
-	<form method="post" action="generaluserdelete_ok" onsubmit="return check()" name="deleteform">
-	<input type="hidden" name="email" value="${sessionScope.email}">
-	<input type="hidden" name="passwd"  id="passwd" value="${gub.passwd}">
+	<form method="post" action="companyuserdelete_ok" onsubmit="return check()" name="deleteform">
+	<input type="hidden" name="passwd"  id="passwd" value="${cub.passwd}">	
 			<p>
-				<a style="font-size: 15pt; font-weight: bold;">'${gub.email}'</a>
+				<a style="font-size: 15pt; font-weight: bold;">'${cub.email}'</a> 
 				계정을 정말 탈퇴하시겠습니까?<br>
 				<a style="font-size: 9pt; font-weight:bold; color: red;">* 탈퇴 후에는 되돌릴 수 없습니다.</a>
 			</p>
@@ -40,7 +40,5 @@
 			</div>
 		</form>
 	</div>
-
-
 </body>
 </html>
