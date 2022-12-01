@@ -6,7 +6,7 @@ public interface CommonUserService {
 
     // 로그인
     String loginUser(UserBean userBean) throws Exception;
-
+	
     // 로그아웃
     String logoutUser(UserBean userBean) throws Exception;
 
@@ -17,6 +17,6 @@ public interface CommonUserService {
     int amendUser(UserBean userBean) throws Exception;
 
     // 회원 탈퇴
-    int quitUser(UserBean userBean) throws Exception;
-
+    int quitUser(UserBean userBean) throws Exception;	
+	
 }

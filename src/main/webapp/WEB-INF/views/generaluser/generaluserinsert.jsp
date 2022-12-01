@@ -1,13 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: sky66
-  Date: 2022-11-29
-  Time: 오후 6:40
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ include file="../companyuser/header.jsp"%>
+<%@ include file="../common/commonlist.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
