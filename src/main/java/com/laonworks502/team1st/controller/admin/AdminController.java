@@ -66,25 +66,49 @@ public class AdminController {
 		String id = (String) session.getAttribute("id");
 		log.info("로그인 세션 유지 ");
 
-		// 일별 가입자 수
-		int todayJoinTotal = adminservice.todayJoinTotal();
-		int ago1JoinTotal = adminservice.ago1JoinTotal();
-		int ago2JoinTotal = adminservice.ago2JoinTotal();
-		int ago3JoinTotal = adminservice.ago3JoinTotal();
-		int ago4JoinTotal = adminservice.ago4JoinTotal();
-		int ago5JoinTotal = adminservice.ago5JoinTotal();
-		int ago6JoinTotal = adminservice.ago6JoinTotal();
-		int ago7JoinTotal = adminservice.ago7JoinTotal();
+		return "admin/adminmain";
+	}
 
-		model.addAttribute("todayJoinTotal", todayJoinTotal);
-		model.addAttribute("ago1JoinTotal", ago1JoinTotal);
-		model.addAttribute("ago2JoinTotal", ago2JoinTotal);
-		model.addAttribute("ago3JoinTotal", ago3JoinTotal);
-		model.addAttribute("ago4JoinTotal", ago4JoinTotal);
-		model.addAttribute("ago5JoinTotal", ago5JoinTotal);
-		model.addAttribute("ago6JoinTotal", ago6JoinTotal);
-		model.addAttribute("ago7JoinTotal", ago7JoinTotal);
+	//관리자 로그아웃
+	@RequestMapping("adminlogout")
+	public String adminlogout(HttpSession session) throws Exception {
+
+		// 관리자 로그인 세션 종료
+		session.invalidate();
+		log.info("관리자 로그아웃 성공");
+
+		return "redirect:adminloginform";
+	}
+	
+	// 일별 가입자 수 차트
+	@RequestMapping("adminstat1")
+	public String adminstat1(Model model) throws Exception {
 		
+		// 일별 가입자 수
+				int todayJoinTotal = adminservice.todayJoinTotal();
+				int ago1JoinTotal = adminservice.ago1JoinTotal();
+				int ago2JoinTotal = adminservice.ago2JoinTotal();
+				int ago3JoinTotal = adminservice.ago3JoinTotal();
+				int ago4JoinTotal = adminservice.ago4JoinTotal();
+				int ago5JoinTotal = adminservice.ago5JoinTotal();
+				int ago6JoinTotal = adminservice.ago6JoinTotal();
+				int ago7JoinTotal = adminservice.ago7JoinTotal();
+
+				model.addAttribute("todayJoinTotal", todayJoinTotal);
+				model.addAttribute("ago1JoinTotal", ago1JoinTotal);
+				model.addAttribute("ago2JoinTotal", ago2JoinTotal);
+				model.addAttribute("ago3JoinTotal", ago3JoinTotal);
+				model.addAttribute("ago4JoinTotal", ago4JoinTotal);
+				model.addAttribute("ago5JoinTotal", ago5JoinTotal);
+				model.addAttribute("ago6JoinTotal", ago6JoinTotal);
+				model.addAttribute("ago7JoinTotal", ago7JoinTotal);
+		
+		return "admin/adminstat1";
+	}
+	
+	// 월별 가입자 수 차트
+	@RequestMapping("adminstat2")
+	public String adminstat2(Model model) throws Exception {
 		
 		//주별 가입자 수
 		int ago4wJoinTotal = adminservice.ago4wJoinTotal();
@@ -96,19 +120,8 @@ public class AdminController {
 		model.addAttribute("ago3wJoinTotal", ago3wJoinTotal);
 		model.addAttribute("ago2wJoinTotal", ago2wJoinTotal);
 		model.addAttribute("ago1wJoinTotal", ago1wJoinTotal);
-	
 
-		return "admin/adminmain";
-	}
-
-	@RequestMapping("adminlogout")
-	public String adminlogout(HttpSession session) throws Exception {
-
-		// 관리자 로그인 세션 종료
-		session.invalidate();
-		log.info("관리자 로그아웃 성공");
-
-		return "redirect:adminloginform";
+		return "admin/adminstat2";
 	}
 
 }
