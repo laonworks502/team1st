@@ -65,4 +65,4 @@ public class AdminServiceImpl implements AdminService {
     public int ago1wJoinTotal() throws Exception{
     	return admindao.ago1wJoinTotal();
     }
-    
+}
