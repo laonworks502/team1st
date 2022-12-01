@@ -30,21 +30,23 @@ function check(){
 		 $("#email").val("").focus();
 		 return false;
 	 }
+
+
 	 if($.trim($("#passwd").val())==""){
 		 alert("비밀번호를 입력하세요!");
 		 $("#passwd").val("").focus();
 		 return false;
 	 }
-	 if($.trim($("#passwd2").val())==""){
+	 if($.trim($("#passconfirm").val())==""){
 		 alert("비밀번호확인을 입력하세요!");
-		 $("#passwd2").val("").focus();
+		 $("#passconfirm").val("").focus();
 		 return false;
 	 }
-	 if($.trim($("#passwd").val()) != $.trim($("#passwd2").val())){
+	 if($.trim($("#passwd").val()) != $.trim($("#passconfirm").val())){
 		 //!=같지않다 연산. 비번이 다를 경우
 		 alert("비밀번호가 일치하지 않습니다!");
 		 $("#passwd").val("");
-		 $("#passwd2").val("");
+		 $("#passconfirm").val("");
 		 $("#passwd").focus();
 		 return false;
 	 }
@@ -88,5 +90,12 @@ function check(){
 		window.open("zipcode_find.do","우편번호검색",
 			"width=420,height=200,scrollbars=yes");
 		//폭이 420이고 높이가 200,스크롤바가 생성되는 새로운 공지창을 만듬
+	}
+
+	if (confirm("회원가입") == true) { // 확인
+		alert("가입되었습니다");
+		document.insertform.submit();
+	} else { // 취소
+		return false;
 	}
 }
