@@ -17,37 +17,42 @@ public class AdminServiceImpl implements AdminService {
         return admindao.getAdminInfo(id);
     }
     
-    // 최근 7일간 가입자 수 
-    public int todayJoinTotal() throws Exception{
-    	return admindao.todayJoinTotal();
+    //일별 가입자 수 
+    public int usersJoinTotal(int n, String duration) throws Exception{
+    	return admindao.usersJoinTotal(n, duration);
     }
-    public int ago1JoinTotal() throws Exception{
-    	return admindao.ago1JoinTotal();
-    }
-    
-    public int ago2JoinTotal() throws Exception{
-    	return admindao.ago2JoinTotal();
-    }
-    
-    public int ago3JoinTotal() throws Exception{
-    	return admindao.ago3JoinTotal();
-    }
-    
-    public int ago4JoinTotal() throws Exception{
-    	return admindao.ago4JoinTotal();
-    }
-    
-    public int ago5JoinTotal() throws Exception{
-    	return admindao.ago5JoinTotal();
-    }
-    
-    public int ago6JoinTotal() throws Exception{
-    	return admindao.ago6JoinTotal();
-    }
-    
-    public int ago7JoinTotal() throws Exception{
-    	return admindao.ago7JoinTotal();
-    }
+//    
+//    // 최근 7일간 가입자 수 
+//    public int todayJoinTotal() throws Exception{
+//    	return admindao.todayJoinTotal();
+//    }
+//    public int ago1JoinTotal() throws Exception{
+//    	return admindao.ago1JoinTotal();
+//    }
+//    
+//    public int ago2JoinTotal() throws Exception{
+//    	return admindao.ago2JoinTotal();
+//    }
+//    
+//    public int ago3JoinTotal() throws Exception{
+//    	return admindao.ago3JoinTotal();
+//    }
+//    
+//    public int ago4JoinTotal() throws Exception{
+//    	return admindao.ago4JoinTotal();
+//    }
+//    
+//    public int ago5JoinTotal() throws Exception{
+//    	return admindao.ago5JoinTotal();
+//    }
+//    
+//    public int ago6JoinTotal() throws Exception{
+//    	return admindao.ago6JoinTotal();
+//    }
+//    
+//    public int ago7JoinTotal() throws Exception{
+//    	return admindao.ago7JoinTotal();
+//    }
 
     // 주별 가입자 수 
     public int ago4wJoinTotal() throws Exception{

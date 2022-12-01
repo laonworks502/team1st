@@ -7,45 +7,55 @@
         select * from admin where id=#{id}   
     </select>
     
-    <!-- 오늘 가입자 수  -->
+<!--     <select>
+    set @var = 1
+    select count(register_date) from general_users where register_date between date_sub(now(), interval @var day) and date_sub(now(), interval @var-1 day)
+    </select> -->
+    
+    
+    <select id="usersJoinTotal" resultType="int">
+    select count(register_date) from general_users where register date 
+	between date_sub(now(), interval #{n} #{duration}) and date_sub(now(), interval #{n-1} #{duration})
+    </select>
+<!--     오늘 가입자 수 
     <select id="todayJoinTotal" resultType="int">
     select count(register_date) from general_users where register_date = now()
     </select>
-    
-    <!-- 1일전 가입자 수 -->
+        
+    1일전 가입자 수
     <select id="ago1JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 1 day) and now()
     </select>
     
-    <!-- 2일전 가입자 수 -->
+    2일전 가입자 수
     <select id="ago2JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 2 day) and DATE_sub(now(), INTERVAL 1 day)
     </select>
     
-    <!-- 3일전 가입자 수 -->
+    3일전 가입자 수
     <select id="ago3JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 3 day) and DATE_sub(now(), INTERVAL 2 day)
     </select>
     
-    <!-- 4일전 가입자 수 -->
+    4일전 가입자 수
     <select id="ago4JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 4 day) and DATE_sub(now(), INTERVAL 3 day)
     </select>
     
-    <!-- 5일전 가입자 수 -->
+    5일전 가입자 수
     <select id="ago5JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 5 day) and DATE_sub(now(), INTERVAL 4 day)
     </select>
     
-    <!-- 6일전 가입자 수 -->
+    6일전 가입자 수
     <select id="ago6JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 6 day) and DATE_sub(now(), INTERVAL 5 day)
     </select>
     
-    <!-- 7일전 가입자 수 -->
+    7일전 가입자 수
     <select id="ago7JoinTotal" resultType="int">+
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 7 day) and DATE_sub(now(), INTERVAL 6 day)
-    </select>
+    </select> -->
     
     <!--  1주전 가입자 수  -->
     <select id="ago1wJoinTotal" resultType="int">
@@ -66,7 +76,7 @@
     <select id="ago4wJoinTotal" resultType="int">
     SELECT count(register_date) FROM general_users WHERE register_date BETWEEN DATE_SUB(NOW(), INTERVAL 4 WEEK ) AND DATE_SUB(NOW(), INTERVAL 3 WEEK )
     </select>
-    
+    =
     <!-- 1개월 전 가입자 수 -->
     <select id="ago1mJoinTotal" resultType="int">
     SELECT COUNT(REGISTER_DATE) FROM general_users WHERE register_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH ) AND NOW()

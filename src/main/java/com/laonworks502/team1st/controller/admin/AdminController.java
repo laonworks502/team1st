@@ -1,25 +1,17 @@
 package com.laonworks502.team1st.controller.admin;
 
 import lombok.extern.slf4j.Slf4j;
-import together.model.MemberDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.laonworks502.team1st.model.admin.AdminBean;
-import com.laonworks502.team1st.model.board.Pagination;
-import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
@@ -29,6 +21,11 @@ public class AdminController {
 	@Autowired
 	@Qualifier("admin")
 	private AdminServiceImpl adminservice;
+	
+	//가입자 수 통계 관련 변수 정의
+	int n;
+	String duration;
+	int usersJoinTotal;
 
 	// 관리자 로그인 폼으로 이동
 	@RequestMapping("adminloginform")
@@ -93,25 +90,30 @@ public class AdminController {
 	// 일별 가입자 수 차트
 	@RequestMapping("adminstat1")
 	public String adminstat1(Model model) throws Exception {
-		
-		// 일별 가입자 수
-				int todayJoinTotal = adminservice.todayJoinTotal();
-				int ago1JoinTotal = adminservice.ago1JoinTotal();
-				int ago2JoinTotal = adminservice.ago2JoinTotal();
-				int ago3JoinTotal = adminservice.ago3JoinTotal();
-				int ago4JoinTotal = adminservice.ago4JoinTotal();
-				int ago5JoinTotal = adminservice.ago5JoinTotal();
-				int ago6JoinTotal = adminservice.ago6JoinTotal();
-				int ago7JoinTotal = adminservice.ago7JoinTotal();
 
-				model.addAttribute("todayJoinTotal", todayJoinTotal);
-				model.addAttribute("ago1JoinTotal", ago1JoinTotal);
-				model.addAttribute("ago2JoinTotal", ago2JoinTotal);
-				model.addAttribute("ago3JoinTotal", ago3JoinTotal);
-				model.addAttribute("ago4JoinTotal", ago4JoinTotal);
-				model.addAttribute("ago5JoinTotal", ago5JoinTotal);
-				model.addAttribute("ago6JoinTotal", ago6JoinTotal);
-				model.addAttribute("ago7JoinTotal", ago7JoinTotal);
+		// 일별 가입자 수
+		for(n = 1; n <= 31; n++ ) {
+			model.addAttribute("usersJoinTotal", usersJoinTotal);
+		usersJoinTotal = adminservice.usersJoinTotal(n, duration);
+		}
+		
+//				int todayJoinTotal = adminservice.todayJoinTotal();
+//				int ago1JoinTotal = adminservice.ago1JoinTotal();
+//				int ago2JoinTotal = adminservice.ago2JoinTotal();
+//				int ago3JoinTotal = adminservice.ago3JoinTotal();
+//				int ago4JoinTotal = adminservice.ago4JoinTotal();
+//				int ago5JoinTotal = adminservice.ago5JoinTotal();
+//				int ago6JoinTotal = adminservice.ago6JoinTotal();
+//				int ago7JoinTotal = adminservice.ago7JoinTotal();
+//
+//				model.addAttribute("todayJoinTotal", todayJoinTotal);
+//				model.addAttribute("ago1JoinTotal", ago1JoinTotal);
+//				model.addAttribute("ago2JoinTotal", ago2JoinTotal);
+//				model.addAttribute("ago3JoinTotal", ago3JoinTotal);
+//				model.addAttribute("ago4JoinTotal", ago4JoinTotal);
+//				model.addAttribute("ago5JoinTotal", ago5JoinTotal);
+//				model.addAttribute("ago6JoinTotal", ago6JoinTotal);
+//				model.addAttribute("ago7JoinTotal", ago7JoinTotal);
 		
 		return "admin/adminstat1";
 	}
@@ -169,34 +171,34 @@ public class AdminController {
 		return "admin/adminstat3";
 	}
 	
-	// 전체 회원 목록
-	@RequestMapping("userslist")
-	public String userslist(AdminBean adminbean, Model model) throws Exception {
-    	
-    	  // 전체 회원 수 구하기 
-    	  int totalUsers = adminservice.countAllUsers();
-    	  
-    	  model.addAttribute("totalUsers", totalUsers); 
-    	  
-    	  //현재 활동중인 회원 목록 가져오기
-  		  List<adminbean> userList = adminservice.userList(); 
-
-//    	  Pagination pg = new Pagination(board_id, postTotal, 10);
-//          model.addAttribute("pg", pg);
+//	// 전체 회원 목록
+//	@RequestMapping("userslist")
+//	public String userslist(AdminBean adminbean, Model model) throws Exception {
+//    	
+//    	  // 전체 회원 수 구하기 
+//    	  int totalUsers = adminservice.countAllUsers();
+//    	  
+//    	  model.addAttribute("totalUsers", totalUsers); 
+//    	  
+//    	  //현재 활동중인 회원 목록 가져오기
+//  		  List<adminbean> userList = adminservice.userList(); 
 //
-//        List<PostBean> postList = bs.callBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
-//        model.addAttribute("postList", postList);
-//        model.addAttribute("board_id",board_id);
-//        String boardName = bs.getBoardNameById(board_id);
-
-        return "admin/userslist";
-    }
-	
-	// 탈퇴 회원 목록
-		@RequestMapping("deleteduserslist")
-		public String deleteduserslist(Model model) throws Exception {
-			return "admin/deleteduserslist";
-		}
+////    	  Pagination pg = new Pagination(board_id, postTotal, 10);
+////          model.addAttribute("pg", pg);
+////
+////        List<PostBean> postList = bs.callBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
+////        model.addAttribute("postList", postList);
+////        model.addAttribute("board_id",board_id);
+////        String boardName = bs.getBoardNameById(board_id);
+//
+//        return "admin/userslist";
+//    }
+//	
+//	// 탈퇴 회원 목록
+//		@RequestMapping("deleteduserslist")
+//		public String deleteduserslist(Model model) throws Exception {
+//			return "admin/deleteduserslist";
+//		}
 	
 		
 }
