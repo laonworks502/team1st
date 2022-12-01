@@ -1,5 +1,6 @@
 package com.laonworks502.team1st.dao.users;
 
+import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.UserBean;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.context.annotation.Primary;
@@ -21,5 +22,11 @@ public interface GeneralUserDao {
     String quitUser(UserBean userBean) throws Exception;
 
     int emailDuplicatecheck(String email) throws Exception;
+
+    GeneralUserBean checkGeneraluser(String email) throws Exception;
+
+    int updateGeneraluser(GeneralUserBean gub) throws Exception;
+
+    int deleteGeneraluser(GeneralUserBean gub) throws Exception;
 
 }

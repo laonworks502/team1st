@@ -15,19 +15,25 @@ resume(null가능, exit_reason(null가능)) values('sky1234@naver.com', '1234', 
 
 <!--email 중복 체크, 1개 이상이면 가입불가-->
 <select id="emailDuplicatecheck" parameterType="String" resultType="int">
-    select count(*) from general_users where email = #{email}
+    select count(*) from general_users where email = #{email} and exit_reason is null;
 </select>
 
-<!--    // 일반 회원 가입-->
-<!--    String joinGeneral_User(UserBean userBean);-->
+<!-- 로그인할 때 계정이 존재하는지 확인하는 함수 -->
+<select id="checkGeneraluser" parameterType="String" resultType="com.laonworks502.team1st.model.users.GeneralUserBean">
+    select * from general_users where email = #{email} and exit_reason is null;
+</select>
 
-<!--    // 일반 회원 수정-->
-<!--    String amendGeneral_User(UserBean userBean);-->
+<update id="updateGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
+	update general_users
+	set name = #{name}, postal_code=#{postal_code}, address1=#{address1}, address2=#{address2}, tel1=#{tel1}, tel2=#{tel2},
+	    tel3=#{tel3}
+	where email = #{email}
+</update>
 
-<!--    // 일반 회원 비밀번호 찾기-->
-<!--    String findPasswdGeneral_User(UserBean userBean);-->
-
-<!--    // 일반 회원 탈퇴-->
-<!--    String quitGeneral_User(UserBean userBean);-->
+<update id="deleteGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
+update general_users
+	set exit_reason = #{exit_reason}
+	where email = #{email} limit 1
+</update>
 
 </mapper>

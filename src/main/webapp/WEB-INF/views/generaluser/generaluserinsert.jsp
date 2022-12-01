@@ -95,6 +95,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/check.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 <script>
     //우편번호, 주소 Daum API
     function openDaumPostcode() {

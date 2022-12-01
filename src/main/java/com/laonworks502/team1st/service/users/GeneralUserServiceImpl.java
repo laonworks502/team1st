@@ -50,4 +50,16 @@ public class GeneralUserServiceImpl implements CommonUserService {
         return gud.emailDuplicatecheck(email);
     }
 
+    public GeneralUserBean checkGeneraluser(String email) throws Exception{
+        return gud.checkGeneraluser(email);
+    }
+
+    public int updateGeneraluser(GeneralUserBean gub) throws Exception{
+        return gud.updateGeneraluser(gub);
+    }
+
+    public int deleteGeneraluser(GeneralUserBean gub) throws Exception{
+        return gud.deleteGeneraluser(gub);
+    }
+
 }
