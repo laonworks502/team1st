@@ -9,6 +9,6 @@
 인덱스페이지
 </body>
 <script>
-location.href= "adminloginform";
+location.href= "userslist";
 </script>
 </html>

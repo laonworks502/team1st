@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ include file = "../common/commonlist.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
 	<h1>관리자님, 환영합니다.</h1>
@@ -22,6 +21,12 @@
 
 	<button type="button" id="userJoinChartMonthButton" value="월별 가입자 수"
 		onclick="joinChartMonth()">월별 가입자</button>
+		
+	<button type="button" id="usersList" value="전체 회원 목록"
+		onclick="usersList()">전체 회원 목록</button>
+		
+	<button type="button" id="deletedUsersList" value="전체 회원 목록"
+		onclick="deletedUsersList()">탈퇴한 회원 목록</button>	
 
 	<!-- 그래프 나타나는 곳  -->
 	<div id="chart"></div>
@@ -41,6 +46,16 @@
 		//월별 가입자 수
 		function joinChartMonth() {
 			$('#chart').load('adminstat3')
+		}
+		
+		//전체 회원 목록
+		function usersList() {
+			$('#chart').load('userslist')
+		}
+		
+		//탈퇴 회원 목록
+		function deletedUsersList() {
+			$('#chart').load('deleteduserslist')
 		}
 	</script>
 

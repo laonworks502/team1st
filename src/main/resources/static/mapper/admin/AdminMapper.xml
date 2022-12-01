@@ -126,5 +126,10 @@
     <select id="ago12mJoinTotal" resultType="int">
     SELECT COUNT(REGISTER_DATE) FROM general_users WHERE register_date BETWEEN DATE_SUB(NOW(), INTERVAL 12 MONTH ) AND DATE_SUB(NOW(), INTERVAL 11 MONTH )
     </select>   
+    
+    <!-- 전체 회원 수 -->
+    <select id="countAllUsers" resultType="int">
+    select count(*) from general_users 
+    </select>
         
 </mapper>

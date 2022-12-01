@@ -7,12 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script>
-location.href= "adminloginform";
-//location.href= "adminmain";
-//location.href="adminstat1";
-//location.href= "userslist";
-</script>
 
 </body>
 </html>

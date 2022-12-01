@@ -38,4 +38,7 @@ public interface AdminDao {
     public int ago3mJoinTotal() throws Exception;
     public int ago2mJoinTotal() throws Exception;
     public int ago1mJoinTotal() throws Exception;
+    
+    // 전체 회원 목록
+    public int countAllUsers() throws Exception;
 }

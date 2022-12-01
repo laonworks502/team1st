@@ -114,6 +114,11 @@ public class AdminServiceImpl implements AdminService {
     public int ago1mJoinTotal() throws Exception{
     	return admindao.ago1mJoinTotal();
     }
+    
+    //전체 회원 목록
+    public int countAllUsers() throws Exception{
+    	return admindao.countAllUsers();
+    }
 }
 
     
