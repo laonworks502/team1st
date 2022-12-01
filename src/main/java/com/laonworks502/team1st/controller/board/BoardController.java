@@ -56,7 +56,8 @@ public class BoardController {
     public String callBoardList(
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "page",required = false) Integer page, Model model) throws Exception {
-        if (page != null) page = 1;
+
+        if (page == null) page = 1;
 
         int postTotal = bs.countAllPosts(board_id);
 
@@ -66,7 +67,11 @@ public class BoardController {
         List<PostBean> postList = bs.callBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
         model.addAttribute("postList", postList);
         model.addAttribute("board_id",board_id);
+        model.addAttribute("page",page);
+
         String boardName = bs.getBoardNameById(board_id);
+
+        model.addAttribute("boardName", boardName);
 
         return "board/boardlist";
     }
@@ -106,6 +111,7 @@ public class BoardController {
         model.addAttribute("boardName", boardName);
         model.addAttribute("page", page);
         model.addAttribute("PostBean", postBean);
+        model.addAttribute("no", no);
 
         return "board/posteditform";
 
@@ -117,30 +123,31 @@ public class BoardController {
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "page") int page,
             @PathVariable(value = "no") int no,
-            @RequestParam PostBean postBean, Model model) throws Exception {
-
-        int no2;
+            @ModelAttribute PostBean postBean, Model model) throws Exception {
 
         PostBean pb = bs.callPostByNo(board_id, no);
 
-        if (pb.getBoard_id() == postBean.getBoard_id()) {
-            no2 = bs.amendPost(postBean);
-        } else {
-            return null;        // 글 수정 삭제 메세지 띄우든지 멀 하든지 ..
-        }
+        String boardName = bs.getBoardNameById(board_id);
 
-        String boardName = "bs.getBoardNameById(board_id)";
-        //  boardName = bs.getBoardNameById(board_id);
+        String result ="";
+        int test = postBean.getNo();
+        log.info("msg={}",test);
+        if (pb.getBoard_id() == postBean.getBoard_id()) {
+            bs.amendPost(postBean);
+            result = "redirect:/posts/" + board_id + "/" + page + "/" + no;      // 글 상세보기 메소드로 리턴
+        } else {
+            result = "board/postreditresult";
+        }
 
         model.addAttribute("boardName", boardName);
         model.addAttribute("page", page);
-        model.addAttribute("no", no2);
+        model.addAttribute("no", no);
 
-        return "redirect:/posts" + board_id + "/" + page + "/" + no;    // 글 상세보기 메소드로 리턴
+        return result;
     }
 
     // 글 삭제
-    @PostMapping(value = "/postdelete/{board_id}/{page}/{no}")
+    @GetMapping(value = "/postdelete/{board_id}/{page}/{no}")
     public String deletePost(
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "page") int page,
@@ -151,7 +158,7 @@ public class BoardController {
         model.addAttribute("board_id", board_id);
         model.addAttribute("page", page);
 
-        return "redirect:/board/" + board_id + "/" +page;       // 글 목록 메소드로 리턴
+        return "redirect:/boards/" + board_id + "/" +page;       // 글 목록 메소드로 리턴
     }
 
 }
