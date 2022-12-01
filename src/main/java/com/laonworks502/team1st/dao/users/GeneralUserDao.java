@@ -19,14 +19,14 @@ public interface GeneralUserDao {
 
     String findPasswdUser(UserBean userBean) throws Exception;
 
-    String quitUser(UserBean userBean) throws Exception;
+    int quitUser(UserBean userBean) throws Exception;
 
     int emailDuplicatecheck(String email) throws Exception;
 
     GeneralUserBean checkGeneraluser(String email) throws Exception;
 
-    int updateGeneraluser(GeneralUserBean gub) throws Exception;
+    int updateGeneraluser(UserBean userBean) throws Exception;
 
-    int deleteGeneraluser(GeneralUserBean gub) throws Exception;
+    int deleteGeneraluser(UserBean userBean) throws Exception;
 
 }

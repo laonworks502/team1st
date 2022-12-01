@@ -31,18 +31,14 @@ public class GeneralUserServiceImpl implements CommonUserService {
     }
 
     @Override
-    public String amendUser(UserBean userBean) {
-        return null;
+    public int amendUser(UserBean userBean) throws Exception {
+        return gud.updateGeneraluser(userBean);
     }
 
-    @Override
-    public String findPasswdUser(UserBean userBean) {
-        return null;
-    }
 
     @Override
-    public String quitUser(UserBean userBean) {
-        return null;
+    public int quitUser(UserBean userBean) throws Exception {
+        return gud.deleteGeneraluser(userBean);
     }
 
 
