@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ include file="../companyuser/header.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -9,12 +9,17 @@
 
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+ <script src="http://code.jquery.com/jquery-latest.js"></script>
+ <script src="/js/general_edit_check.js"></script><!-- /js 꼭 붙이기 -->
+ <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 </head>
 <body>
 
-<form action="generaluseredit_ok" onsubmit="return edit_check()" method="post" align="center" style="margin-top: 15%;">
+<form action="generaluseredit_ok" onsubmit="return edit_check()" method="post" align="center"
+      name="editform" style="margin-top: 15%;">
  <input type="hidden" name="email" value="${sessionScope.email}">
- <input type="hidden" name="passwd"  id="passwd" value="${gub.passwd}">
+ <input type="hidden" name="passwd" id="passwd" value="${gub.passwd}">
  <h2>회원 수정</h2>
  <table align="center">
   <tr>
@@ -24,7 +29,7 @@
 
   <tr>
    <td>비밀번호</td>
-   <td><input type="password" name="passwd1" id="passwd1" class="input_box">
+   <td><input type="password" name="passconfirm" id="passconfirm" class="input_box">
     <div id=passfail style="color: red;"></div>
     <div id=passsucc style="color: blue;"></div></td>
   </tr>
@@ -39,8 +44,7 @@
    <td>
     <input name="postal_code" id="postal_code" size="5" class="input_box"
            readonly onclick="post_search()" value="${gub.postal_code}"/>
-    <!-- -<input name="join_zip2" id="join_zip2" size="3" class="input_box" readonly
-            onclick="post_search()"/> -->
+
     <input type="button" value="우편번호검색" class="input_button"
            onclick="openDaumPostcode()" />
    </td>
@@ -77,15 +81,12 @@
   </tr>
 
   <tr>
-   <td colspan="3"><input type="submit" class="btn btn-primary" value="수정하기">
+   <td colspan="3">
+    <input type="submit" class="btn btn-primary" value="수정하기">
     <button type="reset" class="btn btn-secondary">초기화</button></td>
   </tr>
  </table>
 </form>
-
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/check.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>
  //우편번호, 주소 Daum API

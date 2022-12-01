@@ -5,8 +5,8 @@
   Time: 오후 6:40
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ include file="../companyuser/header.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<form action="generaluserinsert_ok" onsubmit="return check()" method="post" align="center" style="margin-top: 15%;">
+<form action="generaluserinsert_ok" onsubmit="return check()" method="post" align="center" name="insertform" style="margin-top: 15%;">
     <h2>회원 가입</h2>
     <table align="center">
         <tr>
@@ -38,7 +38,7 @@
         </tr>
         <tr>
             <td>비밀번호 확인</td>
-            <td><input type="password" name="passwd2" id="passwd2" ></td>
+            <td><input type="password" name="passconfirm" id="passconfirm" ></td>
         </tr>
         <tr>
             <td>이름</td>
@@ -94,7 +94,7 @@
 </form>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/check.js"></script>
+<script src="/js/checkgeneral.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>

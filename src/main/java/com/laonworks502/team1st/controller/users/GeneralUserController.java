@@ -1,21 +1,18 @@
 package com.laonworks502.team1st.controller.users;
 
-import ch.qos.logback.classic.Logger;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.UserBean;
 import com.laonworks502.team1st.service.users.GeneralUserServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
@@ -120,18 +117,13 @@ public class GeneralUserController {
     }
 
     // 회원수정 실행
-    @RequestMapping("generaluseredit_ok")
+    @RequestMapping(value="generaluseredit_ok", method = RequestMethod.POST)    // 수정시 method = RequestMethod.POST필수
     public String generaluseredit_ok(HttpSession session,
                                      HttpServletRequest request,
                                      GeneralUserBean gub) throws Exception {
 
         GeneralUserBean old = gus.checkGeneraluser(gub.getEmail());
 
-//        if(gub.getPasswd().equals(old.getPasswd())) {
-//            gus.updateGeneraluser(gub);
-//            System.out.println("진입확인===============");
-//            return "redirect:/generaluser/loginsuccess";
-//        }
         int result = gus.updateGeneraluser(gub);
         if(result == 1) log.info("수정 성공");
 
@@ -159,7 +151,7 @@ public class GeneralUserController {
     @RequestMapping("generaluserdelete_ok")
     public String generaluserdelete_ok(@RequestParam("exit_reason") String exit_reason,
                                        HttpSession session,
-                                       HttpServletRequest request,
+
                                        GeneralUserBean gub) throws Exception {
 
         String email = (String)session.getAttribute("email");
@@ -172,9 +164,77 @@ public class GeneralUserController {
         return "generaluser/loginForm";
     }
 
+    /*[비밀번호 찾기 폼]*/
+    @RequestMapping("pwfind")
+    public String findPasswdUser() {
+        log.info("컨트롤러 들어옴(findPasswdUser)");
+
+        return "companyuser/pwfind";
+    }
+
+//    /*[비번 찾기 메일 보내기] */
+//    @RequestMapping("pwfind_ok")
+//    public String member_pw_find_ok(@ModelAttribute GeneralUserBean gub,
+//                                    HttpServletResponse response,
+//                                    Model model)throws Exception {
+//        log.info("컨트롤러 들어옴(pwfind_ok)");
+//
+//        response.setContentType("text/html; charset=UTF-8");
+//
+//        GeneralUserBean findpassgub = gus.findPasswdUser(gub); //[findPasswdUser()메소드 : 비번 찾기 메소드]
+//        // GeneralUserBean company = gus.findPasswdUser(gub);
+//
+//        //값이 없는 경우
+//        if(findpassgub == null) {
+//
+//            return "pwresult";
+//
+//            //메일 전송
+//        }else {
+//            // Mail Server 설정
+//            String charSet = "utf-8";
+//            String hostSMTP = "smtp.naver.com";
+//            String hostSMTPid = "";
+//            String hostSMTPpwd = "";
+//
+//            // 보내는 사람
+//            String fromEmail = "";
+//            String fromName = "관리자";
+//            String subject = "비밀번호 찾기";
+//
+//            // 받는 사람
+//            String mail = findpassgub.getEmail();
+//
+//            try {
+//                HtmlEmail email = new HtmlEmail();
+//                email.setDebug(true);
+//                email.setCharset(charSet);
+//                email.setSSL(true);
+//                email.setHostName(hostSMTP);
+//                email.setSmtpPort(587);
+//
+//                email.setAuthentication(hostSMTPid, hostSMTPpwd);
+//                email.setTLS(true);
+//                email.addTo(mail, charSet);
+//                email.setFrom(fromEmail, fromName, charSet);
+//                email.setSubject(subject);
+//                email.setHtmlMsg("<p align = 'center'>비밀번호 찾기</p><br>" + "<div align='center'> 비밀번호 : "
+//                        + findpassgub.getPasswd() + "</div>");
+//                email.send();
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//            model.addAttribute("pwdok", "등록된 email을 확인 하세요.");
+//            return "companyuser/pwfind";
+//        }
+//
+//    }
+
     @RequestMapping("loginselect")
     public String general_company_login(){
 
         return "generaluser/loginselect";
     }
+
+
 }
