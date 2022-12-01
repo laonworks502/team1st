@@ -33,8 +33,8 @@
                             </div>
                         </div>
                         <div class="board-footer">
-                            <button type="submit" class="btn btn-warning update-btn">작성</button>
-                            <button type="button" class="btn btn-primary list-btn"
+                            <button type="submit" class="btn btn-outline-primary">작성</button>
+                            <button type="button" class="btn btn-outline-secondary"
                                     onclick="history.go(-1);">취소</button>
                         </div>
                     </div>

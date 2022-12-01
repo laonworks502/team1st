@@ -32,7 +32,8 @@
                     <tbody>
                     <c:forEach items="${postList}" var="postList">
                         <tr onclick="location.href='/posts/${board_id}/${page}/${postList.no}'">
-                            <td><a href="">${postList.title}</a></td>
+                            <td><button type="button" class="btn btn-outline-warning">스크랩</button></td>
+                            <td>${postList.title}</td>
                             <td>${postList.writer}</td>
                             <td>${postList.date}</td>
                         </tr>
