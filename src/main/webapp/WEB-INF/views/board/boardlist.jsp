@@ -55,11 +55,13 @@
         </c:if>
         </li>
         <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
-            <c:if test="${pg.page == 1}">
-            <li class="page-item">
+            <li class="page-item" id="page-item${i}">
                 <a class="page-link" href="/boards/${board_id}/${i}">i</a>
             </li>
-            </c:if>
+                <script>
+                    const pageItem=document.getElementById("page-item${pg.page}");
+                    pageItem.classList.add('active')
+                </script>
         </c:forEach>
         <li class="page-item">
             <c:if test="${pg.page<pg.pagesTotal}">
@@ -70,11 +72,5 @@
         </li>
     </ul>
 </nav>
-<script>
-    function clickPost() {
-        location.href=""
-    }
-</script>
-
 </body>
 </html>

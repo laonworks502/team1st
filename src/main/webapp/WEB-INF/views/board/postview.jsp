@@ -35,10 +35,12 @@
                             </div>
                         </div>
                         <div class="board-footer">
-                            <button type="button" class="btn btn-info update-btn"
-                                    onclick="location.href='#'">수정</button>
-                            <button type="button" class="btn btn-warning delete-btn"
-                                    onclick="location.href='#'">삭제</button>
+                            <c:if test="${post.writer == }">
+                                <button type="button" class="btn btn-info update-btn"
+                                        onclick="location.href='/posteditform/${board_id}/${page}/${no}'">수정</button>
+                                <button type="button" class="btn btn-warning delete-btn"
+                                        onclick="deletepost()">삭제</button>
+                            </c:if>
                             <button type="button" class="btn btn-primary list-btn"
                                     onclick="history.go(-1);">뒤로가기</button>
                         </div>
@@ -48,4 +50,15 @@
     </main>
 </div>
 </body>
+<script>
+    function deletepost() {
+        var result = confirm("해당 글을 삭제하시겠습니까?");
+
+            if(result == true){
+                location.href="/postdelete/${board_id}/${page}/${no}";
+            }else{
+                return false;
+            }
+    }
+</script>
 </html>
