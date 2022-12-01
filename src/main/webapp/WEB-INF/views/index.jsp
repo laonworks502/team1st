@@ -6,10 +6,6 @@
     <title>Insert title here</title>
 </head>
 <body>
+인덱스페이지
 </body>
-<script>
-    location.href= "adminloginform";
-    //location.href= "adminmain";
-	//location.href="adminstat1";
-</script>
 </html>

@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Setter
 public class PostBean {
     private int no;
-    private String board_id;
+    private int board_id;
     private String title;
     private String writer;
     private String content;
