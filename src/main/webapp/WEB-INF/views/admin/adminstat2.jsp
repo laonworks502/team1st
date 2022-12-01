@@ -9,7 +9,7 @@
 </head>
 <body>
 	<br>
-	<h4>월별 회원수 추이</h4>
+	<h4>주별 회원수 추이</h4>
 	<br>
 	<div style="width: 400px; height: auto; align: center">
 				<canvas id="userJoinChartWeek">

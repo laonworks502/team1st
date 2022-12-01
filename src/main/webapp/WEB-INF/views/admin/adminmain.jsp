@@ -28,17 +28,17 @@
 
 
 	<script>
-		//일별 
+		//일별 가입자 수 
 		function joinChartDate() {
 			$('#chart').load('adminstat1') // load('컨트롤러 안에 "" 이름쓰기"')
 		}
 		
-		//주별
+		//주별 가입자 수
 		function joinChartWeek() {
 			$('#chart').load('adminstat2')
 		}
 		
-		//월별
+		//월별 가입자 수
 		function joinChartMonth() {
 			$('#chart').load('adminstat3')
 		}

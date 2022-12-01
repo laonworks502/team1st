@@ -25,11 +25,11 @@
 		data: {
 			labels: ['12개월 전', '11개월 전', '10개월 전', '9개월 전', '8개월 전', '7개월 전', '6개월 전', '5개월 전', '4개월 전', '3개월 전', '2개월 전', '1개월 전'], //x축
 			datasets: [{
-				label: "월별 가입자수 추이", 
-				data : [${ago12mJoinTotal}, ${ago11mJoinTotal}, ${ago10mJoinTotal}, ${ago9mJoinTotal}, ${ago8mJoinTotal}, ${ago7mJoinTotal}, ${ago6mJoinTotal}, ${ago5mJoinTotal}, ${ago4mJoinTotal}, ${ago3mJoinTotal} ${ago2mJoinTotal}, ${ago1mJoinTotal}],
-				fill : true,
-				borderColor : '#570328',
-				borderWidth: 2
+						label: "월별 가입자수 추이", 
+						data : [${ago12mJoinTotal}, ${ago11mJoinTotal}, ${ago10mJoinTotal}, ${ago9mJoinTotal}, ${ago8mJoinTotal}, ${ago7mJoinTotal}, ${ago6mJoinTotal}, ${ago5mJoinTotal}, ${ago4mJoinTotal}, ${ago3mJoinTotal}, ${ago2mJoinTotal}, ${ago1mJoinTotal}],
+						fill : true,
+						borderColor : '#570328',
+						borderWidth: 2
 				
 			}]
 		}
