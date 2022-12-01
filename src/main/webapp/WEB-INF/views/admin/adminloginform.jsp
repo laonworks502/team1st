@@ -5,19 +5,39 @@
 <head>
 <meta charset="UTF-8" />
 <title class="title">관리자 로그인</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
-	function check() {
-		if ($.trim($("#adminid").val()) == "") {
+/* $(function(){
+	
+	$("form").submit(function(){
+		if ($.trim($("#admiId").val()) == "") {
 			alert("아이디를 입력해주세요");
-			$("#adminid").val("").focus();
+			$("#adminId").focus();
 			return false;
 		}
-		if ($.trim($("#adminpw").val()) == "") {
+		if ($.trim($("#adminPw").val()) == "") {
 			alert("비밀번호를 입력해주세요");
-			$("#adminpw").val("").focus();
+			$("#adminPw").focus();
 			return false;
 		}
-	}
+		
+	});
+	
+}); 
+
+
+	/* function check() {
+		if ($.trim($("#admiId").val()) == "") {
+			alert("아이디를 입력해주세요");
+			$("#adminId").focus();
+			return false;
+		}
+		if ($.trim($("#adminPw").val()) == "") {
+			alert("비밀번호를 입력해주세요");
+			$("#adminPw").focus();
+			return false;
+		}
+	} */
 </script>
 </head>
 <body>
@@ -25,11 +45,10 @@
 		<div class="inner-warpper text-center">
 			<h2 class="title">관리자 로그인</h2>
 			<br> <br>
-			<form action="<%=request.getContextPath()%>/adminlogin" method="post"
-				onsubmit="return check()">
-				<input type="text" class="form-control" name="adminId" id="adminId"
+			<form action="<%=request.getContextPath()%>/adminlogin" method="post">
+				<input type="text" class="form-control" name="id" id="id"
 					placeholder="관리자 아이디" style="width: 400" /> <br> <input
-					type="password" class="form-control" name="adminPw" id="adminPw"
+					type="password" class="form-control" name="passwd" id="passwd"
 					placeholder="관리자 비밀번호" style="width: 400" /> <br>
 				<br>
 				<button type="submit" class="btn btn-primary" id="login">로그인</button>
