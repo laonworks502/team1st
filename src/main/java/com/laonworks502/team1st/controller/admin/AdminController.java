@@ -48,7 +48,7 @@ public class AdminController {
 				session.setAttribute("id", id);
 				log.info("로그인성공");
 
-				return "admin/adminmain";
+				return "redirect:adminmain";
 			} else { // 비번 달라서 로그인 안됨
 				result = 2;
 				model.addAttribute("result", result);
@@ -66,7 +66,7 @@ public class AdminController {
 		String id = (String) session.getAttribute("id");
 		log.info("로그인 세션 유지 ");
 
-		// 일별 가입자수
+		// 일별 가입자 수
 		int todayJoinTotal = adminservice.todayJoinTotal();
 		int ago1JoinTotal = adminservice.ago1JoinTotal();
 		int ago2JoinTotal = adminservice.ago2JoinTotal();
@@ -84,6 +84,19 @@ public class AdminController {
 		model.addAttribute("ago5JoinTotal", ago5JoinTotal);
 		model.addAttribute("ago6JoinTotal", ago6JoinTotal);
 		model.addAttribute("ago7JoinTotal", ago7JoinTotal);
+		
+		
+		//주별 가입자 수
+		int ago4wJoinTotal = adminservice.ago4wJoinTotal();
+		int ago3wJoinTotal = adminservice.ago3wJoinTotal();
+		int ago2wJoinTotal = adminservice.ago2wJoinTotal();
+		int ago1wJoinTotal = adminservice.ago1wJoinTotal();
+		
+		model.addAttribute("ago4wJoinTotal", ago4wJoinTotal);
+		model.addAttribute("ago3wJoinTotal", ago3wJoinTotal);
+		model.addAttribute("ago2wJoinTotal", ago2wJoinTotal);
+		model.addAttribute("ago1wJoinTotal", ago1wJoinTotal);
+	
 
 		return "admin/adminmain";
 	}

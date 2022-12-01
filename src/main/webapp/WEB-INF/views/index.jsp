@@ -9,8 +9,8 @@
 인덱스 페이지
 </body>
 <script>
-    //location.href= "adminloginform";
-    location.href= "adminmain";
+    location.href= "adminloginform";
+    //location.href= "adminmain";
 
 </script>
 </html>

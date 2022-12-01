@@ -18,4 +18,10 @@ public interface AdminDao {
     public int ago5JoinTotal() throws Exception;
     public int ago6JoinTotal() throws Exception;
     public int ago7JoinTotal() throws Exception;
+    
+    // 최근 4주간 가입자 수 
+    public int ago4wJoinTotal() throws Exception;
+    public int ago3wJoinTotal() throws Exception;
+    public int ago2wJoinTotal() throws Exception;
+    public int ago1wJoinTotal() throws Exception;
 }

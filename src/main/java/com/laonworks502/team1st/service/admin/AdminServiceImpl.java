@@ -49,6 +49,22 @@ public class AdminServiceImpl implements AdminService {
     	return admindao.ago7JoinTotal();
     }
 
+    // 주별 가입자 수 
+    public int ago4wJoinTotal() throws Exception{
+    	return admindao.ago4wJoinTotal();
+    }
+    
+    public int ago3wJoinTotal() throws Exception{
+    	return admindao.ago3wJoinTotal();
+    }
+    
+    public int ago2wJoinTotal() throws Exception{
+    	return admindao.ago2wJoinTotal();
+    }
+    
+    public int ago1wJoinTotal() throws Exception{
+    	return admindao.ago1wJoinTotal();
+    }
     
 
 }
