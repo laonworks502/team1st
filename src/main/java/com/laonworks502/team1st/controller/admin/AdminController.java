@@ -17,85 +17,88 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AdminController {
 
-    @Autowired
-    private AdminServiceImpl adminservice;
+	@Autowired
+	private AdminServiceImpl adminservice;
 
-    @RequestMapping("adminloginform")
-    public String adminloginform() throws Exception{
+	// 관리자 로그인 폼으로 이동
+	@RequestMapping("adminloginform")
+	public String adminloginform() throws Exception {
 
-        return "admin/adminloginform";
-    }
+		return "admin/adminloginform";
+	}
 
-    @RequestMapping("adminlogin")
-    public String adminlogin(AdminBean adminbean,
-                                      HttpSession session,
-                                      Model model,
-                                      @RequestParam("id") String id,
-                                      @RequestParam("passwd") String passwd) throws Exception{
+	// 관리자 로그인
+	@RequestMapping("adminlogin")
+	public String adminlogin(AdminBean adminbean, HttpSession session, Model model, @RequestParam("id") String id,
+			@RequestParam("passwd") String passwd) throws Exception {
 
-        int result = 0;
+		int result = 0;
 
-        adminbean = adminservice.getAdminInfo(id);
+		adminbean = adminservice.getAdminInfo(id);
 
-        if(adminbean == null){    // 등록되지 않은 회원
+		if (adminbean == null) { // 등록되지 않은 회원
 
-            result = 1;
-            model.addAttribute("result", result);
+			result = 1;
+			model.addAttribute("result", result);
 
-            return "admin/adminloginfail";
+			return "admin/adminloginfail";
 
-        }else{              // 등록 회원 확인됨
-            if(adminbean.getPasswd().equals(passwd)) {        // 비번 같아서 로그인됨
-                session.setAttribute("id", id);
-                log.info("로그인성공");
+		} else { // 등록 회원 확인됨
+			if (adminbean.getPasswd().equals(passwd)) { // 비번 같아서 로그인됨
+				session.setAttribute("id", id);
+				log.info("로그인성공");
 
-                return "admin/adminmain";
-            }else{                                      // 비번 달라서 로그인 안됨
-                result = 2;
-                model.addAttribute("result", result);
+				return "admin/adminmain";
+			} else { // 비번 달라서 로그인 안됨
+				result = 2;
+				model.addAttribute("result", result);
 
-                return "admin/adminloginfail";
-            }
-        }
-    }
+				return "admin/adminloginfail";
+			}
+		}
+	}
 
-    @RequestMapping("adminmain")
-    public String adminmain(HttpSession session, Model model) throws Exception{
+	// 관리자 메인
+	@RequestMapping("adminmain")
+	public String adminmain(HttpSession session, Model model) throws Exception {
 
-    	//로그인 세션 유지
-    			String id = (String) session.getAttribute("id");
-    			log.info("로그인 세션 유지 ");
-    			
-    			//일별 가입자수 
-    			int todayJoinTotal = adminservice.todayJoinTotal();
-    			int ago1JoinTotal = adminservice.ago1JoinTotal();
-    			int ago2JoinTotal = adminservice.ago2JoinTotal();
-    			int ago3JoinTotal = adminservice.ago3JoinTotal();
-    			int ago4JoinTotal = adminservice.ago4JoinTotal();
-    			int ago5JoinTotal = adminservice.ago5JoinTotal();
-    			int ago6JoinTotal = adminservice.ago6JoinTotal();
-    			int ago7JoinTotal = adminservice.ago7JoinTotal();
-    		
-    			
-    			model.addAttribute("todayJoinTotal", todayJoinTotal);
-    			model.addAttribute("ago1JoinTotal", ago1JoinTotal);
-    			model.addAttribute("ago2JoinTotal", ago2JoinTotal);
-    			model.addAttribute("ago3JoinTotal", ago3JoinTotal);
-    			model.addAttribute("ago4JoinTotal", ago4JoinTotal);
-    			model.addAttribute("ago5JoinTotal", ago5JoinTotal);
-    			model.addAttribute("ago6JoinTotal", ago6JoinTotal);
-    			model.addAttribute("ago7JoinTotal", ago7JoinTotal);
-    	
-        return "admin/adminmain";
-    }
-    
-    
-    
+		// 로그인 세션 유지
+		String id = (String) session.getAttribute("id");
+		log.info("로그인 세션 유지 ");
+
+		// 일별 가입자수
+		int todayJoinTotal = adminservice.todayJoinTotal();
+		int ago1JoinTotal = adminservice.ago1JoinTotal();
+		int ago2JoinTotal = adminservice.ago2JoinTotal();
+		int ago3JoinTotal = adminservice.ago3JoinTotal();
+		int ago4JoinTotal = adminservice.ago4JoinTotal();
+		int ago5JoinTotal = adminservice.ago5JoinTotal();
+		int ago6JoinTotal = adminservice.ago6JoinTotal();
+		int ago7JoinTotal = adminservice.ago7JoinTotal();
+
+		model.addAttribute("todayJoinTotal", todayJoinTotal);
+		model.addAttribute("ago1JoinTotal", ago1JoinTotal);
+		model.addAttribute("ago2JoinTotal", ago2JoinTotal);
+		model.addAttribute("ago3JoinTotal", ago3JoinTotal);
+		model.addAttribute("ago4JoinTotal", ago4JoinTotal);
+		model.addAttribute("ago5JoinTotal", ago5JoinTotal);
+		model.addAttribute("ago6JoinTotal", ago6JoinTotal);
+		model.addAttribute("ago7JoinTotal", ago7JoinTotal);
+
+		return "admin/adminmain";
+	}
+
+	@RequestMapping("adminlogout")
+	public String adminlogout(HttpSession session) throws Exception {
+
+		// 관리자 로그인 세션 종료
+		session.invalidate();
+		log.info("관리자 로그아웃 성공");
+
+		return "redirect:adminloginform";
+	}
+
 }
-
-
-
-
 
 //package com.laonworks502.team1st.controller.admin;
 //
