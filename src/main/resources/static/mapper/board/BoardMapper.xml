@@ -25,7 +25,7 @@
 
     <!-- 게시판 id 에서 이름 추출 -->
     <select id="getBoardNameById" parameterType="int" resultType="String">
-        select name from boards where board_id = #{board_id}
+        select name from boards where id = #{board_id}
     </select>
 
     <!-- 글 상세 보기-->
