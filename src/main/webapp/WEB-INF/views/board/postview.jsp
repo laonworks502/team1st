@@ -35,12 +35,12 @@
                             </div>
                         </div>
                         <div class="board-footer">
-                            <c:if test="${post.writer == }">
+                            <!--<c:if test="${post.writer == }">-->
                                 <button type="button" class="btn btn-info update-btn"
                                         onclick="location.href='/posteditform/${board_id}/${page}/${no}'">수정</button>
                                 <button type="button" class="btn btn-warning delete-btn"
                                         onclick="deletepost()">삭제</button>
-                            </c:if>
+                            <!--</c:if>-->
                             <button type="button" class="btn btn-primary list-btn"
                                     onclick="history.go(-1);">뒤로가기</button>
                         </div>
