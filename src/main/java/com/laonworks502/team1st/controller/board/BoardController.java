@@ -38,15 +38,11 @@ public class BoardController {
     public String writePost(
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "page") int page,
-            HttpServletRequest request,
+            @ModelAttribute PostBean post,
             HttpSession session) throws Exception {
 
         // PostBean 생성
-        PostBean post = new PostBean();
         post.setBoard_id(board_id);
-        post.setTitle((String)request.getParameter("title"));
-        post.setWriter((String)request.getParameter("writer"));
-        post.setContent((String)request.getParameter("content"));
 
         int no = bs.writePost(post);
 
