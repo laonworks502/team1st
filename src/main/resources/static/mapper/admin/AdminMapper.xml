@@ -43,7 +43,7 @@
     </select>
     
     <!-- 7일전 가입자 수 -->
-    <select id="ago7JoinTotal" resultType="int">+
+    <select id="ago7JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 7 day) and DATE_sub(now(), INTERVAL 6 day)
     </select>
     

@@ -1,25 +1,17 @@
 package com.laonworks502.team1st.controller.admin;
 
 import lombok.extern.slf4j.Slf4j;
-import together.model.MemberDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.laonworks502.team1st.model.admin.AdminBean;
-import com.laonworks502.team1st.model.board.Pagination;
-import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
@@ -27,7 +19,7 @@ import javax.servlet.http.HttpSession;
 public class AdminController {
  
 	@Autowired
-	@Qualifier("admin")
+	//@Qualifier("admin")
 	private AdminServiceImpl adminservice;
 
 	// 관리자 로그인 폼으로 이동
@@ -179,7 +171,7 @@ public class AdminController {
     	  model.addAttribute("totalUsers", totalUsers); 
     	  
     	  //현재 활동중인 회원 목록 가져오기
-  		  List<adminbean> userList = adminservice.userList(); 
+//  		  List<adminbean> userList = adminservice.userList(); 
 
 //    	  Pagination pg = new Pagination(board_id, postTotal, 10);
 //          model.addAttribute("pg", pg);

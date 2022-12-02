@@ -9,6 +9,6 @@
 인덱스페이지
 </body>
 <script>
-location.href= "userslist";
+location.href= "adminmain";
 </script>
 </html>

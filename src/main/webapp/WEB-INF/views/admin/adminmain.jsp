@@ -9,7 +9,8 @@
 </head>
 <body>
 	<h1>관리자님, 환영합니다.</h1>
-	<button type="button" class="btn text-white"
+	
+	<button type="button" class="btn text-black"
 		style="background-color: #fff;"
 		onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</button>
 
