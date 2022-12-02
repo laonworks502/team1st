@@ -31,7 +31,7 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${posts}" var="posts">
-                        <tr onclick="location.href='/posts/${board.id}/${posts.no}'">
+                        <tr onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">
                             <td><button type="button" class="btn btn-outline-warning">스크랩</button></td>
                             <td>${posts.title}</td>
                             <td>${posts.writer}</td>
