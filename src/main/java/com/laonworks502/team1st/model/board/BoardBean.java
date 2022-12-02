@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BoardBean {
+    private int id;
     private String name;
-    private String identifier;
 
 }

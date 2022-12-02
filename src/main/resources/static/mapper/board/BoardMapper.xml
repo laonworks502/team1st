@@ -13,7 +13,7 @@
     </insert>
 
     <!-- 글 리스트 불러 오기 -->
-    <select id="callBoardList" resultType="com.laonworks502.team1st.model.post.PostBean">
+    <select id="getBoardList" resultType="com.laonworks502.team1st.model.post.PostBean">
         select * from posts where board_id = #{board_id} order by no desc
             limit #{startPostNo}, #{PAGES_COUNT}
     </select>
@@ -23,13 +23,18 @@
         select count(*) from posts where board_id = #{board_id}
     </select>
 
+    <!-- 게시판 id 에서 게시판 정보 추출-->
+    <select id="getBoardById" parameterType="int" resultType="com.laonworks502.team1st.model.board.BoardBean">
+        select * from boards where id = #{board_id}
+    </select>
+
     <!-- 게시판 id 에서 이름 추출 -->
     <select id="getBoardNameById" parameterType="int" resultType="String">
         select name from boards where id = #{board_id}
     </select>
 
     <!-- 글 상세 보기-->
-    <select id="callPostByNo" parameterType="int" resultType="com.laonworks502.team1st.model.post.PostBean">
+    <select id="getPostByNo" parameterType="int" resultType="com.laonworks502.team1st.model.post.PostBean">
         select * from posts where board_id = #{board_id} and no = #{no}
     </select>
 

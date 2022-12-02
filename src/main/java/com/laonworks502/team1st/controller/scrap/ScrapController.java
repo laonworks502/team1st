@@ -2,6 +2,7 @@ package com.laonworks502.team1st.controller.scrap;
 
 import com.laonworks502.team1st.model.scrap.ScrapBean;
 import com.laonworks502.team1st.service.scrap.ScrapService;
+import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
 import com.laonworks502.team1st.service.users.CommonUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import java.util.Map;
 public class ScrapController {
 
     @Autowired
-    private ScrapService ss;
+    private ScrapServiceImpl ss;
 
     /*[스크랩 검색]*/
     @GetMapping("/searchScrap/{user_email}/{no}/{date}")  //경로 설정
