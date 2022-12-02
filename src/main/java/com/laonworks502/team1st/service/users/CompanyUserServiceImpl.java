@@ -60,8 +60,8 @@ public class CompanyUserServiceImpl implements CommonUserService {
     }
     
     // 이메일 중복검사 
-    public int emailcheck(String email) throws Exception {
-		int cnt = cud.emailcheck(email);
+    public int emailCheck(String email) throws Exception {
+		int cnt = cud.emailCheck(email);
 		return cnt;
 	}
 

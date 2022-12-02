@@ -1,3 +1,7 @@
+/**
+ * 기업회원 탈퇴 JS
+ */
+
 function check() {
 
 	if ($.trim($("#passconfirm").val()) == "") {
