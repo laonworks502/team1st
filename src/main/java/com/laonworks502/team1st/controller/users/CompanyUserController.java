@@ -28,9 +28,8 @@ public class CompanyUserController {
 	@Qualifier("company")
 	private CompanyUserServiceImpl cus;
 
-	@GetMapping("companyuser/companymypage")
+//	@GetMapping("companyuser/companymypage")
 
-    
 	
 	@RequestMapping("postcompanyuser")
 	public String test() {

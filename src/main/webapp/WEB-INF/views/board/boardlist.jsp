@@ -16,8 +16,8 @@
 
         <div class="card mb-4">
             <div class="card-header">
-                <button type="button" class="btn btn-primary float-end" onClick="location.href='/postwriteform/${board.id}/${pg.page}';"> <!-- <i class="fas fa-table me-1"></i> -->
-                    <i class="fas fa-edit"></i>글 작성
+                <button type="button" class="btn btn-primary float-end" 
+                	onClick="location.href='/boards/${board.id}/write?page=${pg.page}'">글 작성
                 </button>
             </div>
             <div class="card-body">
@@ -57,7 +57,7 @@
         </li>
         <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
             <li class="page-item" id="page-item${i}">
-                <a class="page-link" href="/boards/${board.id}?page=${i}">i</a>
+                <a class="page-link" href="/boards/${board.id}?page=${i}">${i}</a>
             </li>
                 <script>
                     const pageItem=document.getElementById("page-item${pg.page}");
