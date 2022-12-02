@@ -13,7 +13,7 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <form action="/boards/${board.id}" method=post>
                     <input type="hidden" name="page" value="${page}">
-                    <input type="hidden" name="writer" value="${sessionScope.loginBean.email}">
+                    <input type="hidden" name="writer" value="${sessionScope.email}">
                     <div class="container List-container">
                         <div class="row mt-1 header">
                             <div class="col-8">

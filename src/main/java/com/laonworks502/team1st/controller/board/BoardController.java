@@ -41,13 +41,16 @@ public class BoardController {
             @RequestParam(value = "page") int page,
             @ModelAttribute PostBean post) throws Exception {
 
+    	log.info("msg1={}", board_id);
         // PostBean 생성
         post.setBoard_id(board_id);
 
         int no = bs.writePost(post);
+        log.info("msg2={}", no);
 
+        String redirect = "redirect:/boards/" + board_id + "/" + no;
         ModelAndView modelAndView
-                = new ModelAndView("redirect:/boards/" + board_id + "/" + no,"page",page);
+                = new ModelAndView(redirect,"page",page);
 
 
         return modelAndView;

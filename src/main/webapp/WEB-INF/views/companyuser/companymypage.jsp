@@ -12,5 +12,6 @@
 <button onclick="location='update'">정보 수정</button>
 <button onclick="location='delete'">회원 탈퇴</button>
 <button onclick="location='logout'">로그아웃</button>
+<button onclick="location='/'">메인</button>
 </body>
 </html>
