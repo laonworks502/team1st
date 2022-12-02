@@ -11,7 +11,9 @@
     <main class="mb-4">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
-                <form action="/postwrite/${board_id}/${page}" method=post>
+                <form action="/boards/${board.id}" method=post>
+                    <input type="hidden" name="page" value="${page}">
+                    <input type="hidden" name="writer" value="${sessionScope.loginBean.email}">
                     <div class="container List-container">
                         <div class="row mt-1 header">
                             <div class="col-8">

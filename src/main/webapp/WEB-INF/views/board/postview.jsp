@@ -4,12 +4,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>${boardName} 게시판</title>
+    <title>${board.name} 게시판</title>
 </head>
 <body>
 <div class="my-5">
     <main class="mb-4">
-        <form method="post" action="/posteditform/${board_id}/${page}/${no}">
+        <form method="post" action="/posteditform/${board.id}/${page}/${no}">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                         <div class="container List-container">
@@ -60,7 +60,7 @@
         var result = confirm("해당 글을 삭제하시겠습니까?");
 
             if(result == true){
-                location.href="/postdelete/${board_id}/${page}/${no}";
+                location.href="/postdelete/${board.id}/${page}/${no}";
             }else{
                 return false;
             }
