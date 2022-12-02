@@ -21,7 +21,7 @@ public class BoardController {
 
     @Autowired
     @Qualifier("BoardService")
-    private BoardService bs;
+    private BoardService boardService;
 
     // 글 작성 폼
     @GetMapping(value = "/{board_id}/write")
@@ -30,7 +30,7 @@ public class BoardController {
             @RequestParam("page") int page) throws Exception {
         ModelAndView modelAndView = new ModelAndView("board/postwrite");
 
-        BoardBean boardBean = bs.getBoardById(board_id);
+        BoardBean boardBean = boardService.getBoardById(board_id);
         modelAndView.addObject("board", boardBean);
         modelAndView.addObject("page", page);
 
@@ -47,10 +47,10 @@ public class BoardController {
         post.setBoard_id(board_id);
         //post.setWriter("");
 
-        int no = bs.writePost(post);
+        int no = boardService.writePost(post);
 
         ModelAndView modelAndView = new ModelAndView("redirect:/"+ board_id + "/" + no, "page", page);
-        BoardBean boardBean = bs.getBoardById(board_id);
+        BoardBean boardBean = boardService.getBoardById(board_id);
         modelAndView.addObject("board", boardBean);
 
         return  modelAndView;
@@ -64,17 +64,17 @@ public class BoardController {
 
         ModelAndView modelAndView = new ModelAndView("board/boardlist");
 
-        int postTotal = bs.countAllPosts(board_id);
+        int postTotal = boardService.countAllPosts(board_id);
 
         Pagination pg = new Pagination(board_id, postTotal, 10);
         modelAndView.addObject("pg", pg);
 
         // 리스트 담기
-        List<PostBean> postList = bs.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
+        List<PostBean> postList = boardService.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
         modelAndView.addObject("posts", postList);
 
         // board 정보 담기
-        BoardBean boardBean = bs.getBoardById(board_id);
+        BoardBean boardBean = boardService.getBoardById(board_id);
         modelAndView.addObject("board", boardBean);
 
         return modelAndView;
@@ -88,12 +88,12 @@ public class BoardController {
 
         ModelAndView modelAndView = new ModelAndView("board/postview");
 
-        PostBean post = bs.getPostByNo(board_id, no);
+        PostBean post = boardService.getPostByNo(board_id, no);
         post.setContent(post.getContent().replace("\n", "<br>"));
 
         modelAndView.addObject("post", post);
 
-        BoardBean board = bs.getBoardById(board_id);
+        BoardBean board = boardService.getBoardById(board_id);
         modelAndView.addObject("board",board);
 
         return modelAndView;
@@ -107,11 +107,11 @@ public class BoardController {
             @PathVariable(value = "no") int no,
             Model model) throws Exception {
 
-        PostBean postBean = bs.getPostByNo(board_id, no);
+        PostBean postBean = boardService.getPostByNo(board_id, no);
 
         postBean.setContent(postBean.getContent().replace("\n", "<br>"));
 
-        String boardName = "bs.getBoardNameById(board_id)";     // 머지 후 추가
+        String boardName = "boardService.getBoardNameById(board_id)";     // 머지 후 추가
 
         model.addAttribute("boardName", boardName);
         model.addAttribute("page", page);
@@ -130,15 +130,15 @@ public class BoardController {
             @PathVariable(value = "no") int no,
             @ModelAttribute PostBean postBean, Model model) throws Exception {
 
-        PostBean pb = bs.getPostByNo(board_id, no);
+        PostBean pb = boardService.getPostByNo(board_id, no);
 
-        String boardName = bs.getBoardNameById(board_id);
+        String boardName = boardService.getBoardNameById(board_id);
 
         String result ="";
         int test = postBean.getNo();
         log.info("msg={}",test);
         if (pb.getBoard_id() == postBean.getBoard_id()) {
-            bs.amendPost(postBean);
+            boardService.amendPost(postBean);
             result = "redirect:/posts/" + board_id + "/" + page + "/" + no;      // 글 상세보기 메소드로 리턴
         } else {
             result = "board/postreditresult";
@@ -158,7 +158,7 @@ public class BoardController {
             @PathVariable(value = "page") int page,
             @PathVariable(value = "no") int no, Model model) throws Exception {
 
-        int result = bs.deletePost(no);
+        int result = boardService.deletePost(no);
 
         model.addAttribute("board_id", board_id);
         model.addAttribute("page", page);
