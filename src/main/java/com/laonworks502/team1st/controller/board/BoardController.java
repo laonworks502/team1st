@@ -3,15 +3,15 @@ package com.laonworks502.team1st.controller.board;
 import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.board.Pagination;
 import com.laonworks502.team1st.model.post.PostBean;
-import com.laonworks502.team1st.service.board.BoardServiceImpl;
+import com.laonworks502.team1st.service.board.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
@@ -20,15 +20,18 @@ import java.util.List;
 public class BoardController {
 
     @Autowired
-    private BoardServiceImpl bs;
+    @Qualifier("BoardService")
+    private BoardService bs;
 
     // 글 작성 폼
     @GetMapping(value = "/{board_id}/write")
     public ModelAndView postwriteform(
             @PathVariable("board_id") int board_id,
-            @RequestParam("page") int page){
+            @RequestParam("page") int page) throws Exception {
         ModelAndView modelAndView = new ModelAndView("board/postwrite");
-        modelAndView.addObject("board_id",board_id);
+
+        BoardBean boardBean = bs.getBoardById(board_id);
+        modelAndView.addObject("board", boardBean);
         modelAndView.addObject("page", page);
 
         return modelAndView;
@@ -41,26 +44,23 @@ public class BoardController {
             @RequestParam(value = "page") int page,
             @ModelAttribute PostBean post) throws Exception {
 
-    	log.info("msg1={}", board_id);
-        // PostBean 생성
         post.setBoard_id(board_id);
+        //post.setWriter("");
 
         int no = bs.writePost(post);
-        log.info("msg2={}", no);
 
-        String redirect = "redirect:/boards/" + board_id + "/" + no;
-        ModelAndView modelAndView
-                = new ModelAndView(redirect,"page",page);
+        ModelAndView modelAndView = new ModelAndView("redirect:/"+ board_id + "/" + no, "page", page);
+        BoardBean boardBean = bs.getBoardById(board_id);
+        modelAndView.addObject("board", boardBean);
 
-
-        return modelAndView;
+        return  modelAndView;
     }
 
     // 글 목록
     @GetMapping(value = "/{board_id}")
     public ModelAndView getBoardList(
             @PathVariable(value = "board_id") int board_id,
-            @RequestParam(value = "page", defaultValue = "1") int page) throws Exception {
+            @RequestParam(value = "page",required = false, defaultValue = "1") Integer page) throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("board/boardlist");
 
