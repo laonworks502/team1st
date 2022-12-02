@@ -5,8 +5,6 @@
 <head>
 <meta charset="UTF-8" />
 <title>관리자 메인</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
 	<br>

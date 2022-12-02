@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.laonworks502.team1st.model.admin.AdminBean;
 import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 @Slf4j
@@ -82,31 +87,55 @@ public class AdminController {
 		return "redirect:adminloginform";
 	}
 	
-	// 일별 가입자 수 차트
+	// 일별 가입자 수 Refactoring 
 	@RequestMapping("adminstat1")
 	public String adminstat1(Model model) throws Exception {
 		
-		// 일별 가입자 수
-				int todayJoinTotal = adminservice.todayJoinTotal();
-				int ago1JoinTotal = adminservice.ago1JoinTotal();
-				int ago2JoinTotal = adminservice.ago2JoinTotal();
-				int ago3JoinTotal = adminservice.ago3JoinTotal();
-				int ago4JoinTotal = adminservice.ago4JoinTotal();
-				int ago5JoinTotal = adminservice.ago5JoinTotal();
-				int ago6JoinTotal = adminservice.ago6JoinTotal();
-				int ago7JoinTotal = adminservice.ago7JoinTotal();
-
-				model.addAttribute("todayJoinTotal", todayJoinTotal);
-				model.addAttribute("ago1JoinTotal", ago1JoinTotal);
-				model.addAttribute("ago2JoinTotal", ago2JoinTotal);
-				model.addAttribute("ago3JoinTotal", ago3JoinTotal);
-				model.addAttribute("ago4JoinTotal", ago4JoinTotal);
-				model.addAttribute("ago5JoinTotal", ago5JoinTotal);
-				model.addAttribute("ago6JoinTotal", ago6JoinTotal);
-				model.addAttribute("ago7JoinTotal", ago7JoinTotal);
+		log.info("adminstat1 진입");
+		
+		List<Integer> list = new ArrayList<>();
+		
+		int n;
+		int f;
+		
+		for (n = 0; n < list.size(); n++) {
+			
+			f = adminservice.joinTotalDays(n);
+				list.add(f);
+		}
+		
+			log.info(list.toString());
+		
+		model.addAttribute("joinTotalDays", list);
 		
 		return "admin/adminstat1";
 	}
+	
+	// 일별 가입자 수 차트
+//	@RequestMapping("adminstat1")
+//	public String adminstat1(Model model) throws Exception {
+//		
+//		// 일별 가입자 수
+//				int todayJoinTotal = adminservice.todayJoinTotal();
+//				int ago1JoinTotal = adminservice.ago1JoinTotal();
+//				int ago2JoinTotal = adminservice.ago2JoinTotal();
+//				int ago3JoinTotal = adminservice.ago3JoinTotal();
+//				int ago4JoinTotal = adminservice.ago4JoinTotal();
+//				int ago5JoinTotal = adminservice.ago5JoinTotal();
+//				int ago6JoinTotal = adminservice.ago6JoinTotal();
+//				int ago7JoinTotal = adminservice.ago7JoinTotal();
+//
+//				model.addAttribute("todayJoinTotal", todayJoinTotal);
+//				model.addAttribute("ago1JoinTotal", ago1JoinTotal);
+//				model.addAttribute("ago2JoinTotal", ago2JoinTotal);
+//				model.addAttribute("ago3JoinTotal", ago3JoinTotal);
+//				model.addAttribute("ago4JoinTotal", ago4JoinTotal);
+//				model.addAttribute("ago5JoinTotal", ago5JoinTotal);
+//				model.addAttribute("ago6JoinTotal", ago6JoinTotal);
+//				model.addAttribute("ago7JoinTotal", ago7JoinTotal);
+//		
+//		return "admin/adminstat1";
+//	}
 	
 	// 주별 가입자 수 차트
 	@RequestMapping("adminstat2")

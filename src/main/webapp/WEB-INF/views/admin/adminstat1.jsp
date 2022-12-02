@@ -5,8 +5,6 @@
 <head>
 <meta charset="UTF-8" />
 <title>관리자 메인</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
 
@@ -19,9 +17,35 @@
 
 	</div>
 	<script>
+	//가변적인 그래프 
+	//list
+	let arr = {'7일전', '6일전', '5일전', '4일전', '3일전', '2일전', '1일전'};  //리스트
+	let joinTotalDaysArr = {};
 	
 	// 오늘 ~ 7일 전까지 가입자 수 통계
 	new Chart(document.getElementById("userJoinChartDate"), {
+		type: 'line', 
+		data: {
+			labels: arr, //x축
+			datasets: [{
+				label: "일별 가입자수 추이", 
+				data : 
+					for(let i=0; i <arr.length; i++){
+						document.write(joinTotalDays);
+					},
+				fill : true,
+				borderColor : '#001aff',
+				borderWidth: 2
+				
+			}]
+		}
+
+	});
+	
+	
+	
+	// 오늘 ~ 7일 전까지 가입자 수 통계
+/* 	new Chart(document.getElementById("userJoinChartDate"), {
 		type: 'line', 
 		data: {
 			labels: ['7일전', '6일전', '5일전', '4일전', '3일전', '2일전', '1일전', '오늘'], //x축
@@ -35,7 +59,7 @@
 			}]
 		}
 
-	});
+	}); */
 
 	</script>
 </body>		
