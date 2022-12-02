@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../common/commonlist.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -8,11 +7,12 @@
 <meta charset="UTF-8">
 <title>기업 정보 입력</title>
 
+<script src="js/checkcompany.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-	<form action="companyinsert_ok" onsubmit="return check()" method="post" align="center" style="margin-top: 15%;">
+	<form action="companyinsert_ok" onsubmit="return check()" method="post" align="center" style="margin-top: 15%;margin-bottom: 15%">
 		<h2>기업 정보 입력</h2>
 		<table align="center">
 			<tr>
@@ -127,9 +127,9 @@
 			<tr>
 				<th>주소</th>
 				<!-- zib코드 입력-->
-				<td><input type="text" id="tbox1" name="postal_code"placeholder="우편번호" class="form-control" style="width: 200px;">
-					<input type="button" class="btn btn-primary btn-sm"onclick="addrFind()" value="우편번호 찾기"><br> 
-					<input class="form-control" style="width: 200px;"type="text" name="address1" id="tbox2" placeholder="주소" size=28>
+				<td><input type="text" id="tbox1" name="postal_code" placeholder="우편번호" class="form-control" style="width: 200px;">
+					<input type="button" class="btn btn-primary btn-sm" onclick="addrFind()" value="우편번호 찾기"><br> 
+					<input class="form-control" style="width: 200px;" type="text" name="address1" id="tbox2" placeholder="주소" size=28>
 					<input class="form-control" style="width: 150px;" type="text" name="tbox4" id="tbox4" placeholder="참고항목" size=28> 
 					<input type="text" id="tbox3" name="address2" class="form-control" style="width: 200px;" placeholder="상세주소" > 
 				</td>
@@ -144,7 +144,7 @@
 					-<input name="tel3" id="tel3" size="4" maxlength="4" class="input_box" /></td>
 			</tr>
 			<tr>
-				<td colspan="3"><input type="submit" class="btn btn-info"value="저장 후 다음">
+				<td colspan="3" align="center"><input type="submit" class="btn btn-info"value="저장 후 다음">
 					<button type="reset" class="btn btn-secondary">다시 작성</button></td>
 			</tr>
 		</table>

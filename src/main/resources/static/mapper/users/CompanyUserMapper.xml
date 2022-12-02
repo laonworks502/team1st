@@ -29,7 +29,7 @@
 	</update>
 
 	<!-- email 중복 체크 -->
-	<select id="emailcheck" parameterType="String" resultType="int">
+	<select id="emailCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM company_users WHERE email = #{email}
 	</select>
 

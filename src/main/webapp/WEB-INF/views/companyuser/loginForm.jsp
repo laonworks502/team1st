@@ -50,7 +50,7 @@
 
 <main class="form-signin w-100 m-auto">
 
-<form method="post" action="login_ok" onsubmit="return login_check()">
+<form method="post" action="companylogin_ok" onsubmit="return login_check()">
 
     <h1 class="h3 mb-3 fw-normal">기업 회원 로그인</h1>
     
@@ -69,7 +69,7 @@
 
     </div>
     <div class="button-group">
-    <input type="button" class="w-45 btn btn-sm btn-outline-secondary" value="기업회원가입" onclick="location='insert'">
+    <input type="button" class="w-45 btn btn-sm btn-outline-secondary" value="기업회원가입" onclick="location='postcompanyuser'">
 	<input type="button" class="w-50 btn btn-sm btn-outline-secondary" value="비밀번호 찾기" name="passwd_btn" onclick="passwd_find()" />
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
