@@ -185,6 +185,7 @@ public class GeneralUserController {
 
     }
 
+
     @RequestMapping(value="/resumeupload", method = RequestMethod.POST)
     public String upload(@RequestParam("file") MultipartFile file,
                          HttpSession session,
