@@ -68,8 +68,8 @@ public class GeneralUserController {
     public String userlogout(HttpSession session) {
         session.invalidate();
 
-        System.out.println("로그아웃");
-        return "generaluser/loginForm";
+        log.info("로그아웃");
+        return "generaluser/loginselect";
     }
 
     // 회원가입 폼

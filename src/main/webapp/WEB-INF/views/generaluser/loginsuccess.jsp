@@ -9,7 +9,7 @@
 <body>
 로그인성공
 
-<input type="button" value="로그아웃" class="input_button" onclick="location='logout'">
+<input type="button" value="로그아웃" class="input_button" onclick="location='userlogout'">
 <input type="button" value="회원수정" class="input_button" onclick="location='generaluseredit'">
 <input type="button" value="회원탈퇴" class="input_button" onclick="location='generaluserdelete'">
 
