@@ -22,11 +22,17 @@
     <br>이력서 업로드 : 파일 선택 후 업로드 버튼을 누르세요.
     <br>
     이력서 선택 : <input type="file" name="file">
-    <input type="submit" value="업로드">
+    <input type="submit" value="업로드하기">
 
     <br>
+
+    <%-- <a href="download.do?fname=<%=request.getContextPath()%>/upload/${fileName }"> --%>
+
     <br>
-    현재 이력서 : ${gub.resume}
+    등록된 이력서 :
+    <a href="download?resume=${gub.resume}">
+        ${gub.resume}
+    </a>
     <br>
 </form>
 
