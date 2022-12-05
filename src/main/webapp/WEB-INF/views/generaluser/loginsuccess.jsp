@@ -9,7 +9,7 @@
 <body>
 로그인성공
 
-<input type="button" value="로그아웃" class="input_button" onclick="location='userlogout'">
+<input type="button" value="로그아웃" class="input_button" onclick="location='loginselect'">
 <input type="button" value="회원수정" class="input_button" onclick="location='generaluseredit'">
 <input type="button" value="회원탈퇴" class="input_button" onclick="location='generaluserdelete'">
 
@@ -17,8 +17,17 @@
 <form action="resumeupload" method="post" enctype="multipart/form-data">
     <input type="hidden" name="email" value="${sessionScope.email}">
 
-    파일 선택 : <input type="file" name="file" value="${gub.resume}">
-    <input type="submit" value="전송">
+    <br>
+    <br>
+    <br>이력서 업로드 : 파일 선택 후 업로드 버튼을 누르세요.
+    <br>
+    이력서 선택 : <input type="file" name="file">
+    <input type="submit" value="업로드">
+
+    <br>
+    <br>
+    현재 이력서 : ${gub.resume}
+    <br>
 </form>
 
 </body>

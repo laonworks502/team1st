@@ -30,7 +30,7 @@ public class GeneralUserController {
     }
 
     // 로그인 실행
-    @RequestMapping("generaluserlogin_ok")
+    @RequestMapping("loginsuccess")
     public String generaluserlogin_ok(GeneralUserBean gub,
                                       HttpSession session,
                                       Model model,
@@ -51,7 +51,8 @@ public class GeneralUserController {
         }else{              // 등록 회원 확인됨
             if(gub.getPasswd().equals(passwd)) {        // 비번 같아서 로그인됨
                 session.setAttribute("email", email);
-                System.out.println("로그인성공");
+                model.addAttribute("gub",gub);
+                log.info("로그인성공");
 
                 return "generaluser/loginsuccess";
             }else{                                      // 비번 달라서 로그인 안됨
@@ -64,7 +65,7 @@ public class GeneralUserController {
     }
 
     // 로그아웃
-    @RequestMapping("userlogout")
+    @RequestMapping("loginselect")
     public String userlogout(HttpSession session) {
         session.invalidate();
 
@@ -173,23 +174,11 @@ public class GeneralUserController {
     }
 
 
-    @RequestMapping("loginselect")
-    public String general_company_login(){
-
-        return "generaluser/loginselect";
-    }
-
-    //업로드로 가는 메소드
-    @GetMapping("/upload")
-    public void form() {
-
-    }
-
-
     @RequestMapping(value="/resumeupload", method = RequestMethod.POST)
-    public String upload(@RequestParam("file") MultipartFile file,
+    public String resumeupload(@RequestParam("file") MultipartFile file,
                          HttpSession session,
                          HttpServletRequest request,
+                         Model model,
                          GeneralUserBean gub) throws Exception{
 
         String email = (String)session.getAttribute("email");
@@ -222,25 +211,29 @@ public class GeneralUserController {
         System.out.println("확장자명:" + fileExtension);
 
         // path + uniqueName
-        String resume = uploadFolder+"\\"+uniqueName+"."+fileExtension;
+        String resume = uploadFolder+"\\"+uniqueName+fileExtension;
 
-        System.out.println("resume 로컬주소:"+resume);
-        gub.setResume(resume);
+        System.out.println("resume로컬주소 = "+resume);
 
         // File saveFile = new File(uploadFolder+"\\"+fileRealName); uuid 적용 전
 
         File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  // 적용 후
         try {
             file.transferTo(saveFile); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
+            gub.setResume(resume);
             int result = gus.resumeupload(gub);
-            if(result == 1) log.info("파일 업로드" + gub.getResume());
+            if(result == 1) log.info("파일 업로드 -> " + gub.getResume());
+
 
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "generaluser/resumeupload_ok";
+
+
+
+        return "generaluser/loginsuccess";
     }
 
 //    @GetMapping("/download")
