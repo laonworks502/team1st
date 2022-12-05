@@ -36,4 +36,10 @@ update general_users
 	where email = #{email} limit 1
 </update>
 
+<update id="resumeupload" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean" >
+update general_users
+	set resume = #{resume}
+	where email = #{email}
+</update>
+
 </mapper>

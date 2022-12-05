@@ -18,19 +18,19 @@
     <table>
         <tr>
             <div>
-            <td>
-                <button class="btn btn-primary btn-lg" type="button" style="width: 200px;" onclick="location='generalloginForm'">일반</button>
-            </td>
+                <td>
+                    <button class="btn btn-primary btn-lg" type="button" style="width: 200px;" onclick="location='generalloginForm'">일반</button>
+                </td>
 
-            <td style="width: 50px;">
-            </td>
-            <td>
-                <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='companyuser/loginForm'">기업</button>
-            </td>
+                <td style="width: 50px;">
+                </td>
+                <td>
+                    <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='login'">기업</button>
+                </td>
             </div>
         </tr>
     </table>
-<%--    class="w-50 btn btn-lg btn-primary"--%>
+    <%--    class="w-50 btn btn-lg btn-primary"--%>
 </main>
 
 </body>
