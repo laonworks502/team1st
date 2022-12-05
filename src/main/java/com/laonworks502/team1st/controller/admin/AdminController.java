@@ -103,7 +103,7 @@ public class AdminController {
 			f = adminservice.joinTotalDays(n);
 				list.add(f);
 		}
-		
+			
 			log.info(list.toString());
 		
 		model.addAttribute("joinTotalDays", list);

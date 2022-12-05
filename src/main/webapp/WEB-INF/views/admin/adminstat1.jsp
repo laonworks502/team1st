@@ -30,7 +30,7 @@
 			datasets: [{
 				label: "일별 가입자수 추이", 
 				data : 
-					for(let i=0; i <arr.length; i++){
+					for(let i=0; i < arr.length; i++){
 						document.write(joinTotalDays);
 					},
 				fill : true,
