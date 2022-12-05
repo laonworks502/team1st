@@ -11,7 +11,7 @@ public interface AdminService {
     public AdminBean getAdminInfo(String adminId) throws Exception;
     
     
-    public int joinTotalDays(int n) throws Exception;
+    public int joinTotalDays(int i) throws Exception;
 
     // 최근 7일간 가입자 수 
 //    public int todayJoinTotal() throws Exception;

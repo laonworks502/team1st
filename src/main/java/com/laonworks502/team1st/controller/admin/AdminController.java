@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.laonworks502.team1st.model.admin.AdminBean;
 import com.laonworks502.team1st.service.admin.AdminServiceImpl;
@@ -20,7 +22,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
-@Controller
+@Controller 
 public class AdminController {
  
 	@Autowired
@@ -89,27 +91,40 @@ public class AdminController {
 	
 	// 일별 가입자 수 Refactoring 
 	@RequestMapping("adminstat1")
-	public String adminstat1(Model model) throws Exception {
+		public String joinTotalDays(Integer n, Model model) throws Exception {
 		
 		log.info("adminstat1 진입");
 		
-		List<Integer> list = new ArrayList<>();
+		List<Integer> list = new ArrayList<Integer>();
 		
-		int n;
-		int f;
-		
-		for (n = 0; n < list.size(); n++) {
-			
-			f = adminservice.joinTotalDays(n);
-				list.add(f);
+		for (int i = 7; i > 0; i--) {
+			 list.add(adminservice.joinTotalDays(i));
 		}
 			
 			log.info(list.toString());
+			model.addAttribute("list", list);
 		
-		model.addAttribute("joinTotalDays", list);
 		
 		return "admin/adminstat1";
 	}
+	
+	
+//	@ResponseBody 
+//	public List<Integer> joinTotalDays(Integer n) throws Exception {
+//		
+//		log.info("adminstat1 진입");
+//		
+//		List<Integer> list = new ArrayList<Integer>();
+//		
+//		for (int i = 7; i > 0; i--) {
+//			 list.add(adminservice.joinTotalDays(i));
+//		}
+//			
+//			log.info(list.toString());
+//		
+//		
+//		return list;
+//	}
 	
 	// 일별 가입자 수 차트
 //	@RequestMapping("adminstat1")

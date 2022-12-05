@@ -9,7 +9,7 @@
     
     <!-- 일별 가입자 수  -->
     <select id="joinTotalDays" parameterType="int" resultType="int" >
-    select count(register_date) from general_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{n} day) 
+    select count(register_date) from general_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} day) 
     </select>
    
     <!--  1주전 가입자 수  -->

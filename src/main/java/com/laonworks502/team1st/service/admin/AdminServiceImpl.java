@@ -21,8 +21,8 @@ public class AdminServiceImpl implements AdminService {
         return admindao.getAdminInfo(id);
     }
     
-    public int joinTotalDays(int n) throws Exception{
-    	return admindao.joinTotalDays(n);
+    public int joinTotalDays(int i) throws Exception{
+    	return admindao.joinTotalDays(i);
     }
     
     // 최근 7일간 가입자 수 
