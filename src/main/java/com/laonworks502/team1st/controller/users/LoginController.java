@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.laonworks502.team1st.model.users.CompanyUserBean;
+import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.users.CompanyUserServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,6 @@ public class LoginController {
 	public String login(String email, String passwd,
 						Model model, HttpSession session) {
 		
-		log.info("login in");
 		
 		int result = 0;
 		
@@ -47,8 +47,11 @@ public class LoginController {
 			model.addAttribute("result", result);
 		}else {			// 회원
 			if(cub.getPasswd().equals(passwd)) {
-				session.setAttribute("email", email);
-				
+//				session.setAttribute("email", email);
+				LoginBean loginBean = new LoginBean(email,"기업");
+				session.setAttribute("loginBean", loginBean);
+				log.info("login in");
+				log.info("loginUser:"+loginBean.getAuthority());
 				return "companyuser/companymypage";	// 마이 페이지로 이동
 			}else {
 				result = 2;
@@ -62,8 +65,9 @@ public class LoginController {
 	@RequestMapping("logout")
 	public String member_logout(HttpSession session) {	
 		
-		session.invalidate();
+		session.removeAttribute("loginBean");
 		
+		log.info("logout");
 		return "redirect:/companylogin";
 	}
 	
