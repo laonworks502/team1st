@@ -34,6 +34,7 @@
 </script>
 
 <body>
+<%@ include file = "../common/header.jsp" %>
 <div class="my-5">
     <main class="mb-4">
         <form method=post>
