@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.logging.Logger;
@@ -64,7 +65,8 @@ public class BoardController {
     @GetMapping(value = "/{board_id}")
     public ModelAndView getBoardList(
             @PathVariable(value = "board_id") int board_id,
-            @RequestParam(value = "page",required = false, defaultValue = "1") Integer page) throws Exception {
+            @RequestParam(value = "page",required = false, defaultValue = "1") Integer page,
+            HttpSession Session) throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("board/boardlist");
 
@@ -80,6 +82,9 @@ public class BoardController {
         // board 정보 담기
         BoardBean boardBean = boardService.getBoardById(board_id);
         modelAndView.addObject("board", boardBean);
+
+        // board 세션 추가
+        Session.setAttribute("board_id", board_id);
 
         return modelAndView;
     }

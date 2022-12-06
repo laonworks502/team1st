@@ -7,6 +7,7 @@
     <title>글작성</title>
 </head>
 <body>
+<%@ include file = "../common/header.jsp" %>
 <div class="my-5">
     <main class="mb-4">
         <div class="container px-4 px-lg-5">

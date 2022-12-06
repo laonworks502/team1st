@@ -8,6 +8,7 @@
     <title>${board.name} 게시판</title>
 </head>
 <body>
+<%@ include file = "../common/header.jsp" %>
 <main class="mt-2 pt-2">
     <div class="container-fluid px-4">
         <h1 class="mt-4">${board.name} 게시판</h1>
@@ -48,7 +49,7 @@
 
 <!-- 페이징 -->
 <nav class="center" aria-label="Page navigation example">
-    <ul class="pagination">
+    <ul class="pagination justify-content-center">
         <li class="page-item">
         <c:if test="${pg.page>1}">
             <a class="page-link" href="/boards/${board.id}?page=${pg.page-1}" aria-label="Previous">
