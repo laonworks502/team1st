@@ -69,7 +69,7 @@ public class BoardController {
 
         int postTotal = boardService.countAllPosts(board_id);
 
-        Pagination pg = new Pagination(board_id, postTotal, 10);
+        Pagination pg = new Pagination(board_id, page, postTotal, 10);
         modelAndView.addObject("pg", pg);
 
         // 리스트 담기
