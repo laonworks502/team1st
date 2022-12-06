@@ -38,16 +38,10 @@ public class ScrapServiceImpl implements ScrapService{
         return sd.getCount(user_email);
     }
 
-    /*[스크랩 전체 출력 리스트]*/
+    /*[스크랩 리스트 출력 메소드]*/
     @Override
-    public List<ScrapBean> listTotalScrap(String user_email, int board_id, int listcount, int PAGES_COUNT) throws Exception {
-        return sd.listTotalScrap(user_email, board_id, listcount, PAGES_COUNT);
-    }
-
-    /*[마이페이지) 미니 스크랩 리스트 ]*/
-    @Override
-    public List<ScrapBean> listMiniScrap(String user_email, int board_id, int listcount, int PAGES_COUNT) throws Exception {
-        return sd.listMiniScrap(user_email, board_id, listcount, PAGES_COUNT);
+    public List<ScrapBean> listScrap(String email, int board_id, int listcount, int PAGES_COUNT) throws Exception {
+        return sd.listScrap(email, board_id, listcount, PAGES_COUNT);
     }
 
 
