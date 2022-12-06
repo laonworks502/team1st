@@ -92,7 +92,7 @@ public class AdminController {
 		return "redirect:adminloginform";
 	}
 	
-	// 일별 가입자 수 Refactoring 
+	// 일반회원 일별 가입자 수 
 	@RequestMapping("adminstat1")
 		public String joinTotalDays(Integer n, Model model) throws Exception {
 		
@@ -112,7 +112,7 @@ public class AdminController {
 	}
 	
 	
-	// 주별 가입자 수 Refactoring 
+	// 일반회원 주별 가입자 수
 	@RequestMapping("adminstat2")
 		public String joinTotalWeeks(Integer n, Model model) throws Exception {
 		
@@ -131,7 +131,7 @@ public class AdminController {
 		return "admin/adminstat2";
 	}
 	
-	// 월별 가입자 수 Refactoring 
+	// 일반회원 월별 가입자 수
 	@RequestMapping("adminstat3")
 		public String joinTotamMonths(Integer n, Model model) throws Exception {
 		
@@ -149,9 +149,67 @@ public class AdminController {
 		
 		return "admin/adminstat3";
 	}
+	
+	// 기업회원 일별 가입자 수 
+	@RequestMapping("adminstat4")
+		public String companyJoinChartDate(Integer n, Model model) throws Exception {
+		
+		log.info("adminstat4 진입");
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		for (int i = 7; i > 0; i--) {
+			 list.add(adminservice.companyJoinChartDate(i));
+		}
+			
+			log.info(list.toString());
+			model.addAttribute("list", list);
+		
+		
+		return "admin/adminstat4";
+	}
+	
+	// 기업회원 주별 가입자 수
+	@RequestMapping("adminstat5")
+		public String companyJoinChartWeek(Integer n, Model model) throws Exception {
+		
+		log.info("adminstat5 진입");
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		for (int i = 4; i > 0; i--) {
+			 list.add(adminservice.companyJoinChartWeek(i));
+		}
+			
+			log.info(list.toString());
+			model.addAttribute("list", list);
+		
+		
+		return "admin/adminstat5";
+	}
+	
+	// 기업회원 월별 가입자 수
+	@RequestMapping("adminstat6")
+		public String companyJoinChartMonth(Integer n, Model model) throws Exception {
+		
+		log.info("adminstat6 진입");
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		for (int i = 12; i > 0; i--) {
+			 list.add(adminservice.companyJoinChartMonth(i));
+		}
+			
+			log.info(list.toString());
+			model.addAttribute("list", list);
+		
+		
+		return "admin/adminstat6";
+	}
+	
 
 	// 전체 회원 목록
-	@GetMapping("/generaluserslist")
+	@GetMapping("generaluserslist")
 	@ResponseBody
 	public List<GeneralUserBean> generaluserslist(
 			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
@@ -171,8 +229,7 @@ public class AdminController {
     	  
     	  List<GeneralUserBean> generalUsersList = adminservice.generalUsersList(page);
     	  log.info("generalUsersList: "+generalUsersList);
-    	  model.addAttribute("generlaUsersList", generalUsersList);
-    	  
+    	  model.addAttribute("generalUsersList", generalUsersList);
     	  
         return generalUsersList;
     }

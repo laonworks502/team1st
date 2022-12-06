@@ -21,19 +21,34 @@ public class AdminServiceImpl implements AdminService {
         return admindao.getAdminInfo(id);
     }
     
-    //일별 가입자 수
+    //일반회원 일별 가입자 수
     public int joinTotalDays(int i) throws Exception{
     	return admindao.joinTotalDays(i);
     }
     
-    //주별 가입자 수
+    //일반회원 주별 가입자 수
     public int joinTotalWeeks(int i) throws Exception{
     	return admindao.joinTotalWeeks(i);
     }
     
-    //월별 가입자 수
+    //일반회원 월별 가입자 수
     public int joinTotalMonths(int i) throws Exception{
     	return admindao.joinTotalMonths(i);
+    }
+    
+    //기업회원 일별 가입자 수
+    public int companyJoinChartDate(int i) throws Exception{
+    	return admindao.companyJoinChartDate(i);
+    }
+    
+    //기업회원 주별 가입자 수
+    public int companyJoinChartWeek(int i) throws Exception{
+    	return admindao.companyJoinChartWeek(i);
+    }
+    
+    //기업회원 월별 가입자 수
+    public int companyJoinChartMonth(int i) throws Exception{
+    	return admindao.companyJoinChartMonth(i);
     }
     
     //generalusers - 전체 회원 수 구하기
