@@ -18,6 +18,6 @@ public interface BoardDao {
     BoardBean getBoardById(int board_id) throws Exception;
     String getBoardNameById(int board_id) throws Exception;
     PostBean getPostByNo(int board_id, int no) throws Exception;
-    void amendPost(PostBean postBean) throws Exception;
+    int amendPost(PostBean postBean) throws Exception;
     int deletePost(int no) throws Exception;
 }

@@ -4,12 +4,39 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>${board.name} 게시판</title>
+    <title>${boardName} 게시판</title>
 </head>
+<script>
+    function postDelete() {
+        var result = confirm('해당 글을 삭제하시겠습니까?');
+        if (result) {
+            $.ajax({
+                url: '/boards/${board_id}/${no}',
+                method: 'DELETE',
+                contentType: 'application/json;charset=utf-8',
+                success: function (result) {
+                    if (result == 1) {
+                        alert("삭제 성공");
+                        location.href = "/boards/" + ${board_id} + "?page=" + ${page}; // 글 목록으로 이동
+                    } else {
+                        alert("삭제 실패");
+                        return false;
+                    }
+                },
+                error: function (error, status, msg) {
+                    alert("상태코드 " + status + "에러메시지" + msg);
+                    return false;
+                },
+            })
+        }
+    }
+
+</script>
+
 <body>
 <div class="my-5">
     <main class="mb-4">
-        <form method="post" action="/posteditform/${board.id}/${page}/${no}">
+        <form method=post>
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                         <div class="container List-container">
@@ -41,9 +68,10 @@
 
                              <div class="board-footer">
                                <%--<c:if test="${post.writer == }">--%>
-                                    <input type="submit" class="btn btn-outline-primary" value="수정">
+                                    <input type="submit" class="btn btn-outline-primary" value="수정"
+                                        onclick="location.href='/boards/${board_id}/${no}/edit?page=${page}'">
                                     <button type="button" class="btn btn-outline-danger"
-                                            onclick="deletepost()">삭제</button>
+                                            onclick="postDelete()">삭제</button>
                                 <%--</c:if>--%>
                                 <button type="button" class="btn btn-outline-secondary"
                                         onclick="history.go(-1);">뒤로가기</button>
@@ -55,16 +83,6 @@
     </main>
 </div>
 </body>
-<script>
-    function deletepost() {
-        var result = confirm("해당 글을 삭제하시겠습니까?");
 
-            if(result == true){
-                location.href="/postdelete/${board.id}/${page}/${no}";
-            }else{
-                return false;
-            }
-    }
-</script>
 
 </html>

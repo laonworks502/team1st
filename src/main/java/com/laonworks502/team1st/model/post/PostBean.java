@@ -1,5 +1,6 @@
 package com.laonworks502.team1st.model.post;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +8,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
+@Data
 public class PostBean {
     private int no;
     private int board_id;

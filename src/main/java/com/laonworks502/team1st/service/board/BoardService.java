@@ -26,7 +26,7 @@ public interface BoardService {
     PostBean getPostByNo(int board_id, int no) throws Exception;
 
     // 글 수정
-    void amendPost(PostBean postBean) throws Exception;
+    int amendPost(PostBean postBean) throws Exception;
 
     // 글 삭제
     int deletePost(int no) throws Exception;
