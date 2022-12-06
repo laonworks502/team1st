@@ -45,8 +45,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void amendPost(PostBean postBean) throws Exception {
-        boardDao.amendPost(postBean);
+    public int amendPost(PostBean postBean) throws Exception {
+        return boardDao.amendPost(postBean);
     }
 
     @Override

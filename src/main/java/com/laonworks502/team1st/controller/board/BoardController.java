@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Slf4j
 @Controller
@@ -86,8 +87,8 @@ public class BoardController {
     // 글 상세보기
     @GetMapping(value = "/{board_id}/{no}")
     public ModelAndView getPostByNo(@PathVariable(value = "board_id") int board_id,
-                              @PathVariable(value = "no") int no,
-                              @RequestParam(value = "page") int page) throws Exception {
+                                    @PathVariable(value = "no") int no,
+                                    @RequestParam(value = "page") int page) throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("board/postview");
 
@@ -98,23 +99,24 @@ public class BoardController {
 
         BoardBean board = boardService.getBoardById(board_id);
         modelAndView.addObject("board",board);
+        modelAndView.addObject("page",page);
 
         return modelAndView;
     }
 
     // 글 수정 폼
-    @PostMapping(value = "/posteditform/{board_id}/{page}/{no}")
+    @PostMapping(value = "/{board_id}/{no}/edit")
     public String amendPostForm(
             @PathVariable(value = "board_id") int board_id,
-            @PathVariable(value = "page") int page,
             @PathVariable(value = "no") int no,
+            @RequestParam(value = "page") int page,
             Model model) throws Exception {
 
         PostBean postBean = boardService.getPostByNo(board_id, no);
 
         postBean.setContent(postBean.getContent().replace("\n", "<br>"));
 
-        String boardName = "boardService.getBoardNameById(board_id)";     // 머지 후 추가
+        String boardName = "bs.getBoardNameById(board_id)";     // 머지 후 추가
 
         model.addAttribute("boardName", boardName);
         model.addAttribute("page", page);
@@ -126,47 +128,51 @@ public class BoardController {
     }
 
     // 글 수정
-    @PostMapping(value = "/postedit/{board_id}/{page}/{no}")
-    public String amendPost(
+    @ResponseBody
+    @PutMapping (value = "/{board_id}/{no}")
+    public Integer amendPost(
             @PathVariable(value = "board_id") int board_id,
-            @PathVariable(value = "page") int page,
             @PathVariable(value = "no") int no,
-            @ModelAttribute PostBean postBean, Model model) throws Exception {
+            @RequestParam(value = "page") int page,
+            @RequestBody PostBean postBean) throws Exception {
+
+        postBean.setNo(no);
+
+        log.info("board_id info log={}", board_id);
+        log.info("no info log={}", no);
+        log.info("page info log={}", page);
+        log.info("info log={}", postBean.getTitle());
+        log.info("info log={}", postBean.getContent());
 
         PostBean pb = boardService.getPostByNo(board_id, no);
 
-        String boardName = boardService.getBoardNameById(board_id);
+        int result = 0;
 
-        String result ="";
-        int test = postBean.getNo();
-        log.info("msg={}",test);
-        if (pb.getBoard_id() == postBean.getBoard_id()) {
-            boardService.amendPost(postBean);
-            result = "redirect:/posts/" + board_id + "/" + page + "/" + no;      // 글 상세보기 메소드로 리턴
-        } else {
-            result = "board/postreditresult";
-        }
+//        if (pb.getWriter().equals(postBean.getWriter())) {        // 아이디 연결 시 주석 풀기
+        result = boardService.amendPost(postBean);
+//        }
 
-        model.addAttribute("boardName", boardName);
-        model.addAttribute("page", page);
-        model.addAttribute("no", no);
+        log.info("result:"+result);
 
         return result;
     }
 
     // 글 삭제
-    @GetMapping(value = "/postdelete/{board_id}/{page}/{no}")
-    public String deletePost(
+    @ResponseBody
+    @DeleteMapping(value = "/{board_id}/{no}")
+    public Integer deletePost(
             @PathVariable(value = "board_id") int board_id,
-            @PathVariable(value = "page") int page,
-            @PathVariable(value = "no") int no, Model model) throws Exception {
+            @PathVariable(value = "no") int no
+            ) throws Exception {
 
-        int result = boardService.deletePost(no);
+        log.info("in");
+        int result = 0;
 
-        model.addAttribute("board_id", board_id);
-        model.addAttribute("page", page);
+//        if (pb.getWriter().equals(postBean.getWriter())) {        // 아이디 연결 시 주석 풀기
+        result = boardService.deletePost(no);
+//        }
 
-        return "redirect:/boards/" + board_id + "/" +page;       // 글 목록 메소드로 리턴
+        return result;       // 글 목록 메소드로 리턴
     }
 
 }
