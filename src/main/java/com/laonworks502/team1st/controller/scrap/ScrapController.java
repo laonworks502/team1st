@@ -1,8 +1,7 @@
 package com.laonworks502.team1st.controller.scrap;
 
 import com.laonworks502.team1st.model.scrap.ScrapBean;
-import com.laonworks502.team1st.service.scrap.ScrapService;
-import com.laonworks502.team1st.service.users.CommonUserService;
+import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,70 +18,77 @@ import java.util.Map;
 @Slf4j
 @Controller
 
+@RequestMapping("scrap")
 public class ScrapController {
 
     @Autowired
-    private ScrapService ss;
+    private ScrapServiceImpl ss;
 
     /*[스크랩 검색]*/
-    @GetMapping("/searchScrap/{user_email}/{no}/{date}")  //경로 설정
-    public String searchScrap(
-            @PathVariable("user_email") String user_email, //세션으로 받을 수도 있음
+    @ResponseBody
+    @GetMapping("/{no}/{date}")  //경로 설정
+    public int searchScrap(
             @PathVariable("no") int no,
             @PathVariable("date") Timestamp date,
-            Model model) throws Exception {
+            HttpSession session) throws Exception {
 
         log.info("스크랩 검색(searchScrap.do)");
 
+        String email = (String) session.getAttribute("email");
+
         ScrapBean scrap = new ScrapBean();
 
-        scrap.setUser_email(user_email);
+        scrap.setUser_email(email);
         scrap.setNo(no);
         scrap.setDate(date);
 
-        int result = ss.searchScrap(scrap);  //[insertScrap() : 스크랩 정보 검색 메소드]
+        int result = ss.searchScrap(scrap);  //[searchScrap() : 스크랩 정보 검색 메소드]
 
-        model.addAttribute("result", result);  // 0,1 전달
 
-        return "scrap/scrapresult";
+        return result;
     }
 
     /*[스크랩 생성(클릭)] : 클릭을 했는지 안했는지를 이미 판별한 상태에서 클릭*/
-    @PostMapping("/insertScrap/{no}")
-    public String insertScrap(
-              @PathVariable("no") int no,
-              Model model,
-              HttpSession session) throws Exception {
+    @ResponseBody
+    @PostMapping("/{no}")
+    public Integer insertScrap(
+            @PathVariable("no") int no,
+//            @RequestBody ScrapBean sb,
+            HttpSession session) throws Exception {
 
-        log.info("스크랩 생성(insertScrap.do)");
+        log.info("스크랩 생성(insertScrap)"+no);
 
-        String email = (String) session.getAttribute("email");
+//        String email = (String) session.getAttribute("email");
+        String email = "a1@naver.com";
 
         Map scrap = new HashMap();
         scrap.put("user_email", email);
         scrap.put("no", no);
 
-        int result = ss.insertScrap(scrap); //[insertScrap() : 스크랩 생성 메소드]
+        int result = 0;
+        result = ss.insertScrap(scrap); //[insertScrap() : 스크랩 생성 메소드]
+        System.out.println("result:" + result);
 
-        model.addAttribute("result", result);
-
-        return "scrap/scrapresult";
+        return result;
 
     }
 
 
     /*[스크랩 삭제]*/
-    @DeleteMapping("/deleteScrap/{user_email}/{no}/{date}")
-    public String deleteScrap(
-            @PathVariable("user_email") String user_email,
+    @ResponseBody
+    @DeleteMapping("/{no}/{date}")
+    public int deleteScrap(
             @PathVariable("no") int no,
-            @PathVariable("date") Timestamp date) throws Exception {  //뷰에따라 model 추가
+            @PathVariable("date") Timestamp date,
+            HttpSession session) throws Exception {  //뷰에따라 model 추가
 
-        log.info("스크랩 삭제(deleteScrap.do)");
+        log.info("스크랩 삭제(deleteScrap)");
+
+        String email = (String) session.getAttribute("email");
 
         ScrapBean scrap = new ScrapBean();
 
-        scrap.setUser_email(user_email);
+        scrap.setUser_email(email);
         scrap.setNo(no);
         scrap.setDate(date);
 
@@ -94,24 +100,26 @@ public class ScrapController {
             result = 1;
         }
 
-        return "scrap/scrapresult";
+        return result;
     }
 
     /*[스크랩 전체 출력 리스트]*/
-    @GetMapping("/listTotalScrap/{user_email}")
+    @ResponseBody
+    @GetMapping("/listTotal")
     public String listScrap(
-             @PathVariable("user_email") String user_email,
-                             HttpSession session,
-                             HttpServletRequest request,
-                             Model model) throws Exception{
+             HttpSession session,
+             HttpServletRequest request,
+              Model model) throws Exception{
+        log.info("스크랩 전체 출력 리스트(listTotalScrap)");
+
         String email = (String) session.getAttribute("email");
 
-        int listcount = ss.getCount(user_email); // [getCount() : 총 리스트 수 구해오는 메소드]
+        int listcount = ss.getCount(email); // [getCount() : 총 리스트 수 구해오는 메소드]
 
         //스크랩 리스트 전체 출력
-        List<ScrapBean> myscrap100 = ss.listTotalScrap(user_email,100,listcount,50); //[listTotalScrap() : 스크랩 전체 출력 메소드]
-        List<ScrapBean> myscrap200 = ss.listTotalScrap(user_email,200,listcount,50);
-        List<ScrapBean> myscrap300 = ss.listTotalScrap(user_email,300,listcount,50);
+        List<ScrapBean> myscrap100 = ss.listScrap(email,100,listcount,50); //[listScrap() : 스크랩 리스트 출력 메소드]
+        List<ScrapBean> myscrap200 = ss.listScrap(email,200,listcount,50);
+        List<ScrapBean> myscrap300 = ss.listScrap(email,300,listcount,50);
 
         model.addAttribute("myscrap100", myscrap100);
         model.addAttribute("myscrap200", myscrap200);
@@ -121,19 +129,22 @@ public class ScrapController {
     }
 
     /*[마이페이지) 미니 스크랩 리스트 ]*/
-    @GetMapping("/listMiniScrap/{user_email}")
+    @ResponseBody
+    @GetMapping("/MiniScrap")
     public String listMiniScrap(
-            @PathVariable("user_email") String user_email,
                         HttpSession session,
                         HttpServletRequest request,
                         Model model) throws Exception {
+
+        log.info("마이페이지) 미니 스크랩 리스트 (listMiniScrap)");
+
         String email = (String) session.getAttribute("email");
 
-        int listcount = ss.getCount(user_email); // [getCount() : 총 리스트 수 구해오는 메소드]
+        int listcount = ss.getCount(email); // [getCount() : 총 리스트 수 구해오는 메소드]
 
-         List<ScrapBean> myminiscrap100 =ss.listMiniScrap(user_email,100,listcount,3); //[listMiniScrap() : 미니 스크랩 리스트 메소드]
-         List<ScrapBean> myminiscrap200 =ss.listMiniScrap(user_email,200,listcount,3);
-         List<ScrapBean> myminiscrap300 =ss.listMiniScrap(user_email,300,listcount,3);
+         List<ScrapBean> myminiscrap100 =ss.listScrap(email,100,listcount,3);
+         List<ScrapBean> myminiscrap200 =ss.listScrap(email,200,listcount,3);
+         List<ScrapBean> myminiscrap300 =ss.listScrap(email,300,listcount,3);
 
         model.addAttribute("myminiscrap100",myminiscrap100);
         model.addAttribute("myminiscrap200",myminiscrap200);
@@ -142,4 +153,11 @@ public class ScrapController {
         return "redirect: boardcontent.do?no=";  //추후 설정
     }
 
+    /*[테스트]*/
+    @GetMapping("/imsi")
+    public String imsi(){
+        log.info("테스트(테스트)");
+
+        return "imsi/imsi";
+    }
 }

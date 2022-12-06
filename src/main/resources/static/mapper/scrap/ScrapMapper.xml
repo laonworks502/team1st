@@ -14,7 +14,7 @@
 
     <!--[스크랩 생성]-->
     <insert id="insertScrap" parameterType="Map">
-        insert into scraps values (#{user_eamil},#{no},sysdate())
+        insert into scraps values (#{user_email},#{no},sysdate())
     </insert>
 
     <!--[스크랩 리스트)총 리스트 수]-->
@@ -24,13 +24,8 @@
 
     <!--[스크랩 전체 출력 리스트]-->
     <select id="listScrap" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
-        select * from posts,scraps where posts.no = scraps.no and user_email =#{user_email} and board_id = #{board_id} order by scraps.date desc
+        select * from posts,scraps where posts.no = scraps.no and email =#{email} and board_id = #{board_id} order by scraps.date desc
             limit #{listcount}, #{PAGES_COUNT}
     </select>
 
-    <!--[마이페이지) 미니 스크랩 리스트]-->
-    <select id="listMiniScrap" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
-        select * from posts,scraps where posts.no = scraps.no and user_email =#{user_email} and board_id = #{board_id} order by scraps.date desc
-            limit #{listcount}, #{PAGES_COUNT}
-    </select>
 </mapper>
