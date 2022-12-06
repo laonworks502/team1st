@@ -116,12 +116,9 @@ public class BoardController {
 
         postBean.setContent(postBean.getContent().replace("\n", "<br>"));
 
-        String boardName = "bs.getBoardNameById(board_id)";     // 머지 후 추가
-
-        model.addAttribute("boardName", boardName);
         model.addAttribute("page", page);
-        model.addAttribute("PostBean", postBean);
         model.addAttribute("no", no);
+        model.addAttribute("PostBean", postBean);
 
         return "board/posteditform";
 
@@ -134,7 +131,8 @@ public class BoardController {
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "no") int no,
             @RequestParam(value = "page") int page,
-            @RequestBody PostBean postBean) throws Exception {
+            @RequestBody PostBean postBean,
+            HttpSession session) throws Exception {
 
         postBean.setNo(no);
 
@@ -147,8 +145,9 @@ public class BoardController {
         PostBean pb = boardService.getPostByNo(board_id, no);
 
         int result = 0;
+        String email = (String)session.getAttribute("email");
 
-//        if (pb.getWriter().equals(postBean.getWriter())) {        // 아이디 연결 시 주석 풀기
+//        if (pb.getWriter().equals(email)) {        // 세션 연결 시 주석 풀기
         result = boardService.amendPost(postBean);
 //        }
 
@@ -162,13 +161,15 @@ public class BoardController {
     @DeleteMapping(value = "/{board_id}/{no}")
     public Integer deletePost(
             @PathVariable(value = "board_id") int board_id,
-            @PathVariable(value = "no") int no
-            ) throws Exception {
+            @PathVariable(value = "no") int no,
+            HttpSession session) throws Exception {
 
-        log.info("in");
+        log.info("boardsDelete in");
+
         int result = 0;
+        String email = (String)session.getAttribute("email");
 
-//        if (pb.getWriter().equals(postBean.getWriter())) {        // 아이디 연결 시 주석 풀기
+//        if (pb.getWriter().equals(email)) {        // 세션 연결 시 주석 풀기
         result = boardService.deletePost(no);
 //        }
 
