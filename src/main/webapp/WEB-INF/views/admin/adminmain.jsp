@@ -44,6 +44,8 @@
 
 	<!-- 그래프 나타나는 곳  -->
 	<div id="chart"></div>
+	<!-- 목록 나타나는 곳 -->
+	<div id="ajaxGeneralUsersList"></div>
 
 
 	<script>
@@ -79,7 +81,43 @@
 		
 		//전체 회원 목록
 		function generalUsersList() {
-			$('#chart').load('/generaluserslist')
+			$.ajax({
+	  			url:"<%=request.getContextPath()%>/generaluserslist",
+					type : "get",
+					dataType : "json",
+					async : false,
+					success : function(data) {
+						console.log(data);
+						ajaxHtml(data);
+
+					},
+					error : function() {
+						alert("error");
+					}
+				});
+			
+			function ajaxHtml(result) {
+				var html = "<table class='table'>";
+				html += "<tr>";
+				html += "<td>이름</td>";
+				html += "<td>이메일</td>";
+				html += "<td>전화번호</td>";
+				html += "<td>가입일</td>";
+				html += "</tr>";
+
+				$.each(result, function(index, obj) {
+					html += "<tr>";
+					html += "<td>" + obj.name + "</td>";
+					html += "<td>" + obj.email + "</td>";
+					html += "<td>" + obj.tel1 + obj.tel2 + obj.tel3 + "</td>";
+					html += "<td>" + obj.register_date + "</td>";
+					html += "</tr>";
+				})
+				html += "</table>";
+
+				$("#ajaxGeneralUsersList").html(html);
+			}
+		
 		}
 
 		//탈퇴 회원 목록

@@ -17,7 +17,7 @@
 				dataType : "json",
 				async : false,
 				success : function(data) {
-
+					console.log(data);
 					ajaxHtml(data);
 
 				},
@@ -30,6 +30,7 @@
 		console.log("뷰페이지 들어옴");
 
 		function ajaxHtml(result) {
+			console.log(result);
 			var html = "<table class='table'>";
 			html += "<tr>";
 			html += "<td>이름</td>";
@@ -61,7 +62,7 @@
 
 				<div id="ajaxGeneralUsersList"></div>
 				<!-- 회원 목록 출력 -->
-				<button type="button" onclick="generalUsersList()"></button>
+				<!-- <button type="button" onclick="generalUsersList()"></button> -->
 			</div>
 		</div>
 	</div>
