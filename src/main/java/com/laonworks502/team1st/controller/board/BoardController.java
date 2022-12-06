@@ -3,6 +3,7 @@ package com.laonworks502.team1st.controller.board;
 import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.board.Pagination;
 import com.laonworks502.team1st.model.post.PostBean;
+import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.board.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
@@ -42,10 +44,11 @@ public class BoardController {
     public ModelAndView writePost(
             @PathVariable(value = "board_id") int board_id,
             @RequestParam(value = "page") int page,
-            @ModelAttribute PostBean post) throws Exception {
+            @ModelAttribute PostBean post, HttpSession session) throws Exception {
 
         post.setBoard_id(board_id);
-        //post.setWriter("");
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        post.setWriter(loginBean.getEmail());
 
         int no = boardService.writePost(post);
 
