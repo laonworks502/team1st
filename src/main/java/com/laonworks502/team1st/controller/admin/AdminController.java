@@ -207,8 +207,22 @@ public class AdminController {
 		return "admin/adminstat6";
 	}
 	
+	// 전체 회원 목록 페이지
+	@RequestMapping("generaluserslistpage")
+	public String generaluserslistpage(HttpSession session, Model model) throws Exception {
+		
+	  // 전체 회원 수 구하기 
+  	  int totalUsers = adminservice.countAllUsers();
+  	  
+  	  log.info("totalUsers: " + totalUsers);
+  	  
+  	  model.addAttribute("totalUsers", totalUsers); 
+  	  
+		return "admin/generaluserslist";
+	}
+	
 
-	// 전체 회원 목록
+	// 전체 회원 목록(테이블)
 	@GetMapping("generaluserslist")
 	@ResponseBody
 	public List<GeneralUserBean> generaluserslist(
@@ -216,13 +230,6 @@ public class AdminController {
     	
 		log.info("generaluserslist 진입");
 		
-    	  // 전체 회원 수 구하기 
-    	  int totalUsers = adminservice.countAllUsers();
-    	  
-    	  log.info("totalUsers: " + totalUsers);
-    	  
-    	  model.addAttribute("totalUsers", totalUsers); 
-    	  
     	  AdminPagination adminpg = new AdminPagination(page, 20);
     	  log.info("adminpg: "+adminpg);
     	  model.addAttribute("adminpg", adminpg);
@@ -235,10 +242,4 @@ public class AdminController {
     }
 	
 	
-	// 탈퇴 회원 목록
-		@RequestMapping("deleteduserslist")
-		public String deleteduserslist(Model model) throws Exception {
-			return "admin/deleteduserslist";
-		}
-		
 }

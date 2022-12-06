@@ -35,12 +35,7 @@
 		onclick="companyJoinChartMonth()">기업회원 월별 가입자</button>
 
 	<button type="button" id="usersList" value="전체 회원 목록"
-		onclick="generalUsersList()">전체 회원 목록</button>
-		
-	<a href="<%=request.getContextPath() %>/generaluserslist">a태그 회원목록</a>
-
-	<button type="button" id="deletedUsersList" value="전체 회원 목록"
-		onclick="deletedUsersList()">탈퇴한 회원 목록</button>
+		onclick="generalUsersListPage(); generalUsersList();">전체 회원 목록</button>
 
 	<!-- 그래프 나타나는 곳  -->
 	<div id="chart"></div>
@@ -52,35 +47,47 @@
 		//일반회원 일별 가입자 수 
 		function joinChartDate() {
 			$('#chart').load('adminstat1') // load('컨트롤러 안에 "" 이름쓰기"')
+			$('#ajaxGeneralUsersList').hide()
 		}
 
 		//일반회원 주별 가입자 수
 		function joinChartWeek() {
 			$('#chart').load('adminstat2')
+			$('#ajaxGeneralUsersList').hide()
 		}
 
 		//일반회원 월별 가입자 수
 		function joinChartMonth() {
+			$('#ajaxGeneralUsersList').hide()
 			$('#chart').load('adminstat3')
 		}
 		
 		//기업회원 일별 가입자 수
 		function companyJoinChartDate() {
+			$('#ajaxGeneralUsersList').hide()
 			$('#chart').load('adminstat4')
 		}
 		
 		//기업회원 주별 가입자 수
 		function companyJoinChartWeek() {
+			$('#ajaxGeneralUsersList').hide()
 			$('#chart').load('adminstat5')
 		}
 
 		//기업회원 월별 가입자 수
 		function companyJoinChartMonth() {
+			$('#ajaxGeneralUsersList').hide()
 			$('#chart').load('adminstat6')
+		}
+		
+		//전체 회원 목록 페이지 
+		function generalUsersListPage() {
+			$('#chart').load('generaluserslistpage')
 		}
 		
 		//전체 회원 목록
 		function generalUsersList() {
+			$('#ajaxGeneralUsersList').show()
 			$.ajax({
 	  			url:"<%=request.getContextPath()%>/generaluserslist",
 					type : "get",
@@ -120,10 +127,7 @@
 		
 		}
 
-		//탈퇴 회원 목록
-		function deletedUsersList() {
-			$('#chart').load('/deleteduserslist')
-		}
+		
 	</script>
 
 </body>

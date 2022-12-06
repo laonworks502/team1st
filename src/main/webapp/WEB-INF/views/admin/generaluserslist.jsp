@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>일반 회원 목록</title>
-<script src="../js/admin/masking.js"></script>
+<script src="<%=request.getContextPath() %>/admin/masking.js"></script>
 </head>
 <body>
 	<script>
-	function generalUsersList(){
+	<%-- function generalUsersList(){
   		$.ajax({
   			url:"<%=request.getContextPath()%>/generaluserslist",
 				type : "get",
@@ -50,9 +50,8 @@
 			html += "</table>";
 
 			$("#ajaxGeneralUsersList").html(html);
-		}
+		} --%>
 	
-		
 	</script>
 	<div class="container">
 		<h2>일반 회원 목록</h2>
