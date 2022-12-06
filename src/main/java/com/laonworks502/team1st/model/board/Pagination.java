@@ -20,18 +20,6 @@ public class Pagination {
     public Pagination(int startPage, int endPage) {
     }
 
-    public Pagination(int board_id, int postsTotal, int pagePostsCount) {
-        this.board_id = board_id;
-        this.page = 1;
-        this.postsTotal = postsTotal;
-        this.pagePostsCount = pagePostsCount;
-        pagesTotal = (postsTotal % pagePostsCount == 0) ?
-                postsTotal / pagePostsCount : (postsTotal / pagePostsCount) + 1;
-        startPostNo = (page - 1) * pagePostsCount;
-        startPage = ((page - 1) / PAGES_COUNT) * PAGES_COUNT + 1;
-        endPage = (startPage + (PAGES_COUNT-1) > pagesTotal) ? pagesTotal : startPage + (PAGES_COUNT - 1);
-    }
-
     public Pagination(int board_id, int page, int postsTotal, int pagePostsCount) {
         this.board_id = board_id;
         this.page = page;
@@ -39,6 +27,7 @@ public class Pagination {
         this.pagePostsCount = pagePostsCount;
         pagesTotal = (postsTotal % pagePostsCount == 0) ?
                 postsTotal / pagePostsCount : (postsTotal / pagePostsCount) + 1;
+        if (page > pagesTotal) this.page = pagesTotal;
         startPostNo = (page - 1) * pagePostsCount;
         startPage = ((page - 1) / PAGES_COUNT) * PAGES_COUNT + 1;
         endPage = (startPage + (PAGES_COUNT-1) > pagesTotal) ? pagesTotal : startPage + (PAGES_COUNT - 1);

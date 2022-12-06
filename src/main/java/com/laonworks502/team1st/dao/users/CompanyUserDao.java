@@ -19,7 +19,7 @@ public interface CompanyUserDao {
 	public int amendUser(UserBean userBean) throws Exception;
 	
 	// 이메일 중복검사
-	public int emailcheck(String email) throws Exception;
+	public int emailCheck(String email) throws Exception;
 
 	// 이메일로 회원 검색
 	public CompanyUserBean getMember(String email);

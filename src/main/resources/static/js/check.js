@@ -1,3 +1,7 @@
+/**
+ * 기업회원 가입 JS
+ */
+
 function checkemail(){
 	var email = $('#email').val();
 	$.ajax({

@@ -1,7 +1,9 @@
 package com.laonworks502.team1st.controller.scrap;
 
 import com.laonworks502.team1st.model.scrap.ScrapBean;
+import com.laonworks502.team1st.service.scrap.ScrapService;
 import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
+import com.laonworks502.team1st.service.users.CommonUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

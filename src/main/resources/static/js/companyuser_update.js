@@ -1,4 +1,8 @@
-﻿function check() {
+﻿/**
+ * 기업회원 정보수정 JS
+ */
+
+function check() {
 
 	if ($.trim($("#passconfirm").val()) == "") {
 		alert("회원 비밀번호를 입력하세요!");

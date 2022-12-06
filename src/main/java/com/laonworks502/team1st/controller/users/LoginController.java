@@ -25,13 +25,13 @@ public class LoginController {
 	private CompanyUserServiceImpl cus;
 	
 	// 로그인 폼 이동 
-	@RequestMapping("login")
+	@RequestMapping("companylogin")
 	public String loginForm() {
 		return "companyuser/loginForm";
 	}
-	  
+	   
 	// 로그인
-	@RequestMapping("login_ok")
+	@RequestMapping("companylogin_ok")
 	public String login(String email, String passwd,
 						Model model, HttpSession session) {
 		
@@ -49,7 +49,7 @@ public class LoginController {
 			if(cub.getPasswd().equals(passwd)) {
 				session.setAttribute("email", email);
 				
-				return "companyuser/mypage";	// 마이 페이지로 이동
+				return "companyuser/companymypage";	// 마이 페이지로 이동
 			}else {
 				result = 2;
 				model.addAttribute("result", result);
@@ -64,7 +64,7 @@ public class LoginController {
 		
 		session.invalidate();
 		
-		return "redirect:/login";
+		return "redirect:/companylogin";
 	}
 	
 //	// 메인 페이지로 이동

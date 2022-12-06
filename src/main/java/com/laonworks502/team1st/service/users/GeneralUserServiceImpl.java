@@ -58,4 +58,7 @@ public class GeneralUserServiceImpl implements CommonUserService {
         return gud.deleteGeneraluser(gub);
     }
 
+    public int resumeupload(GeneralUserBean gub) throws Exception{
+        return gud.resumeupload(gub);
+    }
 }
