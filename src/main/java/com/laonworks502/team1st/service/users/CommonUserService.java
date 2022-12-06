@@ -17,6 +17,6 @@ public interface CommonUserService {
     int amendUser(UserBean userBean) throws Exception;
 
     // 회원 탈퇴
-    int quitUser(UserBean userBean) throws Exception;	
+    int quitUser(UserBean userBean) throws Exception;
 	
 }
