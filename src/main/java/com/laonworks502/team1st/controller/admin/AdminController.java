@@ -5,15 +5,23 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.laonworks502.team1st.model.admin.AdminBean;
+import com.laonworks502.team1st.model.admin.AdminPagination;
+import com.laonworks502.team1st.model.board.Pagination;
+import com.laonworks502.team1st.model.post.PostBean;
+import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
@@ -143,16 +151,32 @@ public class AdminController {
 	}
 
 	// 전체 회원 목록
-	@RequestMapping("userslist")
-	public String userslist(AdminBean adminbean, Model model) throws Exception {
+	@GetMapping("/generaluserslist")
+	@ResponseBody
+	public List<GeneralUserBean> generaluserslist(
+			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
     	
+		log.info("generaluserslist 진입");
+		
     	  // 전체 회원 수 구하기 
     	  int totalUsers = adminservice.countAllUsers();
     	  
+    	  log.info("totalUsers: " + totalUsers);
+    	  
     	  model.addAttribute("totalUsers", totalUsers); 
     	  
-        return "admin/userslist";
+    	  AdminPagination adminpg = new AdminPagination(page, 20);
+    	  log.info("adminpg: "+adminpg);
+    	  model.addAttribute("adminpg", adminpg);
+    	  
+    	  List<GeneralUserBean> generalUsersList = adminservice.generalUsersList(page);
+    	  log.info("generalUsersList: "+generalUsersList);
+    	  model.addAttribute("generlaUsersList", generalUsersList);
+    	  
+    	  
+        return generalUsersList;
     }
+	
 	
 	// 탈퇴 회원 목록
 		@RequestMapping("deleteduserslist")

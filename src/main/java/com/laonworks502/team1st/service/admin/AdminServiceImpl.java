@@ -3,6 +3,9 @@ package com.laonworks502.team1st.service.admin;
 
 import com.laonworks502.team1st.dao.admin.AdminDao;
 import com.laonworks502.team1st.model.admin.AdminBean;
+import com.laonworks502.team1st.model.users.GeneralUserBean;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +36,17 @@ public class AdminServiceImpl implements AdminService {
     	return admindao.joinTotalMonths(i);
     }
     
-    //전체 회원 목록
+    //generalusers - 전체 회원 수 구하기
     public int countAllUsers() throws Exception{
     	return admindao.countAllUsers();
     }
+    
+    //generaluserslist
+    public List<GeneralUserBean> generalUsersList(Integer page) throws Exception{
+    	return admindao.generalUsersList(page);
+    }
+
+
 }
 
     

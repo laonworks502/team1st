@@ -22,9 +22,14 @@
     select count(register_date) from general_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} month) 
     </select>
    
-    <!-- 전체 회원 수 -->
+    <!-- 전체 회원 수(일반회원) -->
     <select id="countAllUsers" resultType="int">
     select count(*) from general_users 
+    </select>
+    
+    <!-- 일반 회원 리스트 -->
+    <select id="generalUsersList" resultType="com.laonworks502.team1st.model.users.GeneralUserBean">
+    select * from general_users limit 0, 10;
     </select>
         
 </mapper>

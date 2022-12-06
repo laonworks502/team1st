@@ -1,6 +1,9 @@
 package com.laonworks502.team1st.service.admin;
 
+import java.util.List;
+
 import com.laonworks502.team1st.model.admin.AdminBean;
+import com.laonworks502.team1st.model.users.GeneralUserBean;
 
 public interface AdminService {
 
@@ -15,7 +18,10 @@ public interface AdminService {
     
     //월별 가입자 수
     public int joinTotalMonths(int i) throws Exception;
-
-    // 전체 회원 목록
+    
+    //generalusers - 전체 회원 수 구하기
     public int countAllUsers() throws Exception;
+    
+    //generlauserslist 
+    public List<GeneralUserBean> generalUsersList(Integer page) throws Exception;
 }

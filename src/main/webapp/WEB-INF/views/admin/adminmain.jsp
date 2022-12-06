@@ -24,7 +24,7 @@
 		onclick="joinChartMonth()">월별 가입자</button>
 		
 	<button type="button" id="usersList" value="전체 회원 목록"
-		onclick="usersList()">전체 회원 목록</button>
+		onclick="generalUsersList()">전체 회원 목록</button>
 		
 	<button type="button" id="deletedUsersList" value="전체 회원 목록"
 		onclick="deletedUsersList()">탈퇴한 회원 목록</button>	
@@ -50,13 +50,13 @@
 		}
 		
 		//전체 회원 목록
-		function usersList() {
-			$('#chart').load('userslist')
+		function generalUsersList() {
+			$('#chart').load('/generaluserslist')
 		}
 		
 		//탈퇴 회원 목록
 		function deletedUsersList() {
-			$('#chart').load('deleteduserslist')
+			$('#chart').load('/deleteduserslist')
 		}
 	</script>
 
