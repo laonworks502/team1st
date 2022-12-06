@@ -6,13 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.UUID;
 
 @Slf4j
@@ -30,7 +31,7 @@ public class GeneralUserController {
     }
 
     // 로그인 실행
-    @RequestMapping("generaluserlogin_ok")
+    @RequestMapping("loginsuccess")
     public String generaluserlogin_ok(GeneralUserBean gub,
                                       HttpSession session,
                                       Model model,
@@ -51,7 +52,8 @@ public class GeneralUserController {
         }else{              // 등록 회원 확인됨
             if(gub.getPasswd().equals(passwd)) {        // 비번 같아서 로그인됨
                 session.setAttribute("email", email);
-                System.out.println("로그인성공");
+                model.addAttribute("gub",gub);
+                log.info("로그인성공");
 
                 return "generaluser/loginsuccess";
             }else{                                      // 비번 달라서 로그인 안됨
@@ -64,7 +66,7 @@ public class GeneralUserController {
     }
 
     // 로그아웃
-    @RequestMapping("userlogout")
+    @RequestMapping("loginselect")
     public String userlogout(HttpSession session) {
         session.invalidate();
 
@@ -173,23 +175,11 @@ public class GeneralUserController {
     }
 
 
-    @RequestMapping("loginselect")
-    public String general_company_login(){
-
-        return "generaluser/loginselect";
-    }
-
-    //업로드로 가는 메소드
-    @GetMapping("/upload")
-    public void form() {
-
-    }
-
-
     @RequestMapping(value="/resumeupload", method = RequestMethod.POST)
-    public String upload(@RequestParam("file") MultipartFile file,
+    public String resumeupload(@RequestParam("file") MultipartFile file,
                          HttpSession session,
                          HttpServletRequest request,
+                         Model model,
                          GeneralUserBean gub) throws Exception{
 
         String email = (String)session.getAttribute("email");
@@ -222,44 +212,80 @@ public class GeneralUserController {
         System.out.println("확장자명:" + fileExtension);
 
         // path + uniqueName
-        String resume = uploadFolder+"\\"+uniqueName+"."+fileExtension;
-
-        System.out.println("resume 로컬주소:"+resume);
-        gub.setResume(resume);
+        String resume = uniqueName+fileExtension;
+        // uploadFolder + "\\" +
+        System.out.println("resume파일명 = "+resume);
 
         // File saveFile = new File(uploadFolder+"\\"+fileRealName); uuid 적용 전
 
         File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  // 적용 후
         try {
             file.transferTo(saveFile); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
+            gub.setResume(resume);
             int result = gus.resumeupload(gub);
-            if(result == 1) log.info("파일 업로드" + gub.getResume());
+            if(result == 1) log.info("파일 업로드 -> " + gub.getResume());
+            model.addAttribute("gub", gub);      // -> 모델 설정해야 곧바로 웹에 표시가능
 
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "generaluser/resumeupload_ok";
+
+
+        return "generaluser/loginsuccess";
     }
 
-//    @GetMapping("/download")
-//    public ResponseEntity<Object> download("download") {
-//        String path = "C:/uploadFile/jarzip.PNG";
-//
-//        try {
-//            Path filePath = Paths.get(path);
-//            Resource resource = new InputStreamResource(Files.newInputStream(filePath)); // 파일 resource 얻기
-//
-//            File file = new File(path);
-//
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());  // 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
-//
-//            return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
-//        } catch(Exception e) {
-//            return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
-//        }
-//    }
+    @RequestMapping(value = "download")
+    public void download(HttpServletRequest request,
+                         HttpServletResponse response,
+                         HttpSession session,
+                         GeneralUserBean gub,
+                         @RequestParam("resume")String resume,
+                         Model model) throws UnsupportedEncodingException {
+        // response.setCharacterEncoding("utf-8");
+
+//        resume = request.getParameter("resume");
+        String uploadFolder = "C:\\test\\upload";
+
+        // request.getRealPath("upload") => C:\Users\sky66\IdeaProjects\team1st\src\main\webapp ,
+        // => webapp아래에 "upload"폴더 생성하는 함수
+//        uploadFolder = request.getRealPath("upload");
+
+        System.out.println("download...");
+//        String fname = request.getParameter("resume");
+//        System.out.println("resume = " + fname);
+
+//        String DownloadPath = request.getRealPath("upload");
+        String path = uploadFolder + "\\" + resume; // ${fileName}= ${resume}; fname = fname;
+        System.out.println("path=" + path);
+
+        File file = new File(path);     // path = uploadFolder+"\\"+uniqueName + fileExtension;
+        String downName = file.getName(); //다운로드 받을 파일명을 절대경로로  구해옴
+
+        System.out.println(downName);
+
+        // 이 부분이 한글 파일명이 깨지는 것을 방지해 줍니다
+        downName = new String(downName.getBytes("utf-8"), "iso-8859-1");
+
+        // octet-stream은 8비트로 된 일련의 데이터를 뜻합니다. 지정되지 않은 파일 형식을 의미합니다.
+        // response.setHeader("Content-Type", "application/octet-stream");
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; resume=\"" + downName + "\"");
+
+        FileInputStream in = null;
+        OutputStream out = null;
+        try {
+            in = new FileInputStream(file);
+            out = response.getOutputStream();
+            FileCopyUtils.copy(in, out);
+            model.addAttribute(resume);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }

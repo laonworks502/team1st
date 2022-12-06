@@ -50,7 +50,7 @@
 
 <main class="form-signin w-100 m-auto">
 
-    <form method="post" action="generaluserlogin_ok" onsubmit="return login_check()">
+    <form method="post" action="loginsuccess" onsubmit="return login_check()">
 
         <h1 class="h3 mb-3 fw-normal">일반 회원 로그인</h1>
 
