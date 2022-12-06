@@ -23,7 +23,7 @@
 			labels: ['4주전', '3주전', '2주전', '1주전'], //x축
 			datasets: [{
 				label: "주별 가입자수 추이", 
-				data : [${ago4wJoinTotal}, ${ago3wJoinTotal}, ${ago2wJoinTotal}, ${ago1wJoinTotal}],
+				data : [${list[0]},${list[1]},${list[2]},${list[3]}],
 				fill : true,
 				borderColor : '#8c00ff',
 				borderWidth: 2
@@ -32,6 +32,8 @@
 		}
 
 	});
+
+	
 	
 	
 	</script>

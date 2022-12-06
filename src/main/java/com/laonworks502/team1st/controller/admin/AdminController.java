@@ -3,21 +3,16 @@ package com.laonworks502.team1st.controller.admin;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.laonworks502.team1st.model.admin.AdminBean;
 import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -109,102 +104,44 @@ public class AdminController {
 	}
 	
 	
-//	@ResponseBody 
-//	public List<Integer> joinTotalDays(Integer n) throws Exception {
-//		
-//		log.info("adminstat1 진입");
-//		
-//		List<Integer> list = new ArrayList<Integer>();
-//		
-//		for (int i = 7; i > 0; i--) {
-//			 list.add(adminservice.joinTotalDays(i));
-//		}
-//			
-//			log.info(list.toString());
-//		
-//		
-//		return list;
-//	}
-	
-	// 일별 가입자 수 차트
-//	@RequestMapping("adminstat1")
-//	public String adminstat1(Model model) throws Exception {
-//		
-//		// 일별 가입자 수
-//				int todayJoinTotal = adminservice.todayJoinTotal();
-//				int ago1JoinTotal = adminservice.ago1JoinTotal();
-//				int ago2JoinTotal = adminservice.ago2JoinTotal();
-//				int ago3JoinTotal = adminservice.ago3JoinTotal();
-//				int ago4JoinTotal = adminservice.ago4JoinTotal();
-//				int ago5JoinTotal = adminservice.ago5JoinTotal();
-//				int ago6JoinTotal = adminservice.ago6JoinTotal();
-//				int ago7JoinTotal = adminservice.ago7JoinTotal();
-//
-//				model.addAttribute("todayJoinTotal", todayJoinTotal);
-//				model.addAttribute("ago1JoinTotal", ago1JoinTotal);
-//				model.addAttribute("ago2JoinTotal", ago2JoinTotal);
-//				model.addAttribute("ago3JoinTotal", ago3JoinTotal);
-//				model.addAttribute("ago4JoinTotal", ago4JoinTotal);
-//				model.addAttribute("ago5JoinTotal", ago5JoinTotal);
-//				model.addAttribute("ago6JoinTotal", ago6JoinTotal);
-//				model.addAttribute("ago7JoinTotal", ago7JoinTotal);
-//		
-//		return "admin/adminstat1";
-//	}
-	
-	// 주별 가입자 수 차트
+	// 주별 가입자 수 Refactoring 
 	@RequestMapping("adminstat2")
-	public String adminstat2(Model model) throws Exception {
+		public String joinTotalWeeks(Integer n, Model model) throws Exception {
 		
-		//주별 가입자 수
-		int ago4wJoinTotal = adminservice.ago4wJoinTotal();
-		int ago3wJoinTotal = adminservice.ago3wJoinTotal();
-		int ago2wJoinTotal = adminservice.ago2wJoinTotal();
-		int ago1wJoinTotal = adminservice.ago1wJoinTotal();
+		log.info("adminstat2 진입");
 		
-		model.addAttribute("ago4wJoinTotal", ago4wJoinTotal);
-		model.addAttribute("ago3wJoinTotal", ago3wJoinTotal);
-		model.addAttribute("ago2wJoinTotal", ago2wJoinTotal);
-		model.addAttribute("ago1wJoinTotal", ago1wJoinTotal);
-
+		List<Integer> list = new ArrayList<Integer>();
+		
+		for (int i = 4; i > 0; i--) {
+			 list.add(adminservice.joinTotalWeeks(i));
+		}
+			
+			log.info(list.toString());
+			model.addAttribute("list", list);
+		
+		
 		return "admin/adminstat2";
 	}
-
-	// 월별 가입자 수 차트
+	
+	// 월별 가입자 수 Refactoring 
 	@RequestMapping("adminstat3")
-	public String adminstat3(Model model) throws Exception {
+		public String joinTotamMonths(Integer n, Model model) throws Exception {
 		
-		//월별 가입자 수
-		int ago12mJoinTotal = adminservice.ago12mJoinTotal();
-		int ago11mJoinTotal = adminservice.ago11mJoinTotal();
-		int ago10mJoinTotal = adminservice.ago10mJoinTotal();
-		int ago9mJoinTotal = adminservice.ago9mJoinTotal();
-		int ago8mJoinTotal = adminservice.ago8mJoinTotal();
-		int ago7mJoinTotal = adminservice.ago7mJoinTotal();
-		int ago6mJoinTotal = adminservice.ago6mJoinTotal();
-		int ago5mJoinTotal = adminservice.ago5mJoinTotal();
-		int ago4mJoinTotal = adminservice.ago4mJoinTotal();
-		int ago3mJoinTotal = adminservice.ago3mJoinTotal();
-		int ago2mJoinTotal = adminservice.ago2mJoinTotal();
-		int ago1mJoinTotal = adminservice.ago1mJoinTotal();
+		log.info("adminstat3 진입");
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		for (int i = 12; i > 0; i--) {
+			 list.add(adminservice.joinTotalMonths(i));
+		}
+			
+			log.info(list.toString());
+			model.addAttribute("list", list);
 		
 		
-		model.addAttribute("ago12mJoinTotal", ago12mJoinTotal);
-		model.addAttribute("ago11mJoinTotal", ago11mJoinTotal);
-		model.addAttribute("ago10mJoinTotal", ago10mJoinTotal);
-		model.addAttribute("ago9mJoinTotal", ago9mJoinTotal);
-		model.addAttribute("ago8mJoinTotal", ago8mJoinTotal);
-		model.addAttribute("ago7mJoinTotal", ago7mJoinTotal);
-		model.addAttribute("ago6mJoinTotal", ago6mJoinTotal);
-		model.addAttribute("ago5mJoinTotal", ago5mJoinTotal);
-		model.addAttribute("ago4mJoinTotal", ago4mJoinTotal);
-		model.addAttribute("ago3mJoinTotal", ago3mJoinTotal);
-		model.addAttribute("ago2mJoinTotal", ago2mJoinTotal);
-		model.addAttribute("ago1mJoinTotal", ago1mJoinTotal);
-
 		return "admin/adminstat3";
 	}
-	
+
 	// 전체 회원 목록
 	@RequestMapping("userslist")
 	public String userslist(AdminBean adminbean, Model model) throws Exception {
@@ -214,17 +151,6 @@ public class AdminController {
     	  
     	  model.addAttribute("totalUsers", totalUsers); 
     	  
-    	  //현재 활동중인 회원 목록 가져오기
-//  		  List<adminbean> userList = adminservice.userList(); 
-
-//    	  Pagination pg = new Pagination(board_id, postTotal, 10);
-//          model.addAttribute("pg", pg);
-//
-//        List<PostBean> postList = bs.callBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
-//        model.addAttribute("postList", postList);
-//        model.addAttribute("board_id",board_id);
-//        String boardName = bs.getBoardNameById(board_id);
-
         return "admin/userslist";
     }
 	
@@ -233,6 +159,5 @@ public class AdminController {
 		public String deleteduserslist(Model model) throws Exception {
 			return "admin/deleteduserslist";
 		}
-	
 		
 }
