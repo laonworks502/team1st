@@ -51,7 +51,7 @@ public class CompanyUserController {
 		int postTotal = cus.countAllCompanyPosts(writer);
 		log.info("회원 총 게시물 수:"+postTotal);
 		
-		Pagination pg = new Pagination(writer, postTotal, 10);
+		Pagination pg = new Pagination(postTotal, 10);
 		model.addAttribute("pg", pg);
 		
 		// 리스트 담기
