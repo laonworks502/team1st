@@ -24,6 +24,7 @@
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
+                        <th>스크랩</th>
                         <th>제목</th>
                         <th>작성자</th>
                         <th>작성일</th>
