@@ -40,8 +40,8 @@ public class ScrapServiceImpl implements ScrapService{
 
     /*[스크랩 리스트 출력 메소드]*/
     @Override
-    public List<ScrapBean> listScrap(String email, int board_id, int listcount, int PAGES_COUNT) throws Exception {
-        return sd.listScrap(email, board_id, listcount, PAGES_COUNT);
+    public List<ScrapBean> listScrap(String email, int board_id, int startPostNo, int PAGES_COUNT) throws Exception {
+        return sd.listScrap(email, board_id, startPostNo, PAGES_COUNT);
     }
 
 
