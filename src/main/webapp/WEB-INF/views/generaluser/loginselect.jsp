@@ -25,7 +25,7 @@
                 <td style="width: 50px;">
                 </td>
                 <td>
-                    <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='login'">기업</button>
+                    <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='companyloginForm'">기업</button>
                 </td>
             </div>
         </tr>

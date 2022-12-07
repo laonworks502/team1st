@@ -97,7 +97,7 @@ public class CompanyUserController {
 		// 회원 가입 실행
 		cus.joinUser(cub);
 		log.info("companyuserinsert_ok!");
-		return "redirect:/companylogin"; // 가입완료 후 다시 로그인폼으로 이동
+		return "redirect:/companyloginForm"; // 가입완료 후 다시 로그인폼으로 이동
 	}
 
 	// 기업 회원 수정
@@ -125,7 +125,7 @@ public class CompanyUserController {
 		int result = cus.amendUser(cub);
 		if (result == 1)
 			log.info("companyuserupdate_ok");
-		return "redirect:/companyuser/mypage"; // 회원 정보 수정 완료 후 다시 마이페이지로 이동
+		return "redirect:/companyuser/companymypage"; // 회원 정보 수정 완료 후 다시 마이페이지로 이동
 	}
 
 	// 기업 회원 탈퇴
@@ -148,7 +148,9 @@ public class CompanyUserController {
 	@RequestMapping("companyuserdelete_ok")
 	public String companyuserdelete_ok(@RequestParam("exit_reason") String exit_reason, HttpSession session,
 			HttpServletRequest request, Model model) throws Exception {
-		String email = (String) session.getAttribute("email");
+		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+		String email = loginBean.getEmail();
+		
 		CompanyUserBean cub = cus.getMember(email);
 
 		// 탈퇴 사유 입력
@@ -161,6 +163,6 @@ public class CompanyUserController {
 
 		// 세션 종료
 		session.invalidate();
-		return "redirect:/companylogin"; // 회원 탈퇴 완료 후 로그인 폼으로 이동
+		return "redirect:/companyloginForm"; // 회원 탈퇴 완료 후 로그인 폼으로 이동
 	}
 }

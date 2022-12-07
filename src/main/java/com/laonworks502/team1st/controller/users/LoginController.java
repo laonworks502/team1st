@@ -10,10 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.laonworks502.team1st.model.users.CompanyUserBean;
+import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.users.CompanyUserServiceImpl;
+import com.laonworks502.team1st.service.users.GeneralUserServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,13 +28,63 @@ public class LoginController {
 	@Qualifier("company")
 	private CompanyUserServiceImpl cus;
 	
-	// 로그인 폼 이동 
-	@RequestMapping("companylogin")
+	@Autowired
+	private GeneralUserServiceImpl gus;
+	
+	// 기업 로그인 폼 이동 
+	@RequestMapping("companyloginForm")
 	public String loginForm() {
 		return "companyuser/loginForm";
 	}
 	   
-	// 로그인
+    // 일반 로그인 폼
+    @RequestMapping("generalloginForm")
+    public String generaluserloginForm() throws Exception{
+
+        return "generaluser/loginForm";
+    }
+
+    // 일반 로그인 실행
+    @RequestMapping("loginsuccess")
+    public String generaluserlogin_ok(GeneralUserBean gub,
+                                      HttpSession session,
+                                      Model model,
+                                      @RequestParam("email") String email,
+                                      @RequestParam("passwd") String passwd) throws Exception{
+
+        int result = 0;
+
+        gub = gus.checkGeneraluser(email);
+
+        if(gub == null){    // 등록되지 않은 회원
+
+            result = 1;
+            model.addAttribute("result", result);
+
+            return "generaluser/loginResult";
+
+        }else{              // 등록 회원 확인됨
+            if(gub.getPasswd().equals(passwd)) {        // 비번 같아서 로그인됨
+//            session.setAttribute("email", email);
+                LoginBean loginBean = new LoginBean(email,"일반");
+                session.setAttribute("loginBean", loginBean);
+                log.info("login in");
+                log.info("loginUser:"+loginBean.getAuthority());
+                model.addAttribute("gub",gub);
+                log.info("로그인성공");
+
+                return "generaluser/loginsuccess";
+
+            }else{                                      // 비번 달라서 로그인 안됨
+                result = 2;
+                model.addAttribute("result", result);
+
+                return "generaluser/loginResult";
+            }
+        }
+    }
+	
+	// 기업 로그인
 	@RequestMapping("companylogin_ok")
 	public String login(String email, String passwd,
 						Model model, HttpSession session) {
@@ -68,7 +121,7 @@ public class LoginController {
 		session.removeAttribute("loginBean");
 		
 		log.info("logout");
-		return "redirect:/companylogin";
+		return "generaluser/loginselect";
 	}
 	
 //	// 메인 페이지로 이동
