@@ -18,7 +18,7 @@ public interface AdminDao {
     
     //일반회원 주별 가입자 수
     public int joinTotalWeeks(int i) throws Exception;
-    
+
     //일반회원 월별 가입자 수
     public int joinTotalMonths(int i) throws Exception;
     

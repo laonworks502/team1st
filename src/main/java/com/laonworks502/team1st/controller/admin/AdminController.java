@@ -210,7 +210,7 @@ public class AdminController {
 	// 전체 회원 목록 페이지
 	@RequestMapping("generaluserslistpage")
 	public String generaluserslistpage(HttpSession session, Model model) throws Exception {
-		
+
 	  // 전체 회원 수 구하기 
   	  int totalUsers = adminservice.countAllUsers();
   	  
@@ -220,7 +220,7 @@ public class AdminController {
   	  
 		return "admin/generaluserslist";
 	}
-	
+
 
 	// 전체 회원 목록(테이블)
 	@GetMapping("generaluserslist")
