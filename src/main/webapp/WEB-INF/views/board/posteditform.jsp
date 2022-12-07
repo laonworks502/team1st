@@ -19,7 +19,6 @@
                 contentType: 'application/json;charset=utf-8',
                 data: JSON.stringify(post1),
                 success: function (result) {
-                    alert(result);
                     if (result == 1) {
                         alert("수정 성공");
                         location.href = "/boards/" + ${board_id} +"/" + ${no} +"?page=" + ${page};  // 글 상세보기로 이동
@@ -38,6 +37,7 @@
 
 </script>
 <body>
+<%@ include file = "../common/header.jsp" %>
 <div class="my-5">
     <main class="mb-4">
         <div class="container px-4 px-lg-5">

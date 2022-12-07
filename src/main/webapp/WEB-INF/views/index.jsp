@@ -11,10 +11,10 @@
         <div class="col-2"></div>
         <table>
             <tr>
-                <c:forEach var="boardlist" items="${boardlist}">
+                <c:forEach var="boardList" items="${sessionScope.boardList}">
                     <td style="padding-right: 30px">
                         <button class="btn btn-outline-primary btn-lg" type="button"
-                                onclick="location.href='/boards/${boardlist.id}'">${boardlist.name} 게시판</button>
+                                onclick="location.href='/boards/${boardList.id}'">${boardList.name} 게시판</button>
                     </td>
                 </c:forEach>
             </tr>

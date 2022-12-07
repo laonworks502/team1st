@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("IndexService")
 public class IndexServiceImpl implements IndexService{
     @Autowired
     private IndexDao indexDao;

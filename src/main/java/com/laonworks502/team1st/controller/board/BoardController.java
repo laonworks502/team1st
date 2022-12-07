@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.logging.Logger;
@@ -64,7 +65,8 @@ public class BoardController {
     @GetMapping(value = "/{board_id}")
     public ModelAndView getBoardList(
             @PathVariable(value = "board_id") int board_id,
-            @RequestParam(value = "page",required = false, defaultValue = "1") Integer page) throws Exception {
+            @RequestParam(value = "page",required = false, defaultValue = "1") Integer page,
+            HttpSession Session) throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("board/boardlist");
 
@@ -80,6 +82,9 @@ public class BoardController {
         // board 정보 담기
         BoardBean boardBean = boardService.getBoardById(board_id);
         modelAndView.addObject("board", boardBean);
+
+        // board 세션 추가
+        Session.setAttribute("board_id", board_id);
 
         return modelAndView;
     }
@@ -105,8 +110,8 @@ public class BoardController {
     }
 
     // 글 수정 폼
-    @PostMapping(value = "/{board_id}/{no}/edit")
-    public String amendPostForm(
+    @GetMapping(value = "/{board_id}/{no}/edit")
+    public String updatePostForm(
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "no") int no,
             @RequestParam(value = "page") int page,
@@ -116,12 +121,9 @@ public class BoardController {
 
         postBean.setContent(postBean.getContent().replace("\n", "<br>"));
 
-        String boardName = "bs.getBoardNameById(board_id)";     // 머지 후 추가
-
-        model.addAttribute("boardName", boardName);
         model.addAttribute("page", page);
-        model.addAttribute("PostBean", postBean);
         model.addAttribute("no", no);
+        model.addAttribute("PostBean", postBean);
 
         return "board/posteditform";
 
@@ -130,29 +132,33 @@ public class BoardController {
     // 글 수정
     @ResponseBody
     @PutMapping (value = "/{board_id}/{no}")
-    public Integer amendPost(
+    public Integer updatePost(
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "no") int no,
             @RequestParam(value = "page") int page,
-            @RequestBody PostBean postBean) throws Exception {
+            @RequestBody PostBean postBean,
+            HttpSession session) throws Exception {
+
+        log.info("boards/Put in");
 
         postBean.setNo(no);
 
-        log.info("board_id info log={}", board_id);
+        /*log.info("board_id info log={}", board_id);
         log.info("no info log={}", no);
         log.info("page info log={}", page);
         log.info("info log={}", postBean.getTitle());
-        log.info("info log={}", postBean.getContent());
+        log.info("info log={}", postBean.getContent());*/
 
         PostBean pb = boardService.getPostByNo(board_id, no);
 
         int result = 0;
+        String email = (String)session.getAttribute("email");
 
-//        if (pb.getWriter().equals(postBean.getWriter())) {        // 아이디 연결 시 주석 풀기
+//        if (pb.getWriter().equals(email)) {        // 세션 연결 시 주석 풀기
         result = boardService.amendPost(postBean);
 //        }
 
-        log.info("result:"+result);
+        log.info("update result: "+result);
 
         return result;
     }
@@ -162,13 +168,15 @@ public class BoardController {
     @DeleteMapping(value = "/{board_id}/{no}")
     public Integer deletePost(
             @PathVariable(value = "board_id") int board_id,
-            @PathVariable(value = "no") int no
-            ) throws Exception {
+            @PathVariable(value = "no") int no,
+            HttpSession session) throws Exception {
 
-        log.info("in");
+        log.info("boards/Delete in");
+
         int result = 0;
+        String email = (String)session.getAttribute("email");
 
-//        if (pb.getWriter().equals(postBean.getWriter())) {        // 아이디 연결 시 주석 풀기
+//        if (pb.getWriter().equals(email)) {        // 세션 연결 시 주석 풀기
         result = boardService.deletePost(no);
 //        }
 
