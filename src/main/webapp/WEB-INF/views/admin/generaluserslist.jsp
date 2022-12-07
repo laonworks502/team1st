@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>일반 회원 목록</title>
-<script src="<%=request.getContextPath() %>/admin/masking.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/admin/masking.js"></script> --%>
 </head>
 <body>
 	<script>
