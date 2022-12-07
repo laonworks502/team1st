@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("admin")
+@Service("AdminService")
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
@@ -61,6 +61,10 @@ public class AdminServiceImpl implements AdminService {
     	return admindao.generalUsersList(page);
     }
 
+    // 태원 : 왜 오버라이딩이 덜 돼있는지?
+    @Override
+    public int usersJoinTotal(int n, String duration) throws Exception {
+        return 0;
+    }
 }
-    
-}
+

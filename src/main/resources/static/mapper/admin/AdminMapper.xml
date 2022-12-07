@@ -1,123 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.laonworks502.team1st.dao.admin.AdminDao">
-   
    <!-- 관리자 로그인 아이디 가져오기 -->
     <select id="getAdminInfo" parameterType="String" resultType="com.laonworks502.team1st.model.admin.AdminBean">
-        select * from admin where id=#{id}   
+        select * from admin where id=#{id}
     </select>
-    
-<<<<<<< HEAD
+
+
     <!-- 일반회원 일별 가입자 수  -->
     <select id="joinTotalDays" parameterType="int" resultType="int" >
-    select count(register_date) from general_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} day) 
-=======
-<!--     <select>
+    select count(register_date) from general_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} day)
+    </select>
+<!--
+    <select>
     set @var = 1
     select count(register_date) from general_users where register_date between date_sub(now(), interval @var day) and date_sub(now(), interval @var-1 day)
-    </select> -->
-    
-    
+    </select>
+-->
+
+
     <select id="usersJoinTotal" resultType="int">
-    select count(register_date) from general_users where register date 
+    select count(register_date) from general_users where register date
 	between date_sub(now(), interval #{n} #{duration}) and date_sub(now(), interval #{n-1} #{duration})
     </select>
-<!--     오늘 가입자 수 
+<!--     오늘 가입자 수
     <select id="todayJoinTotal" resultType="int">
     select count(register_date) from general_users where register_date = now()
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
     </select>
-<<<<<<< HEAD
-    
+-->
+
     <!-- 일반회원 주별 가입자 수 -->
     <select id="joinTotalWeeks" parameterType="int" resultType="int">
-    select count(register_date) from general_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} week) 
-=======
-        
-    1일전 가입자 수
+    select count(register_date) from general_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} week)
+    </select>
+
+    <!-- 1일전 가입자 수 -->
     <select id="ago1JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 1 day) and now()
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
     </select>
-    
-<<<<<<< HEAD
+
     <!-- 일반회원 월별 가입자 수 -->
     <select id="joinTotalMonths" parameterType="int" resultType="int">
-    select count(register_date) from general_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} month) 
-=======
-    2일전 가입자 수
+    select count(register_date) from general_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} month)
+    </select>
+
     <select id="ago2JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 2 day) and DATE_sub(now(), INTERVAL 1 day)
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
     </select>
-    
-<<<<<<< HEAD
+
     <!-- 기업회원 일별 가입자 수  -->
     <select id="companyJoinChartDate" parameterType="int" resultType="int" >
-    select count(register_date) from company_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} day) 
-=======
-    3일전 가입자 수
+    select count(register_date) from company_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} day)
+    </select>
+
+    <!--3일전 가입자 수-->
     <select id="ago3JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 3 day) and DATE_sub(now(), INTERVAL 2 day)
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
     </select>
-    
-<<<<<<< HEAD
+
     <!-- 기업회원 주별 가입자 수 -->
     <select id="companyJoinChartWeek" parameterType="int" resultType="int">
-    select count(register_date) from company_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} week) 
-=======
-    4일전 가입자 수
+    select count(register_date) from company_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} week)
+    </select>
+
+    <!--4일전 가입자 수-->
     <select id="ago4JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 4 day) and DATE_sub(now(), INTERVAL 3 day)
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
     </select>
-    
-<<<<<<< HEAD
+
     <!-- 기업회원 월별 가입자 수 -->
     <select id="companyJoinChartMonth" parameterType="int" resultType="int">
-    select count(register_date) from company_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} month) 
-=======
-    5일전 가입자 수
+    select count(register_date) from company_users where date_format(register_date, '%Y-%m-%d') = date_sub(DATE_FORMAT(NOW(),'%Y-%m-%d'), interval #{i} month)
+    </select>
+
+    <!--5일전 가입자 수-->
     <select id="ago5JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 5 day) and DATE_sub(now(), INTERVAL 4 day)
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
     </select>
-<<<<<<< HEAD
 
     <!-- 전체 회원 수(일반회원) -->
-=======
-    
-    6일전 가입자 수
+    <!--6일전 가입자 수-->
     <select id="ago6JoinTotal" resultType="int">
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 6 day) and DATE_sub(now(), INTERVAL 5 day)
     </select>
-    
-    7일전 가입자 수
+
+    <!--7일전 가입자 수
     <select id="ago7JoinTotal" resultType="int">+
     select count(register_date) from general_users where register_date between DATE_sub(now(), INTERVAL 7 day) and DATE_sub(now(), INTERVAL 6 day)
     </select> -->
-    
+
     <!--  1주전 가입자 수  -->
     <select id="ago1wJoinTotal" resultType="int">
     SELECT count(register_date) FROM general_users WHERE register_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK ) AND NOW()
     </select>
-    
+
     <!--  2주전 가입자 수  -->
     <select id="ago2wJoinTotal" resultType="int">
     SELECT count(register_date) FROM general_users WHERE register_date BETWEEN DATE_SUB(NOW(), INTERVAL 2 WEEK ) AND DATE_SUB(NOW(), INTERVAL 1 WEEK )
     </select>
-    
+
     <!--  3주전 가입자 수  -->
     <select id="ago3wJoinTotal" resultType="int">
     SELECT count(register_date) FROM general_users WHERE register_date BETWEEN DATE_SUB(NOW(), INTERVAL 3 WEEK ) AND DATE_SUB(NOW(), INTERVAL 2 WEEK )
     </select>
-    
+
     <!--  4주전 가입자 수  -->
     <select id="ago4wJoinTotal" resultType="int">
     SELECT count(register_date) FROM general_users WHERE register_date BETWEEN DATE_SUB(NOW(), INTERVAL 4 WEEK ) AND DATE_SUB(NOW(), INTERVAL 3 WEEK )
     </select>
-    =
+
     <!-- 1개월 전 가입자 수 -->
     <select id="ago1mJoinTotal" resultType="int">
     SELECT COUNT(REGISTER_DATE) FROM general_users WHERE register_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH ) AND NOW()
@@ -179,7 +170,6 @@
     </select>   
     
     <!-- 전체 회원 수 -->
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
     <select id="countAllUsers" resultType="int">
     select count(*) from general_users 
     </select>
@@ -188,5 +178,5 @@
     <select id="generalUsersList" resultType="com.laonworks502.team1st.model.users.GeneralUserBean">
     select * from general_users limit 0, 10;
     </select>
-        
+
 </mapper>
