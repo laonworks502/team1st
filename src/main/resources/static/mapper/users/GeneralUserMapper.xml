@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laonworks502.team1st.dao.users.GeneralUserDao">
+
+<!--회원 가입-->
+<insert id="joinGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
+    insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, register_date)
+    values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3}, current_timestamp);
+</insert>
+
+<!--insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, register_date,
+resume(null가능, exit_reason(null가능)) values('sky1234@naver.com', '1234', 'bcbc', '우편번호', '주소1', '주소2', '010',
+'2222', '2222', current_timestamp,'','');
+-->
+
+<!--email 중복 체크, 1개 이상이면 가입불가-->
+<select id="emailDuplicatecheck" parameterType="String" resultType="int">
+    select count(*) from general_users where email = #{email} and exit_reason is null;
+</select>
+
+<!-- 로그인할 때 계정이 존재하는지 확인하는 함수 -->
+<select id="checkGeneraluser" parameterType="String" resultType="com.laonworks502.team1st.model.users.GeneralUserBean">
+    select * from general_users where email = #{email} and exit_reason is null;
+</select>
+
+<update id="updateGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
+	update general_users
+	set name = #{name}, postal_code=#{postal_code}, address1=#{address1}, address2=#{address2}, tel1=#{tel1}, tel2=#{tel2},
+	    tel3=#{tel3}
+	where email = #{email}
+</update>
+
+<update id="deleteGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
+update general_users
+	set exit_reason = #{exit_reason}
+	where email = #{email} limit 1
+</update>
+
+<update id="resumeupload" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean" >
+update general_users
+	set resume = #{resume}
+	where email = #{email}
+</update>
+
+</mapper>

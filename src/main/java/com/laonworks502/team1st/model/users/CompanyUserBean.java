@@ -12,7 +12,7 @@ public class CompanyUserBean extends UserBean{
     private String name;
     private String tel1;
     private String tel2;
-    private String te13;
+    private String tel3;
     private Timestamp register_date;
     private String exit_reason;
 

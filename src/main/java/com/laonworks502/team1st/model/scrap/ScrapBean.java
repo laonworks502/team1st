@@ -1,14 +1,16 @@
 package com.laonworks502.team1st.model.scrap;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Getter
 @Setter
+@Data
 public class ScrapBean {
     private String user_email;
-    private String scrap_list;
+    private int no;
+    private Timestamp date;
 }
