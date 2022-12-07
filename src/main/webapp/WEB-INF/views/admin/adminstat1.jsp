@@ -17,17 +17,52 @@
 
 	</div>
 	<script>
+
+	var arr = new Array('7일전', '6일전', '5일전', '4일전', '3일전', '2일전', '1일전', '오늘');
+
 	
 	// 1일전 ~ 7일 전까지 가입자 수 통계
 	new Chart(document.getElementById("userJoinChartDate"), {
 		type: 'line', 
 		data: {
+<<<<<<< HEAD
 			labels: ['7일전', '6일전', '5일전', '4일전', '3일전', '2일전', '1일전'], //x축
+=======
+			labels: 
+				for(var i = 1; i < arr.length; i++){
+					document.write("[" + i + "일전" )
+				}
+					document.write("]")
 			datasets: [{
+				label: "일별 가입자수 추이", 
+				data :  
+					[${ago7JoinTotal}, ${ago6JoinTotal}, ${ago5JoinTotal}, ${ago4JoinTotal}, ${ago3JoinTotal}, ${ago2JoinTotal}, ${ago1JoinTotal}, ${todayJoinTotal}],
+				fill : true,
+				borderColor : '#001aff',
+				borderWidth: 2
+				
+			}]
+		}  배열 : https://hianna.tistory.com/709
+
+	});
+	
+/* 	// 오늘 ~ 7일 전까지 가입자 수 통계
+	new Chart(document.getElementById("userJoinChartDate"), {
+		type: 'line', 
+		data: {
+			labels: ['7일전', '6일전', '5일전', '4일전', '3일전', '2일전', '1일전', '오늘'], //x축
+>>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
+			datasets: [{
+<<<<<<< HEAD
 				label: "일별 가입자수 추이(일반)", 
 				data : 
 					  [${list[0]},${list[1]},${list[2]},${list[3]},${list[4]},${list[5]},${list[6]},${list[7]}]
 					,
+=======
+				label: "일별 가입자수 추이", 
+				data :  
+					[${ago7JoinTotal}, ${ago6JoinTotal}, ${ago5JoinTotal}, ${ago4JoinTotal}, ${ago3JoinTotal}, ${ago2JoinTotal}, ${ago1JoinTotal}, ${todayJoinTotal}],
+>>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
 				fill : true,
 				borderColor : '#001aff',
 				borderWidth: 2
@@ -35,7 +70,11 @@
 			}]
 		}
 
+<<<<<<< HEAD
 	}); 
+=======
+	}); */
+>>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
 
 	</script>
 </body>
