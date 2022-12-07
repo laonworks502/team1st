@@ -97,9 +97,7 @@
             <version>2.5</version>
         </dependency>
         <!-- 파일업로드 설정추가-->
-    </dependencies>
-
-		<dependency>
+    		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
