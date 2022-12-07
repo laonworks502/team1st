@@ -31,6 +31,12 @@ public class CompanyUserController {
 	@Qualifier("company")
 	private CompanyUserServiceImpl cus;
 
+	// 로그인 선택
+	@RequestMapping("loginselect")
+	public String loginselect() {
+		return "generaluser/loginselect";
+	}
+	
 	// 로그인폼에서 회원가입 클릭시 기업 등록폼으로 이동
 	@RequestMapping("postcompanyuser")
 	public String test() {

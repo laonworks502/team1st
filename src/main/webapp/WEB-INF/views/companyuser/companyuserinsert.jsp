@@ -25,7 +25,7 @@
 </head>
 <body>
 
-	<form action="companyuserinsert_ok" onsubmit="return check()" method="post" align="center" style="margin-top: 15%;">
+	<form action="companyuserinsert_ok" onsubmit="return checkch()" method="post" align="center" style="margin-top: 15%;">
 
 		<h2>기업 회원 가입</h2>
 			<table align="center">

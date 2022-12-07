@@ -46,7 +46,7 @@
 	</select>
 
 	<!--[비번 찾기) 메일 보내기] -->
-	<select id="pwfind"
+	<select id="findPasswdCompanyUser"
 		resultType="com.laonworks502.team1st.model.users.CompanyUserBean"
 		parameterType="com.laonworks502.team1st.model.users.CompanyUserBean">
 		select * from company_users where email = #{email} and exit_reason is null and
