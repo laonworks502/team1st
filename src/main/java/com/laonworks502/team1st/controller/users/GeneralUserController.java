@@ -39,7 +39,7 @@ public class GeneralUserController {
 
         gus.joinUser(gub);
 
-        log.info("companyuserinsert_ok!");    // 뷰에 에러뜸 회원가입 값은 넘어감
+        log.info("회원가입 완료");    // 뷰에 에러뜸 회원가입 값은 넘어감
 
         return "generaluser/loginForm"; // 가입 후 로그인페이지로 이동
     }
@@ -121,14 +121,6 @@ public class GeneralUserController {
         return "generaluser/loginForm";
     }
 
-    /*[비밀번호 찾기 폼]*/
-    @RequestMapping("userpwfind")
-    public String userfindPasswdUser() {
-        log.info("컨트롤러 들어옴(findPasswdUser)");
-
-        return "companyuser/pwfind";
-    }
-
     // 이력서 업로드
     @RequestMapping(value="/resumeupload", method = RequestMethod.POST)
     public String resumeupload(@RequestParam("file") MultipartFile file,
@@ -192,6 +184,7 @@ public class GeneralUserController {
         return "generaluser/loginsuccess";
     }
 
+    // 이력서 다운로드
     @RequestMapping(value = "download")
     public void download(HttpServletRequest request,
                          HttpServletResponse response,

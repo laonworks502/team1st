@@ -45,7 +45,7 @@ public class LoginController {
     }
 
     // 일반 로그인 실행
-    @RequestMapping("loginsuccess")
+    @RequestMapping("generalmypage")
     public String generaluserlogin_ok(GeneralUserBean gub,
                                       HttpSession session,
                                       Model model,
@@ -73,7 +73,7 @@ public class LoginController {
                 model.addAttribute("gub",gub);
                 log.info("로그인성공");
 
-                return "generaluser/loginsuccess";
+                return "generaluser/generalmypage";
 
             }else{                                      // 비번 달라서 로그인 안됨
                 result = 2;
@@ -115,7 +115,7 @@ public class LoginController {
 	}
 	
 	// 로그아웃
-	@RequestMapping("logout")
+	@RequestMapping("loginselect")
 	public String member_logout(HttpSession session) {	
 		
 		session.removeAttribute("loginBean");
