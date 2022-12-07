@@ -22,7 +22,4 @@
         <div class="col-2"></div>
     </main>
 </body>
-<script>
-location.href= "adminmain";
-</script>
 </html>
