@@ -57,9 +57,9 @@ function generalUsersList() {
 			}   
 		});
 	
-	function ajaxHtml(result) {
+	function ajaxHtml(result) {  
 		var html = "<table class='table'>";
-		html += "<tr>";
+		html += "<tr>";  
 		html += "<td>이름</td>";
 		html += "<td>이메일</td>";
 		html += "<td>전화번호</td>";
