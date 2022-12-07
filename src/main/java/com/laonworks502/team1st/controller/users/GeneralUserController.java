@@ -24,6 +24,7 @@ public class GeneralUserController {
     @Autowired
     private GeneralUserServiceImpl gus;
 
+
     // 회원가입 폼
     @RequestMapping(value = "/generaluserinsert")
     public String generaluserinsert(GeneralUserBean gub) throws  Exception{
@@ -57,12 +58,8 @@ public class GeneralUserController {
     @RequestMapping("generaluseredit")
     public String generaluseredit(HttpSession session, Model model) throws Exception {
 
-
-//        String email = (String)session.getAttribute("email");
-
 		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 		String email = loginBean.getEmail();
-
 
         GeneralUserBean gub = gus.checkGeneraluser(email);
 
@@ -93,10 +90,8 @@ public class GeneralUserController {
                                     GeneralUserBean gub,
                                     Model model) throws Exception {
 
-//        String email = (String)session.getAttribute("email");
-        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
-        String email = loginBean.getEmail();
-
+		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+		String email = loginBean.getEmail();
 
         gub = gus.checkGeneraluser(email);
 
@@ -114,18 +109,24 @@ public class GeneralUserController {
 
                                        GeneralUserBean gub) throws Exception {
 
-//        String email = (String)session.getAttribute("email");
-        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
-        String email = loginBean.getEmail();
-
-        gub.setExit_reason(exit_reason);
-
+		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+		String email = loginBean.getEmail();
+        
+		gub.setExit_reason(exit_reason);
         int result = gus.deleteGeneraluser(gub);
         if(result == 1) log.info("탈퇴사유 : " + gub.getExit_reason());
 
         session.invalidate();
 
         return "generaluser/loginForm";
+    }
+
+    /*[비밀번호 찾기 폼]*/
+    @RequestMapping("userpwfind")
+    public String userfindPasswdUser() {
+        log.info("컨트롤러 들어옴(findPasswdUser)");
+
+        return "companyuser/pwfind";
     }
 
     // 이력서 업로드
@@ -136,9 +137,9 @@ public class GeneralUserController {
                          Model model,
                          GeneralUserBean gub) throws Exception{
 
-//        String email = (String)session.getAttribute("email");
-        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
-        String email = loginBean.getEmail();
+		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+		String email = loginBean.getEmail();
+
 
         String fileRealName = file.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드!
         long size = file.getSize(); //파일 사이즈
@@ -191,7 +192,6 @@ public class GeneralUserController {
         return "generaluser/loginsuccess";
     }
 
-    // 이력서 다운로드
     @RequestMapping(value = "download")
     public void download(HttpServletRequest request,
                          HttpServletResponse response,
