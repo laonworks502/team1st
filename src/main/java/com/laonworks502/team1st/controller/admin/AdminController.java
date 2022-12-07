@@ -3,11 +3,13 @@ package com.laonworks502.team1st.controller.admin;
 import com.laonworks502.team1st.model.admin.AdminBean;
 import com.laonworks502.team1st.model.admin.AdminPagination;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
-import com.laonworks502.team1st.service.admin.AdminServiceImpl;
+import com.laonworks502.team1st.service.admin.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,8 +23,8 @@ import java.util.List;
 public class AdminController {
  
 	@Autowired
-	//@Qualifier("admin")
-	private AdminServiceImpl adminservice;
+	@Qualifier("AdminService")
+	private AdminService adminservice;
 	
 	//가입자 수 통계 관련 변수 정의
 	int n;
@@ -103,6 +105,10 @@ public class AdminController {
 
 		log.info(list.toString());
 		model.addAttribute("list", list);
+
+
+		// 태원 : 왜 리턴이 없는지?
+		return null;
 	}
 	
 	public String adminstat1(Model model) throws Exception {
