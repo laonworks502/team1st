@@ -1,12 +1,12 @@
 package com.laonworks502.team1st.model.users;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
 
-@Getter
-@Setter
+@Data
 public class GeneralUserBean extends UserBean{
     private String name;
     private String postal_code;

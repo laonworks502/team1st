@@ -3,10 +3,14 @@ package com.laonworks502.team1st.service.admin;
 
 import com.laonworks502.team1st.dao.admin.AdminDao;
 import com.laonworks502.team1st.model.admin.AdminBean;
+import com.laonworks502.team1st.model.users.GeneralUserBean;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("admin")
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
@@ -17,52 +21,46 @@ public class AdminServiceImpl implements AdminService {
         return admindao.getAdminInfo(id);
     }
     
-    // 최근 7일간 가입자 수 
-    public int todayJoinTotal() throws Exception{
-    	return admindao.todayJoinTotal();
-    }
-    public int ago1JoinTotal() throws Exception{
-    	return admindao.ago1JoinTotal();
+    //일반회원 일별 가입자 수
+    public int joinTotalDays(int i) throws Exception{
+    	return admindao.joinTotalDays(i);
     }
     
-    public int ago2JoinTotal() throws Exception{
-    	return admindao.ago2JoinTotal();
+    //일반회원 주별 가입자 수
+    public int joinTotalWeeks(int i) throws Exception{
+    	return admindao.joinTotalWeeks(i);
     }
     
-    public int ago3JoinTotal() throws Exception{
-    	return admindao.ago3JoinTotal();
+    //일반회원 월별 가입자 수
+    public int joinTotalMonths(int i) throws Exception{
+    	return admindao.joinTotalMonths(i);
     }
     
-    public int ago4JoinTotal() throws Exception{
-    	return admindao.ago4JoinTotal();
+    //기업회원 일별 가입자 수
+    public int companyJoinChartDate(int i) throws Exception{
+    	return admindao.companyJoinChartDate(i);
     }
     
-    public int ago5JoinTotal() throws Exception{
-    	return admindao.ago5JoinTotal();
+    //기업회원 주별 가입자 수
+    public int companyJoinChartWeek(int i) throws Exception{
+    	return admindao.companyJoinChartWeek(i);
     }
     
-    public int ago6JoinTotal() throws Exception{
-    	return admindao.ago6JoinTotal();
+    //기업회원 월별 가입자 수
+    public int companyJoinChartMonth(int i) throws Exception{
+    	return admindao.companyJoinChartMonth(i);
     }
     
-    public int ago7JoinTotal() throws Exception{
-    	return admindao.ago7JoinTotal();
+    //generalusers - 전체 회원 수 구하기
+    public int countAllUsers() throws Exception{
+    	return admindao.countAllUsers();
+    }
+    
+    //generaluserslist
+    public List<GeneralUserBean> generalUsersList(Integer page) throws Exception{
+    	return admindao.generalUsersList(page);
     }
 
-    // 주별 가입자 수 
-    public int ago4wJoinTotal() throws Exception{
-    	return admindao.ago4wJoinTotal();
-    }
+}
     
-    public int ago3wJoinTotal() throws Exception{
-    	return admindao.ago3wJoinTotal();
-    }
-    
-    public int ago2wJoinTotal() throws Exception{
-    	return admindao.ago2wJoinTotal();
-    }
-    
-    public int ago1wJoinTotal() throws Exception{
-    	return admindao.ago1wJoinTotal();
-    }
 }
