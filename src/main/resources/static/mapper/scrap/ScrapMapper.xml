@@ -3,7 +3,7 @@
 <mapper namespace="com.laonworks502.team1st.dao.scrap.ScrapDao">
 
     <!--[스크랩 검색]-->
-    <select id="searchScrap" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
+    <select id="searchScrap" resultType="int" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
         select count(*) from scraps where user_email = #{user_email} and no = #{no}
     </select>
 
@@ -18,14 +18,14 @@
     </insert>
 
     <!--[스크랩 리스트)총 리스트 수]-->
-    <select id="getCount" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
+    <select id="getCount" resultType="int" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
         select count(*) from scrabs where user_email = #{user_email}
     </select>
 
     <!--[스크랩 전체 출력 리스트]-->
-    <select id="listScrap" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
+    <select id="listScrap" resultType="com.laonworks502.team1st.model.scrap.ScrapBean" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
         select * from posts,scraps where posts.no = scraps.no and email =#{email} and board_id = #{board_id} order by scraps.date desc
-            limit #{listcount}, #{PAGES_COUNT}
+            limit #{startPostNo}, #{PAGES_COUNT}
     </select>
 
 </mapper>

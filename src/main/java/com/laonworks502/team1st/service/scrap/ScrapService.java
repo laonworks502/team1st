@@ -19,6 +19,6 @@ public interface ScrapService {
     public int getCount(String user_email)throws Exception;
 
     /*[스크랩 리스트 출력 메소드]*/
-    List<ScrapBean> listScrap(String email, int board_id, int listcount, int PAGES_COUNT)throws Exception;
+    List<ScrapBean> listScrap(String email, int board_id, int startPostNo, int PAGES_COUNT)throws Exception;
 
 }
