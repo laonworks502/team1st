@@ -3,6 +3,7 @@ package com.laonworks502.team1st;
 import javax.sql.DataSource;
 
 import com.laonworks502.team1st.interceptor.LoginInterceptor;
+import com.laonworks502.team1st.interceptor.NavbarInterceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -41,12 +42,21 @@ public class Config implements WebMvcConfigurer {
 
     // 인터셉터 설정
     @Bean
+    public NavbarInterceptor navbarInterceptor() {
+        return  new NavbarInterceptor();
+    }
+
+    @Bean
     public LoginInterceptor loginInterceptor(){
         return new LoginInterceptor();
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        // Navbar 게시판 목록 세션
+        registry.addInterceptor(navbarInterceptor()).addPathPatterns("/**");
+
+        // 로그인 세션
         registry.addInterceptor(loginInterceptor())
                 //.addPathPatterns("/**")
                 .excludePathPatterns("/**");
