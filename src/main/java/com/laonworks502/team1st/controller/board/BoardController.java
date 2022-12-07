@@ -110,8 +110,8 @@ public class BoardController {
     }
 
     // 글 수정 폼
-    @PostMapping(value = "/{board_id}/{no}/edit")
-    public String amendPostForm(
+    @GetMapping(value = "/{board_id}/{no}/edit")
+    public String updatePostForm(
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "no") int no,
             @RequestParam(value = "page") int page,
@@ -132,20 +132,22 @@ public class BoardController {
     // 글 수정
     @ResponseBody
     @PutMapping (value = "/{board_id}/{no}")
-    public Integer amendPost(
+    public Integer updatePost(
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "no") int no,
             @RequestParam(value = "page") int page,
             @RequestBody PostBean postBean,
             HttpSession session) throws Exception {
 
+        log.info("boards/Put in");
+
         postBean.setNo(no);
 
-        log.info("board_id info log={}", board_id);
+        /*log.info("board_id info log={}", board_id);
         log.info("no info log={}", no);
         log.info("page info log={}", page);
         log.info("info log={}", postBean.getTitle());
-        log.info("info log={}", postBean.getContent());
+        log.info("info log={}", postBean.getContent());*/
 
         PostBean pb = boardService.getPostByNo(board_id, no);
 
@@ -156,7 +158,7 @@ public class BoardController {
         result = boardService.amendPost(postBean);
 //        }
 
-        log.info("result:"+result);
+        log.info("update result: "+result);
 
         return result;
     }
@@ -169,7 +171,7 @@ public class BoardController {
             @PathVariable(value = "no") int no,
             HttpSession session) throws Exception {
 
-        log.info("boardsDelete in");
+        log.info("boards/Delete in");
 
         int result = 0;
         String email = (String)session.getAttribute("email");
