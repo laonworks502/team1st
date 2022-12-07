@@ -9,7 +9,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+
 </head>
+
 <body>
 
 <form action="generaluserinsert_ok" onsubmit="return checkch()" method="post" align="center" name="insertform" style="margin-top: 15%;">
@@ -18,16 +20,19 @@
         <tr>
             <td>이메일</td>
             <td> <input type="text" name="email" id="email" oninput="checkemailch()" /></td>
-            <td> <span class="email_ok" style="color:green; display:none;">사용 가능</span>
-                <span class="email_already" style="color:red; display:none;">사용 불가능</span>
-            </td>
 
+            <td>
+                <span class="email_ok" id="email_ok" style="color:green; display:none;">사용 가능</span>
+                <span class="email_already" id="email_already" style="color:red; display:none;">사용 불가능</span>
+            </td>
         </tr>
+
         <tr>
             <td>비밀번호</td>
             <td><input type="password" name="passwd" id="passwd">
                 <div id=passfail style="color: red;"></div>
-                <div id=passsucc style="color: blue;"></div></td>
+                <div id=passsucc style="color: blue;"></div>
+            </td>
         </tr>
         <tr>
             <td>비밀번호 확인</td>
@@ -89,6 +94,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/checkgeneral.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 
 <script>
     //우편번호, 주소 Daum API

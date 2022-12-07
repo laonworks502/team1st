@@ -1,3 +1,5 @@
+var check = 0;
+
 function checkemailch(){
 	var email = $('#email').val();
 	$.ajax({
@@ -8,9 +10,14 @@ function checkemailch(){
 			if(cnt != 1 && email.length > 0 ){ // 사용가능 이메일
 				$('.email_ok').css("display","inline-block");
 				$('.email_already').css("display","none");
+
+				check = 0;
 			}else if(cnt == 1 && email.length > 0 ){ // 중복된 이메일
 				$('.email_ok').css("display","none");
 				$('.email_already').css("display","inline-block");
+
+				check = 1;    // 중복
+
 			}else{ // 이메일에 아무것도 입력하지 않을 경우, 중복검사 문구 모두 안보이게 설정
 				$('.email_ok').css("display","none");
 				$('.email_already').css("display","none");
@@ -65,7 +72,7 @@ function checkch(){
 	 }
 
 
-
+//ㅁㄴㅇ
 	 if($.trim($("#passconfirm").val())==""){
 		 alert("비밀번호확인을 입력하세요!");
 		 $("#passconfirm").val("").focus();
@@ -121,6 +128,11 @@ function checkch(){
 		window.open("zipcode_find.do","우편번호검색",
 			"width=420,height=200,scrollbars=yes");
 		//폭이 420이고 높이가 200,스크롤바가 생성되는 새로운 공지창을 만듬
+	}
+
+	if(check == 1){
+		alert("중복된 E-mail입니다.");
+		return false;
 	}
 
 	if (confirm("회원가입") == true) { // 확인
