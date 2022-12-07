@@ -1,7 +1,10 @@
 package com.laonworks502.team1st.controller.admin;
 
+import com.laonworks502.team1st.model.admin.AdminBean;
+import com.laonworks502.team1st.model.admin.AdminPagination;
+import com.laonworks502.team1st.model.users.GeneralUserBean;
+import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,24 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.laonworks502.team1st.model.admin.AdminBean;
-<<<<<<< HEAD
-import com.laonworks502.team1st.model.admin.AdminPagination;
-import com.laonworks502.team1st.model.board.Pagination;
-import com.laonworks502.team1st.model.post.PostBean;
-import com.laonworks502.team1st.model.users.GeneralUserBean;
-=======
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
-import com.laonworks502.team1st.service.admin.AdminServiceImpl;
-
-<<<<<<< HEAD
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-=======
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
-import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller 
@@ -103,21 +91,20 @@ public class AdminController {
 	
 	// 일반회원 일별 가입자 수 
 	@RequestMapping("adminstat1")
-<<<<<<< HEAD
-		public String joinTotalDays(Integer n, Model model) throws Exception {
-		
+	public String joinTotalDays(Integer n, Model model) throws Exception {
+
 		log.info("adminstat1 진입");
-		
+
 		List<Integer> list = new ArrayList<Integer>();
-		
+
 		for (int i = 7; i > 0; i--) {
-			 list.add(adminservice.joinTotalDays(i));
+			list.add(adminservice.joinTotalDays(i));
 		}
-			
-			log.info(list.toString());
-			model.addAttribute("list", list);
-		
-=======
+
+		log.info(list.toString());
+		model.addAttribute("list", list);
+	}
+	
 	public String adminstat1(Model model) throws Exception {
 
 		// 일별 가입자 수
@@ -143,7 +130,6 @@ public class AdminController {
 //				model.addAttribute("ago5JoinTotal", ago5JoinTotal);
 //				model.addAttribute("ago6JoinTotal", ago6JoinTotal);
 //				model.addAttribute("ago7JoinTotal", ago7JoinTotal);
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
 		
 		return "admin/adminstat1";
 	}
@@ -187,7 +173,6 @@ public class AdminController {
 		return "admin/adminstat3";
 	}
 	
-<<<<<<< HEAD
 	// 기업회원 일별 가입자 수 
 	@RequestMapping("adminstat4")
 		public String companyJoinChartDate(Integer n, Model model) throws Exception {
@@ -279,7 +264,6 @@ public class AdminController {
         return generalUsersList;
     }
 	
-=======
 //	// 전체 회원 목록
 //	@RequestMapping("userslist")
 //	public String userslist(AdminBean adminbean, Model model) throws Exception {
@@ -308,6 +292,5 @@ public class AdminController {
 //		public String deleteduserslist(Model model) throws Exception {
 //			return "admin/deleteduserslist";
 //		}
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
 	
 }
