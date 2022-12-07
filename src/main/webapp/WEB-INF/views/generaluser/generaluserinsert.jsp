@@ -12,12 +12,12 @@
 </head>
 <body>
 
-<form action="generaluserinsert_ok" onsubmit="return check()" method="post" align="center" name="insertform" style="margin-top: 15%;">
+<form action="generaluserinsert_ok" onsubmit="return checkch()" method="post" align="center" name="insertform" style="margin-top: 15%;">
     <h2>회원 가입</h2>
     <table align="center">
         <tr>
             <td>이메일</td>
-            <td> <input type="text" name="email" id="email" oninput="checkemail()" /></td>
+            <td> <input type="text" name="email" id="email" oninput="checkemailch()" /></td>
             <td> <span class="email_ok" style="color:green; display:none;">사용 가능</span>
                 <span class="email_already" style="color:red; display:none;">사용 불가능</span>
             </td>
@@ -87,7 +87,7 @@
 </form>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="/js/checkgeneral.js"></script>
+<script src="js/checkgeneral.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>

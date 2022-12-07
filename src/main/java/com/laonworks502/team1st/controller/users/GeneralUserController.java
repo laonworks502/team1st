@@ -29,6 +29,7 @@ public class GeneralUserController {
     @RequestMapping(value = "/generaluserinsert")
     public String generaluserinsert(GeneralUserBean gub) throws  Exception{
 
+        log.info("회원가입 페이지");
         return "generaluser/generaluserinsert";
     }
 
@@ -39,7 +40,7 @@ public class GeneralUserController {
 
         gus.joinUser(gub);
 
-        log.info("companyuserinsert_ok!");    // 뷰에 에러뜸 회원가입 값은 넘어감
+        log.info("회원가입 완료");    // 뷰에 에러뜸 회원가입 값은 넘어감
 
         return "generaluser/loginForm"; // 가입 후 로그인페이지로 이동
     }
@@ -47,7 +48,7 @@ public class GeneralUserController {
     // 이메일중복체크
     @PostMapping("/useremailcheck")
     @ResponseBody
-    public int emailcheck(@RequestParam("email") String email) throws Exception{
+    public int generalemailcheck(@RequestParam("email") String email) throws Exception{
 
         int cnt = gus.emailDuplicatecheck(email);
 
@@ -65,7 +66,7 @@ public class GeneralUserController {
 
         model.addAttribute("gub",gub);
 
-        log.info("회원수정폼에서 회원정보 불러오기");
+        log.info("회원수정 페이지");
 
         return "generaluser/generaluseredit";
     }
@@ -97,7 +98,7 @@ public class GeneralUserController {
 
         model.addAttribute("gub",gub);
 
-        log.info("회원삭제폼");
+        log.info("회원삭제 페이지");
 
         return "generaluser/generaluserdelete";
     }
@@ -121,14 +122,6 @@ public class GeneralUserController {
         return "generaluser/loginForm";
     }
 
-    /*[비밀번호 찾기 폼]*/
-    @RequestMapping("userpwfind")
-    public String userfindPasswdUser() {
-        log.info("컨트롤러 들어옴(findPasswdUser)");
-
-        return "companyuser/pwfind";
-    }
-
     // 이력서 업로드
     @RequestMapping(value="/resumeupload", method = RequestMethod.POST)
     public String resumeupload(@RequestParam("file") MultipartFile file,
@@ -140,17 +133,15 @@ public class GeneralUserController {
 		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 		String email = loginBean.getEmail();
 
-
         String fileRealName = file.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드!
         long size = file.getSize(); //파일 사이즈
 
         System.out.println("파일명 : "  + fileRealName);
         System.out.println("용량크기(byte) : " + size);
+
         //서버에 저장할 파일이름 fileextension으로 .jsp이런식의  확장자 명을 구함
         String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
         String uploadFolder = "C:\\test\\upload";
-        // File file부터 그대로 복사
-
 
 		/*
 		  파일 업로드시 파일명이 동일한 파일이 이미 존재할 수도 있고 사용자가
@@ -192,6 +183,7 @@ public class GeneralUserController {
         return "generaluser/loginsuccess";
     }
 
+    // 이력서 다운로드
     @RequestMapping(value = "download")
     public void download(HttpServletRequest request,
                          HttpServletResponse response,

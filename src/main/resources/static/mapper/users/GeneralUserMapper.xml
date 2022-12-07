@@ -15,7 +15,7 @@ resume(null가능, exit_reason(null가능)) values('sky1234@naver.com', '1234', 
 
 <!--email 중복 체크, 1개 이상이면 가입불가-->
 <select id="emailDuplicatecheck" parameterType="String" resultType="int">
-    select count(*) from general_users where email = #{email} and exit_reason is null;
+    select count(*) from general_users where email = #{email}
 </select>
 
 <!-- 로그인할 때 계정이 존재하는지 확인하는 함수 -->
