@@ -54,7 +54,7 @@ function generalUsersList() {
 			},
 			error : function() {
 				alert("error");
-			}
+			}   
 		});
 	
 	function ajaxHtml(result) {
