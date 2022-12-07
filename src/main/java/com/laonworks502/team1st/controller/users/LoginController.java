@@ -45,7 +45,7 @@ public class LoginController {
     }
 
     // 일반 로그인 실행
-    @RequestMapping("generalmypage")
+    @RequestMapping("loginsuccess")
     public String generaluserlogin_ok(GeneralUserBean gub,
                                       HttpSession session,
                                       Model model,
@@ -73,7 +73,7 @@ public class LoginController {
                 model.addAttribute("gub",gub);
                 log.info("로그인성공");
 
-                return "generaluser/generalmypage";
+                return "generaluser/loginsuccess";
 
             }else{                                      // 비번 달라서 로그인 안됨
                 result = 2;
@@ -115,7 +115,7 @@ public class LoginController {
 	}
 	
 	// 로그아웃
-	@RequestMapping("loginselect")
+	@RequestMapping("logout")
 	public String member_logout(HttpSession session) {	
 		
 		session.removeAttribute("loginBean");
@@ -189,11 +189,11 @@ public class LoginController {
 				} catch (Exception e) {
 					System.out.println(e);	
 			}
-			model.addAttribute("pwdok", "등록된 email을 확인 하세요.");
+			model.addAttribute("pwdok", "[전송 완료]등록된 Email을 확인 하세요.");
 			return "companyuser/pwfind";
-		}	
-			
-	}
-}
+		}	 
+			 
+	}  
+} 
 
 
