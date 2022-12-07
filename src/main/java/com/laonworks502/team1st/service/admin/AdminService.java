@@ -9,8 +9,6 @@ public interface AdminService {
 
 	// 관리자 로그인
     public AdminBean getAdminInfo(String adminId) throws Exception;
-<<<<<<< HEAD
-=======
 
     //일별 가입자 수 
     public int usersJoinTotal(int n, String duration) throws Exception;
@@ -23,8 +21,7 @@ public interface AdminService {
 //    public int ago5JoinTotal() throws Exception;
 //    public int ago6JoinTotal() throws Exception;
 //    public int ago7JoinTotal() throws Exception;
->>>>>>> branch 'dev-minyoung2' of https://github.com/laonworks502/team1st.git
-    
+
     //일반회원 일별 가입자 수 
     public int joinTotalDays(int i) throws Exception;
     
