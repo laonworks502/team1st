@@ -39,7 +39,7 @@ function generalUsersListPage() {
 	$('#chart').load('generaluserslistpage')
 }
 
-//전체 회원 목록
+//전체 회원 목록   
 function generalUsersList() {
 	$('#ajaxGeneralUsersList').show()
 	$.ajax({
