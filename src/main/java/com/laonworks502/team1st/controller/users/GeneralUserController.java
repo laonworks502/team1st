@@ -1,6 +1,7 @@
 package com.laonworks502.team1st.controller.users;
 
 import com.laonworks502.team1st.model.users.GeneralUserBean;
+import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.users.GeneralUserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,57 +23,6 @@ public class GeneralUserController {
 
     @Autowired
     private GeneralUserServiceImpl gus;
-
-    // 로그인 폼
-    @RequestMapping("generalloginForm")
-    public String generaluserloginForm() throws Exception{
-
-        return "generaluser/loginForm";
-    }
-
-    // 로그인 실행
-    @RequestMapping("loginsuccess")
-    public String generaluserlogin_ok(GeneralUserBean gub,
-                                      HttpSession session,
-                                      Model model,
-                                      @RequestParam("email") String email,
-                                      @RequestParam("passwd") String passwd) throws Exception{
-
-        int result = 0;
-
-        gub = gus.checkGeneraluser(email);
-
-        if(gub == null){    // 등록되지 않은 회원
-
-            result = 1;
-            model.addAttribute("result", result);
-
-            return "generaluser/loginResult";
-
-        }else{              // 등록 회원 확인됨
-            if(gub.getPasswd().equals(passwd)) {        // 비번 같아서 로그인됨
-                session.setAttribute("email", email);
-                model.addAttribute("gub",gub);
-                log.info("로그인성공");
-
-                return "generaluser/loginsuccess";
-            }else{                                      // 비번 달라서 로그인 안됨
-                result = 2;
-                model.addAttribute("result", result);
-
-                return "generaluser/loginResult";
-            }
-        }
-    }
-
-    // 로그아웃
-    @RequestMapping("loginselect")
-    public String userlogout(HttpSession session) {
-        session.invalidate();
-
-        log.info("로그아웃");
-        return "generaluser/loginselect";
-    }
 
     // 회원가입 폼
     @RequestMapping(value = "/generaluserinsert")
@@ -107,7 +57,12 @@ public class GeneralUserController {
     @RequestMapping("generaluseredit")
     public String generaluseredit(HttpSession session, Model model) throws Exception {
 
-        String email = (String)session.getAttribute("email");
+
+//        String email = (String)session.getAttribute("email");
+
+		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+		String email = loginBean.getEmail();
+
 
         GeneralUserBean gub = gus.checkGeneraluser(email);
 
@@ -138,7 +93,10 @@ public class GeneralUserController {
                                     GeneralUserBean gub,
                                     Model model) throws Exception {
 
-        String email = (String)session.getAttribute("email");
+//        String email = (String)session.getAttribute("email");
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
 
         gub = gus.checkGeneraluser(email);
 
@@ -156,8 +114,12 @@ public class GeneralUserController {
 
                                        GeneralUserBean gub) throws Exception {
 
-        String email = (String)session.getAttribute("email");
+//        String email = (String)session.getAttribute("email");
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
         gub.setExit_reason(exit_reason);
+
         int result = gus.deleteGeneraluser(gub);
         if(result == 1) log.info("탈퇴사유 : " + gub.getExit_reason());
 
@@ -166,15 +128,7 @@ public class GeneralUserController {
         return "generaluser/loginForm";
     }
 
-    /*[비밀번호 찾기 폼]*/
-    @RequestMapping("userpwfind")
-    public String userfindPasswdUser() {
-        log.info("컨트롤러 들어옴(findPasswdUser)");
-
-        return "companyuser/pwfind";
-    }
-
-
+    // 이력서 업로드
     @RequestMapping(value="/resumeupload", method = RequestMethod.POST)
     public String resumeupload(@RequestParam("file") MultipartFile file,
                          HttpSession session,
@@ -182,8 +136,9 @@ public class GeneralUserController {
                          Model model,
                          GeneralUserBean gub) throws Exception{
 
-        String email = (String)session.getAttribute("email");
-
+//        String email = (String)session.getAttribute("email");
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
 
         String fileRealName = file.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드!
         long size = file.getSize(); //파일 사이즈
@@ -236,6 +191,7 @@ public class GeneralUserController {
         return "generaluser/loginsuccess";
     }
 
+    // 이력서 다운로드
     @RequestMapping(value = "download")
     public void download(HttpServletRequest request,
                          HttpServletResponse response,
