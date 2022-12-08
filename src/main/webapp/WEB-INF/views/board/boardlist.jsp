@@ -36,7 +36,7 @@
                         <tr onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">
                             <td><button type="button" class="btn btn-outline-warning">스크랩</button></td>
                             <td>${posts.title}</td>
-                            <td>${posts.writer}</td>
+                            <td>${posts.writerName}</td>
                             <td>${posts.date}</td>
                         </tr>
                     </c:forEach>
