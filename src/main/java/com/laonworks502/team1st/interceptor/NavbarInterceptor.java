@@ -1,6 +1,6 @@
 package com.laonworks502.team1st.interceptor;
 
-import com.laonworks502.team1st.dao.studygroup.board.BoardBean;
+import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.service.index.IndexService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.laonworks502.team1st.controller.scrap;
 
-import com.laonworks502.team1st.dao.studygroup.board.BoardBean;
-import com.laonworks502.team1st.dao.studygroup.board.Pagination;
+import com.laonworks502.team1st.model.board.BoardBean;
+import com.laonworks502.team1st.model.board.Pagination;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.scrap.ScrapBean;
 import com.laonworks502.team1st.model.scrap.ScrapListBean;
@@ -102,7 +102,7 @@ public class ScrapController {
 
     /*[전체 해당 페이지에 대한 검색]*/
     @GetMapping("/boardSearchList")
-    public String boardSelectList(
+    public String boardSearchList(
             @ModelAttribute Pagination pg,
             @ModelAttribute List<PostBean> posts,
             @ModelAttribute BoardBean board,
@@ -126,7 +126,7 @@ public class ScrapController {
         model.addAttribute("posts",posts);
         model.addAttribute("board",board);
 
-        return "board/boardlist";
+        return "boards/boardlist";
 
     }
 

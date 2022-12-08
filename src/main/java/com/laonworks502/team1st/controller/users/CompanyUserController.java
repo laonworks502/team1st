@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.laonworks502.team1st.dao.studygroup.board.Pagination;
+import com.laonworks502.team1st.model.board.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -52,7 +52,7 @@ public class CompanyUserController {
 		int postTotal = cus.countAllCompanyPosts(writer);
 		log.info("회원 총 게시물 수:"+postTotal);
 		
-		Pagination pg = new Pagination(postTotal, 10);
+		Pagination pg = new Pagination(100, postTotal, 10);
 		model.addAttribute("pg", pg);
 		
 		// 리스트 담기

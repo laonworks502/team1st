@@ -1,7 +1,7 @@
 package com.laonworks502.team1st.controller.board;
 
-import com.laonworks502.team1st.dao.studygroup.board.BoardBean;
-import com.laonworks502.team1st.dao.studygroup.board.Pagination;
+import com.laonworks502.team1st.model.board.BoardBean;
+import com.laonworks502.team1st.model.board.Pagination;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.board.BoardService;
@@ -66,7 +66,7 @@ public class BoardController {
             @RequestParam(value = "page",required = false, defaultValue = "1") Integer page,
             HttpSession Session) throws Exception {
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/boardSearchList");
+        ModelAndView modelAndView = new ModelAndView("redirect:/scrap/boardSearchList");
 
         int postTotal = boardService.countAllPosts(board_id);
 
