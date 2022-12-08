@@ -52,7 +52,7 @@ public class BoardController {
 
         int no = boardService.writePost(post);
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/"+ board_id + "/" + no, "page", page);
+        ModelAndView modelAndView = new ModelAndView("redirect:/boards/"+ board_id + "/" + no, "page", page);
         BoardBean boardBean = boardService.getBoardById(board_id);
         modelAndView.addObject("board", boardBean);
 
