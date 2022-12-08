@@ -2,6 +2,7 @@ package com.laonworks502.team1st.controller.users;
 
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.LoginBean;
+import com.laonworks502.team1st.model.users.UserBean;
 import com.laonworks502.team1st.service.users.GeneralUserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,15 +124,16 @@ public class GeneralUserController {
     }
 
     // 이력서 업로드
-    @RequestMapping(value="/resumeupload", method = RequestMethod.POST)
+    @RequestMapping(value="resumeupload", method = RequestMethod.POST)
     public String resumeupload(@RequestParam("file") MultipartFile file,
                          HttpSession session,
                          HttpServletRequest request,
                          Model model,
                          GeneralUserBean gub) throws Exception{
 
-		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
-		String email = loginBean.getEmail();
+//		String email = (String)session.getAttribute("email");
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
 
         String fileRealName = file.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드!
         long size = file.getSize(); //파일 사이즈
@@ -147,9 +149,8 @@ public class GeneralUserController {
 		  파일 업로드시 파일명이 동일한 파일이 이미 존재할 수도 있고 사용자가
 		  업로드 하는 파일명이 언어 이외의 언어로 되어있을 수 있습니다.
 		  타인어를 지원하지 않는 환경에서는 정산 동작이 되지 않습니다.(리눅스가 대표적인 예시)
-		  고유한 랜던 문자를 통해 db와 서버에 저장할 파일명을 새롭게 만들어 준다.
+		  고유한 랜덤 문자(UUID함수)를 통해 db와 서버에 저장할 파일명을 새롭게 만들어 준다.
 		 */
-
         UUID uuid = UUID.randomUUID();
         System.out.println(uuid.toString());
         String[] uuids = uuid.toString().split("-");
@@ -169,6 +170,7 @@ public class GeneralUserController {
         try {
             file.transferTo(saveFile); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
             gub.setResume(resume);
+            gub.setEmail(email);
             int result = gus.resumeupload(gub);
             if(result == 1) log.info("파일 업로드 -> " + gub.getResume());
             model.addAttribute("gub", gub);      // -> 모델 설정해야 곧바로 웹에 표시가능
@@ -179,32 +181,26 @@ public class GeneralUserController {
             e.printStackTrace();
         }
 
-
-        return "generaluser/loginsuccess";
+        return "generaluser/generalmypage";
     }
 
     // 이력서 다운로드
-    @RequestMapping(value = "download")
+    @RequestMapping(value = "/download")
     public void download(HttpServletRequest request,
                          HttpServletResponse response,
                          HttpSession session,
                          GeneralUserBean gub,
-                         @RequestParam("resume")String resume,
+                         @RequestParam("resume") String resume,
                          Model model) throws UnsupportedEncodingException {
-        // response.setCharacterEncoding("utf-8");
 
-//        resume = request.getParameter("resume");
         String uploadFolder = "C:\\test\\upload";
 
-        // request.getRealPath("upload") => C:\Users\sky66\IdeaProjects\team1st\src\main\webapp ,
-        // => webapp아래에 "upload"폴더 생성하는 함수
-//        uploadFolder = request.getRealPath("upload");
+        // request.getRealPath("upload") => 웹페이지생성 디렉토리인 webapp아래에 괄호 안 ("upload")폴더를 생성하는 함수
+        // => C:\Users\sky66\IdeaProjects\team1st\src\main\webapp 안에 upload 생성.
+        // ex) String uploadFolder = request.getRealPath("upload");
 
         System.out.println("download...");
-//        String fname = request.getParameter("resume");
-//        System.out.println("resume = " + fname);
 
-//        String DownloadPath = request.getRealPath("upload");
         String path = uploadFolder + "\\" + resume; // ${fileName}= ${resume}; fname = fname;
         System.out.println("path=" + path);
 
@@ -219,7 +215,7 @@ public class GeneralUserController {
         // octet-stream은 8비트로 된 일련의 데이터를 뜻합니다. 지정되지 않은 파일 형식을 의미합니다.
         // response.setHeader("Content-Type", "application/octet-stream");
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment; resume=\"" + downName + "\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + downName + "\"");
 
         FileInputStream in = null;
         OutputStream out = null;

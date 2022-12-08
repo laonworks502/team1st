@@ -30,7 +30,7 @@
 
     <br>
     등록된 이력서 :
-    <a href="download?resume=${gub.resume}">
+    <a href="/download?resume=${gub.resume}">
         ${gub.resume}
     </a>
     <br>
