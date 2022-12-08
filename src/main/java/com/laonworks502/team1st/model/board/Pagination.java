@@ -18,8 +18,27 @@ public class Pagination {
     private int endPage;        // 페이징 마지막 페이지 번호
 
 
-
-    public Pagination() {
+    public Pagination(int postsTotal, int pagePostsCount) {
+    	this.page = 1;
+    	this.postsTotal = postsTotal;
+    	this.pagePostsCount = pagePostsCount;
+    	pagesTotal = (postsTotal % pagePostsCount == 0) ?
+    			postsTotal / pagePostsCount : (postsTotal / pagePostsCount) + 1;
+    	startPostNo = (page - 1) * pagePostsCount;
+    	startPage = ((page - 1) / PAGES_COUNT) * PAGES_COUNT + 1;
+    	endPage = (startPage + (PAGES_COUNT-1) > pagesTotal) ? pagesTotal : startPage + (PAGES_COUNT - 1);
+    }
+    
+    public Pagination(int board_id, int postsTotal, int pagePostsCount) {
+        this.board_id = board_id;
+        this.page = 1;
+        this.postsTotal = postsTotal;
+        this.pagePostsCount = pagePostsCount;
+        pagesTotal = (postsTotal % pagePostsCount == 0) ?
+                postsTotal / pagePostsCount : (postsTotal / pagePostsCount) + 1;
+        startPostNo = (page - 1) * pagePostsCount;
+        startPage = ((page - 1) / PAGES_COUNT) * PAGES_COUNT + 1;
+        endPage = (startPage + (PAGES_COUNT-1) > pagesTotal) ? pagesTotal : startPage + (PAGES_COUNT - 1);
     }
 
     public Pagination(int board_id, int page, int postsTotal, int pagePostsCount) {
