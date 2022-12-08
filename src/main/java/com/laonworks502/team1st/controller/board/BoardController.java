@@ -75,6 +75,7 @@ public class BoardController {
 
         // 리스트 담기
         List<PostBean> postList = boardService.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
+
         modelAndView.addObject("posts", postList);
 
         // board 정보 담기
