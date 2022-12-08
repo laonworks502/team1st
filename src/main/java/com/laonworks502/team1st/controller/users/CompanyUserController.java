@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.laonworks502.team1st.dao.studygroup.board.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.laonworks502.team1st.model.board.Pagination;
+
 import com.laonworks502.team1st.model.company.CompanyBean;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.CompanyUserBean;
@@ -30,12 +31,6 @@ public class CompanyUserController {
 	@Autowired
 	@Qualifier("company")
 	private CompanyUserServiceImpl cus;
-
-	// 로그인 선택
-	@RequestMapping("loginselect")
-	public String loginselect() {
-		return "generaluser/loginselect";
-	}
 	
 	// 로그인폼에서 회원가입 클릭시 기업 등록폼으로 이동
 	@RequestMapping("postcompanyuser")

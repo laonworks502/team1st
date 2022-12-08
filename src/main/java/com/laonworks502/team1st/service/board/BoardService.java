@@ -1,6 +1,6 @@
 package com.laonworks502.team1st.service.board;
 
-import com.laonworks502.team1st.model.board.BoardBean;
+import com.laonworks502.team1st.dao.studygroup.board.BoardBean;
 import com.laonworks502.team1st.model.post.PostBean;
 
 import java.util.List;

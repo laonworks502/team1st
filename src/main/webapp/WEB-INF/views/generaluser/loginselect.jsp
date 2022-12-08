@@ -13,25 +13,25 @@
 </head>
 <body class="text-center">
 
-<main class="form-signin w-800 m-auto">
+    <main class="form-signin w-800 m-auto">
 
-    <table>
-        <tr>
-            <div>
-                <td>
-                    <button class="btn btn-primary btn-lg" type="button" style="width: 200px;" onclick="location='generalloginForm'">일반</button>
-                </td>
+        <table>
+            <tr>
+                <div>
+                    <td>
+                        <button class="btn btn-primary btn-lg" type="button" style="width: 200px;" onclick="location='generalloginForm'">일반</button>
+                    </td>
 
-                <td style="width: 50px;">
-                </td>
-                <td>
-                    <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='companyloginForm'">기업</button>
-                </td>
-            </div>
-        </tr>
-    </table>
-    <%--    class="w-50 btn btn-lg btn-primary"--%>
-</main>
+                    <td style="width: 50px;">
+                    </td>
+                    <td>
+                        <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='companyloginForm'">기업</button>
+                    </td>
+                </div>
+            </tr>
+        </table>
+        <%--    class="w-50 btn btn-lg btn-primary"--%>
+    </main>
 
 </body>
 </html>

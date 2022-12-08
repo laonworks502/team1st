@@ -6,8 +6,65 @@
 <head>
     <meta charset="UTF-8">
     <title>${board.name} 게시판</title>
+
+    <!--[스크랩 버튼]-->
+    <script>
+        $(document).ready(function() {
+
+            <!--[로드되자마자 실행될 ajax]-->
+            $.ajax({
+                method: 'GET',
+                url: "/scrap/" + ${no},
+                async :false,
+                contentType:'application/json;charset=utf-8',
+                success: function (data){
+                    if(data ==1){
+                        $("#hiddenNoScrap").prop('type',"hidden");
+                        $("#hiddenYesScrap").prop('type',"image");
+                    }else{
+                        $("#hiddenYesScrap").prop('type',"hidden");
+                        $("#hiddenNoScrap").prop('type',"image");
+                    }
+                }
+                ,error: function (e) {
+                    alert("data error" + e);
+                }
+
+            });//$.ajax
+
+            $("#scrapIconArea").click(function(){
+
+                <!--[클릭 ajax]-->
+                $.ajax({
+                    method: 'POST',
+                    url: "/scrap/" + 8, //@PathVariable로 받음
+                    //data: no1,          //@RequestBody로 받음
+                    //data: JSON.stringify(no1),
+                    contentType:'application/json;charset=utf-8',
+                    success: function (data) {
+                        alert(data);
+                        if(data == 1){	//스크랩 O
+                            $("#hiddenNoScrap").prop('type',"hidden");
+                            $("#hiddenYesScrap").prop('type',"image");
+                            alert("in");
+                        }else{        //스크랩 X
+                            $("#hiddenYesScrap").prop('type',"hidden");
+                            $("#hiddenNoScrap").prop('type',"image");
+                            alert("out");
+                        }
+                    }
+                    ,error: function (e) {
+                        alert("data error" + e);
+                    }
+
+                });//$.ajax
+
+            });
+        });
+    </script>
 </head>
 <body>
+
 <%@ include file = "../common/header.jsp" %>
 <main class="mt-2 pt-2">
     <div class="container-fluid px-4">
@@ -25,19 +82,29 @@
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th>스크랩</th>
                         <th>제목</th>
                         <th>작성자</th>
                         <th>작성일</th>
+                        <th>스크랩</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${posts}" var="posts">
                         <tr onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">
-                            <td><button type="button" class="btn btn-outline-warning">스크랩</button></td>
                             <td>${posts.title}</td>
-                            <td>${posts.writer}</td>
+                            <td>${posts.writerName}</td>
                             <td>${posts.date}</td>
+                        </tr>
+                    </c:forEach>
+                    <c:forEach items="${boardSearchList}" var="boardSearchList">
+                        <tr>
+                            <!--스크랩 영역-->
+                            <td>
+                                <div class="scrapIconArea" id="scrapIconArea">
+                                    <input type="image" id="hiddenNoScrap" value="${boardSearchList}" src="<%=request.getContextPath()%>/images/IconNoScrap.png" width=22px height=22px>
+                                    <input type="image" id="hiddenYesScrap" value="${boardSearchList}" src="<%=request.getContextPath()%>/images/IconYesScrap.png" width=22px height=22px>
+                                </div>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

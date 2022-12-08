@@ -1,7 +1,7 @@
 package com.laonworks502.team1st.controller.board;
 
-import com.laonworks502.team1st.model.board.BoardBean;
-import com.laonworks502.team1st.model.board.Pagination;
+import com.laonworks502.team1st.dao.studygroup.board.BoardBean;
+import com.laonworks502.team1st.dao.studygroup.board.Pagination;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.board.BoardService;
@@ -13,10 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Slf4j
 @Controller
@@ -68,7 +66,7 @@ public class BoardController {
             @RequestParam(value = "page",required = false, defaultValue = "1") Integer page,
             HttpSession Session) throws Exception {
 
-        ModelAndView modelAndView = new ModelAndView("board/boardlist");
+        ModelAndView modelAndView = new ModelAndView("redirect:/boardSearchList");
 
         int postTotal = boardService.countAllPosts(board_id);
 

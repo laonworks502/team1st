@@ -1,7 +1,7 @@
 package com.laonworks502.team1st.service.index;
 
 import com.laonworks502.team1st.dao.index.IndexDao;
-import com.laonworks502.team1st.model.board.BoardBean;
+import com.laonworks502.team1st.dao.studygroup.board.BoardBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
