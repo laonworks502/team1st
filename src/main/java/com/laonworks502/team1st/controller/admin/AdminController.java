@@ -32,7 +32,7 @@ public class AdminController {
 	//@Qualifier("admin")
 	private AdminServiceImpl adminservice;
 
-	// 관리자 로그인 폼으로 이동
+	// 관리자 로그인 폼으로 이동  
 	@RequestMapping("adminloginform")
 	public String adminloginform() throws Exception {
 
