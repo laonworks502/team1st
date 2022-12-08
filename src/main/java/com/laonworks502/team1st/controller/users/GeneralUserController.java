@@ -131,7 +131,8 @@ public class GeneralUserController {
                          Model model,
                          GeneralUserBean gub) throws Exception{
 
-//		String email = (String)session.getAttribute("email");
+        // 파일 업로드 경로는 배포시 서버 측으로 설정해야한다.
+//		String email = (String)session.getAttribute("email"); => 대신 밑에 두 줄로 대체
         LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
         String email = loginBean.getEmail();
 
@@ -141,16 +142,18 @@ public class GeneralUserController {
         System.out.println("파일명 : "  + fileRealName);
         System.out.println("용량크기(byte) : " + size);
 
-        //서버에 저장할 파일이름 fileextension으로 .jsp이런식의  확장자 명을 구함
+        // 서버에 저장할 파일이름 fileextension으로 .jsp이런식의  확장자 명을 구함
         String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+        System.out.println(fileExtension);
         String uploadFolder = "C:\\test\\upload";
 
-		/*
+		/* UUID 설명 :
 		  파일 업로드시 파일명이 동일한 파일이 이미 존재할 수도 있고 사용자가
 		  업로드 하는 파일명이 언어 이외의 언어로 되어있을 수 있습니다.
 		  타인어를 지원하지 않는 환경에서는 정산 동작이 되지 않습니다.(리눅스가 대표적인 예시)
 		  고유한 랜덤 문자(UUID함수)를 통해 db와 서버에 저장할 파일명을 새롭게 만들어 준다.
 		 */
+        // 파일명 랜덤설정 함수인 UUID 설정 부분. 현재 컨트롤러에서 사용하지는 않을 것임.
         UUID uuid = UUID.randomUUID();
         System.out.println(uuid.toString());
         String[] uuids = uuid.toString().split("-");
@@ -162,14 +165,16 @@ public class GeneralUserController {
         // path + uniqueName
         String resume = uniqueName+fileExtension;
         // uploadFolder + "\\" +
-        System.out.println("resume파일명 = "+resume);
+        System.out.println("resume = "+resume);
+        // 파일명 랜덤설정 함수인 UUID 설정 부분
 
-        // File saveFile = new File(uploadFolder+"\\"+fileRealName); uuid 적용 전
 
-        File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  // 적용 후
+        File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  // uuid 적용할시
+        File file1 = new File(uploadFolder + "\\" + fileRealName);
         try {
-            file.transferTo(saveFile); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
-            gub.setResume(resume);
+            file.transferTo(file1); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
+//            file.transferTo(saveFile); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
+            gub.setResume(fileRealName);
             gub.setEmail(email);
             int result = gus.resumeupload(gub);
             if(result == 1) log.info("파일 업로드 -> " + gub.getResume());
@@ -201,7 +206,7 @@ public class GeneralUserController {
 
         System.out.println("download...");
 
-        String path = uploadFolder + "\\" + resume; // ${fileName}= ${resume}; fname = fname;
+        String path = uploadFolder + "\\" + resume;
         System.out.println("path=" + path);
 
         File file = new File(path);     // path = uploadFolder+"\\"+uniqueName + fileExtension;
