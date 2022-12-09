@@ -11,7 +11,7 @@ public interface GeneralUserDao {
 
     String loginUser(UserBean userBean) throws Exception;
 
-    public String logoutUser(UserBean userBean) throws Exception;
+    String logoutUser(UserBean userBean) throws Exception;
 
     int joinGeneraluser(UserBean userBean) throws Exception;
 
