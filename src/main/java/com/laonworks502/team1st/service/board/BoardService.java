@@ -2,6 +2,7 @@ package com.laonworks502.team1st.service.board;
 
 import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.post.PostBean;
+import com.laonworks502.team1st.model.post.PostListBean;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface BoardService {
     int writePost(PostBean postBean) throws Exception;
 
     // 글 리스트 불러 오기
-    List<PostBean> getBoardList(int board_id, int startPostNo, int PAGES_COUNT) throws Exception;
+    List<PostListBean> getBoardList(int board_id, int startPostNo, int PAGES_COUNT) throws Exception;
 
     // 게시물 전체 개수
     int countAllPosts(int board_id) throws Exception;
