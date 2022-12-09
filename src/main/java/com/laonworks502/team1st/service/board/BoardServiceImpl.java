@@ -3,6 +3,7 @@ package com.laonworks502.team1st.service.board;
 import com.laonworks502.team1st.dao.board.BoardDao;
 import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.post.PostBean;
+import com.laonworks502.team1st.model.post.PostListBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<PostBean> getBoardList(int board_id, int startPostNo, int PAGES_COUNT) throws Exception {
+    public List<PostListBean> getBoardList(int board_id, int startPostNo, int PAGES_COUNT) throws Exception {
         return boardDao.getBoardList(board_id, startPostNo, PAGES_COUNT);
     }
 

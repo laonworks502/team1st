@@ -24,11 +24,11 @@ public interface ScrapDao {
     public int getCount(String user_email) throws Exception;
 
     /*[스크랩 전체 리스트 출력 메소드]*/
-    List<ScrapListBean> listTotalScrap(String user_email, int board_id, int startPostNo, int PAGES_COUNT) throws Exception;
+    public List<ScrapListBean> listTotalScrap(String user_email, int board_id, int startPostNo, int PAGES_COUNT) throws Exception;
 
     /*[스크랩 미니 리스트 출력 메소드]*/
-    List<ScrapListBean> listMiniScrap(String user_email, int board_id)throws Exception;
+    public List<ScrapListBean> listMiniScrap(String user_email, int board_id)throws Exception;
 
     /*[전체 해당 페이지에 대한 검색]*/
-    List<Integer> getBoardSearchList(String user_email, int no)throws Exception;
+    public int getBoardSearchList(String user_email, int no)throws Exception;
 }

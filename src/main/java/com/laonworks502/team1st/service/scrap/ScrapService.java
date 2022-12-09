@@ -25,6 +25,6 @@ public interface ScrapService {
     public List<ScrapListBean> listMiniScrap(String user_email, int board_id)throws Exception;
 
     /*[전체 해당 페이지에 대한 검색]*/
-    public List<Integer> getBoardSearchList(String user_email, int no)throws Exception;
+    public int getBoardSearchList(String user_email, int no)throws Exception;
 
 }

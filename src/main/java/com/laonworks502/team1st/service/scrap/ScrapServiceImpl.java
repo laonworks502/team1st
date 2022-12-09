@@ -51,7 +51,8 @@ public class ScrapServiceImpl implements ScrapService{
     }
 
     /*[전체 해당 페이지에 대한 검색]*/
-    public List<Integer> getBoardSearchList(String user_email, int no)throws Exception {
+    @Override
+    public int getBoardSearchList(String user_email, int no)throws Exception {
         return sd.getBoardSearchList(user_email, no);
     }
 }

@@ -3,8 +3,10 @@ package com.laonworks502.team1st.controller.board;
 import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.board.Pagination;
 import com.laonworks502.team1st.model.post.PostBean;
+import com.laonworks502.team1st.model.post.PostListBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.board.BoardService;
+import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+
 @Slf4j
 @Controller
 @RequestMapping("/boards")
@@ -24,6 +27,9 @@ public class BoardController {
     @Autowired
     @Qualifier("BoardService")
     private BoardService boardService;
+
+    @Autowired
+    private ScrapServiceImpl ss;
 
     // 글 작성 폼
     @GetMapping(value = "/{board_id}/write")
@@ -66,26 +72,51 @@ public class BoardController {
             @RequestParam(value = "page",required = false, defaultValue = "1") Integer page,
             HttpSession Session) throws Exception {
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/scrap/boardSearchList");
+       // LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
+
+        //String email = loginBean.getEmail();
+
+
+        ModelAndView modelAndView = new ModelAndView("board/boardlist");
 
         int postTotal = boardService.countAllPosts(board_id);
 
         Pagination pg = new Pagination(board_id, page, postTotal, 10);
+
         modelAndView.addObject("pg", pg);
 
+        log.info("글 목록 컨트롤러");
+        log.info("pg",pg);
+
+        String email = "a1@naver.com";
+
+        log.info("board_id={}", board_id);
+        log.info("pg.getStartPostNo()={}", pg.getStartPostNo());
+        log.info("pg.getStartPostNo()", pg.getStartPostNo());
+        log.info("pg.getPAGES_COUNT={}", pg.getPAGES_COUNT());
+
         // 리스트 담기
-        List<PostBean> postList = boardService.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
+        List<PostListBean> postList = boardService.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
 
-        modelAndView.addObject("posts", postList);
+        log.info("postList={}", postList);
 
-        // board 정보 담기
-        BoardBean boardBean = boardService.getBoardById(board_id);
-        modelAndView.addObject("board", boardBean);
+        for (int i = 0; i < postList.size(); i++) {
+            postList.get(i).setScrapResult(ss.getBoardSearchList(email, postList.get(i).getNo()));
 
-        // board 세션 추가
-        Session.setAttribute("board_id", board_id);
+            log.info("postList={}", postList.get(i).getScrapResult());
 
-        return modelAndView;
+
+
+            modelAndView.addObject("posts", postList);
+
+            // board 정보 담기
+            BoardBean boardBean = boardService.getBoardById(board_id);
+            modelAndView.addObject("board", boardBean);
+
+            // board 세션 추가
+            Session.setAttribute("board_id", board_id);
+        }
+            return modelAndView;
     }
 
     // 글 상세보기
