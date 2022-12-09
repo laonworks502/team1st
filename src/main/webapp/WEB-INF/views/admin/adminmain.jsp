@@ -127,7 +127,7 @@ function generalUsersList() {
 		html += "</tr>";
 		
 		$.each(result, function(index, obj) {
-				
+		
 			html += "<tr>";
 			html += "<td>" + obj.name + "</td>";
 			html += "<td>" + obj.email + "</td>";

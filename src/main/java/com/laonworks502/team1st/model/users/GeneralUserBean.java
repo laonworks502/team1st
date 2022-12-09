@@ -1,10 +1,8 @@
 package com.laonworks502.team1st.model.users;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Data
 public class GeneralUserBean extends UserBean{
@@ -15,7 +13,7 @@ public class GeneralUserBean extends UserBean{
     private String tel1;
     private String tel2;
     private String tel3;
-    private Timestamp register_date;
+    private Date register_date;
     private String resume;
     private String exit_reason;
 

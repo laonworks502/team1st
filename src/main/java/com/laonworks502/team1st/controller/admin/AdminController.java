@@ -225,8 +225,6 @@ public class AdminController {
 	public List<GeneralUserBean> generaluserslist(
 			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
     	
-		ResultSet rs = null;
-
 		log.info("generaluserslist 진입");
 		
     	  AdminPagination adminpg = new AdminPagination(page, 20);
