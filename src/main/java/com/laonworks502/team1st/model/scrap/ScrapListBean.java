@@ -1,4 +1,4 @@
-package com.laonworks502.team1st.model.post;
+package com.laonworks502.team1st.model.scrap;
 
 import lombok.Data;
 import lombok.Getter;
@@ -9,13 +9,11 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Data
-public class PostBean {
+public class ScrapListBean {
     private int no;
     private int board_id;
     private String title;
-    private String writer;
-    private String writerName;
+    private String user_email;
     private String content;
     private Timestamp date;
-
 }

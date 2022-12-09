@@ -1,23 +1,22 @@
 package com.laonworks502.team1st.controller.scrap;
 
+import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.board.Pagination;
+import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.scrap.ScrapBean;
+import com.laonworks502.team1st.model.scrap.ScrapListBean;
+import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.LoginBean;
-import com.laonworks502.team1st.service.scrap.ScrapService;
+import com.laonworks502.team1st.service.board.BoardServiceImpl;
 import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
-import com.laonworks502.team1st.service.users.CommonUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -27,20 +26,22 @@ public class ScrapController {
 
     @Autowired
     private ScrapServiceImpl ss;
+    @Autowired
+    private BoardServiceImpl bs;
 
     /*[스크랩 검색]*/
-    @ResponseBody
-    @GetMapping("/{no}")  //경로 설정
-    public Integer searchScrap(
+    @GetMapping("search/{no}")  //경로 설정
+    public String searchScrap(
             @PathVariable("no") int no,
-            HttpSession session) throws Exception {
+            HttpSession session,
+            Model model) throws Exception {
 
         log.info("스크랩 검색(searchScrap)");
 
         LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 
-     //   String email = loginBean.getEmail();
-        String email = "a1@naver.com"; //테스트
+        String email = loginBean.getEmail();
+        //String email = "a1@naver.com"; //테스트
 
         ScrapBean scrap = new ScrapBean();
 
@@ -49,7 +50,10 @@ public class ScrapController {
 
         int result = ss.searchScrap(scrap);  //[searchScrap() : 스크랩 정보 검색 메소드]
 
-        return result;
+        model.addAttribute("result",result);
+
+
+        return "boards";
     }
 
     /*[스크랩 생성(클릭)] : 클릭을 했는지 안했는지를 이미 판별한 상태에서 클릭*/
@@ -60,71 +64,80 @@ public class ScrapController {
             //@RequestBody ScrapBean sb,
             HttpSession session) throws Exception {
 
-        log.info("스크랩 생성(insertScrap)"+no);
-
-        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
-
- //       String email = loginBean.getEmail();
-
-        String email = "a1@naver.com"; //테스트
-
-        Map scrap = new HashMap();
-        scrap.put("user_email", email);
-        scrap.put("no", no);
-
-        int result = 0;
-        result = ss.insertScrap(scrap); //[insertScrap() : 스크랩 생성 메소드]
-
-/*
-        int updateResult = 0;
-        if(result == 0){
-            updateResult = ss.updateScrap(scrap); //[updateScrap]
-        }
-*/
-
-        return result;
-
-    }
-
-
-    /*[스크랩 삭제]*/
-    @ResponseBody
-    @DeleteMapping("/{no}")
-    public int deleteScrap(
-            @PathVariable("no") int no,
-            HttpSession session) throws Exception {  //뷰에따라 model 추가
-
-        log.info("스크랩 삭제(deleteScrap)");
+        log.info("스크랩 컨트롤러");
 
         LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 
         String email = loginBean.getEmail();
+        //String email = "a1@naver.com"; //테스트
 
         ScrapBean scrap = new ScrapBean();
 
         scrap.setUser_email(email);
         scrap.setNo(no);
 
-        int result = ss.deleteScrap(scrap); //[deleteScrap() : 스크랩 삭제 메소드]
+        int result = ss.searchScrap(scrap);  //[searchScrap() : 스크랩 정보 검색 메소드]
+        log.info("스크랩 검색( searchScrap)"+result);
 
-        if(result == 1 ){
-            result = 0;
+        int scrapresult;
+
+        if(result == 1){
+
+            int deleteresult = ss.deleteScrap(scrap); //[deleteScrap() : 스크랩 삭제 메소드]
+            log.info("스크랩 삭제(deleteScrap)"+ deleteresult);
+            if(deleteresult == 0){
+                scrapresult = 1;   //스크랩 O 아이콘 나타남
+            }else{
+                scrapresult = 0;   //스크랩 X 아이콘 나타남
+            }
         }else{
-            result = 1;
+           scrapresult = ss.insertScrap(scrap); //[insertScrap() : 스크랩 생성 메소드]
+            log.info("스크랩 생성(insertScrap)"+ scrapresult);
         }
 
-        return result;
+        return scrapresult;
+
     }
 
+
+    /*[전체 해당 페이지에 대한 검색]*/
+    @GetMapping("/boardSearchList")
+    public String boardSearchList(
+            @ModelAttribute Pagination pg,
+            @ModelAttribute List<PostBean> posts,
+            @ModelAttribute BoardBean board,
+            HttpSession session,
+            Model model)throws Exception{
+
+        log.info("전체 해당 페이지에 대한 검색(boardSearchList)");
+
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+
+        String email = loginBean.getEmail();
+
+        List<List<Integer>> boardSearchList = new ArrayList<>();
+
+        for(int i =0;  i > pg.getPAGES_COUNT(); i++) {
+            boardSearchList.add(ss.getBoardSearchList(email, posts.get(i).getNo()));
+        }
+
+        model.addAttribute("boardSearchList",boardSearchList);
+        model.addAttribute("pg",pg);
+        model.addAttribute("posts",posts);
+        model.addAttribute("board",board);
+
+        return "boards/boardlist";
+
+    }
+
+
     /*[스크랩 전체 출력 리스트]*/
-    @ResponseBody
-    @GetMapping("/listTotal/{board_id}")
-    public String listScrap(
+    @GetMapping("/listTotalScrap/{board_id}")
+    public String listTotalScrap(
             @PathVariable("board_id") int board_id,
-            @RequestParam("page") int page,
-             HttpSession session,
-             HttpServletRequest request,
-              Model model) throws Exception{
+            @RequestParam(value="page", required = false, defaultValue = "1") Integer page,
+            HttpSession session,
+            Model model) throws Exception{
 
         log.info("스크랩 전체 출력 리스트(listTotalScrap)");
 
@@ -140,21 +153,26 @@ public class ScrapController {
         model.addAttribute("pg",pg);
 
         //스크랩 리스트 전체 출력
-        List<ScrapBean> myscrap = ss.listScrap(email, board_id ,pg.getStartPostNo(),pg.getPAGES_COUNT()); //[listScrap() : 스크랩 리스트 출력 메소드]
+        List<ScrapListBean> myscrap = ss.listTotalScrap(email, board_id ,pg.getStartPostNo(),pg.getPAGES_COUNT()); //[listScrap() : 스크랩 리스트 출력 메소드]
+
+        log.info("myscrap"+myscrap);
 
         model.addAttribute("myscrap", myscrap);
 
+        String boardName = bs.getBoardNameById(board_id); //[getBoardNameById() : 이름 구하는 메소드]
 
-        return "redirect: boardcontent.do?no=";  //추후 설정
+        model.addAttribute("boardName",boardName);
+
+        return "generaluser/totalscrap";
     }
 
+
     /*[마이페이지) 미니 스크랩 리스트 ]*/
-    @ResponseBody
-    @GetMapping("/MiniScrap")
+    @GetMapping("/listMiniScrap")
     public String listMiniScrap(
-                        HttpSession session,
-                        HttpServletRequest request,
-                        Model model) throws Exception {
+            GeneralUserBean gub,
+            HttpSession session,
+            Model model) throws Exception {
 
         log.info("마이페이지) 미니 스크랩 리스트 (listMiniScrap)");
 
@@ -162,24 +180,22 @@ public class ScrapController {
 
         String email = loginBean.getEmail();
 
-        int listcount = ss.getCount(email); // [getCount() : 총 리스트 수 구해오는 메소드]
+        //int listcount = ss.getCount(email); // [getCount() : 총 리스트 수 구해오는 메소드]
 
-         List<ScrapBean> myminiscrap100 =ss.listScrap(email,100,listcount,3);
-         List<ScrapBean> myminiscrap200 =ss.listScrap(email,200,listcount,3);
-         List<ScrapBean> myminiscrap300 =ss.listScrap(email,300,listcount,3);
+        List<ScrapListBean> myminiscrap100 =ss.listMiniScrap(email,100);
+        List<ScrapListBean> myminiscrap200 =ss.listMiniScrap(email,200);
+        List<ScrapListBean> myminiscrap300 =ss.listMiniScrap(email,300);
 
         model.addAttribute("myminiscrap100",myminiscrap100);
         model.addAttribute("myminiscrap200",myminiscrap200);
         model.addAttribute("myminiscrap300",myminiscrap300);
 
-        return "redirect: boardcontent.do?no=";  //추후 설정
+        model.addAttribute("gub",gub);
+
+        log.info("myminiscrap100" +myminiscrap100);
+
+        return "generaluser/generalmypage";
     }
 
-    /*[테스트]*/
-    @GetMapping("/imsi")
-    public String imsi(){
-        log.info("테스트(테스트)");
 
-        return "imsi/imsi";
-    }
 }

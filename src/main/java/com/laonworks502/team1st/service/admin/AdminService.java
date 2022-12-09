@@ -5,6 +5,7 @@ import java.util.List;
 import com.laonworks502.team1st.model.admin.AdminBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 
+
 public interface AdminService {
 
 	// 관리자 로그인
