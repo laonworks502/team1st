@@ -21,7 +21,7 @@ public class AdminServiceImpl implements AdminService {
     public AdminBean getAdminInfo(String id) throws Exception {
         return admindao.getAdminInfo(id);
     }
-    
+       
     //일반회원 일별 가입자 수
     @Override
     public int joinTotalDays(int i) throws Exception{
