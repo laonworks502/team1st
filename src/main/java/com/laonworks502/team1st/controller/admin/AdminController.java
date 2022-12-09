@@ -4,6 +4,7 @@ import com.laonworks502.team1st.model.admin.AdminBean;
 import com.laonworks502.team1st.model.admin.AdminPagination;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.service.admin.AdminService;
+import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +25,7 @@ public class AdminController {
  
 	@Autowired
 	@Qualifier("AdminService")
-	private AdminService adminservice;
+	private AdminServiceImpl adminservice;
 	
 	//가입자 수 통계 관련 변수 정의
 	int n;

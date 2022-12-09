@@ -13,10 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Slf4j
 @Controller
@@ -54,7 +52,7 @@ public class BoardController {
 
         int no = boardService.writePost(post);
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/"+ board_id + "/" + no, "page", page);
+        ModelAndView modelAndView = new ModelAndView("redirect:/boards/"+ board_id + "/" + no, "page", page);
         BoardBean boardBean = boardService.getBoardById(board_id);
         modelAndView.addObject("board", boardBean);
 
@@ -68,7 +66,7 @@ public class BoardController {
             @RequestParam(value = "page",required = false, defaultValue = "1") Integer page,
             HttpSession Session) throws Exception {
 
-        ModelAndView modelAndView = new ModelAndView("board/boardlist");
+        ModelAndView modelAndView = new ModelAndView("redirect:/scrap/boardSearchList");
 
         int postTotal = boardService.countAllPosts(board_id);
 
