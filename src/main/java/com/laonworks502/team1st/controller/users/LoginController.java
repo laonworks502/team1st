@@ -3,6 +3,7 @@ package com.laonworks502.team1st.controller.users;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.laonworks502.team1st.model.users.UserBean;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,7 +46,7 @@ public class LoginController {
     }
 
     // 일반 로그인 실행
-    @RequestMapping("loginsuccess")
+    @RequestMapping("generalmypage")
     public String generaluserlogin_ok(GeneralUserBean gub,
                                       HttpSession session,
                                       Model model,
@@ -73,7 +74,7 @@ public class LoginController {
                 model.addAttribute("gub",gub);
                 log.info("로그인성공");
 
-                return "generaluser/loginsuccess";
+                return "generaluser/generalmypage";
 
             }else{                                      // 비번 달라서 로그인 안됨
                 result = 2;
@@ -141,16 +142,17 @@ public class LoginController {
 	/*[비번 찾기 메일 보내기] */
 	@RequestMapping("pwfind_ok")
 	public String member_pw_find_ok(@ModelAttribute CompanyUserBean cub,
+									UserBean ub,
 									HttpServletResponse response,
 									Model model)throws Exception {
 		log.info("컨트롤러 들어옴(pwfind_ok)");
 		
 		response.setContentType("text/html; charset=UTF-8");
 		
-		CompanyUserBean company = cus.findPasswdUser(cub); //[findPasswdUser()메소드 : 비번 찾기 메소드]
+		UserBean user = cus.findPasswdUser(ub); //[findPasswdUser()메소드 : 비번 찾기 메소드]
 		
 		//값이 없는 경우
-		if(company == null) {
+		if(user == null) {
 			
 			return "pwresult";
 			
@@ -160,7 +162,7 @@ public class LoginController {
 				String charSet = "utf-8";
 				String hostSMTP = "smtp.naver.com";
 				String hostSMTPid = "";
-				String hostSMTPpwd = ""; 
+				String hostSMTPpwd = "";
 
 				// 보내는 사람
 				String fromEmail = "";
@@ -168,7 +170,7 @@ public class LoginController {
 				String subject = "비밀번호 찾기";
 
 				// 받는 사람 
-				String mail = company.getEmail();
+				String mail = user.getEmail();
 
 				try {
 					HtmlEmail email = new HtmlEmail();
@@ -184,7 +186,7 @@ public class LoginController {
 					email.setFrom(fromEmail, fromName, charSet);
 					email.setSubject(subject);
 					email.setHtmlMsg("<p align = 'center'>비밀번호 찾기</p><br>" + "<div align='center'> 비밀번호 : "
-							+ company.getPasswd() + "</div>");
+							+ user.getPasswd() + "</div>");
 					email.send();
 				} catch (Exception e) {
 					System.out.println(e);	
