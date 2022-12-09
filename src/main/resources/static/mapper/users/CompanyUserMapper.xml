@@ -30,7 +30,8 @@
 
 	<!-- email 중복 체크 -->
 	<select id="emailCheck" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM company_users WHERE email = #{email}
+		SELECT COUNT(*) FROM (select email from general_users
+        union select email from company_users) as gcunion WHERE email = #{email}
 	</select>
 
 	<!-- 이메일로 회원 검색 -->
@@ -42,15 +43,22 @@
 	<!-- 기업명으로 기업 검색 -->
 	<select id="getCompany" parameterType="String"
 		resultType="com.laonworks502.team1st.model.company.CompanyBean">
-		select*from companies where company_name= #{company_name}
+		select * from companies where company_name= #{company_name}
 	</select>
 
 	<!--[비번 찾기) 메일 보내기] -->
-	<select id="findPasswdCompanyUser"
-		resultType="com.laonworks502.team1st.model.users.CompanyUserBean"
-		parameterType="com.laonworks502.team1st.model.users.CompanyUserBean">
-		select * from company_users where email = #{email} and exit_reason is null and
-		name = #{name}
+	<select id="findPasswdUser"
+		resultType="com.laonworks502.team1st.model.users.UserBean"
+		parameterType="com.laonworks502.team1st.model.users.UserBean">
+		select email, passwd
+		from 	(select g.email, g.passwd from general_users as g left join company_users as c
+				on (g.email = #{email} and g.exit_reason is null)
+				union
+				select c.email, c.passwd from general_users as g right join company_users as c
+				on (c.email = #{email} and c.exit_reason is null)
+				)
+				as gcunion
+		where (email = #{email})
 	</select>
 
 	<!-- 기업 회원 탈퇴 -->

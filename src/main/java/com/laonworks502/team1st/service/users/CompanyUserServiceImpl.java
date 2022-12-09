@@ -52,8 +52,8 @@ public class CompanyUserServiceImpl implements CommonUserService {
     }
 
     // 기업 회원 비밀번호 찾기
-    public CompanyUserBean findPasswdUser(UserBean userBean) throws Exception {
-		return cud.findPasswdCompanyUser(userBean);
+    public UserBean findPasswdUser(UserBean userBean) throws Exception {
+		return cud.findPasswdUser(userBean);
     }
 
     // 기업 회원 탈퇴

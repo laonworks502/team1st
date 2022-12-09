@@ -29,7 +29,7 @@ public interface CompanyUserDao {
 	public CompanyUserBean getMember(String email);
 	
 	/*[비번 찾기 메일 보내기]*/
-	public CompanyUserBean findPasswdCompanyUser(UserBean userBean);
+	public UserBean findPasswdUser(UserBean userBean);
 
 	// 회원 탈퇴
 	public int quitUser(UserBean userBean) throws Exception;

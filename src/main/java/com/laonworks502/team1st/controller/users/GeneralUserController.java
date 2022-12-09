@@ -3,6 +3,7 @@ package com.laonworks502.team1st.controller.users;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.model.users.UserBean;
+import com.laonworks502.team1st.service.users.CompanyUserServiceImpl;
 import com.laonworks502.team1st.service.users.GeneralUserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class GeneralUserController {
     @Autowired
     private GeneralUserServiceImpl gus;
 
+    @Autowired
+    private CompanyUserServiceImpl cus;
 
     // 회원가입 폼
     @RequestMapping(value = "/generaluserinsert")
