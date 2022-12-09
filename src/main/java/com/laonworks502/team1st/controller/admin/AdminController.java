@@ -1,13 +1,8 @@
 package com.laonworks502.team1st.controller.admin;
 
-import com.laonworks502.team1st.model.admin.AdminBean;
-import com.laonworks502.team1st.model.admin.AdminPagination;
-import com.laonworks502.team1st.model.users.GeneralUserBean;
-import com.laonworks502.team1st.service.admin.AdminService;
-import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,30 +10,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
+import com.laonworks502.team1st.model.admin.AdminBean;
+import com.laonworks502.team1st.model.admin.AdminPagination;
+import com.laonworks502.team1st.model.users.GeneralUserBean;
+import com.laonworks502.team1st.service.admin.AdminServiceImpl;
+
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller 
 public class AdminController {
  
 	@Autowired
-	@Qualifier("AdminService")
+	//@Qualifier("admin")
 	private AdminServiceImpl adminservice;
-	
-	//가입자 수 통계 관련 변수 정의
-	int n;
-	String duration;
-	int usersJoinTotal;
 
-	// 관리자 로그인 폼으로 이동
+	// 관리자 로그인 폼으로 이동  
 	@RequestMapping("adminloginform")
 	public String adminloginform() throws Exception {
 
 		return "admin/adminloginform";
 	}
-
+	
 	// 관리자 로그인
 	@RequestMapping("adminlogin")
 	public String adminlogin(AdminBean adminbean, HttpSession session, Model model, @RequestParam("id") String id,
@@ -94,49 +91,19 @@ public class AdminController {
 	
 	// 일반회원 일별 가입자 수 
 	@RequestMapping("adminstat1")
-	public String joinTotalDays(Integer n, Model model) throws Exception {
-
-		log.info("adminstat1 진입");
-
-		List<Integer> list = new ArrayList<Integer>();
-
-		for (int i = 7; i > 0; i--) {
-			list.add(adminservice.joinTotalDays(i));
-		}
-
-		log.info(list.toString());
-		model.addAttribute("list", list);
-
-
-		// 태원 : 왜 리턴이 없는지?
-		return null;
-	}
-	
-	public String adminstat1(Model model) throws Exception {
-
-		// 일별 가입자 수
-		for(n = 1; n <= 31; n++ ) {
-			model.addAttribute("usersJoinTotal", usersJoinTotal);
-		usersJoinTotal = adminservice.usersJoinTotal(n, duration);
-		}
+		public String joinTotalDays(Integer n, Model model) throws Exception {
 		
-//				int todayJoinTotal = adminservice.todayJoinTotal();
-//				int ago1JoinTotal = adminservice.ago1JoinTotal();
-//				int ago2JoinTotal = adminservice.ago2JoinTotal();
-//				int ago3JoinTotal = adminservice.ago3JoinTotal();
-//				int ago4JoinTotal = adminservice.ago4JoinTotal();
-//				int ago5JoinTotal = adminservice.ago5JoinTotal();
-//				int ago6JoinTotal = adminservice.ago6JoinTotal();
-//				int ago7JoinTotal = adminservice.ago7JoinTotal();
-//
-//				model.addAttribute("todayJoinTotal", todayJoinTotal);
-//				model.addAttribute("ago1JoinTotal", ago1JoinTotal);
-//				model.addAttribute("ago2JoinTotal", ago2JoinTotal);
-//				model.addAttribute("ago3JoinTotal", ago3JoinTotal);
-//				model.addAttribute("ago4JoinTotal", ago4JoinTotal);
-//				model.addAttribute("ago5JoinTotal", ago5JoinTotal);
-//				model.addAttribute("ago6JoinTotal", ago6JoinTotal);
-//				model.addAttribute("ago7JoinTotal", ago7JoinTotal);
+		log.info("adminstat1 진입");
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		for (int i = 7; i > 0; i--) {
+			 list.add(adminservice.joinTotalDays(i));
+		}
+			
+			log.info(list.toString());
+			model.addAttribute("list", list);
+		
 		
 		return "admin/adminstat1";
 	}
@@ -258,6 +225,8 @@ public class AdminController {
 	public List<GeneralUserBean> generaluserslist(
 			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
     	
+		ResultSet rs = null;
+
 		log.info("generaluserslist 진입");
 		
     	  AdminPagination adminpg = new AdminPagination(page, 20);
@@ -270,34 +239,5 @@ public class AdminController {
     	  
         return generalUsersList;
     }
-	
-//	// 전체 회원 목록
-//	@RequestMapping("userslist")
-//	public String userslist(AdminBean adminbean, Model model) throws Exception {
-//    	
-//    	  // 전체 회원 수 구하기 
-//    	  int totalUsers = adminservice.countAllUsers();
-//    	  
-//    	  model.addAttribute("totalUsers", totalUsers); 
-//    	  
-//    	  //현재 활동중인 회원 목록 가져오기
-//  		  List<adminbean> userList = adminservice.userList(); 
-//
-////    	  Pagination pg = new Pagination(board_id, postTotal, 10);
-////          model.addAttribute("pg", pg);
-////
-////        List<PostBean> postList = bs.callBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
-////        model.addAttribute("postList", postList);
-////        model.addAttribute("board_id",board_id);
-////        String boardName = bs.getBoardNameById(board_id);
-//
-//        return "admin/userslist";
-//    }
-//	
-//	// 탈퇴 회원 목록
-//		@RequestMapping("deleteduserslist")
-//		public String deleteduserslist(Model model) throws Exception {
-//			return "admin/deleteduserslist";
-//		}
 	
 }

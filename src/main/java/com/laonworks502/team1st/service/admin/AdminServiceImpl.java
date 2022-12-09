@@ -10,61 +10,67 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("AdminService")
+@Service("admin")
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminDao admindao;
 
     // 관리자 로그인
+    @Override
     public AdminBean getAdminInfo(String id) throws Exception {
         return admindao.getAdminInfo(id);
     }
     
     //일반회원 일별 가입자 수
+    @Override
     public int joinTotalDays(int i) throws Exception{
     	return admindao.joinTotalDays(i);
     }
     
     //일반회원 주별 가입자 수
+    @Override
     public int joinTotalWeeks(int i) throws Exception{
     	return admindao.joinTotalWeeks(i);
     }
     
     //일반회원 월별 가입자 수
+    @Override
     public int joinTotalMonths(int i) throws Exception{
     	return admindao.joinTotalMonths(i);
     }
     
     //기업회원 일별 가입자 수
+    @Override
     public int companyJoinChartDate(int i) throws Exception{
     	return admindao.companyJoinChartDate(i);
     }
     
     //기업회원 주별 가입자 수
+    @Override
     public int companyJoinChartWeek(int i) throws Exception{
     	return admindao.companyJoinChartWeek(i);
     }
     
     //기업회원 월별 가입자 수
+    @Override
     public int companyJoinChartMonth(int i) throws Exception{
     	return admindao.companyJoinChartMonth(i);
     }
     
     //generalusers - 전체 회원 수 구하기
+    @Override
     public int countAllUsers() throws Exception{
     	return admindao.countAllUsers();
     }
     
     //generaluserslist
+    @Override
     public List<GeneralUserBean> generalUsersList(Integer page) throws Exception{
     	return admindao.generalUsersList(page);
     }
 
-    // 태원 : 왜 오버라이딩이 덜 돼있는지?
-    @Override
-    public int usersJoinTotal(int n, String duration) throws Exception {
-        return 0;
-    }
+
 }
 
+    

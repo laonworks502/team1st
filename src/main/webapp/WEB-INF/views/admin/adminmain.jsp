@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 메인</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
 		onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</button>
 
 	<button type="button" class="btn text-black" id="userJoinChartDateButton" value="일반회원 일별 가입자 수" style="background-color: #fff; border-color: #000;"
-		onclick="joinChartDate()">일반회원 일별 가입자</button>
+		onclick="joinChartDate()" >일반회원 일별 가입자</button>    
 
 	<button type="button" class="btn text-black" id="userJoinChartWeekButton" value="일반회원 주별 가입자 수" style="background-color: #fff; border-color: #000;"
 		onclick="joinChartWeek()">일반회원 주별 가입자</button>
@@ -41,44 +41,55 @@
 	<!-- 그래프 나타나는 곳  -->
 	<div id="chart"></div>
 	<!-- 목록 나타나는 곳 -->
-	<div id="ajaxGeneralUsersList"></div>
+	<div id="ajaxGeneralUsersList"></div> 
+<!-- 	<table>
+	<tbody id="ajaxGeneralUsersList"></tbody>
+	</table> -->
 
 <!-- <script type="text/javascript" src="/js/admin/adminmainjs.js"></script> -->
 
 <script>
+
+
 //일반회원 일별 가입자 수 
 function joinChartDate() {
-	$('#chart').load('adminstat1') // load('컨트롤러 안에 "" 이름쓰기"')
 	$('#ajaxGeneralUsersList').hide()
-}
+	$('.table').hide()
+	$('#chart').load('adminstat1') // load('컨트롤러 안에 "" 이름쓰기"')
+} 
 
 //일반회원 주별 가입자 수
 function joinChartWeek() {
-	$('#chart').load('adminstat2')
 	$('#ajaxGeneralUsersList').hide()
+	$('.table').hide()
+	$('#chart').load('adminstat2')
 }
 
 //일반회원 월별 가입자 수
 function joinChartMonth() {
 	$('#ajaxGeneralUsersList').hide()
+	$('.table').hide()
 	$('#chart').load('adminstat3')
 }
 
 //기업회원 일별 가입자 수
 function companyJoinChartDate() {
 	$('#ajaxGeneralUsersList').hide()
+	$('.table').hide()
 	$('#chart').load('adminstat4')
 }
 
 //기업회원 주별 가입자 수
 function companyJoinChartWeek() {
 	$('#ajaxGeneralUsersList').hide()
+	$('.table').hide()
 	$('#chart').load('adminstat5')
 }
 
 //기업회원 월별 가입자 수
 function companyJoinChartMonth() {
 	$('#ajaxGeneralUsersList').hide()
+	$('.table').hide()
 	$('#chart').load('adminstat6')
 }
 
@@ -89,6 +100,7 @@ function generalUsersListPage() {
 
 //전체 회원 목록
 function generalUsersList() {
+	
 	$('#ajaxGeneralUsersList').show()
 	$.ajax({
 			url:"<%=request.getContextPath()%>/generaluserslist",
@@ -99,12 +111,12 @@ function generalUsersList() {
 				console.log(data);
 				ajaxHtml(data);
 
-			},
+			},  
 			error : function() {
 				alert("error");
 			}
 		});
-	
+	  
 	function ajaxHtml(result) {
 		var html = "<table class='table'>";
 		html += "<tr>";
@@ -113,12 +125,15 @@ function generalUsersList() {
 		html += "<td>전화번호</td>";
 		html += "<td>가입일</td>";
 		html += "</tr>";
-
+		
 		$.each(result, function(index, obj) {
+				
 			html += "<tr>";
 			html += "<td>" + obj.name + "</td>";
 			html += "<td>" + obj.email + "</td>";
-			html += "<td>" + obj.tel1 + obj.tel2 + obj.tel3 + "</td>";
+			html += "<td>" + obj.tel1 + "-";    
+			html += obj.tel2 + "-";    
+			html += obj.tel3 + "</td>"  ;    
 			html += "<td>" + obj.register_date + "</td>";
 			html += "</tr>";
 		})
