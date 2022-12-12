@@ -14,7 +14,7 @@
 <input type="button" value="회원탈퇴" class="input_button" onclick="location='generaluserdelete'">
 
 <!-- 파일 업로드에서는 enctype(인코딩타입)을 multipart/form-data로 반드시 설정 -->
-<form action="resumeupload" method="post" enctype="multipart/form-data">
+<form action="/resumeupload" method="post" enctype="multipart/form-data">
     <input type="hidden" name="email" value="${sessionScope.email}">
 
     <br>
