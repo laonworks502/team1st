@@ -88,16 +88,19 @@
                         <th>제목</th>
                         <th>작성자</th>
                         <th>작성일</th>
-                        <th>스크랩</th>
+                        <th style="width: 100px; float: right">스크랩</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${posts}" var="posts">
                         <tr>
-                            <td onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">${posts.title}</td>
-                            <td>${posts.writerName}</td>
-                            <td>${posts.date}</td>
-                            <td>
+                            <td style="width: 1000px"
+                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">${posts.title}</td>
+                            <td style="width: 150px"
+                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">${posts.writerName}</td>
+                            <td style="width: 200px"
+                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">${posts.date}</td>
+                            <td style="width: 100px; float: right">
                                 <div class="scrapIconYesArea" id="scrapIconArea${posts.no}">
                                     <c:if test="${posts.scrapResult == 1}">
                                         <input type="image" id="hiddenYesScrap${posts.no}" value=${posts.scrapResult} src="<%=request.getContextPath()%>/images/IconNoScrap.png" width=22px height=22px onclick="scrapClick(${posts.no})">
