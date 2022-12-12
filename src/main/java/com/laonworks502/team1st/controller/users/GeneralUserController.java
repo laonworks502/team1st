@@ -60,7 +60,7 @@ public class GeneralUserController {
     }
 
     // 회원수정 폼
-    @RequestMapping("generaluseredit")
+    @RequestMapping("/generaluseredit")
     public String generaluseredit(HttpSession session, Model model) throws Exception {
 
 		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
@@ -90,7 +90,7 @@ public class GeneralUserController {
     }
 
     // 회원삭제 폼
-    @RequestMapping("generaluserdelete")
+    @RequestMapping("/generaluserdelete")
     public String generaluserdelete(HttpSession session,
                                     GeneralUserBean gub,
                                     Model model) throws Exception {
