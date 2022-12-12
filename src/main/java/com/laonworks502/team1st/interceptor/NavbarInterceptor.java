@@ -32,7 +32,6 @@ public class NavbarInterceptor implements HandlerInterceptor {
             session.setAttribute("boardList", boardList);
             return true;
         } else{
-            session.setMaxInactiveInterval(30*60);  // 세션 연장
             return true;
         }
 
