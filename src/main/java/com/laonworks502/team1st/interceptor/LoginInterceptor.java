@@ -18,11 +18,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
 
         // session에서 추출
-        LoginBean loginBean = (LoginBean)session.getAttribute("loginUser");
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
 
         if (ObjectUtils.isEmpty(loginBean)){    // 비로그인시
             log.info("비로그인");
-            //response.sendRedirect("/loginselect");
+            response.sendRedirect("/loginselect");
             return false;
         } else{                                 // 로그인시
             log.info("로그인");
