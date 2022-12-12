@@ -66,10 +66,10 @@ public class ScrapController {
 
         log.info("스크랩 컨트롤러");
 
-        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        //LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 
-        String email = loginBean.getEmail();
-        //String email = "a1@naver.com"; //테스트
+        //String email = loginBean.getEmail();
+        String email = "a1@naver.com"; //테스트
 
         ScrapBean scrap = new ScrapBean();
 
@@ -101,11 +101,12 @@ public class ScrapController {
 
 
     /*[전체 해당 페이지에 대한 검색]*/
+/*
+    @ResponseBody
     @GetMapping("/boardSearchList")
-    public String boardSearchList(
-            @ModelAttribute Pagination pg,
-            @ModelAttribute List<PostBean> posts,
-            @ModelAttribute BoardBean board,
+    public List<Integer> boardSearchList(
+            @RequestBody Pagination pg,
+            @RequestBody List<PostBean> posts,
             HttpSession session,
             Model model)throws Exception{
 
@@ -115,20 +116,18 @@ public class ScrapController {
 
         String email = loginBean.getEmail();
 
-        List<List<Integer>> boardSearchList = new ArrayList<>();
+        List<Integer> boardSearchList = new ArrayList<>();
 
         for(int i =0;  i > pg.getPAGES_COUNT(); i++) {
             boardSearchList.add(ss.getBoardSearchList(email, posts.get(i).getNo()));
         }
 
         model.addAttribute("boardSearchList",boardSearchList);
-        model.addAttribute("pg",pg);
-        model.addAttribute("posts",posts);
-        model.addAttribute("board",board);
 
-        return "boards/boardlist";
+        return boardSearchList;
 
     }
+*/
 
 
     /*[스크랩 전체 출력 리스트]*/

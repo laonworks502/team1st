@@ -2,6 +2,7 @@ package com.laonworks502.team1st.dao.board;
 
 import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.post.PostBean;
+import com.laonworks502.team1st.model.post.PostListBean;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface BoardDao {
 
     int writePost(PostBean postBean) throws Exception;
-    List<PostBean> getBoardList(/*@Param("board_id")*/ int board_id,
+    List<PostListBean> getBoardList(/*@Param("board_id")*/ int board_id,
                                  /*@Param("startPostNo")*/ int startPostNo,
                                  /*@Param("PAGES_COUNT")*/ int PAGES_COUNT) throws Exception;
     int countAllPosts(int board_id) throws Exception;
