@@ -9,7 +9,7 @@ import java.security.SecureRandom;
 @Component
 public class Encrypt {
 
-    public String getSalt() {
+    public static String getSalt() {
         // salt 생성
         SecureRandom secureRandom = new SecureRandom();
         byte[] salt = new byte[16];
@@ -25,7 +25,7 @@ public class Encrypt {
         return stringBuffer.toString();
     }
 
-    public String getEncrypt(String passwd) {
+    public static String getEncrypt(String passwd) {
         String result = "";
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
