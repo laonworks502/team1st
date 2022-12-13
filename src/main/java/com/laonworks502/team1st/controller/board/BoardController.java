@@ -95,7 +95,7 @@ public class BoardController {
 
         log.info("board_id={}", board_id);
         log.info("pg.getStartPostNo()={}", pg.getStartPostNo());
-        log.info("pg.getStartPostNo()", pg.getStartPostNo());
+        log.info("pg.getStartPostNo()={}", pg.getStartPostNo());
         log.info("pg.getPAGES_COUNT={}", pg.getPAGES_COUNT());
 
         // 리스트 담기
@@ -195,7 +195,7 @@ public class BoardController {
             log.info("error : {}", e);
         }
 
-        log.info("update result: " + result);
+        log.info("update result ={}", result);
 
         return result;
     }
@@ -216,7 +216,7 @@ public class BoardController {
         LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 
         if (pb.getWriter().equals(loginBean.getEmail())) {        // 세션 연결 시 주석 풀기
-        result = boardService.deletePost(no);
+            result = boardService.deletePost(no);
         }
 
         return result;       // 글 목록 메소드로 리턴
