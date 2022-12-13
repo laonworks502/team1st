@@ -56,7 +56,10 @@ public class BoardController {
         LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
         post.setWriter(loginBean.getEmail());
 
-        int no = boardService.writePost(post);
+
+
+        boardService.writePost(post);
+        int no = post.getNo();
 
         ModelAndView modelAndView = new ModelAndView("redirect:/boards/"+ board_id + "/" + no, "page", page);
         BoardBean boardBean = boardService.getBoardById(board_id);
