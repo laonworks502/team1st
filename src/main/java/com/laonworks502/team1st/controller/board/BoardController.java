@@ -4,6 +4,7 @@ import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.board.Pagination;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.post.PostListBean;
+import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.board.BoardService;
 import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -182,9 +185,9 @@ public class BoardController {
         PostBean pb = boardService.getPostByNo(board_id, no);
 
         int result = 0;
-        String email = (String)session.getAttribute("email");
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
 
-//        if (pb.getWriter().equals(email)) {        // 세션 연결 시 주석 풀기
+//        if (pb.getWriter().equals(loginBean.getEmail())) {        // 세션 연결 시 주석 풀기
         result = boardService.amendPost(postBean);
 //        }
 
@@ -204,13 +207,83 @@ public class BoardController {
         log.info("boards/Delete in");
 
         int result = 0;
-        String email = (String)session.getAttribute("email");
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
 
-//        if (pb.getWriter().equals(email)) {        // 세션 연결 시 주석 풀기
+//        if (pb.getWriter().equals(loginBean.getEmail())) {        // 세션 연결 시 주석 풀기
         result = boardService.deletePost(no);
 //        }
 
         return result;       // 글 목록 메소드로 리턴
     }
+
+
+
+
+
+
+    // 글 작성 폼 (스터디 게시판)
+    @GetMapping(value = "/{board_id}/write-study")
+    public ModelAndView studypostwriteform(
+            @PathVariable("board_id") int board_id,
+            @RequestParam("page") int page) throws Exception {
+
+        ModelAndView modelAndView = new ModelAndView("board/studypostwrite");
+
+        BoardBean boardBean = boardService.getBoardById(board_id);
+        modelAndView.addObject("board", boardBean);
+        modelAndView.addObject("page", page);
+
+        return modelAndView;
+    }
+
+    // 글 작성 (스터디 게시판)
+    @ResponseBody
+    @PostMapping(value = "/{board_id}/study")
+    public Map<String, Object> studyWritePost(
+            @PathVariable(value = "board_id") int board_id,
+            @RequestParam(value = "page") int page,
+            @RequestBody PostBean postBean, HttpSession session) throws Exception {
+
+        postBean.setBoard_id(board_id);
+
+ //       LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+ //       postBean.setWriter(loginBean.getEmail());
+
+        postBean.setWriter("a1@naver.com");
+
+
+        int no = boardService.writePost(postBean);
+
+        int result = boardService.getPostCountByNo(board_id, no);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("no",no);
+        map.put("result",result);
+
+        return map;
+    }
+
+    // 매칭 테이블 생성
+    @ResponseBody
+    @PostMapping(value = "{board_id}/{no}/study")
+    public <studyBean> Integer macthingCreate(
+            @PathVariable(value = "board_id") int board_id,
+            @PathVariable(value = "no") int no,
+            @RequestBody StudyGroupBean studyBean,
+            HttpSession session) throws Exception {
+
+//        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+//        studyBean.setHost_email(loginBean.getEmail());
+        studyBean.setHost_email("a1@naver.com");
+
+        int result = boardService.createMatching(studyBean);
+        if(result == 0){
+            // no 값으로 작성 글 delete 메소드
+        }
+
+        return result;
+    }
+
+
 
 }

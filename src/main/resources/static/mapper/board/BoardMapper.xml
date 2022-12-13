@@ -53,4 +53,18 @@
 
 
 
+
+    <!-- 글 존재 여부 검색-->
+    <select id="getPostCountByNo" resultType="int">
+        select count(*) from posts where board_id = #{board_id} and no = #{no}
+    </select>
+
+    <!-- 매칭 생성 -->
+    <insert id="createMatching">
+        insert into study_groups(host_email, members_email, total_members, date, deadline)
+        values (#{host_email}, #{members_email}, #{total_members}, now(), #{deadline} )
+    </insert>
+
+
+
 </mapper>

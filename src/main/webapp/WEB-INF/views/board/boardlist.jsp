@@ -78,7 +78,7 @@
         <div class="card mb-4">
             <div class="card-header">
                 <button type="button" class="btn btn-primary float-end"
-                	onClick="location.href='/boards/${board.id}/write?page=${pg.page}'">글 작성
+                	onClick="location.href='/boards/${board_id}/write-study?page=${pg.page}'">글 작성
                 </button>
             </div>
             <div class="card-body">
