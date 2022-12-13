@@ -16,8 +16,8 @@
 	<insert id="CompanyjoinUser"
 		parameterType="com.laonworks502.team1st.model.users.CompanyUserBean">
 		insert into company_users
-		(email,passwd,company_name,name,tel1,tel2,tel3,register_date,exit_reason)
-		values(#{email},#{passwd},#{company_name},#{name},#{tel1},#{tel2},#{tel3},now(),#{exit_reason})
+		(email,passwd,company_name,name,tel1,tel2,tel3,register_date,exit_reason,salt)
+		values(#{email},#{passwd},#{company_name},#{name},#{tel1},#{tel2},#{tel3},now(),#{exit_reason},#{salt})
 	</insert>
 
 	<!-- 기업 회원 정보 수정 -->
@@ -30,20 +30,22 @@
 
 	<!-- email 중복 체크 -->
 	<select id="emailCheck" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM (select email from general_users
+		SELECT COUNT(email) FROM (select email from general_users
         union select email from company_users) as gcunion WHERE email = #{email}
 	</select>
 
 	<!-- 이메일로 회원 검색 -->
 	<select id="getMember" parameterType="String"
 		resultType="com.laonworks502.team1st.model.users.CompanyUserBean">
-		select * from company_users where email = #{email} and exit_reason is null 
+		select email,passwd,company_name,name,tel1,tel2,tel3,register_date,exit_reason,salt
+		 from company_users where email = #{email} and exit_reason is null 
 	</select>
 
 	<!-- 기업명으로 기업 검색 -->
 	<select id="getCompany" parameterType="String"
 		resultType="com.laonworks502.team1st.model.company.CompanyBean">
-		select * from companies where company_name= #{company_name}
+		select company_name, field, postal_code, address1, address2, tel1, tel2, tel3, foundation_date
+		 from companies where company_name= #{company_name}
 	</select>
 
 	<!--[비번 찾기) 메일 보내기] -->
@@ -68,12 +70,12 @@
 
     <!-- 기업회원의 게시물 전체 개수 -->
     <select id="countAllCompanyPosts" parameterType="String" resultType="int">
-        select count(*) from posts where writer = #{writer}
+        select count(writer) from posts where writer = #{writer}
     </select>
 
     <!-- 기업회원 글 리스트 불러 오기 -->
     <select id="getCompanyBoardList" resultType="com.laonworks502.team1st.model.post.PostBean">
-        select * from posts where writer = #{writer} order by no desc
+        select no,board_id,writer,content,date from posts where writer = #{writer} order by no desc
             limit #{startPostNo}, #{PAGES_COUNT}
     </select>
 
