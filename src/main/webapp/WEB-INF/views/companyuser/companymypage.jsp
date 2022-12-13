@@ -22,7 +22,7 @@
 <script type="text/javascript">
 function btnLogout() {
 	if(confirm("정말 로그아웃하시겠습니까?")== true){ // 확인
-		location.href="logout"
+		location.href="loginselect"
 	}else{	// 취소
 		return;
 	}
