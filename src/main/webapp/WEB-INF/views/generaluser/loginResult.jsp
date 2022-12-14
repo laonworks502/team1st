@@ -19,7 +19,7 @@
 
 <c:if test="${result == 2 }">
 	<script>
-		alert("회원 정보가 틀렸습니다. \n 확인 후 다시 입력해주세요.");
+		alert("비밀번호가 틀렸습니다. \n 확인 후 다시 입력해주세요.");
 		history.go(-1);
 	</script>
 </c:if>

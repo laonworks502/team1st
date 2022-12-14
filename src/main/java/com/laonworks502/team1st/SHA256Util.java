@@ -14,11 +14,11 @@ import static javax.xml.crypto.dsig.DigestMethod.SHA256;
 public class SHA256Util {
 
 
-    public static String getEncrypt(String source, String salt) {
-        return getEncrypt(source, salt.getBytes());
+    public static String getEncrypt_gu(String source, String salt) {
+        return getEncrypt_gu(source, salt.getBytes());
     }
 
-    public static String getEncrypt(String source, byte[] salt) {
+    public static String getEncrypt_gu(String source, byte[] salt) {
 
         String result = "";
 

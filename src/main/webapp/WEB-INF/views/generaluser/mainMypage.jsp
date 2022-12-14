@@ -14,7 +14,7 @@
 <body class="text-center">
 
     <main class="form-signin w-800 m-auto">
-
+<input type="text" name="email" value="${gub.email}">
         <table>
             <tr>
                 <div>
