@@ -15,6 +15,7 @@ public class CompanyUserBean extends UserBean{
     private String tel3;
     private Timestamp register_date;
     private String exit_reason;
+    private String salt;
 
     @Override
     public String getEmail() {

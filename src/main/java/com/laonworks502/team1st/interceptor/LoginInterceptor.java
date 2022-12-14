@@ -26,7 +26,6 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         } else{                                 // 로그인시
             log.info("로그인");
-            session.setMaxInactiveInterval(30*60);  // 세션 연장
             return true;
 
         }

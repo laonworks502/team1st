@@ -13,7 +13,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<input type="hidden" name="passwd"  id="passwd" value="${cub.passwd}">	
+<input type="hidden" name="passwd"  id="passwd" value="${cub.passwd}">
+<input type="hidden" name="salt"  id="salt" value="${cub.salt}">	
 	<form action="companyuserupdate_ok" onsubmit="return check()" method="post" align="center" style="margin-top: 15%;">
 		<h2>기업 회원 수정</h2>
 			<table align="center">
@@ -27,7 +28,7 @@
 				</tr>
 				<tr>
 					<td>비밀번호 확인</td>
-					<td><input type="password" name="passconfirm" id="passconfirm" ></td>
+					<td><input type="password" name="passconfirm" id="passconfirm"></td>
 				</tr>
 				<tr>
 					<td>이름</td>
