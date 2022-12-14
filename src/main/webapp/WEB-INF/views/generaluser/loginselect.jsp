@@ -19,13 +19,13 @@
             <tr>
                 <div>
                     <td>
-                        <button class="btn btn-primary btn-lg" type="button" style="width: 200px;" onclick="location='generalloginForm'">일반</button>
+                        <button class="btn btn-primary btn-lg" type="button" style="width: 200px;" onclick="location='general-login-form'">일반</button>
                     </td>
 
                     <td style="width: 50px;">
                     </td>
                     <td>
-                        <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='companyloginForm'">기업</button>
+                        <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='company-login-form'">기업</button>
                     </td>
                 </div>
             </tr>

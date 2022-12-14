@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 @Setter
 public class ApplicantBean {
     private int no;
-    private String applicant;
+    private String email;
+    private String name;
+    private String resume;
     private Timestamp date;
 }
