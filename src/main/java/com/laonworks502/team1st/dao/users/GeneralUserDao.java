@@ -30,4 +30,6 @@ public interface GeneralUserDao {
     int deleteGeneraluser(UserBean userBean) throws Exception;
 
     int resumeupload(UserBean userBean) throws Exception;
+
+    int addGeneralUser(GeneralUserBean gub) throws Exception;
 }
