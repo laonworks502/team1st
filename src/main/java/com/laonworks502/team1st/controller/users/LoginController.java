@@ -3,6 +3,7 @@ package com.laonworks502.team1st.controller.users;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.laonworks502.team1st.model.scrap.ScrapListBean;
 import com.laonworks502.team1st.SHA256Util;
 import com.laonworks502.team1st.model.users.UserBean;
 import org.apache.commons.mail.HtmlEmail;
@@ -22,6 +23,8 @@ import com.laonworks502.team1st.service.users.CompanyUserServiceImpl;
 import com.laonworks502.team1st.service.users.GeneralUserServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -56,7 +59,6 @@ public class LoginController {
 									  @RequestParam("email") String email,
 									  @RequestParam("passwd") String passwd) throws Exception{
 
-
 		int result = 0;
 
 		gub = gus.checkGeneraluser(email);
@@ -83,6 +85,7 @@ public class LoginController {
 				return "generaluser/mainMypage";
 
 			} else { // 비번 달라서 로그인 안됨
+
 				result = 2;
 				model.addAttribute("result", result);
 

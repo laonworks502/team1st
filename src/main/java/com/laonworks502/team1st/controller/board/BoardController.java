@@ -103,6 +103,7 @@ public class BoardController {
 
         log.info("postList={}", postList);
 
+        //postList에 대한 스크랩 유무 검색 메소드
         for (int i = 0; i < postList.size(); i++) {
             postList.get(i).setScrapResult(ss.getBoardSearchList(email, postList.get(i).getNo()));
 
@@ -125,7 +126,7 @@ public class BoardController {
     @GetMapping(value = "/{board_id}/{no}")
     public ModelAndView getPostByNo(@PathVariable(value = "board_id") int board_id,
                                     @PathVariable(value = "no") int no,
-                                    @RequestParam(value = "page") int page) throws Exception {
+                                    @RequestParam(value = "page",required = false, defaultValue = "1") Integer page )throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("board/postview");
 

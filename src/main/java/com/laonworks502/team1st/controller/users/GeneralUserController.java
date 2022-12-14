@@ -1,6 +1,8 @@
 package com.laonworks502.team1st.controller.users;
 
 import com.laonworks502.team1st.SHA256Util;
+import com.laonworks502.team1st.model.scrap.ScrapListBean;
+import com.laonworks502.team1st.model.scrap.ScrapListBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.users.CompanyUserServiceImpl;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -42,7 +45,11 @@ public class GeneralUserController {
     // 일반 회원 마이페이지
     @RequestMapping(value = "/generalmypage")
     public String generalmypage(HttpSession session,
-                                Model model
+                                Model model,
+                                @ModelAttribute ScrapListBean myminiscrap100,
+                                @ModelAttribute ScrapListBean myminiscrap200,
+                                @ModelAttribute ScrapListBean myminiscrap300
+
 //                                @ModelAttribute GeneralUserBean gub
                                 )throws Exception{
 
@@ -54,6 +61,10 @@ public class GeneralUserController {
         log.info("generalmypage:" + gub.getEmail());
 
         model.addAttribute("gub", gub);
+
+        model.addAttribute("myminiscrap100",myminiscrap100);
+        model.addAttribute("myminiscrap200",myminiscrap200);
+        model.addAttribute("myminiscrap300",myminiscrap300);
 
         return "generaluser/generalmypage";
     }

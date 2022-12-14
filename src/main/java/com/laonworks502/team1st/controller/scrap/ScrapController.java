@@ -30,7 +30,7 @@ public class ScrapController {
     private BoardServiceImpl bs;
 
     /*[스크랩 검색]*/
-    @GetMapping("search/{no}")  //경로 설정
+/*    @GetMapping("search/{no}")  //경로 설정
     public String searchScrap(
             @PathVariable("no") int no,
             HttpSession session,
@@ -54,9 +54,9 @@ public class ScrapController {
 
 
         return "boards";
-    }
+    }*/
 
-    /*[스크랩 생성(클릭)] : 클릭을 했는지 안했는지를 이미 판별한 상태에서 클릭*/
+    /*[Ajax)스크랩 생성(클릭)] : 클릭을 했는지 안했는지를 이미 판별한 상태에서 클릭*/
     @ResponseBody
     @PostMapping("/{no}")
     public Integer insertScrap(
@@ -91,7 +91,7 @@ public class ScrapController {
                 scrapresult = 0;   //스크랩 X 아이콘 나타남
             }
         }else{
-           scrapresult = ss.insertScrap(scrap); //[insertScrap() : 스크랩 생성 메소드]
+            scrapresult = ss.insertScrap(scrap); //[insertScrap() : 스크랩 생성 메소드]
             log.info("스크랩 생성(insertScrap)"+ scrapresult);
         }
 
@@ -109,23 +109,15 @@ public class ScrapController {
             @RequestBody List<PostBean> posts,
             HttpSession session,
             Model model)throws Exception{
-
         log.info("전체 해당 페이지에 대한 검색(boardSearchList)");
-
         LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
-
         String email = loginBean.getEmail();
-
         List<Integer> boardSearchList = new ArrayList<>();
-
         for(int i =0;  i > pg.getPAGES_COUNT(); i++) {
             boardSearchList.add(ss.getBoardSearchList(email, posts.get(i).getNo()));
         }
-
         model.addAttribute("boardSearchList",boardSearchList);
-
         return boardSearchList;
-
     }
 */
 
@@ -169,7 +161,7 @@ public class ScrapController {
     /*[마이페이지) 미니 스크랩 리스트 ]*/
     @GetMapping("/listMiniScrap")
     public String listMiniScrap(
-            GeneralUserBean gub,
+            //GeneralUserBean gub,
             HttpSession session,
             Model model) throws Exception {
 
@@ -189,12 +181,14 @@ public class ScrapController {
         model.addAttribute("myminiscrap200",myminiscrap200);
         model.addAttribute("myminiscrap300",myminiscrap300);
 
-        model.addAttribute("gub",gub);
+        //model.addAttribute("gub",gub);
 
         log.info("myminiscrap100" +myminiscrap100);
 
-        return "generaluser/generalmypage";
+        //return "redirect: generaluser/mainMypage;"
+        return "redirect: generaluser/generalmypage";
     }
+
 
 
 }
