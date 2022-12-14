@@ -143,11 +143,11 @@
             <li class="page-item" id="page-item${i}">
                 <a class="page-link" href="/boards/${board.id}?page=${i}">${i}</a>
             </li>
-                <script>
-                    const pageItem=document.getElementById("page-item${pg.page}");
-                    pageItem.classList.add('active')
-                </script>
         </c:forEach>
+            <script>
+                const pageItem=document.getElementById("page-item${pg.page}");
+                pageItem.classList.add('active')
+            </script>
         <li class="page-item">
             <c:if test="${pg.page < pg.pagesTotal}">
                 <a class="page-link" href="/boards/${board.id}?page=${pg.page+1}" aria-label="Next">
