@@ -3,6 +3,8 @@ package com.laonworks502.team1st.service.admin;
 import java.util.List;
 
 import com.laonworks502.team1st.model.admin.AdminBean;
+import com.laonworks502.team1st.model.company.CompanyBean;
+import com.laonworks502.team1st.model.users.CompanyUserBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 
 public interface AdminService {
@@ -31,6 +33,21 @@ public interface AdminService {
     //generalusers - 전체 회원 수 구하기
     public int countAllUsers() throws Exception;
     
-    //generlauserslist 
+    //generlauserslist
     public List<GeneralUserBean> generalUsersList(Integer page) throws Exception;
+
+    //companyusers - 전체 기업 회원 수 구하기
+    public int countAllCompanyUsers() throws Exception;
+
+    //companyluserlist
+    List<CompanyUserBean> companyUsersList(Integer page) throws Exception;
+
+    //companies - 전체 기업 수 구하기
+    public int countAllCompanies() throws Exception;
+
+    //companylist
+    List<CompanyBean> companyList(Integer page) throws Exception;
+
+    //일반 회원 삭제
+    public void generalUserDelete(GeneralUserBean email) throws Exception;
 }

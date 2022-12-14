@@ -1,6 +1,8 @@
 package com.laonworks502.team1st.dao.admin;
 
 import com.laonworks502.team1st.model.admin.AdminBean;
+import com.laonworks502.team1st.model.company.CompanyBean;
+import com.laonworks502.team1st.model.users.CompanyUserBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 
 import java.util.List;
@@ -30,10 +32,25 @@ public interface AdminDao {
     
     //기업회원 월별 가입자 수
     public int companyJoinChartMonth(int i) throws Exception;
-    
+
     //generalusers - 전체 회원 수 구하기
-    public int countAllUsers() throws Exception;
-    
+    int countAllUsers() throws Exception;
+
     //generaluserlist
     List<GeneralUserBean> generalUsersList(Integer page) throws Exception;
+
+    //companyusers - 전체 기업 회원 수 구하기
+    int countAllCompanyUsers() throws Exception;
+
+    //companyluserlist
+    List<CompanyUserBean> companyUsersList(Integer page) throws Exception;
+
+    //companies - 전체 기업 수 구하기
+    int countAllCompanies() throws Exception;
+
+    //companylist
+    List<CompanyBean> companyList(Integer page) throws Exception;
+
+    //일반 회원 삭제
+    void generalUserDelete(GeneralUserBean email) throws Exception;
 }

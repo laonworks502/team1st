@@ -1,5 +1,8 @@
 package com.laonworks502.team1st.controller.admin;
 
+import com.laonworks502.team1st.model.company.CompanyBean;
+import com.laonworks502.team1st.model.users.CompanyUserBean;
+import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.laonworks502.team1st.model.admin.AdminBean;
 import com.laonworks502.team1st.model.admin.AdminPagination;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
-import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -204,7 +205,7 @@ public class AdminController {
 		return "admin/adminstat6";
 	}
 	
-	// 전체 회원 목록 페이지
+	// 전체 일반회원 목록 페이지
 	@RequestMapping("generaluserslistpage")
 	public String generaluserslistpage(HttpSession session, Model model) throws Exception {
 
@@ -218,24 +219,104 @@ public class AdminController {
 		return "admin/generaluserslist";
 	}
 
-
-	// 전체 회원 목록(테이블)
+	// 전체 일반 회원 목록(테이블)
 	@GetMapping("generaluserslist")
 	@ResponseBody
 	public List<GeneralUserBean> generaluserslist(
 			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
-    	
+
 		log.info("generaluserslist 진입");
-		
-    	  AdminPagination adminpg = new AdminPagination(page, 20);
-    	  log.info("adminpg: "+adminpg);
-    	  model.addAttribute("adminpg", adminpg);
-    	  
-    	  List<GeneralUserBean> generalUsersList = adminservice.generalUsersList(page);
-    	  log.info("generalUsersList: "+generalUsersList);
-    	  model.addAttribute("generalUsersList", generalUsersList);
-    	  
-        return generalUsersList;
-    }
-	
+
+		AdminPagination adminpg = new AdminPagination(page, 20);
+		log.info("adminpg: "+adminpg);
+		model.addAttribute("adminpg", adminpg);
+
+		List<GeneralUserBean> generalUsersList = adminservice.generalUsersList(page);
+		log.info("generalUsersList: "+generalUsersList);
+		model.addAttribute("generalUsersList", generalUsersList);
+
+		return generalUsersList;
+	}
+
+	// 전체 기업 회원 목록 페이지
+	@RequestMapping("companyuserslistpage")
+	public String companyuserslistpage(HttpSession session, Model model) throws Exception {
+
+		// 전체 회원 수 구하기
+		int totalCompanyUsers = adminservice.countAllCompanyUsers();
+
+		log.info("totalCompanyUsers: " + totalCompanyUsers);
+
+		model.addAttribute("totalCompanyUsers", totalCompanyUsers);
+
+		return "admin/companyuserslist";
+	}
+
+	// 전체 기업 회원 목록(테이블)
+	@GetMapping("companyuserslist")
+	@ResponseBody
+	public List<CompanyUserBean> companyuserslist(
+			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
+
+		log.info("companyuserslist 진입");
+
+		AdminPagination adminpg = new AdminPagination(page, 20);
+		log.info("adminpg: "+adminpg);
+		model.addAttribute("adminpg", adminpg);
+
+		List<CompanyUserBean> companyUsersList = adminservice.companyUsersList(page);
+		log.info("companyUsersList: "+companyUsersList);
+		model.addAttribute("companyUsersList", companyUsersList);
+
+		return companyUsersList;
+	}
+
+	// 전체 기업 목록 페이지
+	@RequestMapping("companylistpage")
+	public String companylistpage(HttpSession session, Model model) throws Exception {
+
+		// 전체 기업 수 구하기
+		int totalCompanies = adminservice.countAllCompanies();
+
+		log.info("totalCompanies: " + totalCompanies);
+
+		model.addAttribute("totalCompanies", totalCompanies);
+
+		return "admin/companylist";
+	}
+
+	// 전체 기업 목록(테이블)
+	@GetMapping("companylist")
+	@ResponseBody
+	public List<CompanyBean> companylist(
+			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
+
+		log.info("companylist 진입");
+
+		AdminPagination adminpg = new AdminPagination(page, 20);
+		log.info("adminpg: "+adminpg);
+		model.addAttribute("adminpg", adminpg);
+
+		List<CompanyBean> companyList = adminservice.companyList(page);
+		log.info("companyList: "+companyList);
+		model.addAttribute("companyList", companyList);
+
+		return companyList;
+	}
+
+	//일반 회원 삭제
+	@RequestMapping("admingeneraluserdelete")
+	public String generaluserdelete (GeneralUserBean generalUserBean,
+									 Model model) throws Exception {
+
+		log.info("일반 회원 삭제 컨트롤러 진입 ");
+
+		//특정 회원 삭제
+		adminservice.generalUserDelete(generalUserBean);
+		log.info("일반 회원 삭제 성공");
+
+		return "admin/generaluserdelete";
+	}
+
+
 }

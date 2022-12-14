@@ -3,6 +3,8 @@ package com.laonworks502.team1st.service.admin;
 
 import com.laonworks502.team1st.dao.admin.AdminDao;
 import com.laonworks502.team1st.model.admin.AdminBean;
+import com.laonworks502.team1st.model.company.CompanyBean;
+import com.laonworks502.team1st.model.users.CompanyUserBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 
 import java.util.List;
@@ -57,19 +59,48 @@ public class AdminServiceImpl implements AdminService {
     public int companyJoinChartMonth(int i) throws Exception{
     	return admindao.companyJoinChartMonth(i);
     }
-    
-    //generalusers - 전체 회원 수 구하기
+
+    //generalusers - 전체 일반 회원 수 구하기
     @Override
     public int countAllUsers() throws Exception{
-    	return admindao.countAllUsers();
+        return admindao.countAllUsers();
     }
-    
+
     //generaluserslist
     @Override
     public List<GeneralUserBean> generalUsersList(Integer page) throws Exception{
-    	return admindao.generalUsersList(page);
+        return admindao.generalUsersList(page);
     }
 
+    //companyusers - 전체 기업 회원 수 구하기
+    @Override
+    public int countAllCompanyUsers() throws Exception{
+        return admindao.countAllCompanyUsers();
+    }
+
+    //companyluserlist
+    @Override
+    public List<CompanyUserBean> companyUsersList(Integer page) throws Exception{
+        return admindao.companyUsersList(page);
+    }
+
+    //companies - 전체 기업 수 구하기
+    @Override
+    public int countAllCompanies() throws Exception{
+        return admindao.countAllCompanies();
+    }
+
+    //companylist
+    @Override
+    public List<CompanyBean> companyList(Integer page) throws Exception{
+        return admindao.companyList(page);
+    }
+
+    //일반 회원 삭제
+    @Override
+    public void generalUserDelete(GeneralUserBean email) throws Exception {
+        admindao.generalUserDelete(email);
+    }
 
 }
 
