@@ -8,7 +8,7 @@
 
     <title>login</title>
 
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/loginForm.css">
+    <link rel="stylesheet" href="/resources/css/loginForm.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
 
 </head>
@@ -50,7 +50,7 @@
 
 <main class="form-signin w-100 m-auto">
 
-    <form method="post" action="generalmypage" onsubmit="return login_check()">
+    <form method="post" action="/mainmypage" onsubmit="return login_check()">
 
         <h1 class="h3 mb-3 fw-normal">일반 회원 로그인</h1>
 

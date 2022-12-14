@@ -3,6 +3,8 @@ package com.laonworks502.team1st.controller.users;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.laonworks502.team1st.model.scrap.ScrapListBean;
+import com.laonworks502.team1st.SHA256Util;
 import com.laonworks502.team1st.model.users.UserBean;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import com.laonworks502.team1st.service.users.CompanyUserServiceImpl;
 import com.laonworks502.team1st.service.users.GeneralUserServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -46,23 +50,34 @@ public class LoginController {
 	}
 
 	// 일반 로그인 실행
-	@RequestMapping("generalmypage")
-	public String generaluserlogin_ok(GeneralUserBean gub, HttpSession session, Model model,
-			@RequestParam("email") String email, @RequestParam("passwd") String passwd) throws Exception {
+	@RequestMapping("/mainmypage")
+	public String generaluserlogin_ok(
+									  HttpSession session,
+									  Model model,
+
+									  //@ModelAttribute List<ScrapListBean> myminiscrap100,
+									  //@ModelAttribute List<ScrapListBean> myminiscrap200,
+									  //@ModelAttribute List<ScrapListBean> myminiscrap300,
+
+									  @ModelAttribute GeneralUserBean gub,
+
+									  @RequestParam("email") String email,
+									  @RequestParam("passwd") String passwd) throws Exception{
+
 
 		int result = 0;
 
 		gub = gus.checkGeneraluser(email);
 
-		if (gub == null) { // 등록되지 않은 회원
+		if(gub == null){    // 등록되지 않은 회원
 
 			result = 1;
 			model.addAttribute("result", result);
 
 			return "generaluser/loginResult";
 
-		} else { // 등록 회원 확인됨
-			if (gub.getPasswd().equals(passwd)) { // 비번 같아서 로그인됨
+		}else{              // 등록 회원 확인됨
+			if(gub.getPasswd().equals(SHA256Util.getEncrypt(passwd, gub.getSalt()))) {        // 암호화한 것과 비번 같아서 로그인됨
 //            session.setAttribute("email", email);
 
 				LoginBean loginBean = new LoginBean(email, "일반");
@@ -72,9 +87,20 @@ public class LoginController {
 				model.addAttribute("gub", gub);
 				log.info("로그인성공");
 
+
+				//model.addAttribute("myminiscrap100",myminiscrap100);
+				//model.addAttribute("myminiscrap200",myminiscrap200);
+				//model.addAttribute("myminiscrap300",myminiscrap300);
+
 				return "redirect:/scrap/listMiniScrap;";
+				 //return "generaluser/generalmypage";
+
+			}else{                                      // 비번 달라서 로그인 안됨
+
+				return "generaluser/mainMypage";
 
 			} else { // 비번 달라서 로그인 안됨
+
 				result = 2;
 				model.addAttribute("result", result);
 
@@ -102,7 +128,7 @@ public class LoginController {
 
 			// 입력받은 (passwd+salt) 암호화
 			String pw = SHA256.getEncrypt(passwd, salt);
-			
+
 			log.info("pw:" + pw);
 			if (cub.getPasswd().equals(pw)) {
 //				session.setAttribute("email", email);
