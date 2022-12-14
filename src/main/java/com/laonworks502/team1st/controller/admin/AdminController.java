@@ -302,19 +302,22 @@ public class AdminController {
 	}
 
 	//일반 회원 삭제
-	@PostMapping("admingeneraluserdelete")
+	@DeleteMapping ("/admingeneraluserdelete")
 	@ResponseBody
-	public String generaluserdelete (GeneralUserBean generalUserBean,
-									 Model model) throws Exception {
+	public Integer generaluserdelete (
+			@RequestBody GeneralUserBean generalUserBean) throws Exception {
 
 		log.info("일반 회원 삭제 컨트롤러 진입 ");
 
 		//특정 회원 삭제
-		adminservice.generalUserDelete(generalUserBean);
+		int result = adminservice.generalUserDelete(generalUserBean.getEmail());
+
+		log.info(generalUserBean.getEmail());
 		log.info("일반 회원 삭제 성공");
 
-		return "admin/generaluserdelete";
+		return result;
 	}
+
 
 
 	// 정규직 게시판 페이지

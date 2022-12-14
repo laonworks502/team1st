@@ -98,8 +98,8 @@ public class AdminServiceImpl implements AdminService {
 
     //일반 회원 삭제
     @Override
-    public void generalUserDelete(GeneralUserBean email) throws Exception {
-        admindao.generalUserDelete(email);
+    public int generalUserDelete(String email) throws Exception {
+       return admindao.generalUserDelete(email);
     }
 
     //countAllFulltimePosts - 전체 정규직 게시글 수 구하기

@@ -49,7 +49,7 @@ public interface AdminService {
     List<CompanyBean> companyList(Integer page) throws Exception;
 
     //일반 회원 삭제
-    public void generalUserDelete(GeneralUserBean email) throws Exception;
+    public int generalUserDelete(String email) throws Exception;
 
     //countAllFulltimePosts - 전체 정규직 게시글 수 구하기
     public int countAllFulltimePosts() throws Exception;

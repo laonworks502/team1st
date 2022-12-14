@@ -2,9 +2,10 @@ package com.laonworks502.team1st.model.company;
 
 import lombok.Data;
 
-import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.sql.Date;
 
 @Data
 public class CompanyBean {

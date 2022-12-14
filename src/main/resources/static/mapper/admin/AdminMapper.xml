@@ -100,7 +100,7 @@
  </select>
 
  <!-- 일반 회원 삭제 -->
- <update id="generalUserDelete" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
+ <update id="generalUserDelete" parameterType="String">
  update general_users set exit_reason = '관리자에 의해 삭제된 회원' where email = #{email}
  </update>
 </mapper>

@@ -52,7 +52,7 @@ public interface AdminDao {
     List<CompanyBean> companyList(Integer page) throws Exception;
 
     //일반 회원 삭제
-    void generalUserDelete(GeneralUserBean email) throws Exception;
+    int generalUserDelete(String email) throws Exception;
 
     //countAllFulltimePosts - 전체 정규직 게시글 수 구하기
     int countAllFulltimePosts() throws Exception;

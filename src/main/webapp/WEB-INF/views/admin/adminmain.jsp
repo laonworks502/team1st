@@ -111,25 +111,25 @@ function generalUsersListPage() {
 
 //전체 일반 회원 목록
 function generalUsersList() {
-	
+
 	$('#ajaxGeneralList').show()
 	$('#ajaxCompanyUsersList').hide()
 	$('#ajaxCompanyList').hide()
 	$.ajax({
-			url:"<%=request.getContextPath()%>/generaluserslist",
-			type : "get",
-			dataType : "json",
-			async : false,
-			success : function(data) {
-				console.log(data);
-				ajaxHtml(data);
+		url:"<%=request.getContextPath()%>/generaluserslist",
+		type : "get",
+		dataType : "json",
+		async : false,
+		success : function(data) {
+			console.log(data);
+			ajaxHtml(data);
 
-			},  
-			error : function() {
-				alert("error");
-			}
-		});
-	  
+		},
+		error : function() {
+			alert("error");
+		}
+	});
+
 	function ajaxHtml(result) {
 		var html = "<table class='table'>";
 		html += "<tr>";
@@ -139,28 +139,27 @@ function generalUsersList() {
 		html += "<td>가입일</td>";
 		html += "<td>관리</td>";
 		html += "</tr>";
-		
+
 		$.each(result, function(index, obj) {
-		
+
 			html += "<tr>";
 			html += "<td>" + obj.name + "</td>";
 			html += "<td>" + obj.email + "</td>";
-			html += "<td>" + obj.tel1 + "-";    
-			html += obj.tel2 + "-";    
-			html += obj.tel3 + "</td>"  ;    
+			html += "<td>" + obj.tel1 + "-";
+			html += obj.tel2 + "-";
+			html += obj.tel3 + "</td>"  ;
 			html += "<td>" + obj.register_date + "</td>";
-			html += "<td><button id='delete' type='button'>삭제</button> </td>";
-
+			html += "<td><button type='button' onclick='javascript:adminGeneralDelete(\""+obj.email+"\")'>삭제</button> </td>";
 			html += "</tr>";
 		})
 		html += "</table>";
 
 		$("#ajaxGeneralList").html(html);
-
 	}
 
 }
 
+//onclick="location.href='/admingeneraluserdelete'"
 
 //전체 기업 회원 목록 페이지
 function companyUsersListPage() {
@@ -199,7 +198,7 @@ function companyUsersList() {
 		html += "<td>관리</td>";
 		html += "</tr>";
 
-		$.each(result, function(index, obj) {
+		$.each(result, function(index,obj ) {
 
 			html += "<tr>";
 			html += "<td>" + obj.company_name + "</td>";
@@ -209,13 +208,43 @@ function companyUsersList() {
 			html += obj.tel2 + "-";
 			html += obj.tel3 + "</td>"  ;
 			html += "<td>" + obj.register_date + "</td>";
-			html += "<td><button type='button' onclick='admingeneraluserdelete'>삭제</button> </td>";
+			html += "<td><button type='button' onclick='javascript:adminGeneralDelete(\""+obj.email+"\")'>삭제</button> </td>";
 			html += "</tr>";
 		})
 		html += "</table>";
 
 		$("#ajaxCompanyUsersList").html(html);
 	}
+
+}
+
+
+// 삭제
+function adminGeneralDelete(email) {
+
+	var result = confirm('삭제하시겠습니까?');
+	if(result) {
+		$.ajax({
+			url: "/admingeneraluserdelete",
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			data: JSON.stringify({ 'email' : email }),
+			success: function(result) {
+				if(result == 1) {
+					alert('삭제되었습니다.');
+
+				}else {
+					alert('삭제 실패');
+				}
+				console.log(result);
+			}
+		});
+
+
+	}
+	//alert(email);
 
 }
 
