@@ -17,7 +17,7 @@ public class IndexController {
     @Qualifier("IndexService")
     private IndexService indexService;
 
-    @RequestMapping(value = {"/test","/"})
+    @RequestMapping(value = {"/","/main"})
     public String index(Model model, HttpSession session) throws Exception {
 
         List<BoardBean> boardList = indexService.callAllBoards();
