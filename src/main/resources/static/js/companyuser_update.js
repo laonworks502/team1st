@@ -10,14 +10,14 @@ function check() {
 		return false;
 	}
 
-	if ($.trim($("#passconfirm").val()) != $.trim($("#passwd").val())) {
+/*	if ($.trim($("#passconfirm").val()) != $.trim($("#passwd").val())) {
 		// !=같지않다 연산. 비번이 다를 경우
 		alert("비번이 다릅니다!");
 		$("#passconfirm").val("");
 		$("#passconfirm").val("");
 		$("#passconfirm").focus();
 		return false;
-	}
+	}*/
 	if ($.trim($("#name").val()) == "") {
 		alert("회원이름을 입력하세요!");
 		$("#name").val("").focus();
