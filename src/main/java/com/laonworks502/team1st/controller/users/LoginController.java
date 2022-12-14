@@ -51,19 +51,11 @@ public class LoginController {
 
 	// 일반 로그인 실행
 	@RequestMapping("/mainmypage")
-	public String generaluserlogin_ok(
-									  HttpSession session,
+	public String generaluserlogin_ok(HttpSession session,
 									  Model model,
-
-									  //@ModelAttribute List<ScrapListBean> myminiscrap100,
-									  //@ModelAttribute List<ScrapListBean> myminiscrap200,
-									  //@ModelAttribute List<ScrapListBean> myminiscrap300,
-
 									  @ModelAttribute GeneralUserBean gub,
-
 									  @RequestParam("email") String email,
 									  @RequestParam("passwd") String passwd) throws Exception{
-
 
 		int result = 0;
 
@@ -86,16 +78,6 @@ public class LoginController {
 				log.info("loginUser:" + loginBean.getAuthority());
 				model.addAttribute("gub", gub);
 				log.info("로그인성공");
-
-
-				//model.addAttribute("myminiscrap100",myminiscrap100);
-				//model.addAttribute("myminiscrap200",myminiscrap200);
-				//model.addAttribute("myminiscrap300",myminiscrap300);
-
-				return "redirect:/scrap/listMiniScrap;";
-				 //return "generaluser/generalmypage";
-
-			}else{                                      // 비번 달라서 로그인 안됨
 
 				return "generaluser/mainMypage";
 

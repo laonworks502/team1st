@@ -161,7 +161,7 @@ public class ScrapController {
     /*[마이페이지) 미니 스크랩 리스트 ]*/
     @GetMapping("/listMiniScrap")
     public String listMiniScrap(
-            GeneralUserBean gub,
+            //GeneralUserBean gub,
             HttpSession session,
             Model model) throws Exception {
 
@@ -181,12 +181,12 @@ public class ScrapController {
         model.addAttribute("myminiscrap200",myminiscrap200);
         model.addAttribute("myminiscrap300",myminiscrap300);
 
-        model.addAttribute("gub",gub);
+        //model.addAttribute("gub",gub);
 
         log.info("myminiscrap100" +myminiscrap100);
 
-        return "generaluser/generalmypage";
-        //return "redirect: generaluser/generalmypage;";
+        //return "redirect: generaluser/mainMypage;"
+        return "redirect: generaluser/generalmypage";
     }
 
 
