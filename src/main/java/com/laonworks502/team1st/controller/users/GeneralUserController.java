@@ -29,6 +29,24 @@ public class GeneralUserController {
     @Autowired
     private CompanyUserServiceImpl cus;
 
+    // 로그인 후 페이지
+//    @RequestMapping("/mainmypage")
+//    public String mainmypage(HttpSession session,
+//                             @ModelAttribute GeneralUserBean gub) throws Exception{
+//        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+//        String email = loginBean.getEmail();
+//
+//        return "generaluser/mainMypage";
+//    }
+
+    @RequestMapping("/generalmypage")
+    public String generalmypage(HttpSession session,
+                                @ModelAttribute GeneralUserBean gub
+                                )throws Exception{
+
+        return "generaluser/generalmypage";
+    }
+
     // 회원가입 폼
     @RequestMapping(value = "/generaluserinsert")
     public String generaluserinsert(GeneralUserBean gub) throws  Exception{
@@ -68,12 +86,13 @@ public class GeneralUserController {
 
     // 회원수정 폼
     @RequestMapping("/generaluseredit")
-    public String generaluseredit(HttpSession session, Model model) throws Exception {
+    public String generaluseredit(HttpSession session, Model model,
+                                  @ModelAttribute GeneralUserBean gub) throws Exception {
 
 		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 		String email = loginBean.getEmail();
 
-        GeneralUserBean gub = gus.checkGeneraluser(email);
+        gub = gus.checkGeneraluser(email);
 
         model.addAttribute("gub",gub);
 
@@ -86,7 +105,7 @@ public class GeneralUserController {
     @RequestMapping(value="generaluseredit_ok", method = RequestMethod.POST)    // 수정시 method = RequestMethod.POST필수
     public String generaluseredit_ok(HttpSession session,
                                      HttpServletRequest request,
-                                     GeneralUserBean gub) throws Exception {
+                                     @ModelAttribute GeneralUserBean gub) throws Exception {
 
         GeneralUserBean old = gus.checkGeneraluser(gub.getEmail());
 
