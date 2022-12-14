@@ -16,6 +16,7 @@ public class GeneralUserBean extends UserBean{
     private Date register_date;
     private String resume;
     private String exit_reason;
+    private String salt;
 
     @Override
     public String getEmail() {

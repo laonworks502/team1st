@@ -100,7 +100,6 @@
                 </a>
                 <br>
             </form>
-        </div>
 
         <!--스크랩 영역-->
         <div class="myscrap_total_wrap">

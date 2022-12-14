@@ -7,6 +7,7 @@
     <title>${boardName} 게시판</title>
 </head>
 <script>
+
     function postDelete() {
         var result = confirm('해당 글을 삭제하시겠습니까?');
         if (result) {
@@ -137,14 +138,14 @@
                         </div>
 
                         <div class="board-footer">
-                            <%--<c:if test="${post.writer == }">--%>
+                            <c:if test="${post.writer == sessionScope.loginBean.email}">
                             <button type="button" class="btn btn-outline-primary"
                                     onclick="location.href='/boards/${board_id}/${no}/edit?page=${page}'">수정
                             </button>
                             <button type="button" class="btn btn-outline-danger"
                                     onclick="postDelete()">삭제
                             </button>
-                            <%--</c:if>--%>
+                            </c:if>
                             <button type="button" class="btn btn-outline-secondary"
                                     onclick="history.go(-1);">뒤로가기
                             </button>

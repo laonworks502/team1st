@@ -1,8 +1,8 @@
 package com.laonworks502.team1st.controller.users;
 
+import com.laonworks502.team1st.SHA256Util;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.LoginBean;
-import com.laonworks502.team1st.model.users.UserBean;
 import com.laonworks502.team1st.service.users.CompanyUserServiceImpl;
 import com.laonworks502.team1st.service.users.GeneralUserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +29,24 @@ public class GeneralUserController {
     @Autowired
     private CompanyUserServiceImpl cus;
 
+    // 로그인 후 페이지
+//    @RequestMapping("/mainmypage")
+//    public String mainmypage(HttpSession session,
+//                             @ModelAttribute GeneralUserBean gub) throws Exception{
+//        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+//        String email = loginBean.getEmail();
+//
+//        return "generaluser/mainMypage";
+//    }
+
+    @RequestMapping("/generalmypage")
+    public String generalmypage(HttpSession session,
+                                @ModelAttribute GeneralUserBean gub
+                                )throws Exception{
+
+        return "generaluser/generalmypage";
+    }
+
     // 회원가입 폼
     @RequestMapping(value = "/generaluserinsert")
     public String generaluserinsert(GeneralUserBean gub) throws  Exception{
@@ -42,8 +60,15 @@ public class GeneralUserController {
     public String generaluserinsert_ok(GeneralUserBean gub,
                                        Model model) throws Exception {
 
-        gus.joinUser(gub);
+        String salt = SHA256Util.generateSalt();                        // 8 바이트의 랜덤 수열 발생. salt 는 암호화 키
+        String passwd = SHA256Util.getEncrypt(gub.getPasswd(), salt);   // 입력한 passwd를 암호화 키 salt를 이용해서 SHA256방식으로 암호화
+        gub.setPasswd(passwd);
+        gub.setSalt(salt);  // salt 컬럼에 설정
 
+        gus.addGeneralUser(gub);
+
+//        gus.joinUser(gub);
+        log.info("비밀번호 암호화 저장 : " + gub.getPasswd());
         log.info("회원가입 완료");    // 뷰에 에러뜸 회원가입 값은 넘어감
 
         return "generaluser/loginForm"; // 가입 후 로그인페이지로 이동
@@ -60,13 +85,14 @@ public class GeneralUserController {
     }
 
     // 회원수정 폼
-    @RequestMapping("generaluseredit")
-    public String generaluseredit(HttpSession session, Model model) throws Exception {
+    @RequestMapping("/generaluseredit")
+    public String generaluseredit(HttpSession session, Model model,
+                                  @ModelAttribute GeneralUserBean gub) throws Exception {
 
 		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 		String email = loginBean.getEmail();
 
-        GeneralUserBean gub = gus.checkGeneraluser(email);
+        gub = gus.checkGeneraluser(email);
 
         model.addAttribute("gub",gub);
 
@@ -79,7 +105,7 @@ public class GeneralUserController {
     @RequestMapping(value="generaluseredit_ok", method = RequestMethod.POST)    // 수정시 method = RequestMethod.POST필수
     public String generaluseredit_ok(HttpSession session,
                                      HttpServletRequest request,
-                                     GeneralUserBean gub) throws Exception {
+                                     @ModelAttribute GeneralUserBean gub) throws Exception {
 
         GeneralUserBean old = gus.checkGeneraluser(gub.getEmail());
 
@@ -90,7 +116,7 @@ public class GeneralUserController {
     }
 
     // 회원삭제 폼
-    @RequestMapping("generaluserdelete")
+    @RequestMapping("/generaluserdelete")
     public String generaluserdelete(HttpSession session,
                                     GeneralUserBean gub,
                                     Model model) throws Exception {
@@ -239,5 +265,4 @@ public class GeneralUserController {
         }
 
     }
-
 }

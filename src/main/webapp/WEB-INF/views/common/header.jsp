@@ -19,14 +19,14 @@
 
             <div class="col-md-3 text-end">
                 <%-- 세션 O --%>
-                <c:if test="${!empty sessionScope.loginBean} ">
-                    <a href="/logout">LOGOUT</a>
-                    <c:if test="${sessionScope.loginBean.authority == '개인'}">
-                        <a href="<%-- 개인 마이페이지 경로 --%>"> <img src="<%=request.getContextPath()%>/images/IconMypage.png"
+                <c:if test="${not empty sessionScope.loginBean}">
+                    <a href="/loginselect">LOGOUT</a>
+                    <c:if test="${sessionScope.loginBean.authority == '일반'}">
+                        <a href="/generalmypage"> <img src="<%=request.getContextPath()%>/images/IconMypage.png"
                                                               width="32" height="32"></a>
                     </c:if>
                     <c:if test="${sessionScope.loginBean.authority == '기업'}">
-                        <a href="<%-- 기업 마이페이지 경로 --%>"> <img src="<%=request.getContextPath()%>/images/IconMypage.png"
+                        <a href="/companymypage"> <img src="<%=request.getContextPath()%>/images/IconMypage.png"
                                                               width="32" height="32"></a>
                     </c:if>
                 </c:if>
