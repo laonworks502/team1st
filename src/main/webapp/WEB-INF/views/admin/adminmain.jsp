@@ -11,7 +11,7 @@
 
 	<h1>관리자님, 환영합니다.</h1>
 	
-	<button type="button" class="btn text-black" style="background-color: #fff; border-color: #000;" onClick="location.href='#'">Client side 메인</button>
+	<button type="button" class="btn text-black" style="background-color: #fff; border-color: #000;" onClick="location.href='/test">Client side 메인</button>
 
 	<button type="button" class="btn text-black"
 		style="background-color: #fff; border-color: #000;"
@@ -35,15 +35,23 @@
 	<button type="button" class="btn text-black" id="companyJoinChartMonthButton" value="기업회원 월별 가입자 수" style="background-color: #fff; border-color: #000;"
 		onclick="companyJoinChartMonth()">기업회원 월별 가입자</button>
 
-	<button type="button" class="btn text-black" id="usersList" value="전체 회원 목록" style="background-color: #fff; border-color: #000;"
-		onclick="generalUsersListPage(); generalUsersList();">전체 회원 목록</button>
+	<button type="button" class="btn text-black" id="generalUsersList" value="일반 회원 목록" style="background-color: #fff; border-color: #000;"
+		onclick="generalUsersListPage(); generalUsersList();">일반 회원 목록</button>
+
+	<button type="button" class="btn text-black" id="companyUsersList" value="기업 회원 목록" style="background-color: #fff; border-color: #000;"
+			onclick="companyUsersListPage(); companyUsersList();">기업 회원 목록</button>
+
+	<button type="button" class="btn text-black" id="companyList" value="기업 목록" style="background-color: #fff; border-color: #000;"
+			onclick="companyListPage(); companyList();">기업 목록</button>
 
 	<!-- 그래프 나타나는 곳  -->
 	<div id="chart"></div>
 	<!-- 목록 나타나는 곳 -->
-	<div id="ajaxGeneralUsersList"></div> 
+	<div id="ajaxGeneralList"></div>
+	<div id="ajaxCompanyUsersList"></div>
+	<div id="ajaxCompanyList"></div>
 <!-- 	<table>
-	<tbody id="ajaxGeneralUsersList"></tbody>
+	<tbody id="ajaxList"></tbody>
 	</table> -->
 
 <!-- <script type="text/javascript" src="/js/admin/adminmainjs.js"></script> -->
@@ -53,55 +61,57 @@
 
 //일반회원 일별 가입자 수 
 function joinChartDate() {
-	$('#ajaxGeneralUsersList').hide()
+	$('#ajaxList').hide()
 	$('.table').hide()
 	$('#chart').load('adminstat1') // load('컨트롤러 안에 "" 이름쓰기"')
 } 
 
 //일반회원 주별 가입자 수
 function joinChartWeek() {
-	$('#ajaxGeneralUsersList').hide()
+	$('#ajaxList').hide()
 	$('.table').hide()
 	$('#chart').load('adminstat2')
 }
 
 //일반회원 월별 가입자 수
 function joinChartMonth() {
-	$('#ajaxGeneralUsersList').hide()
+	$('#ajaxList').hide()
 	$('.table').hide()
 	$('#chart').load('adminstat3')
 }
 
 //기업회원 일별 가입자 수
 function companyJoinChartDate() {
-	$('#ajaxGeneralUsersList').hide()
+	$('#ajaxList').hide()
 	$('.table').hide()
 	$('#chart').load('adminstat4')
 }
 
 //기업회원 주별 가입자 수
 function companyJoinChartWeek() {
-	$('#ajaxGeneralUsersList').hide()
+	$('#ajaxList').hide()
 	$('.table').hide()
 	$('#chart').load('adminstat5')
 }
 
 //기업회원 월별 가입자 수
 function companyJoinChartMonth() {
-	$('#ajaxGeneralUsersList').hide()
+	$('#ajaxList').hide()
 	$('.table').hide()
 	$('#chart').load('adminstat6')
 }
 
-//전체 회원 목록 페이지 
+//전체 일반 회원 목록 페이지
 function generalUsersListPage() {
 	$('#chart').load('generaluserslistpage')
 }
 
-//전체 회원 목록
+//전체 일반 회원 목록
 function generalUsersList() {
 	
-	$('#ajaxGeneralUsersList').show()
+	$('#ajaxGeneralList').show()
+	$('#ajaxCompanyUsersList').hide()
+	$('#ajaxCompanyList').hide()
 	$.ajax({
 			url:"<%=request.getContextPath()%>/generaluserslist",
 			type : "get",
@@ -124,6 +134,7 @@ function generalUsersList() {
 		html += "<td>이메일</td>";
 		html += "<td>전화번호</td>";
 		html += "<td>가입일</td>";
+		html += "<td>관리</td>";
 		html += "</tr>";
 		
 		$.each(result, function(index, obj) {
@@ -135,14 +146,129 @@ function generalUsersList() {
 			html += obj.tel2 + "-";    
 			html += obj.tel3 + "</td>"  ;    
 			html += "<td>" + obj.register_date + "</td>";
+			html += "<td><button type='button' onclick='generaluserdelete'>삭제</button> </td>";
 			html += "</tr>";
 		})
 		html += "</table>";
 
-		$("#ajaxGeneralUsersList").html(html);
+		$("#ajaxGeneralList").html(html);
 	}
 
 }
+
+
+//전체 기업 회원 목록 페이지
+function companyUsersListPage() {
+	$('#chart').load('companyuserslistpage')
+}
+
+//전체 기업 회원 목록
+function companyUsersList() {
+
+	$('#ajaxGeneralList').hide()
+	$('#ajaxCompanyUsersList').show()
+	$('#ajaxCompanyList').hide()
+	$.ajax({
+		url:"<%=request.getContextPath()%>/companyuserslist",
+		type : "get",
+		dataType : "json",
+		async : false,
+		success : function(data) {
+			console.log(data);
+			ajaxHtml(data);
+
+		},
+		error : function() {
+			alert("error");
+		}
+	});
+
+	function ajaxHtml(result) {
+		var html = "<table class='table'>";
+		html += "<tr>";
+		html += "<td>기업명</td>";
+		html += "<td>담당자명</td>";
+		html += "<td>이메일</td>";
+		html += "<td>전화번호</td>";
+		html += "<td>가입일</td>";
+		html += "<td>관리</td>";
+		html += "</tr>";
+
+		$.each(result, function(index, obj) {
+
+			html += "<tr>";
+			html += "<td>" + obj.company_name + "</td>";
+			html += "<td>" + obj.name + "</td>";
+			html += "<td>" + obj.email + "</td>";
+			html += "<td>" + obj.tel1 + "-";
+			html += obj.tel2 + "-";
+			html += obj.tel3 + "</td>"  ;
+			html += "<td>" + obj.register_date + "</td>";
+			html += "<td><button type='button' onclick='admingeneraluserdelete'>삭제</button> </td>";
+			html += "</tr>";
+		})
+		html += "</table>";
+
+		$("#ajaxCompanyUsersList").html(html);
+	}
+
+}
+
+//전체 기업 목록 페이지
+function companyListPage() {
+	$('#chart').load('companylistpage')
+}
+
+//전체 기업 목록
+function companyList() {
+
+	$('#ajaxGeneralList').hide()
+	$('#ajaxCompanyUsersList').hide()
+	$('#ajaxCompanyList').show()
+	$.ajax({
+		url:"<%=request.getContextPath()%>/companylist",
+		type : "get",
+		dataType : "json",
+		async : false,
+		success : function(data) {
+			console.log(data);
+			ajaxHtml(data);
+
+		},
+		error : function() {
+			alert("error");
+		}
+	});
+
+	function ajaxHtml(result) {
+		var html = "<table class='table'>";
+		html += "<tr>";
+		html += "<td>기업명</td>";
+		html += "<td>사업분야</td>";
+		html += "<td>전화번호</td>";
+		html += "<td>설립일</td>";
+		html += "<td>관리</td>";
+		html += "</tr>";
+
+		$.each(result, function(index, obj) {
+
+			html += "<tr>";
+			html += "<td>" + obj.company_name + "</td>";
+			html += "<td>" + obj.field + "</td>";
+			html += "<td>" + obj.tel1 + "-";
+			html += obj.tel2 + "-";
+			html += obj.tel3 + "</td>"  ;
+			html += "<td>" + obj.foundation_date + "</td>";
+			html += "<td><button type='button' onclick='admindelete'>삭제</button> </td>";
+			html += "</tr>";
+		})
+		html += "</table>";
+
+		$("#ajaxCompanyList").html(html);
+	}
+
+}
+
 
 </script>
 
