@@ -301,6 +301,22 @@ public class AdminController {
 		return companyList;
 	}
 
+
+
+	// 정규직 게시판 페이지
+	@RequestMapping("fulltimeboardpage")
+	public String fulltimeboardpage(HttpSession session, Model model) throws Exception {
+
+		// 전체 포스팅 수
+		int totalFulltimePosts = adminservice.countAllFulltimePosts();
+
+		log.info("totalFulltimePosts: " + totalFulltimePosts);
+
+		model.addAttribute("totalFulltimePosts", totalFulltimePosts);
+
+		return "admin/fulltimeboard";
+	}
+
 	//일반 회원 삭제
 	@DeleteMapping ("/admingeneraluserdelete")
 	@ResponseBody
@@ -318,21 +334,23 @@ public class AdminController {
 		return result;
 	}
 
+	//기업 회원 삭제
+	@DeleteMapping ("/admincompanyuserdelete")
+	@ResponseBody
+	public Integer admincompanyuserdelete (
+			@RequestBody CompanyUserBean companyUserBean) throws Exception {
 
+		log.info("기업 회원 삭제 컨트롤러 진입 ");
 
-	// 정규직 게시판 페이지
-	@RequestMapping("fulltimeboardpage")
-	public String fulltimeboardpage(HttpSession session, Model model) throws Exception {
+		//특정 회원 삭제
+		int result = adminservice.companyUserDelete(companyUserBean.getEmail());
 
-		// 전체 포스팅 수
-		int totalFulltimePosts = adminservice.countAllFulltimePosts();
+		log.info(companyUserBean.getEmail());
+		log.info("기업 회원 삭제 성공");
 
-		log.info("totalFulltimePosts: " + totalFulltimePosts);
-
-		model.addAttribute("totalFulltimePosts", totalFulltimePosts);
-
-		return "admin/fulltimeboard";
+		return result;
 	}
+
 
 	// 정규직 게시판 테이블
 //	@GetMapping("companylist")

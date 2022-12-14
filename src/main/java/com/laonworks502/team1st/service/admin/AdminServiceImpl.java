@@ -96,16 +96,22 @@ public class AdminServiceImpl implements AdminService {
         return admindao.companyList(page);
     }
 
-    //일반 회원 삭제
-    @Override
-    public int generalUserDelete(String email) throws Exception {
-       return admindao.generalUserDelete(email);
-    }
-
     //countAllFulltimePosts - 전체 정규직 게시글 수 구하기
     @Override
     public int countAllFulltimePosts() throws Exception{
         return admindao.countAllFulltimePosts();
+    }
+
+    //일반 회원 삭제
+    @Override
+    public int generalUserDelete(String email) throws Exception{
+        return admindao.generalUserDelete(email);
+    }
+
+    //기업 회원 삭제
+    @Override
+    public int companyUserDelete(String email) throws Exception{
+        return admindao.companyUserDelete(email);
     }
 
 }

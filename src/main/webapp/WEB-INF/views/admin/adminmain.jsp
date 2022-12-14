@@ -159,6 +159,31 @@ function generalUsersList() {
 
 }
 
+// 삭제
+function adminGeneralDelete(email) {
+	var result = confirm('삭제하시겠습니까?');
+	if(result) {
+		$.ajax({
+			url: "/admingeneraluserdelete",
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			data: JSON.stringify({ 'email' : email }),
+			success: function(result) {
+				if(result == 1) {
+					alert('삭제되었습니다.');
+				}else {
+					alert('삭제 실패');
+				}
+				console.log(result);
+			}
+		});
+	}
+	//alert(email);
+
+}
+
 //onclick="location.href='/admingeneraluserdelete'"
 
 //전체 기업 회원 목록 페이지
@@ -208,7 +233,7 @@ function companyUsersList() {
 			html += obj.tel2 + "-";
 			html += obj.tel3 + "</td>"  ;
 			html += "<td>" + obj.register_date + "</td>";
-			html += "<td><button type='button' onclick='javascript:adminGeneralDelete(\""+obj.email+"\")'>삭제</button> </td>";
+			html += "<td><button type='button' onclick='javascript:adminCompanyUserDelete(\""+obj.email+"\")'>삭제</button> </td>";
 			html += "</tr>";
 		})
 		html += "</table>";
@@ -218,14 +243,12 @@ function companyUsersList() {
 
 }
 
-
 // 삭제
-function adminGeneralDelete(email) {
-
+function adminCompanyUserDelete(email) {
 	var result = confirm('삭제하시겠습니까?');
 	if(result) {
 		$.ajax({
-			url: "/admingeneraluserdelete",
+			url: "/admincompanyuserdelete",
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json"
@@ -234,19 +257,17 @@ function adminGeneralDelete(email) {
 			success: function(result) {
 				if(result == 1) {
 					alert('삭제되었습니다.');
-
 				}else {
 					alert('삭제 실패');
 				}
 				console.log(result);
 			}
 		});
-
-
 	}
 	//alert(email);
 
 }
+
 
 //전체 기업 목록 페이지
 function companyListPage() {
