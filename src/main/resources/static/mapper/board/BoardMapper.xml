@@ -16,14 +16,16 @@
     <select id="getBoardList" resultType="com.laonworks502.team1st.model.post.PostListBean">
         select posts.no, posts.board_id, posts.title, posts.writer, posts.content, posts.date, name as writerName from
             posts join ((select email as writer, name from general_users where exit_reason is null
-                         union select email as writer, name from company_users where exit_reason is null) x)
-                       on posts.writer = x.writer
+                         union select email as writer, name from company_users where exit_reason is null) users)
+                       on posts.writer = users.writer
         where board_id = #{board_id} order by no desc limit #{startPostNo}, #{PAGES_COUNT}
     </select>
 
     <!-- 게시물 전체 개수 -->
     <select id="countAllPosts" parameterType="int" resultType="int">
-        select count(*) from posts where board_id = #{board_id}
+        select count(*) from posts join (select email from general_users where exit_reason is null
+            union select email from company_users where exit_reason is null) as users on posts.writer = users.email
+            where board_id = #{board_id}
     </select>
 
     <!-- 게시판 id 에서 게시판 정보 추출-->
