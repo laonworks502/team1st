@@ -3,6 +3,7 @@ package com.laonworks502.team1st.controller.users;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.laonworks502.team1st.model.scrap.ScrapListBean;
 import com.laonworks502.team1st.model.users.UserBean;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import com.laonworks502.team1st.service.users.CompanyUserServiceImpl;
 import com.laonworks502.team1st.service.users.GeneralUserServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -51,6 +54,9 @@ public class LoginController {
 	public String generaluserlogin_ok(GeneralUserBean gub,
 									  HttpSession session,
 									  Model model,
+									  //@ModelAttribute List<ScrapListBean> myminiscrap100,
+									  //@ModelAttribute List<ScrapListBean> myminiscrap200,
+									  //@ModelAttribute List<ScrapListBean> myminiscrap300,
 									  @RequestParam("email") String email,
 									  @RequestParam("passwd") String passwd) throws Exception{
 
@@ -76,8 +82,12 @@ public class LoginController {
 				model.addAttribute("gub",gub);
 				log.info("로그인성공");
 
+				//model.addAttribute("myminiscrap100",myminiscrap100);
+				//model.addAttribute("myminiscrap200",myminiscrap200);
+				//model.addAttribute("myminiscrap300",myminiscrap300);
 
 				return "redirect:/scrap/listMiniScrap;";
+				 //return "generaluser/generalmypage";
 
 			}else{                                      // 비번 달라서 로그인 안됨
 				result = 2;
