@@ -53,4 +53,7 @@ public interface AdminDao {
 
     //일반 회원 삭제
     void generalUserDelete(GeneralUserBean email) throws Exception;
+
+    //countAllFulltimePosts - 전체 정규직 게시글 수 구하기
+    int countAllFulltimePosts() throws Exception;
 }

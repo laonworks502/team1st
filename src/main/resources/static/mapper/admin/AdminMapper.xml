@@ -94,8 +94,15 @@
   from companies order by company_name asc
  </select>
 
+ <!-- 정규직 게시글 갯수 구하기 -->
+ <select id="countAllFulltimePosts" resultType="java.lang.Integer">
+  select count(*) from posts where board_id = '100'
+ </select>
+
  <!-- 일반 회원 삭제 -->
  <update id="generalUserDelete" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
  update general_users set exit_reason = '관리자에 의해 삭제된 회원' where email = #{email}
  </update>
 </mapper>
+
+

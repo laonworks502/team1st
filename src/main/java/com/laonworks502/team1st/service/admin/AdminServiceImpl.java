@@ -102,6 +102,12 @@ public class AdminServiceImpl implements AdminService {
         admindao.generalUserDelete(email);
     }
 
+    //countAllFulltimePosts - 전체 정규직 게시글 수 구하기
+    @Override
+    public int countAllFulltimePosts() throws Exception{
+        return admindao.countAllFulltimePosts();
+    }
+
 }
 
     

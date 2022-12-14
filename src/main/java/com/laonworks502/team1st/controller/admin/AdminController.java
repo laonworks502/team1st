@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.laonworks502.team1st.model.admin.AdminBean;
 import com.laonworks502.team1st.model.admin.AdminPagination;
@@ -305,7 +302,8 @@ public class AdminController {
 	}
 
 	//일반 회원 삭제
-	@RequestMapping("admingeneraluserdelete")
+	@PostMapping("admingeneraluserdelete")
+	@ResponseBody
 	public String generaluserdelete (GeneralUserBean generalUserBean,
 									 Model model) throws Exception {
 
@@ -319,4 +317,36 @@ public class AdminController {
 	}
 
 
+	// 정규직 게시판 페이지
+	@RequestMapping("fulltimeboardpage")
+	public String fulltimeboardpage(HttpSession session, Model model) throws Exception {
+
+		// 전체 포스팅 수
+		int totalFulltimePosts = adminservice.countAllFulltimePosts();
+
+		log.info("totalFulltimePosts: " + totalFulltimePosts);
+
+		model.addAttribute("totalFulltimePosts", totalFulltimePosts);
+
+		return "admin/fulltimeboard";
+	}
+
+	// 정규직 게시판 테이블
+//	@GetMapping("companylist")
+//	@ResponseBody
+//	public List<CompanyBean> companylist(
+//			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
+//
+//		log.info("companylist 진입");
+//
+//		AdminPagination adminpg = new AdminPagination(page, 20);
+//		log.info("adminpg: "+adminpg);
+//		model.addAttribute("adminpg", adminpg);
+//
+//		List<CompanyBean> companyList = adminservice.companyList(page);
+//		log.info("companyList: "+companyList);
+//		model.addAttribute("companyList", companyList);
+//
+//		return companyList;
+//	}
 }

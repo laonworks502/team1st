@@ -44,6 +44,9 @@
 	<button type="button" class="btn text-black" id="companyList" value="기업 목록" style="background-color: #fff; border-color: #000;"
 			onclick="companyListPage(); companyList();">기업 목록</button>
 
+	<button type="button" class="btn text-black" id="fulltimeBoard" value="정규 구인 게시판" style="background-color: #fff; border-color: #000;"
+			onclick="fulltimeBoardPage(); fulltimeBoadList();">정규 구인 게시판</button>
+
 	<!-- 그래프 나타나는 곳  -->
 	<div id="chart"></div>
 	<!-- 목록 나타나는 곳 -->
@@ -146,12 +149,14 @@ function generalUsersList() {
 			html += obj.tel2 + "-";    
 			html += obj.tel3 + "</td>"  ;    
 			html += "<td>" + obj.register_date + "</td>";
-			html += "<td><button type='button' onclick='generaluserdelete'>삭제</button> </td>";
+			html += "<td><button id='delete' type='button'>삭제</button> </td>";
+
 			html += "</tr>";
 		})
 		html += "</table>";
 
 		$("#ajaxGeneralList").html(html);
+
 	}
 
 }
@@ -265,6 +270,63 @@ function companyList() {
 		html += "</table>";
 
 		$("#ajaxCompanyList").html(html);
+	}
+
+}
+
+//정규직 구인구직 게시판 페이지
+function fulltimeBoardPage() {
+	$('#chart').load('fulltimeboardpage')
+}
+
+//정규직 구인구직 게시판 목록
+function fulltimeBoadList() {
+
+	$('#ajaxGeneralList').show()
+	$('#ajaxCompanyUsersList').hide()
+	$('#ajaxCompanyList').hide()
+	$.ajax({
+		url:"<%=request.getContextPath()%>/generaluserslist",
+		type : "get",
+		dataType : "json",
+		async : false,
+		success : function(data) {
+			console.log(data);
+			ajaxHtml(data);
+
+		},
+		error : function() {
+			alert("error");
+		}
+	});
+
+	function ajaxHtml(result) {
+		var html = "<table class='table'>";
+		html += "<tr>";
+		html += "<td>이름</td>";
+		html += "<td>이메일</td>";
+		html += "<td>전화번호</td>";
+		html += "<td>가입일</td>";
+		html += "<td>관리</td>";
+		html += "</tr>";
+
+		$.each(result, function(index, obj) {
+
+			html += "<tr>";
+			html += "<td>" + obj.name + "</td>";
+			html += "<td>" + obj.email + "</td>";
+			html += "<td>" + obj.tel1 + "-";
+			html += obj.tel2 + "-";
+			html += obj.tel3 + "</td>"  ;
+			html += "<td>" + obj.register_date + "</td>";
+			html += "<td><button id='delete' type='button'>삭제</button> </td>";
+
+			html += "</tr>";
+		})
+		html += "</table>";
+
+		$("#ajaxGeneralList").html(html);
+
 	}
 
 }
