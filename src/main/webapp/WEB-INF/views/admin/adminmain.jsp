@@ -9,15 +9,82 @@
 </head>
 <body>
 
-	<h1>관리자님, 환영합니다.</h1>
+	<nav class="navbar bg-light fixed-top">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">관리자님, 환영합니다.</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasNavbarLabel">관리자님, 환영합니다.</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" href="/adminmain">관리자 홈</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="#">Client-Side Main</a>
+						</li>
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								회원 통계
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									일반회원
+								</li>
+								<li><a class="dropdown-item" id="userJoinChartDateButton" onclick="joinChartDate()">일별 가입자</a></li>
+								<li><a class="dropdown-item" id="userJoinChartWeekButton" onclick="joinChartWeek()">주별 가입자</a></li>
+								<li><a class="dropdown-item" id="userJoinChartMonthButton" onclick="joinChartMonth()">월별 가입자</a></li>
+								<li>
+									<hr class="dropdown-divider"> 기업회원
+								</li>
+								<li><a class="dropdown-item" id="companyJoinChartDateButton" onclick="companyJoinChartDate()">일별 가입자</a></li>
+								<li><a class="dropdown-item" id="companyJoinChartWeekButton" onclick="companyJoinChartWeek()">주별 가입자</a></li>
+								<li><a class="dropdown-item" id="companyJoinChartMonthButton" onclick="companyJoinChartMonth()">월별 가입자</a></li>
+							</ul>
+						</li>
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								회원 관리
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" id="generalUsersList" onclick="generalUsersListPage(); generalUsersList();">일반회원</a></li>
+								<li><a class="dropdown-item" id="companyUsersList" onclick="companyUsersListPage(); companyUsersList();">기업회원</a></li>
+								<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">기업</a></li>
+								<li>
+							</ul>
+						</li>
+
+					</ul>
+<%--					<form class="d-flex mt-3" role="search">
+						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success" type="submit">Search</button>
+					</form>--%>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+
 	
-	<button type="button" class="btn text-black" style="background-color: #fff; border-color: #000;" onClick="location.href='/test">Client side 메인</button>
+<%--	<button type="button" class="btn text-black" style="background-color: #fff; border-color: #000;" onClick="location.href='/main">Client side 메인</button>--%>
 
-	<button type="button" class="btn text-black"
-		style="background-color: #fff; border-color: #000;"
-		onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</button>
+<%--	<button type="button" class="btn text-black"--%>
+<%--		style="background-color: #fff; border-color: #000;"--%>
+<%--		onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</button>--%>
 
-	<button type="button" class="btn text-black" id="userJoinChartDateButton" value="일반회원 일별 가입자 수" style="background-color: #fff; border-color: #000;"
+	<%--<button type="button" class="btn text-black" id="userJoinChartDateButton" value="일반회원 일별 가입자 수" style="background-color: #fff; border-color: #000;"
 		onclick="joinChartDate()" >일반회원 일별 가입자</button>    
 
 	<button type="button" class="btn text-black" id="userJoinChartWeekButton" value="일반회원 주별 가입자 수" style="background-color: #fff; border-color: #000;"
@@ -42,17 +109,19 @@
 			onclick="companyUsersListPage(); companyUsersList();">기업 회원 목록</button>
 
 	<button type="button" class="btn text-black" id="companyList" value="기업 목록" style="background-color: #fff; border-color: #000;"
-			onclick="companyListPage(); companyList();">기업 목록</button>
+			onclick="companyListPage(); companyList();">기업 목록</button>--%>
 
 	<button type="button" class="btn text-black" id="fulltimeBoard" value="정규 구인 게시판" style="background-color: #fff; border-color: #000;"
 			onclick="fulltimeBoardPage(); fulltimeBoadList();">정규 구인 게시판</button>
 
-	<!-- 그래프 나타나는 곳  -->
-	<div id="chart"></div>
-	<!-- 목록 나타나는 곳 -->
-	<div id="ajaxGeneralList"></div>
-	<div id="ajaxCompanyUsersList"></div>
-	<div id="ajaxCompanyList"></div>
+	<main style="margin-top:45px;">
+		<!-- 그래프 나타나는 곳  -->
+		<div id="chart"></div>
+		<!-- 목록 나타나는 곳 -->
+		<div id="ajaxGeneralList"></div>
+		<div id="ajaxCompanyUsersList"></div>
+		<div id="ajaxCompanyList"></div>
+	</main>
 <!-- 	<table>
 	<tbody id="ajaxList"></tbody>
 	</table> -->
@@ -302,7 +371,6 @@ function companyList() {
 		html += "<td>사업분야</td>";
 		html += "<td>전화번호</td>";
 		html += "<td>설립일</td>";
-		html += "<td>관리</td>";
 		html += "</tr>";
 
 		$.each(result, function(index, obj) {
@@ -314,7 +382,6 @@ function companyList() {
 			html += obj.tel2 + "-";
 			html += obj.tel3 + "</td>"  ;
 			html += "<td>" + obj.foundation_date + "</td>";
-			html += "<td><button type='button' onclick='admindelete'>삭제</button> </td>";
 			html += "</tr>";
 		})
 		html += "</table>";
