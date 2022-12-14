@@ -142,13 +142,13 @@
                     success: function (data) {
                         alert(data);
                         if(data == 1){	//스크랩 O
-                            $("#hiddenNoScrap"+no).hide();
-                            $("#hiddenYesScrap"+no).show();
-
+                            $("#hiddenNoScrap"+no).show();
+                            $("#hiddenYesScrap"+no).hide();
                             alert("in");
                         }else{        //스크랩 X
                             $("#hiddenYesScrap"+no).show();
                             $("#hiddenNoScrap"+no).hide();
+
 
                             alert("out");
                         }

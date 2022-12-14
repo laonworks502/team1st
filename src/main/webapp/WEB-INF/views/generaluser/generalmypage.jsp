@@ -51,10 +51,14 @@
                 success: function (data) {
                     alert(data);
                     if(data == 1){	//스크랩 O
-                        $("#hiddenYesScrap"+no).show();
-
+                        $("#hiddenNoScrap"+no).show();
+                        $("#hiddenYesScrap"+no).hide();
                         alert("in");
                     }else{        //스크랩 X
+                        $("#hiddenYesScrap"+no).show();
+                        $("#hiddenNoScrap"+no).hide();
+
+
                         alert("out");
                     }
                     location.reload();
@@ -100,6 +104,7 @@
                 </a>
                 <br>
             </form>
+        </div>
 
         <!--스크랩 영역-->
         <div class="myscrap_total_wrap">
