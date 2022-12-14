@@ -110,12 +110,12 @@
                             <td style="width: 100px; float: right">
                                 <div class="scrapIconYesArea" id="scrapIconArea${posts.no}">
                                     <c:if test="${posts.scrapResult == 1}">
-                                        <input type="image" id="hiddenYesScrap${posts.no}" value=${posts.scrapResult} src="<%=request.getContextPath()%>/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${posts.no})">
+                                        <input type="image" id="hiddenYesScrap${posts.no}" value=${posts.scrapResult} src="/resources/images/IconNoScrap.png" width=22px height=22px onclick="scrapClick(${posts.no})">
                                     </c:if>
                                 </div>
                                 <div class="scrapIconNoArea" id="scrapIconArea${posts.no}">
                                     <c:if test="${posts.scrapResult == 0}">
-                                        <input type="image" id="hiddenNoScrap${posts.no}" value=${posts.scrapResult} src="<%=request.getContextPath()%>/images/IconNoScrap.png" width=25px height=26px onclick="scrapClick(${posts.no})">
+                                        <input type="image" id="hiddenNoScrap${posts.no}" value=${posts.scrapResult} src="/resources/images/IconYesScrap.png" width=25px height=26px onclick="scrapClick(${posts.no})">
                                     </c:if>
                                 </div>
                             </td>

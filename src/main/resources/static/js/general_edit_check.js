@@ -6,14 +6,13 @@ function edit_check(){
         $("#passconfirm").val("").focus();
         return false;
     }
-    if($.trim($("#passwd").val()) != $.trim($("#passconfirm").val())){
-        //!=같지않다 연산. 비번이 다를 경우
-        alert("비밀번호가 일치하지 않습니다!");
-        $("#passwd").val("");
-        $("#passconfirm").val("");
-        $("#passwd").focus();
-        return false;
-    }
+    // if($.trim($("#passwd").val()) != $.trim($("#passconfirm").val())){
+    //     //!=같지않다 연산. 비번이 다를 경우
+    //     alert("비밀번호가 일치하지 않습니다!");
+    //     $("#passconfirm").val("");
+    //     $("#passconfirm").focus();
+    //     return false;
+    // }
     if($.trim($("#name").val())==""){
         alert("회원 이름을 입력하세요!");
         $("#name").val("").focus();

@@ -1,4 +1,4 @@
-package com.laonworks502.team1st.model.board;
+package com.laonworks502.team1st.model.applicant;
 
 import lombok.Getter;
 import lombok.Setter;

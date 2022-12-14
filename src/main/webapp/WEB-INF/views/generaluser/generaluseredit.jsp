@@ -18,13 +18,14 @@
 
 <form action="generaluseredit_ok" onsubmit="return edit_check()" method="post" align="center"
       name="editform" style="margin-top: 15%;">
- <input type="hidden" name="email" value="${sessionScope.email}"> <!-- sessionScope : 컨트롤러의 세션값을 JSP에서 JSTL로 사용하는 것 -->
+<%-- <input type="hidden" name="email" value="${sessionScope.email}"> <!-- sessionScope : 컨트롤러의 세션값을 JSP에서 JSTL로 사용하는 것 -->--%>
  <input type="hidden" name="passwd" id="passwd" value="${gub.passwd}">
+<%-- <input type="hidden" name="email" id="email1" value="${gub.email}">--%>
  <h2>회원 수정</h2>
  <table align="center">
   <tr>
    <td>이메일</td>
-   <td> ${email} </td>
+   <td> <input type="text" name="email" id="email" class="input_box" style="border: none" readonly value="${gub.email}" ></td>
   </tr>
 
   <tr>

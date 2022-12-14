@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+*{
+    padding: 0;
+    margin:0;
+}
+
+body {
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    background-color: antiquewhite;
+}
+
+main {
+    width:1180px;
+    min-width: 1180px;
+    background-color: antiquewhite;
+}
+
+ul {
+    list-style:none;
+}

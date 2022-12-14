@@ -10,7 +10,7 @@
 
 	<%--[외부 파일 ] --%>
 	<link rel="stylesheet"
-		  href="<%=request.getContextPath() %>/css/decopwfind.css">
+		  href="/resources/css/decopwfind.css">
 
 	<script>
 		function check() {
