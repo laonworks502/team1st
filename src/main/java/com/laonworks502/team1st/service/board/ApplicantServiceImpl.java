@@ -10,4 +10,13 @@ public class ApplicantServiceImpl implements ApplicantService{
     @Autowired
     private ApplicantDao applicantDao;
 
+    @Override
+    public int insertApply(int no, String email) {
+        return applicantDao.insertApply(no, email);
+    }
+
+    @Override
+    public int searchApply(int no, String email) {
+        return applicantDao.searchApply(no, email);
+    }
 }

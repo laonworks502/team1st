@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.laonworks502.team1st.dao.board.ApplicantDao">
 
+    <insert id="insertApply">
+        insert into applicants value (#{no}, #{email}, now())
+    </insert>
+
+    <select id="searchApply" resultType="int">
+        select count(*) from applicants where no = #{no} and email = #{email}
+    </select>
+
 
 
 </mapper>

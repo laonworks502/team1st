@@ -21,8 +21,8 @@
                 success: function (data) {
                     alert(data);
                     if(data == 1){	//스크랩 O
-                        $("#hiddenNoScrap"+no).hide();
                         $("#hiddenYesScrap"+no).show();
+                        $("#hiddenNoScrap"+no).hide();
 
                         alert("in");
                     }else{        //스크랩 X
@@ -77,9 +77,16 @@
 
         <div class="card mb-4">
             <div class="card-header">
-                <button type="button" class="btn btn-primary float-end"
-                	onClick="location.href='/boards/${board.id}/write?page=${pg.page}'">글 작성
-                </button>
+                <c:if test="${sessionScope.loginBean.authority == '기업' && (board.id == '100' || board.id == '200')}">
+                    <button type="button" class="btn btn-primary float-end"
+                            onClick="location.href='/boards/${board.id}/write?page=${pg.page}'">글 작성
+                    </button>
+                </c:if>
+                <c:if test="${sessionScope.loginBean.authority == '일반' && board.id == '300'}">
+                    <button type="button" class="btn btn-primary float-end"
+                            onClick="location.href='/boards/${board.id}/write?page=${pg.page}'">글 작성
+                    </button>
+                </c:if>
             </div>
             <div class="card-body">
                 <table class="table table-hover table-striped">
