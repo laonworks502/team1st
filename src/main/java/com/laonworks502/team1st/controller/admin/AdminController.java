@@ -1,5 +1,6 @@
 package com.laonworks502.team1st.controller.admin;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.laonworks502.team1st.model.company.CompanyBean;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.CompanyUserBean;
@@ -28,6 +29,29 @@ public class AdminController {
 	//@Qualifier("admin")
 	private AdminServiceImpl adminservice;
 
+	// addadmin
+	@RequestMapping("addadmin")
+			public String addadmin(AdminBean adminbean) throws Exception {
+
+		String passwd = "admin502";
+
+		//솔트값 받기
+		String salt = EncryptionSHA256.generateSalt();                        // 8 바이트의 랜덤 수열 발생. salt 는 암호화 키
+		String savepasswd = EncryptionSHA256.getEncrypt_admin(passwd, salt);   // 입력한 passwd를 암호화 키 salt를 이용해서 SHA256방식으로 암호화
+		log.info(passwd);
+
+		adminbean.setPasswd(savepasswd);
+		adminbean.setSalt(salt);  // salt 컬럼에 설정
+
+		//log.info(salt);
+
+		adminservice.addAdmin(adminbean);
+
+		log.info("비밀번호 암호화 저장 : " + adminbean.getPasswd());
+
+		return "admin/adminmain";
+	}
+
 	// 관리자 로그인 폼으로 이동  
 	@RequestMapping("adminloginform")
 	public String adminloginform() throws Exception {
@@ -52,12 +76,16 @@ public class AdminController {
 			return "admin/adminloginfail";
 
 		} else { // 등록 회원 확인됨
-			if (adminbean.getPasswd().equals(passwd)) { // 비번 같아서 로그인됨
+			if(adminbean.getPasswd().equals(EncryptionSHA256.getEncrypt_admin(passwd, adminbean.getSalt()))) {   // 암호화한 것과 비번 같아서 로그인됨
+
 				session.setAttribute("id", id);
+
 				log.info("로그인성공");
 
 				return "redirect:adminmain";
+
 			} else { // 비번 달라서 로그인 안됨
+
 				result = 2;
 				model.addAttribute("result", result);
 

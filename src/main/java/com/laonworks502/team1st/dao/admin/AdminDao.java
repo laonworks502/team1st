@@ -12,6 +12,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface AdminDao {
+
+    // Admin계정 Salt값 생성하여 DB 저장
+    public void addAdmin(AdminBean adminBean) throws Exception;
 	
 	//관리자 로그인
     public AdminBean getAdminInfo(String id) throws Exception;

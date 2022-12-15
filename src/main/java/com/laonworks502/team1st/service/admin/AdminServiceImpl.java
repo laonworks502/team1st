@@ -11,6 +11,7 @@ import com.laonworks502.team1st.model.users.GeneralUserBean;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.stereotype.Service;
 
 @Service("admin")
@@ -18,6 +19,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminDao admindao;
+
+    // saslt
+    @Override
+    public void addAdmin(AdminBean adminBean) throws Exception {
+        admindao.addAdmin(adminBean);
+    }
 
     // 관리자 로그인
     @Override
