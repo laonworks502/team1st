@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -16,6 +16,6 @@ public class PostBean {
     private String writer;
     private String writerName;
     private String content;
-    private Timestamp date;
+    private Date date;
 
 }

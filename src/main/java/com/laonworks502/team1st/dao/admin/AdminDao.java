@@ -2,6 +2,7 @@ package com.laonworks502.team1st.dao.admin;
 
 import com.laonworks502.team1st.model.admin.AdminBean;
 import com.laonworks502.team1st.model.company.CompanyBean;
+import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.CompanyUserBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 
@@ -39,6 +40,9 @@ public interface AdminDao {
     //generaluserlist
     List<GeneralUserBean> generalUsersList(Integer page) throws Exception;
 
+    //일반 회원 삭제
+    int generalUserDelete(String email) throws Exception;
+
     //companyusers - 전체 기업 회원 수 구하기
     int countAllCompanyUsers() throws Exception;
 
@@ -51,12 +55,15 @@ public interface AdminDao {
     //companylist
     List<CompanyBean> companyList(Integer page) throws Exception;
 
+    //기업 회원 삭제
+    public int companyUserDelete(String email) throws Exception;
+
     //countAllFulltimePosts - 전체 정규직 게시글 수 구하기
     int countAllFulltimePosts() throws Exception;
 
-    //일반 회원 삭제
-    int generalUserDelete(String email) throws Exception;
+    //fulltimeList
+    List<PostBean> fulltimePostList(Integer page) throws Exception;
 
-    //기업 회원 삭제
-    public int companyUserDelete(String email) throws Exception;
+    //정규직 게시글 삭제
+    int fulltimePostDelte(int no) throws Exception;
 }

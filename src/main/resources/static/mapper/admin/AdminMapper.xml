@@ -3,7 +3,7 @@
 <mapper namespace="com.laonworks502.team1st.dao.admin.AdminDao">
 
  <!-- 관리자 로그인 아이디 가져오기 -->
- <select id="getAdminInfo" parameterType="String" resultType="com.laonworks502.team1st.model.admin.AdminBean">
+ <select id="getAdminInfo" parameterType="java.lang.String" resultType="com.laonworks502.team1st.model.admin.AdminBean">
   select *
   from admin
   where id = #{id}
@@ -68,6 +68,11 @@
   from general_users where exit_reason is null order by name asc
  </select>
 
+ <!-- 일반 회원 삭제 -->
+ <update id="generalUserDelete" parameterType="java.lang.String">
+  update general_users set exit_reason = '관리자에 의해 삭제된 회원' where email = #{email}
+ </update>
+
  <!-- 전체 회원 수(기업회원) -->
  <select id="countAllCompanyUsers" resultType="int">
   select count(*)
@@ -79,6 +84,11 @@
   select email, passwd, company_name, name, tel1, tel2, tel3, date_format(register_date, '%Y-%m-%d')as register_date, exit_reason
   from company_users where exit_reason is null order by company_name asc
  </select>
+
+ <!-- 기업 회원 삭제-->
+ <update id="companyUserDelete" parameterType="java.lang.String">
+  update company_users set exit_reason = '관리자에 의해 삭제된 회원' where email = #{email}
+ </update>
 
  <!-- 전체 기업 수 -->
  <select id="countAllCompanies" resultType="int">
@@ -99,15 +109,32 @@
   select count(*) from posts where board_id = '100'
  </select>
 
- <!-- 일반 회원 삭제 -->
- <update id="generalUserDelete" parameterType="java.lang.String">
- update general_users set exit_reason = '관리자에 의해 삭제된 회원' where email = #{email}
- </update>
+ <!-- 정규직 게시물 목록 -->
+ <select id="fulltimePostList" resultType="com.laonworks502.team1st.model.post.PostBean">
+  /*select company_name, field, tel1, tel2, tel3, date_format(foundation_date, '%Y-%m-%d')as foundation_date
+   from companies order by company_name asc*/
+ /* select no, title, writerName, date, date from posts where*/
+  SELECT posts.no, posts.title, posts.writer, general_users.name as writerName, posts.date
+  FROM posts JOIN general_users ON posts.writer = general_users.email
 
- <!-- 기업 회원 삭제-->
- <update id="companyUserDelete" parameterType="java.lang.String">
-  update company_users set exit_reason = '관리자에 의해 삭제된 회원' where email = #{email}
- </update>
+ </select>
+
+ <!-- 정규직 게시글 삭제-->
+ <delete id="fulltimePostDelte" parameterType="int">
+delete from posts where no = #{no}
+ </delete>
+
+ <!-- 단기 게시글 갯수 구하기 -->
+<!-- <select id="countAllParttimePosts" resultType="java.lang.Integer">-->
+<!--  select count(*) from posts where board_id = '200'-->
+<!-- </select>-->
+
+ <!-- 스터디 게시글 갯수 구하기-->
+ <!-- <select id="countAllStudies" resultType="java.lang.Integer">-->
+<!--  select count(*) from posts where board_id = '300'-->
+<!-- </select>-->
+
+
 </mapper>
 
 

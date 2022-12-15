@@ -62,6 +62,20 @@
 								<li><a class="dropdown-item" id="generalUsersList" onclick="generalUsersListPage(); generalUsersList();">일반회원</a></li>
 								<li><a class="dropdown-item" id="companyUsersList" onclick="companyUsersListPage(); companyUsersList();">기업회원</a></li>
 								<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">기업</a></li>
+<%--								<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">탈퇴 기업회원</a></li>--%>
+<%--								<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">탈퇴 일반회원</a></li>--%>
+								<li>
+							</ul>
+						</li>
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								게시판 관리
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" id="fulltimeBoard" onclick="fulltimeBoardPage(); fulltimeBoadList();">정규 게시판</a></li>
+								<%--<li><a class="dropdown-item" id="companyUsersList" onclick="companyUsersListPage(); companyUsersList();">기업회원</a></li>
+								<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">기업</a></li>--%>
 								<li>
 							</ul>
 						</li>
@@ -111,10 +125,10 @@
 	<button type="button" class="btn text-black" id="companyList" value="기업 목록" style="background-color: #fff; border-color: #000;"
 			onclick="companyListPage(); companyList();">기업 목록</button>--%>
 
-	<button type="button" class="btn text-black" id="fulltimeBoard" value="정규 구인 게시판" style="background-color: #fff; border-color: #000;"
-			onclick="fulltimeBoardPage(); fulltimeBoadList();">정규 구인 게시판</button>
+<%--	<button type="button" class="btn text-black" id="fulltimeBoard" value="정규 구인 게시판" style="background-color: #fff; border-color: #000;"--%>
+<%--			onclick="fulltimeBoardPage(); fulltimeBoadList();">정규 구인 게시판</button>--%>
 
-	<main style="margin-top:45px;">
+	<main style="margin-top:60px;">
 		<!-- 그래프 나타나는 곳  -->
 		<div id="chart"></div>
 		<!-- 목록 나타나는 곳 -->
@@ -228,7 +242,7 @@ function generalUsersList() {
 
 }
 
-// 삭제
+//일반 회원 삭제
 function adminGeneralDelete(email) {
 	var result = confirm('삭제하시겠습니까?');
 	if(result) {
@@ -312,7 +326,7 @@ function companyUsersList() {
 
 }
 
-// 삭제
+//기업 회원 삭제
 function adminCompanyUserDelete(email) {
 	var result = confirm('삭제하시겠습니까?');
 	if(result) {
@@ -336,7 +350,6 @@ function adminCompanyUserDelete(email) {
 	//alert(email);
 
 }
-
 
 //전체 기업 목록 페이지
 function companyListPage() {
@@ -399,13 +412,13 @@ function fulltimeBoardPage() {
 //정규직 구인구직 게시판 목록
 function fulltimeBoadList() {
 
-	$('#ajaxGeneralList').show()
+	$('#ajaxGeneralList').hide()
 	$('#ajaxCompanyUsersList').hide()
-	$('#ajaxCompanyList').hide()
+	$('#ajaxCompanyList').show()
 	$.ajax({
-		url:"<%=request.getContextPath()%>/generaluserslist",
-		type : "get",
-		dataType : "json",
+		url: '/fulltimeboard',
+		type : 'get',
+		dataType : 'json',
 		async : false,
 		success : function(data) {
 			console.log(data);
@@ -420,32 +433,51 @@ function fulltimeBoadList() {
 	function ajaxHtml(result) {
 		var html = "<table class='table'>";
 		html += "<tr>";
-		html += "<td>이름</td>";
-		html += "<td>이메일</td>";
-		html += "<td>전화번호</td>";
-		html += "<td>가입일</td>";
-		html += "<td>관리</td>";
+		html += "<td>제목</td>";
+		html += "<td>작성자</td>";
+		html += "<td>작성일</td>";
 		html += "</tr>";
 
 		$.each(result, function(index, obj) {
 
 			html += "<tr>";
-			html += "<td>" + obj.name + "</td>";
-			html += "<td>" + obj.email + "</td>";
-			html += "<td>" + obj.tel1 + "-";
-			html += obj.tel2 + "-";
-			html += obj.tel3 + "</td>"  ;
-			html += "<td>" + obj.register_date + "</td>";
-			html += "<td><button id='delete' type='button'>삭제</button> </td>";
-
+			html += "<td hidden>" + obj.no + "</td>";
+			html += "<td>" + obj.title + "</td>";
+			html += "<td>" + obj.writerName + "</td>";
+			html += "<td>" + obj.date + "</td>";
+			html += "<td><button type='button' onclick='javascript:fulltimePostDelete(\""+obj.no+"\")'>삭제</button> </td>";
 			html += "</tr>";
+
 		})
 		html += "</table>";
 
-		$("#ajaxGeneralList").html(html);
+		$("#ajaxCompanyList").html(html);
 
 	}
 
+}
+
+// 정규직 게시글 삭제
+function fulltimePostDelete(no){
+	var result = confirm('해당 게시물을 삭제하시겠습니까? 삭제 후 복구는 불가능합니다.');
+	if(result) {
+		$.ajax({
+			url: "/fulltimepostdelete",
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			data: JSON.stringify({ 'no' : no }),
+			success: function(result) {
+				if(result == 1) {
+					alert('게시물이 삭제되었습니다.');
+				}else {
+					alert('게시물 삭제 실패');
+				}
+				console.log(result);
+			}
+		});
+	}
 }
 
 

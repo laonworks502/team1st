@@ -4,6 +4,7 @@ package com.laonworks502.team1st.service.admin;
 import com.laonworks502.team1st.dao.admin.AdminDao;
 import com.laonworks502.team1st.model.admin.AdminBean;
 import com.laonworks502.team1st.model.company.CompanyBean;
+import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.CompanyUserBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 
@@ -102,6 +103,12 @@ public class AdminServiceImpl implements AdminService {
         return admindao.countAllFulltimePosts();
     }
 
+    //fulltimeList
+    @Override
+    public List<PostBean> fulltimePostList(Integer page) throws Exception{
+        return admindao.fulltimePostList(page);
+    }
+
     //일반 회원 삭제
     @Override
     public int generalUserDelete(String email) throws Exception{
@@ -112,6 +119,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int companyUserDelete(String email) throws Exception{
         return admindao.companyUserDelete(email);
+    }
+
+    //일반 회원 삭제
+    @Override
+    public int fulltimePostDelte(int no) throws Exception{
+        return admindao.fulltimePostDelte(no);
     }
 
 }

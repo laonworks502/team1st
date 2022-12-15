@@ -1,6 +1,7 @@
 package com.laonworks502.team1st.controller.admin;
 
 import com.laonworks502.team1st.model.company.CompanyBean;
+import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.CompanyUserBean;
 import com.laonworks502.team1st.service.admin.AdminServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -235,6 +236,24 @@ public class AdminController {
 		return generalUsersList;
 	}
 
+	//일반 회원 삭제
+	@DeleteMapping ("/admingeneraluserdelete")
+	@ResponseBody
+	public Integer generaluserdelete (
+			@RequestBody GeneralUserBean generalUserBean) throws Exception {
+
+		log.info("일반 회원 삭제 컨트롤러 진입 ");
+
+		//특정 회원 삭제
+		int result = adminservice.generalUserDelete(generalUserBean.getEmail());
+
+		log.info(generalUserBean.getEmail());
+		log.info("일반 회원 삭제 성공");
+
+		return result;
+	}
+
+
 	// 전체 기업 회원 목록 페이지
 	@RequestMapping("companyuserslistpage")
 	public String companyuserslistpage(HttpSession session, Model model) throws Exception {
@@ -266,6 +285,23 @@ public class AdminController {
 		model.addAttribute("companyUsersList", companyUsersList);
 
 		return companyUsersList;
+	}
+
+	//기업 회원 삭제
+	@DeleteMapping ("/admincompanyuserdelete")
+	@ResponseBody
+	public Integer admincompanyuserdelete (
+			@RequestBody CompanyUserBean companyUserBean) throws Exception {
+
+		log.info("기업 회원 삭제 컨트롤러 진입 ");
+
+		//특정 회원 삭제
+		int result = adminservice.companyUserDelete(companyUserBean.getEmail());
+
+		log.info(companyUserBean.getEmail());
+		log.info("기업 회원 삭제 성공");
+
+		return result;
 	}
 
 	// 전체 기업 목록 페이지
@@ -301,8 +337,6 @@ public class AdminController {
 		return companyList;
 	}
 
-
-
 	// 정규직 게시판 페이지
 	@RequestMapping("fulltimeboardpage")
 	public String fulltimeboardpage(HttpSession session, Model model) throws Exception {
@@ -317,57 +351,39 @@ public class AdminController {
 		return "admin/fulltimeboard";
 	}
 
-	//일반 회원 삭제
-	@DeleteMapping ("/admingeneraluserdelete")
-	@ResponseBody
-	public Integer generaluserdelete (
-			@RequestBody GeneralUserBean generalUserBean) throws Exception {
-
-		log.info("일반 회원 삭제 컨트롤러 진입 ");
-
-		//특정 회원 삭제
-		int result = adminservice.generalUserDelete(generalUserBean.getEmail());
-
-		log.info(generalUserBean.getEmail());
-		log.info("일반 회원 삭제 성공");
-
-		return result;
-	}
-
-	//기업 회원 삭제
-	@DeleteMapping ("/admincompanyuserdelete")
-	@ResponseBody
-	public Integer admincompanyuserdelete (
-			@RequestBody CompanyUserBean companyUserBean) throws Exception {
-
-		log.info("기업 회원 삭제 컨트롤러 진입 ");
-
-		//특정 회원 삭제
-		int result = adminservice.companyUserDelete(companyUserBean.getEmail());
-
-		log.info(companyUserBean.getEmail());
-		log.info("기업 회원 삭제 성공");
-
-		return result;
-	}
-
-
 	// 정규직 게시판 테이블
-//	@GetMapping("companylist")
-//	@ResponseBody
-//	public List<CompanyBean> companylist(
-//			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
-//
-//		log.info("companylist 진입");
-//
-//		AdminPagination adminpg = new AdminPagination(page, 20);
-//		log.info("adminpg: "+adminpg);
-//		model.addAttribute("adminpg", adminpg);
-//
-//		List<CompanyBean> companyList = adminservice.companyList(page);
-//		log.info("companyList: "+companyList);
-//		model.addAttribute("companyList", companyList);
-//
-//		return companyList;
-//	}
+	@GetMapping("fulltimeboard")
+	@ResponseBody
+	public List<PostBean> fulltimeboard(
+			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
+
+		log.info("fulltimeboard 진입");
+
+		AdminPagination adminpg = new AdminPagination(page, 20);
+		log.info("adminpg: "+adminpg);
+		model.addAttribute("adminpg", adminpg);
+
+		List<PostBean> fulltimePostList = adminservice.fulltimePostList(page);
+		log.info("fulltimePostList: "+fulltimePostList);
+		model.addAttribute("fulltimePostList", fulltimePostList);
+
+		return fulltimePostList;
+	}
+
+	//정규직 게시판 게시글 삭제
+	@DeleteMapping ("/fulltimepostdelete")
+	@ResponseBody
+	public Integer fulltimepostdelete (
+			@RequestBody PostBean postBean) throws Exception {
+
+		log.info("정규직 게시판 게시글 삭제 컨트롤러 진입 ");
+
+		//정규직 게시판 게시글 삭제
+		int result = adminservice.fulltimePostDelte(postBean.getNo());
+
+		log.info(String.valueOf(postBean.getNo()));
+		log.info("정규직 게시판 게시글 삭제 성공");
+
+		return result;
+	}
 }
