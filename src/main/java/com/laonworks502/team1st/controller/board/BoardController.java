@@ -38,7 +38,7 @@ public class BoardController {
             @RequestParam("page") int page) throws Exception {
 
         if (boardService.checkBoardExist(board_id) != 1) {
-            ModelAndView modelAndView = new ModelAndView("board/wrongaccess");
+            ModelAndView modelAndView = new ModelAndView("board/wrong-access");
             return modelAndView;
         }
 
@@ -59,7 +59,7 @@ public class BoardController {
             @ModelAttribute PostBean post, HttpSession session) throws Exception {
 
         if (boardService.checkBoardExist(board_id) != 1) {
-            ModelAndView modelAndView = new ModelAndView("board/wrongaccess");
+            ModelAndView modelAndView = new ModelAndView("board/wrong-access");
             return modelAndView;
         }
 
@@ -87,7 +87,7 @@ public class BoardController {
             HttpSession Session) throws Exception {
 
         if (boardService.checkBoardExist(board_id) != 1) {
-            ModelAndView modelAndView = new ModelAndView("board/wrongaccess");
+            ModelAndView modelAndView = new ModelAndView("board/wrong-access");
             return modelAndView;
         }
 
@@ -97,8 +97,11 @@ public class BoardController {
 
         Pagination pg = new Pagination(board_id, page, postTotal, 10);
 
-        // page 맥시멈 지정
-        if (page > pg.getPagesTotal()) page = pg.getPagesTotal();
+        if (page > pg.getPagesTotal()) {
+            modelAndView.setViewName("board/wrong-access");
+            return modelAndView;
+        }
+
         modelAndView.addObject("page", page);
         modelAndView.addObject("pg", pg);
 
@@ -140,7 +143,7 @@ public class BoardController {
                                     @RequestParam(value = "page",required = false, defaultValue = "1") Integer page )throws Exception {
 
         if (boardService.checkBoardExist(board_id) != 1) {
-            ModelAndView modelAndView = new ModelAndView("board/wrongaccess");
+            ModelAndView modelAndView = new ModelAndView("board/wrong-access");
             return modelAndView;
         }
 
