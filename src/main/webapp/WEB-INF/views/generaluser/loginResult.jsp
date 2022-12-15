@@ -1,12 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
-<%@ include file="../common/commonlist.jsp"%>
+<!--[JSTL]-->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<!-- [springframework] -->
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+
+	<!-- [JQuery] -->
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+
 </head>
 <body>
 
@@ -19,8 +30,15 @@
 
 <c:if test="${result == 2 }">
 	<script>
-		alert("회원 정보가 틀렸습니다. \n 확인 후 다시 입력해주세요.");
+		alert("비밀번호가 틀렸습니다. \n 확인 후 다시 입력해주세요.");
 		history.go(-1);
+	</script>
+</c:if>
+
+<c:if test="${result == 4 }">
+	<script>
+		alert("탈퇴가 완료되었습니다.");
+		location.href="/";
 	</script>
 </c:if>
 

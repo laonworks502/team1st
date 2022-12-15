@@ -56,26 +56,29 @@ public class BoardController {
             @ModelAttribute PostBean post, HttpSession session) throws Exception {
 
         post.setBoard_id(board_id);
-        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
         post.setWriter(loginBean.getEmail());
 
-        int no = boardService.writePost(post);
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/boards/"+ board_id + "/" + no, "page", page);
+
+        boardService.writePost(post);
+        int no = post.getNo();
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/boards/" + board_id + "/" + no, "page", page);
         BoardBean boardBean = boardService.getBoardById(board_id);
         modelAndView.addObject("board", boardBean);
 
-        return  modelAndView;
+        return modelAndView;
     }
 
     // 글 목록
     @GetMapping(value = "/{board_id}")
     public ModelAndView getBoardList(
             @PathVariable(value = "board_id") int board_id,
-            @RequestParam(value = "page",required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
             HttpSession Session) throws Exception {
 
-       // LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
+        // LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
 
         //String email = loginBean.getEmail();
 
@@ -85,29 +88,23 @@ public class BoardController {
         int postTotal = boardService.countAllPosts(board_id);
 
         Pagination pg = new Pagination(board_id, page, postTotal, 10);
+        log.info("페이지 값 : {}", pg.getPage());
 
         modelAndView.addObject("pg", pg);
 
-        log.info("글 목록 컨트롤러");
-        log.info("pg",pg);
 
         String email = "a1@naver.com";
-
-        log.info("board_id={}", board_id);
-        log.info("pg.getStartPostNo()={}", pg.getStartPostNo());
-        log.info("pg.getStartPostNo()", pg.getStartPostNo());
-        log.info("pg.getPAGES_COUNT={}", pg.getPAGES_COUNT());
 
         // 리스트 담기
         List<PostListBean> postList = boardService.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
 
         log.info("postList={}", postList);
 
+        //postList에 대한 스크랩 유무 검색 메소드
         for (int i = 0; i < postList.size(); i++) {
             postList.get(i).setScrapResult(ss.getBoardSearchList(email, postList.get(i).getNo()));
 
             log.info("postList={}", postList.get(i).getScrapResult());
-
 
 
             modelAndView.addObject("posts", postList);
@@ -119,14 +116,14 @@ public class BoardController {
             // board 세션 추가
             Session.setAttribute("board_id", board_id);
         }
-            return modelAndView;
+        return modelAndView;
     }
 
     // 글 상세보기
     @GetMapping(value = "/{board_id}/{no}")
     public ModelAndView getPostByNo(@PathVariable(value = "board_id") int board_id,
                                     @PathVariable(value = "no") int no,
-                                    @RequestParam(value = "page") int page) throws Exception {
+                                    @RequestParam(value = "page",required = false, defaultValue = "1") Integer page )throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("board/postview");
 
@@ -136,8 +133,8 @@ public class BoardController {
         modelAndView.addObject("post", post);
 
         BoardBean board = boardService.getBoardById(board_id);
-        modelAndView.addObject("board",board);
-        modelAndView.addObject("page",page);
+        modelAndView.addObject("board", board);
+        modelAndView.addObject("page", page);
 
         return modelAndView;
     }
@@ -164,7 +161,7 @@ public class BoardController {
 
     // 글 수정
     @ResponseBody
-    @PutMapping (value = "/{board_id}/{no}")
+    @PutMapping(value = "/{board_id}/{no}")
     public Integer updatePost(
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "no") int no,
@@ -185,13 +182,18 @@ public class BoardController {
         PostBean pb = boardService.getPostByNo(board_id, no);
 
         int result = 0;
-        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 
-//        if (pb.getWriter().equals(loginBean.getEmail())) {        // 세션 연결 시 주석 풀기
-        result = boardService.amendPost(postBean);
-//        }
+        try {
+            if (pb.getWriter().equals(loginBean.getEmail())) {        // 세션 연결 시 주석 풀기
+                result = boardService.amendPost(postBean);
+            }
 
-        log.info("update result: "+result);
+        }catch (Exception e){
+            log.info("error : {}", e);
+        }
+
+        log.info("update result ={}", result);
 
         return result;
     }
@@ -206,12 +208,14 @@ public class BoardController {
 
         log.info("boards/Delete in");
 
-        int result = 0;
-        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        PostBean pb = boardService.getPostByNo(board_id, no);
 
-//        if (pb.getWriter().equals(loginBean.getEmail())) {        // 세션 연결 시 주석 풀기
-        result = boardService.deletePost(no);
-//        }
+        int result = 0;
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+
+        if (pb.getWriter().equals(loginBean.getEmail())) {        // 세션 연결 시 주석 풀기
+            result = boardService.deletePost(no);
+        }
 
         return result;       // 글 목록 메소드로 리턴
     }
@@ -285,5 +289,7 @@ public class BoardController {
     }
 
 
+
+}
 
 }

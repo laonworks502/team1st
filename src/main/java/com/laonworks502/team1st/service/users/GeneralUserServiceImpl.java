@@ -1,11 +1,11 @@
 package com.laonworks502.team1st.service.users;
 
 
+import com.laonworks502.team1st.SHA256Util;
 import com.laonworks502.team1st.dao.users.GeneralUserDao;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.UserBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 @Service("general")
@@ -60,5 +60,19 @@ public class GeneralUserServiceImpl implements CommonUserService {
 
     public int resumeupload(GeneralUserBean gub) throws Exception{
         return gud.resumeupload(gub);
+    }
+
+
+    public void addGeneralUser(GeneralUserBean gub) throws Exception{
+//        String salt = SHA256Util.generateSalt();
+//        gub.setSalt(salt);
+//
+//        String passwd = gub.getPasswd();
+//        passwd = SHA256Util.getEncrypt(passwd, salt);
+//
+//        gub.setPasswd(passwd);
+//        위 과정들이 컨트롤러에 있거나 service메소드에 있거나.
+        gud.addGeneralUser(gub);
+
     }
 }

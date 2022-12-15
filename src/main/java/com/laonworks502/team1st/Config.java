@@ -54,11 +54,21 @@ public class Config implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // Navbar 게시판 목록 세션
-        registry.addInterceptor(navbarInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(navbarInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/css/**","img/**", "/js/**","/images/**")
+                .excludePathPatterns("/","/test")
+                .excludePathPatterns("/loginselect")
+                .excludePathPatterns("/companyloginForm")
+                .excludePathPatterns("/generalloginForm")
+                .excludePathPatterns("/postcompanyuser")
+                .excludePathPatterns("/generaluserinsert")
+                .order(1);
 
         // 로그인 세션
         registry.addInterceptor(loginInterceptor())
-                //.addPathPatterns("/**")
-                .excludePathPatterns("/**");
+                .addPathPatterns("/boards/**/write")
+                .addPathPatterns("/scrap/**")
+                .order(2);
     }
 }

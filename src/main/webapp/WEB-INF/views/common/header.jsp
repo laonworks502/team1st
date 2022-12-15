@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <header>
@@ -19,14 +20,14 @@
 
             <div class="col-md-3 text-end">
                 <%-- 세션 O --%>
-                <c:if test="${!empty sessionScope.loginBean} ">
-                    <a href="/logout">LOGOUT</a>
-                    <c:if test="${sessionScope.loginBean.authority == '개인'}">
-                        <a href="<%-- 개인 마이페이지 경로 --%>"> <img src="<%=request.getContextPath()%>/images/IconMypage.png"
+                <c:if test="${not empty sessionScope.loginBean}">
+                    <a href="/loginselect">LOGOUT</a>
+                    <c:if test="${sessionScope.loginBean.authority == '일반'}">
+                        <a href="/generalmypage"> <img src="/resources/images/IconMypage.png"
                                                               width="32" height="32"></a>
                     </c:if>
                     <c:if test="${sessionScope.loginBean.authority == '기업'}">
-                        <a href="<%-- 기업 마이페이지 경로 --%>"> <img src="<%=request.getContextPath()%>/images/IconMypage.png"
+                        <a href="/companymypage"> <img src="/resources/images/IconMypage.png"
                                                               width="32" height="32"></a>
                     </c:if>
                 </c:if>
@@ -37,7 +38,7 @@
                         Login
                     </button>
                     <%-- 마이페이지 이미지만 걸어두고 로그인으로 보냄--%>
-                    <a href="/loginselect"> <img src="<%=request.getContextPath()%>/images/IconMypage.png" width="32"
+                    <a href="/loginselect"> <img src="/resources/images/IconMypage.png" width="32"
                                                  height="32"> </a>
                 </c:if>
             </div>

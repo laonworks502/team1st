@@ -23,5 +23,19 @@
 	</script>
 </c:if>
 
+<c:if test="${result == 3 }">
+	<script>
+		alert("비밀번호가 틀렸습니다. \n 확인 후 다시 입력해주세요.");
+		history.go(-1);
+	</script>
+</c:if>
+
+<c:if test="${result == 4 }">
+	<script>
+		alert("탈퇴가 완료되었습니다.");
+		location.href="/";
+	</script>
+</c:if>
+
 </body>
 </html>
