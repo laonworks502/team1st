@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>기업 정보 입력</title>
 
-<script src="js/checkcompany.js"></script>
+<script src="/resources/js/checkcompany.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 

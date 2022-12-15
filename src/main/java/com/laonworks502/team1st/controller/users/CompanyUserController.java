@@ -195,7 +195,7 @@ public class CompanyUserController {
 
 		// 입력받은 (passconfirm+salt) 암호화
 		String pw = SHA256.getEncrypt(passconfirm, salt);
-		 
+		  
 		int result = 0;
 		if (cub.getPasswd().equals(pw)) { // 비밀번호가 일치하면 아래 탈퇴메소드 실행
 			// 탈퇴 사유 입력
