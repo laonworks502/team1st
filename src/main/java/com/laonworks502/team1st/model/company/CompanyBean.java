@@ -16,5 +16,4 @@ public class CompanyBean {
     private String tel2;
     private String tel3;
     private Date foundation_date;
-
 }
