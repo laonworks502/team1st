@@ -9,13 +9,13 @@
 <title>기업 회원 탈퇴</title>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>   
-<script src="js/companyuser_delete.js"></script>
+<script src="/resources/js/companyuser_delete.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 <body>
 	<div align="center" style="margin-top: 10%;">
-	<form method="post" action="companyuserdelete_ok" onsubmit="return check()" name="deleteform">
+	<form method="post" action="companyuserdelete_ok" onsubmit="return check()">
 	<input type="hidden" name="passwd"  id="passwd" value="${cub.passwd}">	
 			<p>
 				<a style="font-size: 15pt; font-weight: bold;">'${cub.email}'</a> 

@@ -8,7 +8,7 @@
 
 <title>login</title>
 
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/loginForm.css">
+<link rel="stylesheet" href="/resources/css/loginForm.css">
 <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
 
 </head>
