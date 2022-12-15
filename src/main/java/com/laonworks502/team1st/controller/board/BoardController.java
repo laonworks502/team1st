@@ -85,18 +85,12 @@ public class BoardController {
         int postTotal = boardService.countAllPosts(board_id);
 
         Pagination pg = new Pagination(board_id, page, postTotal, 10);
+        log.info("페이지 값 : {}", pg.getPage());
 
         modelAndView.addObject("pg", pg);
 
-        log.info("글 목록 컨트롤러");
-        log.info("pg", pg);
 
         String email = "a1@naver.com";
-
-        log.info("board_id={}", board_id);
-        log.info("pg.getStartPostNo()={}", pg.getStartPostNo());
-        log.info("pg.getStartPostNo()={}", pg.getStartPostNo());
-        log.info("pg.getPAGES_COUNT={}", pg.getPAGES_COUNT());
 
         // 리스트 담기
         List<PostListBean> postList = boardService.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
