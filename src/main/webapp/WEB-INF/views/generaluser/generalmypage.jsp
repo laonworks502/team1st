@@ -84,6 +84,7 @@
             <input type="button" value="회원수정" class="input_button" onclick="location='/generaluseredit'">
             <input type="button" value="회원탈퇴" class="input_button" onclick="location='/generaluserdelete'">
 
+            <input type="button" value="스크랩목록" class="input_button" onclick="location='/totalscrap'">
 
             <!-- 파일 업로드에서는 enctype(인코딩타입)을 multipart/form-data로 반드시 설정 -->
             <form action="/resumeupload" method="post" enctype="multipart/form-data">
@@ -108,123 +109,123 @@
             </form>
         </div>
 
-        <!--스크랩 영역-->
-        <div class="myscrap_total_wrap">
-            <div class="myscrap_subject_wrap">
-                <ul class="subject" >
-                    <h3>내 스크랩</h3>
-                </ul>
-            </div>
-            <div class="myscrap_minilist_wrap">
-                <li class="board_subject">
-                    <h4>정규 게시판</h4>
-                </li>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <button type="button" class="btn btn-primary float-end"
-                                onClick="location.href='/scrap/listTotalScrap/100'">더보기
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                            <tr>
-                                <th>제목</th>
-                                <th>작성일</th>
-                                <th>스크랩</th>
-                            </tr>
-                            </thead>
-                            <tbody class="deleteArea">
-                            <c:forEach items="${myminiscrap100}" var="myminiscrap100">
-                                <tr>
-                                    <td onclick="location.href='/boards/${myminiscrap100.board_id}/${myminiscrap100.no}'">${myminiscrap100.title}</td>
-                                    <td>${myminiscrap100.date}</td>
-                                    <td>
-                                        <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap100.no}">
-                                                <input type="image" id="hiddenYesScrap${myminiscrap100.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap100.no})">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+<%--        <!--스크랩 영역-->--%>
+<%--        <div class="myscrap_total_wrap">--%>
+<%--            <div class="myscrap_subject_wrap">--%>
+<%--                <ul class="subject" >--%>
+<%--                    <h3>내 스크랩</h3>--%>
+<%--                </ul>--%>
+<%--            </div>--%>
+<%--            <div class="myscrap_minilist_wrap">--%>
+<%--                <li class="board_subject">--%>
+<%--                    <h4>정규 게시판</h4>--%>
+<%--                </li>--%>
+<%--                <div class="card mb-4">--%>
+<%--                    <div class="card-header">--%>
+<%--                        <button type="button" class="btn btn-primary float-end"--%>
+<%--                                onClick="location.href='/scrap/listTotalScrap/100'">더보기--%>
+<%--                        </button>--%>
+<%--                    </div>--%>
+<%--                    <div class="card-body">--%>
+<%--                        <table class="table table-hover table-striped">--%>
+<%--                            <thead>--%>
+<%--                            <tr>--%>
+<%--                                <th>제목</th>--%>
+<%--                                <th>작성일</th>--%>
+<%--                                <th>스크랩</th>--%>
+<%--                            </tr>--%>
+<%--                            </thead>--%>
+<%--                            <tbody class="deleteArea">--%>
+<%--                            <c:forEach items="${myminiscrap100}" var="myminiscrap100">--%>
+<%--                                <tr>--%>
+<%--                                    <td onclick="location.href='/boards/${myminiscrap100.board_id}/${myminiscrap100.no}'">${myminiscrap100.title}</td>--%>
+<%--                                    <td>${myminiscrap100.date}</td>--%>
+<%--                                    <td>--%>
+<%--                                        <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap100.no}">--%>
+<%--                                                <input type="image" id="hiddenYesScrap${myminiscrap100.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap100.no})">--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                </tr>--%>
+<%--                            </c:forEach>--%>
+<%--                            </tbody>--%>
+<%--                        </table>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <div class="myscrap_minilist_wrap">
-                <li class="board_subject">
-                    <h4>단기 게시판</h4>
-                </li>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <button type="button" class="btn btn-primary float-end"
-                                onClick="location.href='/scrap/listTotalScrap/200'">더보기
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                            <tr>
-                                <th>제목</th>
-                                <th>작성일</th>
-                                <th>스크랩</th>
-                            </tr>
-                            </thead>
-                            <tbody class="deleteArea">
-                            <c:forEach items="${myminiscrap200}" var="myminiscrap200">
-                                <tr>
-                                    <td onclick="location.href='/boards/${myminiscrap200.board_id}/${myminiscrap200.no}'">${myminiscrap200.title}</td>
-                                    <td>${myminiscrap200.date}</td>
-                                    <td>
-                                        <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap200.no}">
-                                            <input type="image" id="hiddenYesScrap${myminiscrap200.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap200.no})">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+<%--            <div class="myscrap_minilist_wrap">--%>
+<%--                <li class="board_subject">--%>
+<%--                    <h4>단기 게시판</h4>--%>
+<%--                </li>--%>
+<%--                <div class="card mb-4">--%>
+<%--                    <div class="card-header">--%>
+<%--                        <button type="button" class="btn btn-primary float-end"--%>
+<%--                                onClick="location.href='/scrap/listTotalScrap/200'">더보기--%>
+<%--                        </button>--%>
+<%--                    </div>--%>
+<%--                    <div class="card-body">--%>
+<%--                        <table class="table table-hover table-striped">--%>
+<%--                            <thead>--%>
+<%--                            <tr>--%>
+<%--                                <th>제목</th>--%>
+<%--                                <th>작성일</th>--%>
+<%--                                <th>스크랩</th>--%>
+<%--                            </tr>--%>
+<%--                            </thead>--%>
+<%--                            <tbody class="deleteArea">--%>
+<%--                            <c:forEach items="${myminiscrap200}" var="myminiscrap200">--%>
+<%--                                <tr>--%>
+<%--                                    <td onclick="location.href='/boards/${myminiscrap200.board_id}/${myminiscrap200.no}'">${myminiscrap200.title}</td>--%>
+<%--                                    <td>${myminiscrap200.date}</td>--%>
+<%--                                    <td>--%>
+<%--                                        <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap200.no}">--%>
+<%--                                            <input type="image" id="hiddenYesScrap${myminiscrap200.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap200.no})">--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                </tr>--%>
+<%--                            </c:forEach>--%>
+<%--                            </tbody>--%>
+<%--                        </table>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <div class="myscrap_minilist_wrap">
-                <li class="board_subject">
-                    <h4>스터디 게시판</h4>
-                </li>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <button type="button" class="btn btn-primary float-end"
-                                onClick="location.href='/scrap/listTotalScrap/300'">더보기
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                            <tr>
-                                <th>제목</th>
-                                <th>작성일</th>
-                                <th>스크랩</th>
-                            </tr>
-                            </thead>
-                            <tbody class="deleteArea">
-                            <c:forEach items="${myminiscrap300}" var="myminiscrap300">
-                                <tr>
-                                    <td onclick="location.href='/boards/${myminiscrap300.board_id}/${myminiscrap300.no}'">${myminiscrap300.title}</td>
-                                    <td>${myminiscrap300.date}</td>
-                                    <td>
-                                        <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap300.no}">
-                                            <input type="image" id="hiddenYesScrap${myminiscrap300.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap300.no})">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+<%--            <div class="myscrap_minilist_wrap">--%>
+<%--                <li class="board_subject">--%>
+<%--                    <h4>스터디 게시판</h4>--%>
+<%--                </li>--%>
+<%--                <div class="card mb-4">--%>
+<%--                    <div class="card-header">--%>
+<%--                        <button type="button" class="btn btn-primary float-end"--%>
+<%--                                onClick="location.href='/scrap/listTotalScrap/300'">더보기--%>
+<%--                        </button>--%>
+<%--                    </div>--%>
+<%--                    <div class="card-body">--%>
+<%--                        <table class="table table-hover table-striped">--%>
+<%--                            <thead>--%>
+<%--                            <tr>--%>
+<%--                                <th>제목</th>--%>
+<%--                                <th>작성일</th>--%>
+<%--                                <th>스크랩</th>--%>
+<%--                            </tr>--%>
+<%--                            </thead>--%>
+<%--                            <tbody class="deleteArea">--%>
+<%--                            <c:forEach items="${myminiscrap300}" var="myminiscrap300">--%>
+<%--                                <tr>--%>
+<%--                                    <td onclick="location.href='/boards/${myminiscrap300.board_id}/${myminiscrap300.no}'">${myminiscrap300.title}</td>--%>
+<%--                                    <td>${myminiscrap300.date}</td>--%>
+<%--                                    <td>--%>
+<%--                                        <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap300.no}">--%>
+<%--                                            <input type="image" id="hiddenYesScrap${myminiscrap300.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap300.no})">--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                </tr>--%>
+<%--                            </c:forEach>--%>
+<%--                            </tbody>--%>
+<%--                        </table>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
         </div>
     </main>
 
