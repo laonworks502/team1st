@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface BoardService {
 
+    // 있는 게시판인지 체크
+    int checkBoardExist(int board_id) throws Exception;
+
     // 글 작성
     int writePost(PostBean postBean) throws Exception;
 

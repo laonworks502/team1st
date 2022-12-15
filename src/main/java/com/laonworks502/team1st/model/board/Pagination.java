@@ -43,7 +43,7 @@ public class Pagination {
 
     public Pagination(int board_id, int page, int postsTotal, int pagePostsCount) {
         this.board_id = board_id;
-        this.page = page;
+        this.page = page ;
         this.postsTotal = postsTotal;
         this.pagePostsCount = pagePostsCount;
         pagesTotal = (postsTotal % pagePostsCount == 0) ?
