@@ -7,7 +7,37 @@
     <meta charset="UTF-8">
     <title>로그인 선택</title>
 
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/loginForm.css">
+    <style>
+        *{
+            padding: 0;
+            margin:0;
+            padding: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        main {
+            width:1180px;
+            min-width: 1180px;
+            background-color: antiquewhite;
+            margin: 0 auto;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+    </style>
+
+<%--    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/loginForm.css">--%>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
 
 </head>

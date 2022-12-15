@@ -42,6 +42,30 @@ public class GeneralUserController {
 //        return "generaluser/mainMypage";
 //    }
 
+    @RequestMapping(value = "/totalscrap")
+    public String totalscrap(HttpSession session,
+                             Model model,
+                             @ModelAttribute ScrapListBean myminiscrap100,
+                             @ModelAttribute ScrapListBean myminiscrap200,
+                             @ModelAttribute ScrapListBean myminiscrap300
+                             )throws Exception{
+
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
+        GeneralUserBean gub = gus.checkGeneraluser(email);
+
+        log.info(gub.getEmail() + "의 스크랩내역");
+
+        model.addAttribute("gub", gub);
+
+        model.addAttribute("myminiscrap100",myminiscrap100);
+        model.addAttribute("myminiscrap200",myminiscrap200);
+        model.addAttribute("myminiscrap300",myminiscrap300);
+
+        return "generaluser/totalscrap";
+    }
+
     // 일반 회원 마이페이지
     @RequestMapping(value = "/generalmypage")
     public String generalmypage(HttpSession session,

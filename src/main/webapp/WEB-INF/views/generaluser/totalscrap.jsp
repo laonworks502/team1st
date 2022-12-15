@@ -72,85 +72,90 @@
     </script>
 </head>
 <body>
-<%@ include file = "../common/header.jsp" %>
+<%--<%@ include file = "../common/header.jsp" %>--%>
 <main>
     <div class="myscrab_detaillist">
 
-        <div class="totalscrap_total_wrap">
-            <div class="totalscrap_subject_wrap">
-                <ul class="subject" >
-                    <h3>전체 스크랩</h3>
-                </ul>
-            </div>
-            <div class="myscrap_totallist_wrap">
-                <li class="board_subject">
-                    <h4>${boardName} 게시판</h4>
-                </li>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                            <tr>
-                                <th>제목</th>
-                                <th>작성일</th>
-                                <th>스크랩</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="myscrap" items="${myscrap}">
-                                <tr>
-                                    <td onclick="location.href='/boards/${myscrap.board_id}/${myscrap.no}'">${myscrap.title}</td>
-                                    <td>${myscrap.date}</td>
-                                    <td>
-                                        <div class="scrapIconYesArea" id="scrapIconArea${myscrap.no}">
-                                            <input type="image" id="hiddenYesScrap${myscrap.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myscrap.no})">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+        로그인성공
 
-        </div>
+        <input type="text" name="email" value="${gub.email}" style="border: none" readonly>
+        <input type="text" name="name" value="${gub.name}" style="border: none" readonly>
+
+<%--        <div class="totalscrap_total_wrap">--%>
+<%--            <div class="totalscrap_subject_wrap">--%>
+<%--                <ul class="subject" >--%>
+<%--                    <h3>전체 스크랩</h3>--%>
+<%--                </ul>--%>
+<%--            </div>--%>
+<%--            <div class="myscrap_totallist_wrap">--%>
+<%--                <li class="board_subject">--%>
+<%--                    <h4>${boardName} 게시판</h4>--%>
+<%--                </li>--%>
+<%--                <div class="card mb-4">--%>
+<%--                    <div class="card-body">--%>
+<%--                        <table class="table table-hover table-striped">--%>
+<%--                            <thead>--%>
+<%--                            <tr>--%>
+<%--                                <th>제목</th>--%>
+<%--                                <th>작성일</th>--%>
+<%--                                <th>스크랩</th>--%>
+<%--                            </tr>--%>
+<%--                            </thead>--%>
+<%--                            <tbody>--%>
+<%--                            <c:forEach var="myscrap" items="${myscrap}">--%>
+<%--                                <tr>--%>
+<%--                                    <td onclick="location.href='/boards/${myscrap.board_id}/${myscrap.no}'">${myscrap.title}</td>--%>
+<%--                                    <td>${myscrap.date}</td>--%>
+<%--                                    <td>--%>
+<%--                                        <div class="scrapIconYesArea" id="scrapIconArea${myscrap.no}">--%>
+<%--                                            <input type="image" id="hiddenYesScrap${myscrap.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myscrap.no})">--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                </tr>--%>
+<%--                            </c:forEach>--%>
+<%--                            </tbody>--%>
+<%--                        </table>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+
+<%--        </div>--%>
 
 
-        <div class="myscrap_pageination">
-            <c:if test="${listcount>0}">
-                <!-- 1페이지로 이동 -->
-                <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=1" style="text-decoration:none">
-                    <i class="bi bi-chevron-double-left"></i>
-                </a>
+<%--        <div class="myscrap_pageination">--%>
+<%--            <c:if test="${listcount>0}">--%>
+<%--                <!-- 1페이지로 이동 -->--%>
+<%--                <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=1" style="text-decoration:none">--%>
+<%--                    <i class="bi bi-chevron-double-left"></i>--%>
+<%--                </a>--%>
 
-                <!-- 이전 블럭으로 이동 -->
-                <c:if test="${startPage > 10}">
-                    <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${stratPage-10}">
-                        <i class="bi bi-chevron-left"></i>
-                    </a>
-                </c:if>
+<%--                <!-- 이전 블럭으로 이동 -->--%>
+<%--                <c:if test="${startPage > 10}">--%>
+<%--                    <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${stratPage-10}">--%>
+<%--                        <i class="bi bi-chevron-left"></i>--%>
+<%--                    </a>--%>
+<%--                </c:if>--%>
 
-                <!-- 각 블럭에 10개의 페이지 출력 -->
-                <c:forEach var="i" begin="${startPage}" end="${endPage}">
-                    <c:if test="${i==page}">&nbsp;&nbsp;${i}&nbsp;&nbsp;</c:if> <!-- 현재페이지 -->
-                    <c:if test="${i!=page}"><a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${i}">
-                        &nbsp;&nbsp;${i}&nbsp;&nbsp;</a></c:if> <!-- 현재페이지가 아닌 경우 -->
-                </c:forEach>
+<%--                <!-- 각 블럭에 10개의 페이지 출력 -->--%>
+<%--                <c:forEach var="i" begin="${startPage}" end="${endPage}">--%>
+<%--                    <c:if test="${i==page}">&nbsp;&nbsp;${i}&nbsp;&nbsp;</c:if> <!-- 현재페이지 -->--%>
+<%--                    <c:if test="${i!=page}"><a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${i}">--%>
+<%--                        &nbsp;&nbsp;${i}&nbsp;&nbsp;</a></c:if> <!-- 현재페이지가 아닌 경우 -->--%>
+<%--                </c:forEach>--%>
 
-                <!-- 다음 블럭으로 이동 -->
-                <c:if test="${endPage < pageCount}">
-                    <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${startPage+10}">
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-                </c:if>
+<%--                <!-- 다음 블럭으로 이동 -->--%>
+<%--                <c:if test="${endPage < pageCount}">--%>
+<%--                    <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${startPage+10}">--%>
+<%--                        <i class="bi bi-chevron-right"></i>--%>
+<%--                    </a>--%>
+<%--                </c:if>--%>
 
-                <!-- 마지막페이지로 이동 -->
-                <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${pageCount}" style="text-decoration:none">
-                    <i class="bi bi-chevron-double-right"></i>
-                </a>
-            </c:if>
-        </div>
+<%--                <!-- 마지막페이지로 이동 -->--%>
+<%--                <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${pageCount}" style="text-decoration:none">--%>
+<%--                    <i class="bi bi-chevron-double-right"></i>--%>
+<%--                </a>--%>
+<%--            </c:if>--%>
+<%--        </div>--%>
     </div>
 </main>
 </body>
