@@ -55,10 +55,10 @@ function edit_check(){
         //폭이 420이고 높이가 200,스크롤바가 생성되는 새로운 공지창을 만듬
     }
 
-    if (confirm("수정하시겠습니까?") == true) { // 확인
-        alert("수정되었습니다");
-        document.editform.submit();
-    } else { // 취소
-        return false;
-    }
+    // if (confirm("수정하시겠습니까?") == true) { // 확인
+    //     alert("수정되었습니다");
+    //     document.editform.submit();
+    // } else { // 취소
+    //     return false;
+    // }
 }

@@ -2,6 +2,7 @@ package com.laonworks502.team1st.controller.users;
 
 import com.laonworks502.team1st.SHA256Util;
 import com.laonworks502.team1st.model.scrap.ScrapListBean;
+import com.laonworks502.team1st.model.scrap.ScrapListBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.users.CompanyUserServiceImpl;
@@ -41,21 +42,49 @@ public class GeneralUserController {
 //        return "generaluser/mainMypage";
 //    }
 
-    @RequestMapping("/generalmypage")
-    public String generalmypage(HttpSession session,
-                                //@ModelAttribute GeneralUserBean gub,
-                                @ModelAttribute ScrapListBean myminiscrap100,
-                                @ModelAttribute ScrapListBean myminiscrap200,
-                                @ModelAttribute ScrapListBean myminiscrap300,
-                                Model model
-                                )throws Exception{
-        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+    @RequestMapping(value = "/totalscrap")
+    public String totalscrap(HttpSession session,
+                             Model model,
+                             @ModelAttribute ScrapListBean myminiscrap100,
+                             @ModelAttribute ScrapListBean myminiscrap200,
+                             @ModelAttribute ScrapListBean myminiscrap300
+                             )throws Exception{
 
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
         String email = loginBean.getEmail();
 
-        GeneralUserBean gub2 = gus.checkGeneraluser(email);
+        GeneralUserBean gub = gus.checkGeneraluser(email);
 
-        model.addAttribute("gub2", gub2);
+        log.info(gub.getEmail() + "의 스크랩내역");
+
+        model.addAttribute("gub", gub);
+
+        model.addAttribute("myminiscrap100",myminiscrap100);
+        model.addAttribute("myminiscrap200",myminiscrap200);
+        model.addAttribute("myminiscrap300",myminiscrap300);
+
+        return "generaluser/totalscrap";
+    }
+
+    // 일반 회원 마이페이지
+    @RequestMapping(value = "/generalmypage")
+    public String generalmypage(HttpSession session,
+                                Model model,
+                                @ModelAttribute ScrapListBean myminiscrap100,
+                                @ModelAttribute ScrapListBean myminiscrap200,
+                                @ModelAttribute ScrapListBean myminiscrap300
+
+//                                @ModelAttribute GeneralUserBean gub
+                                )throws Exception{
+
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
+        GeneralUserBean gub = gus.checkGeneraluser(email);
+
+        log.info("generalmypage:" + gub.getEmail());
+
+        model.addAttribute("gub", gub);
 
         model.addAttribute("myminiscrap100",myminiscrap100);
         model.addAttribute("myminiscrap200",myminiscrap200);
@@ -75,18 +104,18 @@ public class GeneralUserController {
     // 회원가입 실행
     @RequestMapping("generaluserinsert_ok")
     public String generaluserinsert_ok(GeneralUserBean gub,
+                                       @RequestParam("passwd") String passwd,
                                        Model model) throws Exception {
 
         String salt = SHA256Util.generateSalt();                        // 8 바이트의 랜덤 수열 발생. salt 는 암호화 키
-        String passwd = SHA256Util.getEncrypt(gub.getPasswd(), salt);   // 입력한 passwd를 암호화 키 salt를 이용해서 SHA256방식으로 암호화
-        gub.setPasswd(passwd);
+        String savepasswd = SHA256Util.getEncrypt_gu(passwd, salt);   // 입력한 passwd를 암호화 키 salt를 이용해서 SHA256방식으로 암호화
+        gub.setPasswd(savepasswd);
         gub.setSalt(salt);  // salt 컬럼에 설정
 
         gus.addGeneralUser(gub);
 
-//        gus.joinUser(gub);
         log.info("비밀번호 암호화 저장 : " + gub.getPasswd());
-        log.info("회원가입 완료");    // 뷰에 에러뜸 회원가입 값은 넘어감
+        log.info("회원가입 완료");
 
         return "generaluser/loginForm"; // 가입 후 로그인페이지로 이동
     }
@@ -119,17 +148,37 @@ public class GeneralUserController {
     }
 
     // 회원수정 실행
-    @RequestMapping(value="generaluseredit_ok", method = RequestMethod.POST)    // 수정시 method = RequestMethod.POST필수
+    @RequestMapping(value="/generaluseredit_ok", method = RequestMethod.POST)    // 수정시 method = RequestMethod.POST필수
     public String generaluseredit_ok(HttpSession session,
                                      HttpServletRequest request,
+                                     @RequestParam("passconfirm") String passconfirm,
+                                     @RequestParam("email") String email,
                                      @ModelAttribute GeneralUserBean gub) throws Exception {
 
         GeneralUserBean old = gus.checkGeneraluser(gub.getEmail());
 
-        int result = gus.updateGeneraluser(gub);
-        if(result == 1) log.info("수정 성공");
+        System.out.println(gub.getEmail());
+        System.out.println(gub.getPasswd());
+        System.out.println(gub.getSalt());
 
-        return "generaluser/loginsuccess";
+        String salt = old.getSalt();
+        System.out.println(salt);
+        System.out.println("입력값의 암호화 : " + SHA256Util.getEncrypt_gu(passconfirm, salt));
+
+        int result1 = 0;
+        if(old.getPasswd().equals(SHA256Util.getEncrypt_gu(passconfirm, salt))){
+
+            int result = gus.updateGeneraluser(gub);
+            if(result == 1) log.info("수정 성공");
+
+            return "generaluser/generalmypage";
+
+        }else{
+            result1 = 2;
+            log.info("비밀번호 틀림");
+            return "generaluser/loginResult";
+        }
+
     }
 
     // 회원삭제 폼

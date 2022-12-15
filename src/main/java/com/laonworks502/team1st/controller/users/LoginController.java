@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.laonworks502.team1st.model.users.CompanyUserBean;
@@ -50,8 +51,9 @@ public class LoginController {
 	}
 
 	// 일반 로그인 실행
-	@RequestMapping("/mainmypage")
-	public String generaluserlogin_ok(HttpSession session,
+	@RequestMapping(value = "/mainmypage", method = RequestMethod.POST)
+	public String generaluserlogin_ok(
+									  HttpSession session,
 									  Model model,
 									  @ModelAttribute GeneralUserBean gub,
 									  @RequestParam("email") String email,
@@ -69,7 +71,7 @@ public class LoginController {
 			return "generaluser/loginResult";
 
 		}else{              // 등록 회원 확인됨
-			if(gub.getPasswd().equals(SHA256Util.getEncrypt(passwd, gub.getSalt()))) {        // 암호화한 것과 비번 같아서 로그인됨
+			if(gub.getPasswd().equals(SHA256Util.getEncrypt_gu(passwd, gub.getSalt()))) {        // 암호화한 것과 비번 같아서 로그인됨
 //            session.setAttribute("email", email);
 
 				LoginBean loginBean = new LoginBean(email, "일반");
@@ -79,6 +81,7 @@ public class LoginController {
 				model.addAttribute("gub", gub);
 				log.info("로그인성공");
 
+				log.info(gub.getEmail());
 				return "generaluser/mainMypage";
 
 			} else { // 비번 달라서 로그인 안됨
