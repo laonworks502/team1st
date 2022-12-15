@@ -58,4 +58,21 @@ update general_users
     values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3}, current_timestamp, null, null, #{salt});
 </insert>
 
+<!-- 일반회원의 게시물 전체 개수 -->
+<select id="countAllGeneralPosts" parameterType="String" resultType="int">
+    select count(writer) from posts where writer = #{writer}
+</select>
+
+<!-- 일반회원 글 리스트 불러 오기 -->
+<select id="getGeneralBoardList" resultType="com.laonworks502.team1st.model.post.PostBean">
+    select no,board_id,writer,content,date from posts where writer = #{writer} order by no desc
+        limit #{startPostNo}, #{PAGES_COUNT}
+</select>
+
+<!-- 내가 쓴 글 목록 -->
+<select id="myboardlist" parameterType="String" resultType="com.laonworks502.team1st.model.post.PostBean">
+	select * from posts where writer = (select email from general_users where email = #{email})
+	order by no desc limit #{startPostNo}, #{PAGES_COUNT};
+</select>
+
 </mapper>

@@ -3,10 +3,14 @@ package com.laonworks502.team1st.service.users;
 
 import com.laonworks502.team1st.SHA256Util;
 import com.laonworks502.team1st.dao.users.GeneralUserDao;
+import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.UserBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service("general")
 public class GeneralUserServiceImpl implements CommonUserService {
@@ -73,6 +77,15 @@ public class GeneralUserServiceImpl implements CommonUserService {
 //        gub.setPasswd(passwd);
 //        위 과정들이 컨트롤러에 있거나 service메소드에 있거나.
         gud.addGeneralUser(gub);
+    }
 
+    public int countAllGeneralPosts(String writer) throws Exception{
+
+        return gud.countAllGeneralPosts(writer);
+    }
+
+    public List<PostBean> myboardlist(@Param("writer") String writer, @Param("startPostNo") int startPostNo,
+                                      @Param("PAGES_COUNT") int pages_COUNT) throws Exception{
+        return gud.myboardlist(writer, startPostNo, pages_COUNT);
     }
 }

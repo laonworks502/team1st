@@ -1,9 +1,13 @@
 package com.laonworks502.team1st.dao.users;
 
+import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.UserBean;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.context.annotation.Primary;
+
+import java.util.List;
 
 @Primary
 @Mapper
@@ -32,4 +36,9 @@ public interface GeneralUserDao {
     int resumeupload(UserBean userBean) throws Exception;
 
     int addGeneralUser(GeneralUserBean gub) throws Exception;
+
+    int countAllGeneralPosts(String writer) throws Exception;
+
+    List<PostBean> myboardlist(@Param("writer") String writer, @Param("startPostNo") int startPostNo,
+                                              @Param("PAGES_COUNT") int pages_COUNT) throws Exception;
 }

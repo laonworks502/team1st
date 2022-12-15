@@ -74,6 +74,23 @@
 </head>
 <body>
     <%@ include file = "../common/header.jsp" %>
+<!-- 여기부터
+    <nav class="nav nav-pills nav-justified">
+        <c:forEach var="boardList" items="${sessionScope.boardList}">
+            <a class="nav-link" id="${boardList.id}" href="/boards/${boardList.id}">${boardList.name} 게시판</a>
+            <c:if test="${boardList.id == board.id}">
+                <script>
+                    const navActive = document.getElementById("${boardList.id}");
+                    navActive.classList.add('active')
+                </script>
+            </c:if>
+        </c:forEach>
+    </nav>
+
+    <input type="button" value="나의 글목록" class="input_button" onclick="location='/boards/${pb.board_id}/${pb.no}'">
+    <button onclick="location='/generalmyboardlist'">내가 작성한 글</button>
+    여기까지 -->
+
     <main>
         <div class="mypage_list">
             로그인성공
