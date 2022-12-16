@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="../common/commonlist.jsp"%>
 <!DOCTYPE html>
@@ -55,7 +55,7 @@
                     <td style="width: 50px;">
                     </td>
                     <td>
-                        <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='generalmypage'">마이페이지</button>
+                        <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='/scrap/generalmypage'">마이페이지</button>
                     </td>
                 </div>
             </tr>

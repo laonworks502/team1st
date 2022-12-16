@@ -42,6 +42,9 @@ public class GeneralUserController {
 //        return "generaluser/mainMypage";
 //    }
 
+
+/*
+
     @RequestMapping(value = "/totalscrap")
     public String totalscrap(HttpSession session,
                              Model model,
@@ -84,6 +87,7 @@ public class GeneralUserController {
 
         log.info("generalmypage:" + gub.getEmail());
 
+
         model.addAttribute("gub", gub);
 
         model.addAttribute("myminiscrap100",myminiscrap100);
@@ -92,6 +96,7 @@ public class GeneralUserController {
 
         return "generaluser/generalmypage";
     }
+*/
 
     // 회원가입 폼
     @RequestMapping(value = "/generaluserinsert")
