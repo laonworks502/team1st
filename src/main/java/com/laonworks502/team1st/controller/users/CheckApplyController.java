@@ -26,7 +26,7 @@ public class CheckApplyController {
     // 지원자 목록 보기
     @GetMapping(value = "/applicants")
     public ModelAndView getApplicants(@RequestParam(value = "no") int no) throws Exception {
-        ModelAndView modelAndView = new ModelAndView("applicants-list");
+        ModelAndView modelAndView = new ModelAndView("/companyuser/applicants-list");
 
         List<ApplicantBean> applicants = checkApplyService.getApplicants(no);
         modelAndView.addObject("applicants", applicants);
@@ -51,24 +51,34 @@ public class CheckApplyController {
     // 지원 내역 목록 보기
     @GetMapping(value = "/applies")
     public ModelAndView getMyApply(HttpSession session) throws Exception {
-        ModelAndView modelAndView = new ModelAndView("applies-list");
+        ModelAndView modelAndView = new ModelAndView("/generaluser/applies-list");
 
         LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
 
-        List<ApplicantBean> applies = checkApplyService.getMyApply(loginBean.getEmail());
-        modelAndView.addObject("Applies", applies);
+        String email = loginBean.getEmail();
+        log.info("emailcheck={}",email);
+        List<ApplicantBean> applies = checkApplyService.getMyApply(email);
+        for (ApplicantBean a : applies){
+            log.info("list {}", a);
+            log.info("list {}", a.getNo());
+            log.info("list {}", a.getDate());
+
+        }
+
+        modelAndView.addObject("applies", applies);
 
         return modelAndView;
     }
 
     // 지원 취소
     @GetMapping(value = "/applies/{no}")
-    public ModelAndView cancelMyApply(@PathVariable(value = "no") int no, HttpSession session) throws Exception{
+    public ModelAndView cancelMyApply(@PathVariable(value = "no") Integer no, HttpSession session) throws Exception{
         ModelAndView modelAndView = new ModelAndView("redirect:/apply/applies");
 
         LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
 
-        checkApplyService.cancelMyApply(loginBean.getEmail(), no);
+        String email = loginBean.getEmail();
+        checkApplyService.cancelMyApply(email, no);
 
         return modelAndView;
     }

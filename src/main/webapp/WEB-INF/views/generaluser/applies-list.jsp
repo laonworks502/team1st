@@ -18,23 +18,35 @@
         <div class="card mb-4">
             <div class="card-body">
                 <table class="table table-hover table-striped">
-                    <thead>
-                    <tr>
-                        <th>지원글</th>
-                        <th>지원시간</th>
-                        <th>지원취소</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach  var="applies" items="${applies}">
+                    <c:if test="${applies.size() == 0}">
                         <tr>
-                            <td style="width: 1000px">${applies.no}</td>
-                            <td style="width: 150px">${applies.date}</td>
-                            <td style="width: 200px"><button type="button" class="btn btn-danger"
-                                                             onclick="cancelApply(${applies.no})">지원취소</button></td>
+                            <th>
+                                지원 한 내역이 없습니다.
+                            </th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
+
+                    </c:if>
+                    <thead>
+                    <c:if test="${applies.size() != 0}">
+                        <tr>
+                            <th>지원글</th>
+                            <th>지원시간</th>
+                            <th>지원취소</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach  var="applies" items="${applies}">
+                            <tr>
+                                <td style="width: 800px" onclick="location.href=''">${applies.no}</td>
+                                <td style="width: 250px">
+                                    <fmt:formatDate value="${applies.date}" pattern="yyyy-MM-dd HH:mm"/></td>
+                                <td style="width: 200px"><button type="button" class="btn btn-danger"
+                                                                 onclick="location.href='/apply/applies/${applies.no}'">지원취소</button></td>
+                                                                 <%--onclick="cancelApply(${applies.no})">지원취소</button></td--%>>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </c:if>
                 </table>
             </div>
         </div>

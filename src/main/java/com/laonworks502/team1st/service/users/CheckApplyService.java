@@ -15,6 +15,6 @@ public interface CheckApplyService {
     List<ApplicantBean> getMyApply(String email) throws Exception;
 
     // 지원 취소
-    String cancelMyApply(String email, int no) throws Exception;
+    void cancelMyApply(String email, int no) throws Exception;
 
 }
