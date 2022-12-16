@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ include file="../common/commonlist.jsp"%>
 <html>
 <head>
@@ -12,6 +13,12 @@
             margin:0;
         }
 
+        header{
+            width:1180px;
+            min-width: 1180px;
+        }
+
+
         body {
             margin: 0;
             padding: 0;
@@ -20,20 +27,18 @@
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
-            background-color: antiquewhite;
         }
 
         main {
             width:1180px;
             min-width: 1180px;
-            background-color: antiquewhite;
         }
 
         ul,li {
             list-style: none;
         }
         .subject{
-            margin-bottom: 100px;
+            margin: 50px 0px 50px 0px;
 
         }
     </style>
@@ -72,10 +77,11 @@
     </script>
 </head>
 <body>
-<%@ include file = "../common/header.jsp" %>
+<header>
+    <%@ include file = "../common/header.jsp" %>
+</header>
 <main>
     <div class="myscrab_detaillist">
-
         <div class="totalscrap_total_wrap">
             <div class="totalscrap_subject_wrap">
                 <ul class="subject" >
@@ -97,17 +103,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="myscrap" items="${myscrap}">
-                                <tr>
-                                    <td onclick="location.href='/boards/${myscrap.board_id}/${myscrap.no}'">${myscrap.title}</td>
-                                    <td>${myscrap.date}</td>
-                                    <td>
-                                        <div class="scrapIconYesArea" id="scrapIconArea${myscrap.no}">
-                                            <input type="image" id="hiddenYesScrap${myscrap.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myscrap.no})">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                                <c:forEach var="myscrap" items="${myscrap}">
+                                    <tr>
+                                        <td onclick="location.href='/boards/${myscrap.board_id}/${myscrap.no}'">${myscrap.title}</td>
+                                        <td>${myscrap.date}</td>
+                                        <td>
+                                            <div class="scrapIconYesArea" id="scrapIconArea${myscrap.no}">
+                                                <input type="image" id="hiddenYesScrap${myscrap.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myscrap.no})">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>

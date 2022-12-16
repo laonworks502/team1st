@@ -4,6 +4,7 @@ import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.board.Pagination;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.post.PostListBean;
+import com.laonworks502.team1st.model.scrap.ScrapBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.board.BoardService;
 import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -75,28 +77,21 @@ public class BoardController {
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
             HttpSession Session) throws Exception {
 
-        // LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
-
-        //String email = loginBean.getEmail();
-
-
         ModelAndView modelAndView = new ModelAndView("board/boardlist");
 
         int postTotal = boardService.countAllPosts(board_id);
 
         Pagination pg = new Pagination(board_id, page, postTotal, 10);
+        log.info("페이지 값 : {}", pg.getPage());
 
         modelAndView.addObject("pg", pg);
 
-        log.info("글 목록 컨트롤러");
-        log.info("pg", pg);
 
-        String email = "a1@naver.com";
+        //String email = "a1@naver.com";
 
-        log.info("board_id={}", board_id);
-        log.info("pg.getStartPostNo()={}", pg.getStartPostNo());
-        log.info("pg.getStartPostNo()={}", pg.getStartPostNo());
-        log.info("pg.getPAGES_COUNT={}", pg.getPAGES_COUNT());
+        LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
+
+        String email = loginBean.getEmail();
 
         // 리스트 담기
         List<PostListBean> postList = boardService.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
@@ -109,8 +104,9 @@ public class BoardController {
 
             log.info("postList={}", postList.get(i).getScrapResult());
 
+        }
 
-            modelAndView.addObject("posts", postList);
+        modelAndView.addObject("posts", postList);
 
             // board 정보 담기
             BoardBean boardBean = boardService.getBoardById(board_id);
@@ -118,7 +114,6 @@ public class BoardController {
 
             // board 세션 추가
             Session.setAttribute("board_id", board_id);
-        }
         return modelAndView;
     }
 
@@ -126,14 +121,27 @@ public class BoardController {
     @GetMapping(value = "/{board_id}/{no}")
     public ModelAndView getPostByNo(@PathVariable(value = "board_id") int board_id,
                                     @PathVariable(value = "no") int no,
-                                    @RequestParam(value = "page",required = false, defaultValue = "1") Integer page )throws Exception {
+                                    @RequestParam(value = "page",required = false, defaultValue = "1") Integer page ,
+                                    HttpSession session)throws Exception {
+
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+
+        String email = loginBean.getEmail();
 
         ModelAndView modelAndView = new ModelAndView("board/postview");
 
         PostBean post = boardService.getPostByNo(board_id, no);
         post.setContent(post.getContent().replace("\n", "<br>"));
 
-        modelAndView.addObject("post", post);
+        ScrapBean scrap = new ScrapBean();
+
+        scrap.setUser_email(email);
+        scrap.setNo(no);
+
+        int result = ss.searchScrap(scrap);  //[searchScrap() : 스크랩 정보 검색 메소드]
+
+        modelAndView.addObject("posts", post);
+        modelAndView.addObject("result", result);
 
         BoardBean board = boardService.getBoardById(board_id);
         modelAndView.addObject("board", board);

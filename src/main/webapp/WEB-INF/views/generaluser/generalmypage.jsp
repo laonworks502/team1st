@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="../common/commonlist.jsp"%>
 <!DOCTYPE html>
@@ -11,8 +11,14 @@
         *{
             padding: 0;
             margin:0;
-            padding: 20px;
         }
+
+        header{
+            width:1180px;
+            min-width: 1180px;
+            background-color: antiquewhite;
+        }
+
 
         body {
             margin: 0;
@@ -27,14 +33,21 @@
         main {
             width:1180px;
             min-width: 1180px;
-            background-color: antiquewhite;
-            margin: 0 auto;
         }
 
-        ul,li{
-            list-style:none;
+        ul,li {
+            list-style: none;
         }
+        .mypage_list{
+            margin-top: 50px;
+        }
+        .subject{
+            margin: 50px 0px 50px 0px;
 
+        }
+        .myscrap_total_wrap{
+            margin-bottom: 80px;
+        }
     </style>
 
     <!--[스크랩 버튼]-->
@@ -53,11 +66,11 @@
                     if(data == 1){	//스크랩 O
                         $("#hiddenNoScrap"+no).show();
                         $("#hiddenYesScrap"+no).hide();
+
                         alert("in");
                     }else{        //스크랩 X
                         $("#hiddenYesScrap"+no).show();
                         $("#hiddenNoScrap"+no).hide();
-
 
                         alert("out");
                     }
@@ -78,13 +91,16 @@
         <div class="mypage_list">
             로그인성공
 
-            <input type="button" value="로그아웃" class="input_button" onclick="location='loginselect'">
-            <input type="button" value="회원수정" class="input_button" onclick="location='generaluseredit'">
-            <input type="button" value="회원탈퇴" class="input_button" onclick="location='generaluserdelete'">
+            <input type="text" name="email" value="${gub.email}" style="border: none" readonly>
+
+            <input type="button" value="로그아웃" class="input_button" onclick="location='/loginselect'">
+            <input type="button" value="회원수정" class="input_button" onclick="location='/generaluseredit'">
+            <input type="button" value="회원탈퇴" class="input_button" onclick="location='/generaluserdelete'">
+
+            <input type="button" value="스크랩목록" class="input_button" onclick="location='/totalscrap'">
 
             <!-- 파일 업로드에서는 enctype(인코딩타입)을 multipart/form-data로 반드시 설정 -->
-            <form action="resumeupload" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="email" value="${sessionScope.email}">
+            <form action="/resumeupload" method="post" enctype="multipart/form-data">
 
                 <br>
                 <br>
@@ -132,14 +148,14 @@
                                 <th>스크랩</th>
                             </tr>
                             </thead>
-                            <tbody class="deleteArea">
-                            <c:forEach items="${myminiscrap100}" var="myminiscrap100">
+                            <tbody>
+                            <c:forEach var="myminiscrap100" items="${myminiscrap100}">
                                 <tr>
                                     <td onclick="location.href='/boards/${myminiscrap100.board_id}/${myminiscrap100.no}'">${myminiscrap100.title}</td>
                                     <td>${myminiscrap100.date}</td>
                                     <td>
                                         <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap100.no}">
-                                                <input type="image" id="hiddenYesScrap${myminiscrap100.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap100.no})">
+                                            <input type="image" id="hiddenYesScrap${myminiscrap100.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap100.no})">
                                         </div>
                                     </td>
                                 </tr>
@@ -169,8 +185,8 @@
                                 <th>스크랩</th>
                             </tr>
                             </thead>
-                            <tbody class="deleteArea">
-                            <c:forEach items="${myminiscrap200}" var="myminiscrap200">
+                            <tbody>
+                            <c:forEach var="myminiscrap200" items="${myminiscrap200}">
                                 <tr>
                                     <td onclick="location.href='/boards/${myminiscrap200.board_id}/${myminiscrap200.no}'">${myminiscrap200.title}</td>
                                     <td>${myminiscrap200.date}</td>
@@ -206,23 +222,24 @@
                                 <th>스크랩</th>
                             </tr>
                             </thead>
-                            <tbody class="deleteArea">
-                            <c:forEach items="${myminiscrap300}" var="myminiscrap300">
-                                <tr>
-                                    <td onclick="location.href='/boards/${myminiscrap300.board_id}/${myminiscrap300.no}'">${myminiscrap300.title}</td>
-                                    <td>${myminiscrap300.date}</td>
-                                    <td>
-                                        <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap300.no}">
-                                            <input type="image" id="hiddenYesScrap${myminiscrap300.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap300.no})">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                            <tbody>
+                                <c:forEach var="myminiscrap300" items="${myminiscrap300}">
+                                    <tr>
+                                        <td onclick="location.href='/boards/${myminiscrap300.board_id}/${myminiscrap300.no}'">${myminiscrap300.title}</td>
+                                        <td>${myminiscrap300.date}</td>
+                                        <td>
+                                            <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap300.no}">
+                                                <input type="image" id="hiddenYesScrap${myminiscrap300.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap300.no})">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 
 

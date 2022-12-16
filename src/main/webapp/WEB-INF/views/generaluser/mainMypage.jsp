@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="../common/commonlist.jsp"%>
 <!DOCTYPE html>
@@ -7,14 +7,44 @@
     <meta charset="UTF-8">
     <title>로그인 선택</title>
 
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/loginForm.css">
+    <style>
+        *{
+            padding: 0;
+            margin:0;
+            padding: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        main {
+            width:1180px;
+            min-width: 1180px;
+            background-color: antiquewhite;
+            margin: 0 auto;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+    </style>
+
+<%--    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/loginForm.css">--%>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
 
 </head>
 <body class="text-center">
 
     <main class="form-signin w-800 m-auto">
-
+<input type="text" name="email" value="${gub.email}">
         <table>
             <tr>
                 <div>
@@ -25,7 +55,7 @@
                     <td style="width: 50px;">
                     </td>
                     <td>
-                        <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='generalmypage'">마이페이지</button>
+                        <button class="btn btn-warning btn-lg" type="button" style="width: 200px;" onclick="location='/scrap/generalmypage'">마이페이지</button>
                     </td>
                 </div>
             </tr>
