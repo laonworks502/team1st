@@ -105,20 +105,24 @@ public class BoardController {
             return modelAndView;
         }
 
+
+        if (page > pg.getPagesTotal()) {
+            modelAndView.setViewName("board/wrong-access");
+            return modelAndView;
+        }
+
         modelAndView.addObject("page", page);
         modelAndView.addObject("pg", pg);
-
-
-        //String email = "a1@naver.com";
-
-        LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
-
-        String email = loginBean.getEmail();
 
         // 리스트 담기
         List<PostListBean> postList = boardService.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
 
         log.info("postList={}", postList);
+
+        // 스크랩 담기
+        LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+        //String email = "a1@naver.com";
 
         //postList에 대한 스크랩 유무 검색 메소드
         for (int i = 0; i < postList.size(); i++) {
@@ -149,19 +153,21 @@ public class BoardController {
                                     @RequestParam(value = "page",required = false, defaultValue = "1") Integer page ,
                                     HttpSession session)throws Exception {
 
-        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
-
-        String email = loginBean.getEmail();
 
         if (boardService.checkBoardExist(board_id) != 1) {
             ModelAndView modelAndView = new ModelAndView("board/wrong-access");
             return modelAndView;
         }
+        
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+
+        String email = loginBean.getEmail();
 
         PostBean post = boardService.getPostByNo(board_id, no);
         //if (post)
         post.setContent(post.getContent().replace("\n", "<br>"));
         ModelAndView modelAndView = new ModelAndView("board/postview");
+
 
         ScrapBean scrap = new ScrapBean();
 

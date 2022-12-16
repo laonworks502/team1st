@@ -42,7 +42,9 @@ public class GeneralUserController {
 //        return "generaluser/mainMypage";
 //    }
 
+
 /*
+
     @RequestMapping(value = "/totalscrap")
     public String totalscrap(HttpSession session,
                              Model model,
@@ -74,6 +76,7 @@ public class GeneralUserController {
                                 @ModelAttribute ScrapListBean myminiscrap100,
                                 @ModelAttribute ScrapListBean myminiscrap200,
                                 @ModelAttribute ScrapListBean myminiscrap300
+
 //                                @ModelAttribute GeneralUserBean gub
                                 )throws Exception{
 
@@ -83,6 +86,7 @@ public class GeneralUserController {
         GeneralUserBean gub = gus.checkGeneraluser(email);
 
         log.info("generalmypage:" + gub.getEmail());
+
 
         model.addAttribute("gub", gub);
 
