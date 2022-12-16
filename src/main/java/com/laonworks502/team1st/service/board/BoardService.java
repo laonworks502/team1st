@@ -3,7 +3,6 @@ package com.laonworks502.team1st.service.board;
 import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.post.PostListBean;
-import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
 
 import java.util.List;
 
@@ -33,9 +32,5 @@ public interface BoardService {
     // 글 삭제
     int deletePost(int no) throws Exception;
 
-    // 글 존재 여부 검색
-    int getPostCountByNo(int board_id, int no) throws Exception;
 
-    // 매칭 생성
-    int createMatching(StudyGroupBean studyBean) throws Exception;
 }

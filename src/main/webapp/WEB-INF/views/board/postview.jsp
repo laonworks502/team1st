@@ -183,6 +183,12 @@
                         <h5 class="col-1"></h5>
                         <p class="col-8"></p>
                         <p class="col-2"></p>
+                        <c:if test="${post.board_id} == 300">
+                            <p>매칭 인원</p>
+                            ${sgb.total_members}
+                            <p>매칭일</p>
+                            ${sgb.date}
+                        </c:if>
                     </div>
                     <div>
                         <h5 class="content-title">작성일</h5>

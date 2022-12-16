@@ -79,13 +79,13 @@
         <div class="card mb-4">
             <div class="card-header">
                 <c:if test="${sessionScope.loginBean.authority == '기업' && (board.id == '100' || board.id == '200')}">
-                    <button type="button" class="btn btn-primary float-end"
-                            onClick="location.href='/boards/${board.id}/write?page=${pg.page}'">글 작성
+                    <button type="button" class="btn btn-primary float-end
+                            onClick="location.href='/boards/${board.id}/write?page=${pg.page}'" >글 작성
                     </button>
                 </c:if>
                 <c:if test="${sessionScope.loginBean.authority == '일반' && board.id == '300'}">
                     <button type="button" class="btn btn-primary float-end"
-                            onClick="location.href='/boards/${board.id}/write?page=${pg.page}'">글 작성
+                            onClick="location.href='/boards/${board.id}/write?page=${pg.page}'" >글 작성
                     </button>
                 </c:if>
             </div>

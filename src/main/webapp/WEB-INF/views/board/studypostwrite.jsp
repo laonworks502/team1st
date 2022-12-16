@@ -13,7 +13,7 @@
         let content = $("#content").val()
         let post1 = {'title': title, 'content': content};
             $.ajax({
-                url: '/boards/${board_id}/study?page=${page}',
+                url: '/study/${board_id}?page=${page}',
                 method: 'POST',
                 contentType: 'application/json;charset=utf-8',
                 data: JSON.stringify(post1),
@@ -38,7 +38,7 @@
         let deadline = $("#deadline").val();
         let data = {'total_members': total_members, 'deadline': deadline};
         $.ajax({
-            url: 'boards/${board_id}/'+no+'/study',
+            url: '/study/${board_id}/'+no,
             method: 'POST',
             contentType: 'application/json;charset=utf-8',
             data: JSON.stringify(data),
@@ -47,7 +47,7 @@
                     alert("매칭 생성 성공");
                     location.href="/boards/"+${board_id};
                 }else{
-                    alert("매칭 생성 실패");
+                    alert("매칭 생성 실패. 다시 시도해주세요.");
                     return false;
                 }
 
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <div class="board-footer">
-                            <button type="submit" class="btn btn-outline-primary" onclick="postInsert()">작성</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="postInsert()">작성</button>
                             <button type="button" class="btn btn-outline-secondary"
                                     onclick="history.go(-1);">취소</button>
                         </div>

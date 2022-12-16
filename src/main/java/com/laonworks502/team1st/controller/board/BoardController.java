@@ -8,6 +8,7 @@ import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.board.BoardService;
 import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
+import com.laonworks502.team1st.service.studygroup.StudyGroupServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,6 +35,9 @@ public class BoardController {
     @Autowired
     private ScrapServiceImpl ss;
 
+    @Autowired
+    private StudyGroupServiceImpl studyGroupService;
+
     // 글 작성 폼
     @GetMapping(value = "/{board_id}/write")
     public ModelAndView postwriteform(
@@ -59,8 +63,6 @@ public class BoardController {
         LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
         post.setWriter(loginBean.getEmail());
 
-
-
         boardService.writePost(post);
         int no = post.getNo();
 
@@ -80,8 +82,9 @@ public class BoardController {
 
         // LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
 
-        //String email = loginBean.getEmail();
+        // String email = loginBean.getEmail();
 
+        String email = "a1@naver.com";
 
         ModelAndView modelAndView = new ModelAndView("board/boardlist");
 
@@ -91,9 +94,6 @@ public class BoardController {
         log.info("페이지 값 : {}", pg.getPage());
 
         modelAndView.addObject("pg", pg);
-
-
-        String email = "a1@naver.com";
 
         // 리스트 담기
         List<PostListBean> postList = boardService.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
@@ -135,6 +135,11 @@ public class BoardController {
         BoardBean board = boardService.getBoardById(board_id);
         modelAndView.addObject("board", board);
         modelAndView.addObject("page", page);
+
+        if(board_id == 300){
+            StudyGroupBean sgb = studyGroupService.getStudyByNo(no);
+            modelAndView.addObject("sgb", sgb);
+        }
 
         return modelAndView;
     }
@@ -219,77 +224,5 @@ public class BoardController {
 
         return result;       // 글 목록 메소드로 리턴
     }
-
-
-
-
-
-
-    // 글 작성 폼 (스터디 게시판)
-    @GetMapping(value = "/{board_id}/write-study")
-    public ModelAndView studypostwriteform(
-            @PathVariable("board_id") int board_id,
-            @RequestParam("page") int page) throws Exception {
-
-        ModelAndView modelAndView = new ModelAndView("board/studypostwrite");
-
-        BoardBean boardBean = boardService.getBoardById(board_id);
-        modelAndView.addObject("board", boardBean);
-        modelAndView.addObject("page", page);
-
-        return modelAndView;
-    }
-
-    // 글 작성 (스터디 게시판)
-    @ResponseBody
-    @PostMapping(value = "/{board_id}/study")
-    public Map<String, Object> studyWritePost(
-            @PathVariable(value = "board_id") int board_id,
-            @RequestParam(value = "page") int page,
-            @RequestBody PostBean postBean, HttpSession session) throws Exception {
-
-        postBean.setBoard_id(board_id);
-
- //       LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
- //       postBean.setWriter(loginBean.getEmail());
-
-        postBean.setWriter("a1@naver.com");
-
-
-        int no = boardService.writePost(postBean);
-
-        int result = boardService.getPostCountByNo(board_id, no);
-
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("no",no);
-        map.put("result",result);
-
-        return map;
-    }
-
-    // 매칭 테이블 생성
-    @ResponseBody
-    @PostMapping(value = "{board_id}/{no}/study")
-    public <studyBean> Integer macthingCreate(
-            @PathVariable(value = "board_id") int board_id,
-            @PathVariable(value = "no") int no,
-            @RequestBody StudyGroupBean studyBean,
-            HttpSession session) throws Exception {
-
-//        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
-//        studyBean.setHost_email(loginBean.getEmail());
-        studyBean.setHost_email("a1@naver.com");
-
-        int result = boardService.createMatching(studyBean);
-        if(result == 0){
-            // no 값으로 작성 글 delete 메소드
-        }
-
-        return result;
-    }
-
-
-
-}
 
 }

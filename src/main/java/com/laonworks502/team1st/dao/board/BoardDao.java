@@ -21,6 +21,5 @@ public interface BoardDao {
     PostBean getPostByNo(int board_id, int no) throws Exception;
     int amendPost(PostBean postBean) throws Exception;
     int deletePost(int no) throws Exception;
-    int getPostCountByNo(int board_id, int no) throws Exception;
-    int createMatching(StudyGroupBean studyBean) throws Exception;
+
 }

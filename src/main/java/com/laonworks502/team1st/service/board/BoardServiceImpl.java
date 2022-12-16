@@ -56,13 +56,4 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.deletePost(no);
     }
 
-    @Override
-    public int getPostCountByNo(int board_id, int no) throws Exception {
-        return boardDao.getPostCountByNo(board_id, no);
-    }
-
-    @Override
-    public int createMatching(StudyGroupBean studyBean) throws Exception {
-        return boardDao.createMatching(studyBean);
-    }
 }
