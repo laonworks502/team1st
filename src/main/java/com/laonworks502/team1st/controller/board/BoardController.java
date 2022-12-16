@@ -86,7 +86,7 @@ public class BoardController {
     public ModelAndView getBoardList(
             @PathVariable(value = "board_id") int board_id,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-            HttpSession Session) throws Exception {
+            HttpSession session) throws Exception {
 
         if (boardService.checkBoardExist(board_id) != 1) {
             ModelAndView modelAndView = new ModelAndView("board/wrong-access");
@@ -120,16 +120,20 @@ public class BoardController {
         log.info("postList={}", postList);
 
         // 스크랩 담기
-        LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
-        String email = loginBean.getEmail();
-        //String email = "a1@naver.com";
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 
-        //postList에 대한 스크랩 유무 검색 메소드
-        for (int i = 0; i < postList.size(); i++) {
-            postList.get(i).setScrapResult(ss.getBoardSearchList(email, postList.get(i).getNo()));
+        if (loginBean != null) {
 
-            log.info("postList={}", postList.get(i).getScrapResult());
+            String email = loginBean.getEmail();
+            //String email = "a1@naver.com";
 
+            //postList에 대한 스크랩 유무 검색 메소드
+            for (int i = 0; i < postList.size(); i++) {
+                postList.get(i).setScrapResult(ss.getBoardSearchList(email, postList.get(i).getNo()));
+
+                log.info("postList={}", postList.get(i).getScrapResult());
+
+            }
         }
 
         modelAndView.addObject("posts", postList);
@@ -141,7 +145,7 @@ public class BoardController {
 
 
         // board 세션 추가
-        Session.setAttribute("board_id", board_id);
+        session.setAttribute("board_id", board_id);
 
         return modelAndView;
     }
