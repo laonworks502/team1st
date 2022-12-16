@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file = "../common/commonlist.jsp" %>
 <!DOCTYPE html>
@@ -20,6 +20,7 @@
                 contentType:'application/json;charset=utf-8',
                 success: function (data) {
                     alert(data);
+
                     if(data == 1){	//스크랩 O
                         $("#hiddenNoScrap"+no).show();
                         $("#hiddenYesScrap"+no).hide();
@@ -28,7 +29,6 @@
                     }else{        //스크랩 X
                         $("#hiddenYesScrap"+no).show();
                         $("#hiddenNoScrap"+no).hide();
-
 
                         alert("out");
                     }
@@ -73,7 +73,7 @@
 <main class="mt-2 pt-2">
     <div class="container-fluid px-4">
         <h1 class="mt-4">${board.name} 게시판</h1>
-        <h5> ${pg.postsTotal}개의 글이 기다리고 있어요!</h5>
+        <h5 style="margin-bottom: 50px"> ${pg.postsTotal}개의 글이 기다리고 있어요!</h5>
 
 
         <div class="card mb-4">
@@ -96,29 +96,33 @@
                         <th>제목</th>
                         <th>작성자</th>
                         <th>작성일</th>
-                        <th style="width: 100px; float: right">스크랩</th>
+                        <c:if test="${sessionScope.loginBean.authority == '일반'}" >
+                            <th >스크랩</th>
+                        </c:if>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${posts}" var="posts">
                         <tr>
-                            <td style="width: 1000px"
-                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${page}'">${posts.title}</td>
-                            <td style="width: 150px"
-                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${page}'">${posts.writerName}</td>
-                            <td style="width: 200px"
-                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${page}'">${posts.date}</td>
-                            <td style="width: 100px; float: right">
-                                <div class="scrapIconYesArea" id="scrapIconArea${posts.no}">
-                                    <c:if test="${posts.scrapResult == 1}">
-                                        <input type="image" id="hiddenNoScrap${posts.no}" value=${posts.scrapResult} src="/resources/images/IconNoScrap.png" width=22px height=22px onclick="scrapClick(${posts.no})">
-                                    </c:if>
-                                </div>
-                                <div class="scrapIconNoArea" id="scrapIconArea${posts.no}">
-                                    <c:if test="${posts.scrapResult == 0}">
-                                        <input type="image" id="hiddenYesScrap${posts.no}" value=${posts.scrapResult} src="/resources/images/IconYesScrap.png" width=25px height=26px onclick="scrapClick(${posts.no})">
-                                    </c:if>
-                                </div>
+                            <td
+                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">${posts.title}</td>
+                            <td
+                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">${posts.writerName}</td>
+                            <td
+                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">${posts.date}</td>
+                            <td >
+                                <c:if test="${sessionScope.loginBean.authority == '일반'}" >
+                                    <div class="scrapIconYesArea" id="scrapIconArea${posts.no}">
+                                        <c:if test="${posts.scrapResult == 0}">
+                                            <input type="image" id="hiddenNoScrap${posts.no}" value=${posts.scrapResult} src="/resources/images/IconNoScrap.png" width=22px height=22px onclick="scrapClick(${posts.no})">
+                                        </c:if>
+                                    </div>
+                                    <div class="scrapIconNoArea" id="scrapIconArea${posts.no}">
+                                        <c:if test="${posts.scrapResult == 1}">
+                                            <input type="image" id="hiddenYesScrap${posts.no}" value=${posts.scrapResult} src="/resources/images/IconYesScrap.png" width=25px height=26px onclick="scrapClick(${posts.no})">
+                                        </c:if>
+                                    </div>
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>
