@@ -9,13 +9,14 @@
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="js/companyuser_delete.js"></script>
+	<script src="/resources/js/companyuser_delete.js"></script>
 
 </head>
 <body>
 <div align="center" style="margin-top: 10%;">
 	<form method="post" action="generaluserdelete_ok" onsubmit="return check()" name="deleteform">
-		<input type="hidden" name="email" value="${sessionScope.email}">
+<%--		<input type="hidden" name="email" value="${sessionScope.email}">--%>
+		<input type="hidden" name="email"  id="email" value="${gub.email}">
 		<input type="hidden" name="passwd"  id="passwd" value="${gub.passwd}">
 		<p>
 			<a style="font-size: 15pt; font-weight: bold;">'${gub.email}'</a>
@@ -33,7 +34,7 @@
 					<textarea name="exit_reason" id="exit_reason" style="width:95%;" rows="4"></textarea></td>
 			</tr>
 		</table>
-		<div >
+		<div>
 			<input type="submit" class="btn btn-danger" value="탈퇴">
 			<input type="button" class="btn btn-outline-primary btn-sm" value="돌아가기" onclick="history.go(-1)">
 

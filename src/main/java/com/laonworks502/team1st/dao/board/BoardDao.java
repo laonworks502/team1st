@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper
 public interface BoardDao {
 
+    int checkBoardExist(int board_id) throws Exception;
     int writePost(PostBean postBean) throws Exception;
     List<PostListBean> getBoardList(/*@Param("board_id")*/ int board_id,
                                  /*@Param("startPostNo")*/ int startPostNo,

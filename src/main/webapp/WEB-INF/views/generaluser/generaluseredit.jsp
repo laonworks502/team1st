@@ -10,7 +10,7 @@
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
  <script src="http://code.jquery.com/jquery-latest.js"></script>
- <script src="/js/general_edit_check.js"></script><!-- /js 꼭 붙이기 -->
+ <script src="/resources/js/general_edit_check.js"></script><!-- /js 꼭 붙이기 -->
  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 </head>

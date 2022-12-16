@@ -21,15 +21,14 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${posts}" var="posts">
-					<tr onclick="location.href='/boards/${posts.board_id}/${posts.no}?page=${pg.page}'">
-						<td><c:set var="board_id" value="${posts.board_id}" /> 
-							<c:if test="${board_id eq '100'}">
+					<tr
+						onclick="location.href='/boards/${posts.board_id}/${posts.no}?page=${pg.page}'">
+						<td><c:set var="board_id" value="${posts.board_id}" /> <c:if
+								test="${board_id eq '100'}">
 								<a>정규 게시판</a>
-							</c:if>
-							<c:if test="${board_id eq '200'}">
+							</c:if> <c:if test="${board_id eq '200'}">
 								<a>단기 게시판</a>
-							</c:if>
-						</td>
+							</c:if></td>
 						<td>${posts.title}</td>
 						<td>${posts.writer}</td>
 						<td>${posts.date}</td>
@@ -40,24 +39,25 @@
 	</div>
 
 
-	<!-- 페이징 아직 정리 x -->
+	<!-- 페이징 -->
 	<nav class="center" aria-label="Page navigation example">
-		<ul class="pagination">
+		<ul class="pagination justify-content-center">
 			<li class="page-item"><c:if test="${pg.page>1}">
-					<a class="page-link" href="/companywritelist?page=${pg.page-1}" aria-label="Previous"> 
-					<span aria-hidden="true">&laquo;</span>
+					<a class="page-link" href="/companywritelist?page=${pg.page-1}"
+						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 					</a>
 				</c:if></li>
 			<c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
-				<li class="page-item" id="page-item${i}"><a class="page-link" href="/companywritelist?page=${i}">${i}</a></li>
-				<script>
-					const pageItem = document.getElementById("page-item${pg.page}");
-					pageItem.classList.add('active')
-				</script>
+				<li class="page-item" id="page-item${i}"><a class="page-link"
+					href="/companywritelist?page=${i}">${i}</a></li>
 			</c:forEach>
-			<li class="page-item"><c:if test="${pg.page<pg.pagesTotal}">
-					<a class="page-link" href="/companywritelist?page=${pg.page+1}" aria-label="Next"> 
-					<span aria-hidden="true">&raquo;</span>
+			<script>
+				const pageItem = document.getElementById("page-item${pg.page}");
+				pageItem.classList.add('active')
+			</script>
+			<li class="page-item"><c:if test="${pg.page < pg.pagesTotal}">
+					<a class="page-link" href="/companywritelist?page=${pg.page+1}"
+						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a>
 				</c:if></li>
 		</ul>

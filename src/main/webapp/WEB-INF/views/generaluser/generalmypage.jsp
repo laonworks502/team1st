@@ -11,6 +11,7 @@
         *{
             padding: 0;
             margin:0;
+            padding: 20px;
         }
 
         header{
@@ -33,6 +34,7 @@
         main {
             width:1180px;
             min-width: 1180px;
+            margin: 0 auto;
         }
 
         ul,li {
@@ -72,6 +74,7 @@
                         $("#hiddenYesScrap"+no).show();
                         $("#hiddenNoScrap"+no).hide();
 
+
                         alert("out");
                     }
                     location.reload();
@@ -97,7 +100,7 @@
             <input type="button" value="회원수정" class="input_button" onclick="location='/generaluseredit'">
             <input type="button" value="회원탈퇴" class="input_button" onclick="location='/generaluserdelete'">
 
-            <input type="button" value="스크랩목록" class="input_button" onclick="location='/totalscrap'">
+            <%--<input type="button" value="스크랩목록" class="input_button" onclick="location='/totalscrap'">--%>
 
             <!-- 파일 업로드에서는 enctype(인코딩타입)을 multipart/form-data로 반드시 설정 -->
             <form action="/resumeupload" method="post" enctype="multipart/form-data">

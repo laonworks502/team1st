@@ -80,12 +80,12 @@
             <div class="card-header">
                 <c:if test="${sessionScope.loginBean.authority == '기업' && (board.id == '100' || board.id == '200')}">
                     <button type="button" class="btn btn-primary float-end"
-                            onClick="location.href='/boards/${board.id}/write?page=${pg.page}'">글 작성
+                            onClick="location.href='/boards/${board.id}/write?page=${page}'">글 작성
                     </button>
                 </c:if>
                 <c:if test="${sessionScope.loginBean.authority == '일반' && board.id == '300'}">
                     <button type="button" class="btn btn-primary float-end"
-                            onClick="location.href='/boards/${board.id}/write?page=${pg.page}'">글 작성
+                            onClick="location.href='/boards/${board.id}/write?page=${page}'">글 작성
                     </button>
                 </c:if>
             </div>
@@ -137,8 +137,8 @@
 <nav class="center" aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li class="page-item">
-        <c:if test="${pg.page>1}">
-            <a class="page-link" href="/boards/${board.id}?page=${pg.page-1}" aria-label="Previous">
+        <c:if test="${page>1}">
+            <a class="page-link" href="/boards/${board.id}?page=${page-1}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </c:if>
@@ -149,12 +149,12 @@
             </li>
         </c:forEach>
             <script>
-                const pageItem=document.getElementById("page-item${pg.page}");
+                const pageItem=document.getElementById("page-item${page}");
                 pageItem.classList.add('active')
             </script>
         <li class="page-item">
-            <c:if test="${pg.page < pg.pagesTotal}">
-                <a class="page-link" href="/boards/${board.id}?page=${pg.page+1}" aria-label="Next">
+            <c:if test="${page < pagesTotal}">
+                <a class="page-link" href="/boards/${board.id}?page=${page+1}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </c:if>
