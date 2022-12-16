@@ -153,7 +153,7 @@
                 pageItem.classList.add('active')
             </script>
         <li class="page-item">
-            <c:if test="${page < pagesTotal}">
+            <c:if test="${page < pg.pagesTotal}">
                 <a class="page-link" href="/boards/${board.id}?page=${page+1}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
