@@ -9,6 +9,7 @@ import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.board.BoardServiceImpl;
 import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
+import com.laonworks502.team1st.service.users.GeneralUserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,12 +23,16 @@ import java.util.List;
 @Controller
 
 @RequestMapping("scrap")
+
 public class ScrapController {
 
     @Autowired
     private ScrapServiceImpl ss;
     @Autowired
     private BoardServiceImpl bs;
+
+    @Autowired
+    private GeneralUserServiceImpl gus;
 
     /*[스크랩 검색]*/
 /*    @GetMapping("search/{no}")  //경로 설정
@@ -54,7 +59,7 @@ public class ScrapController {
 
 
         return "boards";
-    }*/
+    }
 
     /*[Ajax)스크랩 생성(클릭)] : 클릭을 했는지 안했는지를 이미 판별한 상태에서 클릭*/
     @ResponseBody
@@ -66,10 +71,10 @@ public class ScrapController {
 
         log.info("스크랩 컨트롤러");
 
-        //LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 
-        //String email = loginBean.getEmail();
-        String email = "a1@naver.com"; //테스트
+        String email = loginBean.getEmail();
+        //String email = "a1@naver.com"; //테스트
 
         ScrapBean scrap = new ScrapBean();
 
@@ -120,6 +125,72 @@ public class ScrapController {
         return boardSearchList;
     }
 */
+    // 일반 회원 마이페이지
+/*
+    @RequestMapping(value = "/generalmypage")
+    public String generalmypage(HttpSession session,
+                                Model model,
+                                @ModelAttribute ScrapListBean myminiscrap100,
+                                @ModelAttribute ScrapListBean myminiscrap200,
+                                @ModelAttribute ScrapListBean myminiscrap300
+
+//                                @ModelAttribute GeneralUserBean gub
+    )throws Exception{
+
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
+        GeneralUserBean gub = gus.checkGeneraluser(email);
+
+        log.info("generalmypage:" + gub.getEmail());
+
+        model.addAttribute("gub", gub);
+
+        model.addAttribute("myminiscrap100",myminiscrap100);
+        model.addAttribute("myminiscrap200",myminiscrap200);
+        model.addAttribute("myminiscrap300",myminiscrap300);
+
+        return "generaluser/generalmypage";
+    }
+*/
+
+    /*[마이페이지) 미니 스크랩 리스트 ]*/
+    @GetMapping("/generalmypage")
+    public String generalmypage(
+            //GeneralUserBean gub,
+            HttpSession session,
+            Model model) throws Exception {
+
+        log.info("마이페이지) 미니 스크랩 리스트 (listMiniScrap)");
+
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+
+        String email = loginBean.getEmail();
+
+        GeneralUserBean gub2 = gus.checkGeneraluser(email);
+
+        log.info("generalmypage:" + gub2.getEmail());
+
+        //int listcount = ss.getCount(email); // [getCount() : 총 리스트 수 구해오는 메소드]
+
+        List<ScrapListBean> myminiscrap100 =ss.listMiniScrap(email,100);
+        List<ScrapListBean> myminiscrap200 =ss.listMiniScrap(email,200);
+        List<ScrapListBean> myminiscrap300 =ss.listMiniScrap(email,300);
+
+        model.addAttribute("myminiscrap100",myminiscrap100);
+        model.addAttribute("myminiscrap200",myminiscrap200);
+        model.addAttribute("myminiscrap300",myminiscrap300);
+
+        model.addAttribute("gub",gub2);
+
+        log.info("myminiscrap100" +myminiscrap100);
+        log.info("myminiscrap200" +myminiscrap200);
+        log.info("myminiscrap300" +myminiscrap300);
+
+        return "generaluser/generalmypage";
+    }
+
+
 
 
     /*[스크랩 전체 출력 리스트]*/
@@ -156,39 +227,5 @@ public class ScrapController {
 
         return "generaluser/totalscrap";
     }
-
-
-    /*[마이페이지) 미니 스크랩 리스트 ]*/
-    @GetMapping("/listMiniScrap")
-    public String listMiniScrap(
-            //GeneralUserBean gub,
-            HttpSession session,
-            Model model) throws Exception {
-
-        log.info("마이페이지) 미니 스크랩 리스트 (listMiniScrap)");
-
-        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
-
-        String email = loginBean.getEmail();
-
-        //int listcount = ss.getCount(email); // [getCount() : 총 리스트 수 구해오는 메소드]
-
-        List<ScrapListBean> myminiscrap100 =ss.listMiniScrap(email,100);
-        List<ScrapListBean> myminiscrap200 =ss.listMiniScrap(email,200);
-        List<ScrapListBean> myminiscrap300 =ss.listMiniScrap(email,300);
-
-        model.addAttribute("myminiscrap100",myminiscrap100);
-        model.addAttribute("myminiscrap200",myminiscrap200);
-        model.addAttribute("myminiscrap300",myminiscrap300);
-
-        //model.addAttribute("gub",gub);
-
-        log.info("myminiscrap100" +myminiscrap100);
-
-        //return "redirect: generaluser/mainMypage;"
-        return "redirect: generaluser/generalmypage";
-    }
-
-
 
 }

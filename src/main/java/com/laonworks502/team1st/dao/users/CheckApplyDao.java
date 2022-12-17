@@ -18,5 +18,5 @@ public interface CheckApplyDao {
     List<ApplicantBean> getMyApply(String email) throws Exception;
 
     // 지원 취소
-    String cancelMyApply(@Param("email") String email, @Param("no") int no) throws Exception;
+    void cancelMyApply(@Param("email") String email, @Param("no") int no) throws Exception;
 }

@@ -4,6 +4,7 @@ import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.board.Pagination;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.post.PostListBean;
+import com.laonworks502.team1st.model.scrap.ScrapBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.board.BoardService;
 import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -36,6 +38,12 @@ public class BoardController {
     public ModelAndView postwriteform(
             @PathVariable("board_id") int board_id,
             @RequestParam("page") int page) throws Exception {
+
+        if (boardService.checkBoardExist(board_id) != 1) {
+            ModelAndView modelAndView = new ModelAndView("board/wrong-access");
+            return modelAndView;
+        }
+
         ModelAndView modelAndView = new ModelAndView("board/postwrite");
 
         BoardBean boardBean = boardService.getBoardById(board_id);
@@ -51,6 +59,11 @@ public class BoardController {
             @PathVariable(value = "board_id") int board_id,
             @RequestParam(value = "page") int page,
             @ModelAttribute PostBean post, HttpSession session) throws Exception {
+
+        if (boardService.checkBoardExist(board_id) != 1) {
+            ModelAndView modelAndView = new ModelAndView("board/wrong-access");
+            return modelAndView;
+        }
 
         post.setBoard_id(board_id);
         LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
@@ -73,12 +86,12 @@ public class BoardController {
     public ModelAndView getBoardList(
             @PathVariable(value = "board_id") int board_id,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-            HttpSession Session) throws Exception {
+            HttpSession session) throws Exception {
 
-        // LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
-
-        //String email = loginBean.getEmail();
-
+        if (boardService.checkBoardExist(board_id) != 1) {
+            ModelAndView modelAndView = new ModelAndView("board/wrong-access");
+            return modelAndView;
+        }
 
         ModelAndView modelAndView = new ModelAndView("board/boardlist");
 
@@ -87,32 +100,53 @@ public class BoardController {
         Pagination pg = new Pagination(board_id, page, postTotal, 10);
         log.info("페이지 값 : {}", pg.getPage());
 
+        if (page > pg.getPagesTotal()) {
+            modelAndView.setViewName("board/wrong-access");
+            return modelAndView;
+        }
+
+
+        if (page > pg.getPagesTotal()) {
+            modelAndView.setViewName("board/wrong-access");
+            return modelAndView;
+        }
+
+        modelAndView.addObject("page", page);
         modelAndView.addObject("pg", pg);
-
-
-        String email = "a1@naver.com";
 
         // 리스트 담기
         List<PostListBean> postList = boardService.getBoardList(board_id, pg.getStartPostNo(), pg.getPAGES_COUNT());
 
         log.info("postList={}", postList);
 
-        //postList에 대한 스크랩 유무 검색 메소드
-        for (int i = 0; i < postList.size(); i++) {
-            postList.get(i).setScrapResult(ss.getBoardSearchList(email, postList.get(i).getNo()));
+        // 스크랩 담기
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 
-            log.info("postList={}", postList.get(i).getScrapResult());
+        if (loginBean != null) {
 
+            String email = loginBean.getEmail();
+            //String email = "a1@naver.com";
 
-            modelAndView.addObject("posts", postList);
+            //postList에 대한 스크랩 유무 검색 메소드
+            for (int i = 0; i < postList.size(); i++) {
+                postList.get(i).setScrapResult(ss.getBoardSearchList(email, postList.get(i).getNo()));
 
-            // board 정보 담기
-            BoardBean boardBean = boardService.getBoardById(board_id);
-            modelAndView.addObject("board", boardBean);
+                log.info("postList={}", postList.get(i).getScrapResult());
 
-            // board 세션 추가
-            Session.setAttribute("board_id", board_id);
+            }
         }
+
+        modelAndView.addObject("posts", postList);
+
+
+        // board 정보 담기
+        BoardBean boardBean = boardService.getBoardById(board_id);
+        modelAndView.addObject("board", boardBean);
+
+
+        // board 세션 추가
+        session.setAttribute("board_id", board_id);
+
         return modelAndView;
     }
 
@@ -120,14 +154,34 @@ public class BoardController {
     @GetMapping(value = "/{board_id}/{no}")
     public ModelAndView getPostByNo(@PathVariable(value = "board_id") int board_id,
                                     @PathVariable(value = "no") int no,
-                                    @RequestParam(value = "page",required = false, defaultValue = "1") Integer page )throws Exception {
+                                    @RequestParam(value = "page",required = false, defaultValue = "1") Integer page ,
+                                    HttpSession session)throws Exception {
 
-        ModelAndView modelAndView = new ModelAndView("board/postview");
+
+        if (boardService.checkBoardExist(board_id) != 1) {
+            ModelAndView modelAndView = new ModelAndView("board/wrong-access");
+            return modelAndView;
+        }
+        
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+
+        String email = loginBean.getEmail();
 
         PostBean post = boardService.getPostByNo(board_id, no);
+        //if (post)
         post.setContent(post.getContent().replace("\n", "<br>"));
+        ModelAndView modelAndView = new ModelAndView("board/postview");
 
-        modelAndView.addObject("post", post);
+
+        ScrapBean scrap = new ScrapBean();
+
+        scrap.setUser_email(email);
+        scrap.setNo(no);
+
+        int result = ss.searchScrap(scrap);  //[searchScrap() : 스크랩 정보 검색 메소드]
+
+        modelAndView.addObject("posts", post);
+        modelAndView.addObject("result", result);
 
         BoardBean board = boardService.getBoardById(board_id);
         modelAndView.addObject("board", board);
