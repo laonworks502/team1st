@@ -180,7 +180,7 @@ public class BoardController {
 
         int result = ss.searchScrap(scrap);  //[searchScrap() : 스크랩 정보 검색 메소드]
 
-        modelAndView.addObject("posts", post);
+        modelAndView.addObject("post", post);
         modelAndView.addObject("result", result);
 
         BoardBean board = boardService.getBoardById(board_id);
