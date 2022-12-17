@@ -13,6 +13,7 @@
 </head>
 <body class="text-center">
 
+<%@ include file = "../common/header.jsp" %>
     <main class="form-signin w-800 m-auto">
 
         <table>

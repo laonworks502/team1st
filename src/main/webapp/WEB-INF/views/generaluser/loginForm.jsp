@@ -46,11 +46,11 @@
         window.open("pwfind","비밀번호 찾기","width=500, height=500");
     }
 </script>
-
+<%@ include file = "../common/header.jsp" %>
 
 <main class="form-signin w-100 m-auto">
 
-    <form method="post" action="/mainmypage" onsubmit="return login_check()">
+    <form method="post" action="/main-mypage" onsubmit="return login_check()">
 
         <h1 class="h3 mb-3 fw-normal">일반 회원 로그인</h1>
 
@@ -69,7 +69,7 @@
 
         </div>
         <div class="button-group">
-            <input type="button" class="w-45 btn btn-sm btn-outline-secondary" value="일반회원가입" onclick="location='generaluserinsert'">
+            <input type="button" class="w-45 btn btn-sm btn-outline-secondary" value="일반회원가입" onclick="location='general-user-insert'">
             <input type="button" class="w-50 btn btn-sm btn-outline-secondary" value="비밀번호 찾기" name="passwd_btn" onclick="passwd_find()" />
         </div>
         <button class="w-50 btn btn-lg btn-primary" type="submit">로그인</button>

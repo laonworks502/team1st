@@ -14,7 +14,7 @@
 </head>
 <body>
 <div align="center" style="margin-top: 10%;">
-	<form method="post" action="generaluserdelete_ok" onsubmit="return check()" name="deleteform">
+	<form method="post" action="general-user-delete-ok" onsubmit="return check()" name="deleteform">
 <%--		<input type="hidden" name="email" value="${sessionScope.email}">--%>
 		<input type="hidden" name="email"  id="email" value="${gub.email}">
 		<input type="hidden" name="passwd"  id="passwd" value="${gub.passwd}">

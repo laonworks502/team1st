@@ -4,8 +4,10 @@
 
 <!--회원 가입-->
 <insert id="joinGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
-    insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, register_date, resume, exit_reason, salt)
-    values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3}, current_timestamp, null, null, #{salt});
+    insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3,
+    register_date, resume, exit_reason, salt)
+    values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3},
+    current_timestamp, null, null, #{salt});
 </insert>
 
 <!--insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, register_date,
@@ -15,21 +17,25 @@ resume(null가능, exit_reason(null가능), salt) values('sky1234@naver.com', '1
 
 <!--email 중복 체크, 1개 이상이면 가입불가-->
 <select id="emailDuplicatecheck" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM (select email from general_users
-        union select email from company_users) as gcunion WHERE email = #{email}
+		SELECT COUNT(email)
+		FROM (select email from general_users
+        	  union select email from company_users) as gcunion
+        WHERE email = #{email}
 	</select>
 
 
-<!-- 로그인할 때 계정이 존재하는지 확인하는 함수 -->
+<!-- 로그인 계정의 정보 수집 -->
 <select id="checkGeneraluser" parameterType="String" resultType="com.laonworks502.team1st.model.users.GeneralUserBean">
-    select * from general_users where email = #{email} and exit_reason is null;
+    select email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, resume, salt
+    from general_users
+    where email = #{email} and exit_reason is null;
 </select>
 
 <!-- 회원 정보 수정 -->
 <update id="updateGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
 	update general_users
-	set name = #{name}, postal_code=#{postal_code}, address1=#{address1}, address2=#{address2}, tel1=#{tel1}, tel2=#{tel2},
-	    tel3=#{tel3}
+	set name = #{name}, postal_code=#{postal_code}, address1=#{address1}, address2=#{address2},
+		tel1=#{tel1}, tel2=#{tel2}, tel3=#{tel3}
 	where email = #{email}
 </update>
 	
@@ -54,8 +60,10 @@ update general_users
 
 <!-- 회원가입 ( 암호화 추가 ) -->
 <insert id="addGeneralUser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
-    insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, register_date, resume, exit_reason, salt)
-    values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3}, current_timestamp, null, null, #{salt});
+    insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3,
+    register_date, resume, exit_reason, salt)
+    values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3},
+    current_timestamp, null, null, #{salt});
 </insert>
 
 <!-- 일반회원의 게시물 전체 개수 -->
@@ -65,13 +73,16 @@ update general_users
 
 <!-- 일반회원 글 리스트 불러 오기 -->
 <select id="getGeneralBoardList" resultType="com.laonworks502.team1st.model.post.PostBean">
-    select no,board_id,writer,content,date from posts where writer = #{writer} order by no desc
-        limit #{startPostNo}, #{PAGES_COUNT}
+    select no, board_id, writer, content, date
+    from posts
+    where writer = #{writer}
+    order by no desc limit #{startPostNo}, #{PAGES_COUNT}
 </select>
 
 <!-- 내가 쓴 글 목록 -->
 <select id="myboardlist" parameterType="String" resultType="com.laonworks502.team1st.model.post.PostBean">
-	select * from posts where writer = (select email from general_users where email = #{email})
+	select * from posts
+	where writer = (select email from general_users where email = #{email})
 	order by no desc limit #{startPostNo}, #{PAGES_COUNT};
 </select>
 

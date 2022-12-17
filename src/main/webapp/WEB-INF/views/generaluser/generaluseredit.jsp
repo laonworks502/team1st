@@ -16,7 +16,7 @@
 </head>
 <body>
 
-<form action="/generaluseredit_ok" onsubmit="return edit_check()" method="post" align="center"
+<form action="/general-user-edit-ok" onsubmit="return edit_check()" method="post" align="center"
       name="editform" style="margin-top: 15%;">
 <%-- <input type="hidden" name="email" value="${sessionScope.email}"> <!-- sessionScope : 컨트롤러의 세션값을 JSP에서 JSTL로 사용하는 것 -->--%>
  <input type="hidden" name="passwd" id="passwd" value="${gub.passwd}">
