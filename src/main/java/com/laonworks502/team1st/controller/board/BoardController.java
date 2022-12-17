@@ -156,32 +156,32 @@ public class BoardController {
                                     @PathVariable(value = "no") int no,
                                     @RequestParam(value = "page",required = false, defaultValue = "1") Integer page ,
                                     HttpSession session)throws Exception {
-
+        
+        ModelAndView modelAndView = new ModelAndView("board/postview");
 
         if (boardService.checkBoardExist(board_id) != 1) {
-            ModelAndView modelAndView = new ModelAndView("board/wrong-access");
+            modelAndView.setViewName("board/wrong-access");
             return modelAndView;
         }
         
         LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        if (loginBean != null) {
+            String email = loginBean.getEmail();
+            
+            ScrapBean scrap = new ScrapBean();
 
-        String email = loginBean.getEmail();
+            scrap.setUser_email(email);
+            scrap.setNo(no);
+
+            int result = ss.searchScrap(scrap);  //[searchScrap() : 스크랩 정보 검색 메소드]
+            modelAndView.addObject("result", result);
+        }
 
         PostBean post = boardService.getPostByNo(board_id, no);
-        //if (post)
         post.setContent(post.getContent().replace("\n", "<br>"));
-        ModelAndView modelAndView = new ModelAndView("board/postview");
-
-
-        ScrapBean scrap = new ScrapBean();
-
-        scrap.setUser_email(email);
-        scrap.setNo(no);
-
-        int result = ss.searchScrap(scrap);  //[searchScrap() : 스크랩 정보 검색 메소드]
-
+        
         modelAndView.addObject("post", post);
-        modelAndView.addObject("result", result);
+        
 
         BoardBean board = boardService.getBoardById(board_id);
         modelAndView.addObject("board", board);
