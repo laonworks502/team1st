@@ -18,7 +18,7 @@
 <body>
 
 <form action="general-user-insert-ok" onsubmit="return checkch()" method="post" align="center" name="insertform" style="margin-top: 15%;">
-    <h2>회원 가입</h2>
+    <h2>일반 회원 가입</h2>
     <table align="center">
         <tr>
             <td>이메일</td>
