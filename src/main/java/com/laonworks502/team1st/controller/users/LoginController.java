@@ -51,11 +51,11 @@ public class LoginController {
 	}
 
 	// 일반 로그인 실행
-	@RequestMapping(value = "/mainmypage", method = RequestMethod.POST)
+	@RequestMapping(value = "/main-mypage", method = RequestMethod.POST)
 	public String generaluserlogin_ok(
 									  HttpSession session,
 									  Model model,
-									  @ModelAttribute GeneralUserBean gub,
+									  GeneralUserBean gub,
 									  @RequestParam("email") String email,
 									  @RequestParam("passwd") String passwd) throws Exception{
 
@@ -74,20 +74,21 @@ public class LoginController {
 			if(gub.getPasswd().equals(SHA256Util.getEncrypt_gu(passwd, gub.getSalt()))) {        // 암호화한 것과 비번 같아서 로그인됨
 //            session.setAttribute("email", email);
 
+				// 뷰에서 입력한 email과 "일반"을 새로운 LoginBean 객체인 loginBean으로 설정
 				LoginBean loginBean = new LoginBean(email, "일반");
+				// 앞에 새로 생성한 loginBean을 session으로 설정
 				session.setAttribute("loginBean", loginBean);
-				log.info("login in");
-				log.info("loginUser:" + loginBean.getAuthority());
-				model.addAttribute("gub", gub);
-				log.info("로그인성공");
 
-				log.info(gub.getEmail());
+				log.info(loginBean.getAuthority() + "유저 로그인");
+				log.info("Email정보 : " + gub.getEmail());
+				model.addAttribute("gub", gub);
+
 				return "generaluser/mainMypage";
 
 			} else { // 비번 달라서 로그인 안됨
-
 				result = 2;
 				model.addAttribute("result", result);
+				log.info("비밀번호 오류");
 
 				return "generaluser/loginResult";
 			}

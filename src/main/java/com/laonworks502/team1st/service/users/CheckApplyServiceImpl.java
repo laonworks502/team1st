@@ -28,12 +28,13 @@ public class CheckApplyServiceImpl implements CheckApplyService{
     // 지원 내역 목록 보기
     @Override
     public List<ApplicantBean> getMyApply(String email) throws Exception {
+        System.out.println("service emailcheck:"+email);
         return checkApplyDao.getMyApply(email);
     }
 
     // 지원 취소
     @Override
-    public String cancelMyApply(String email, int no) throws Exception {
-        return checkApplyDao.cancelMyApply(email, no);
+    public void cancelMyApply(String email, int no) throws Exception {
+        checkApplyDao.cancelMyApply(email, no);
     }
 }

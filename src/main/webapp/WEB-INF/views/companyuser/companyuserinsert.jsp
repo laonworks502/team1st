@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ include file="../common/commonlist.jsp"%>
@@ -9,7 +9,7 @@
 <title>기업 회원 가입</title>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>   
-<script src="js/check.js"></script>
+<script src="/resources/js/check.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style type="text/css">

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../common/commonlist.jsp"%>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 
 <title>login</title>
 
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/loginForm.css">
+<link rel="stylesheet" href="/resources/css/loginForm.css">
 <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
 
 </head>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ include file="../common/commonlist.jsp" %>
 <html>
@@ -129,9 +129,10 @@
             contentType: 'application/json;charset=utf-8',
             success: function (data) {
                 alert(data);
+
                 if (data == 1) {	//스크랩 O
-                    $("#hiddenNoScrap" + no).hide();
-                    $("#hiddenYesScrap" + no).show();
+                    $("#hiddenNoScrap" + no).show();
+                    $("#hiddenYesScrap" + no).hide();
 
                     alert("in");
                 } else {        //스크랩 X
@@ -147,6 +148,7 @@
             }
 
         });//$.ajax
+
     };
 
     function scrapClick(no){
@@ -199,6 +201,7 @@
         });
     }
 
+
 </script>
 
 <body>
@@ -236,7 +239,7 @@
 
                     <div>
                         <h5 class="content-title">작성일</h5>
-                        ${post.date}
+                        <fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd HH:mm"/>
                         <%--<input type="date" name="date" value="${post.date}" readonly>--%>
                     </div>
                     <div class="post-container">
@@ -246,40 +249,29 @@
                                           style="width:90%; height:600px; resize:none;"
                                           readonly>${post.content}</textarea>
                             </div>
-                            <!--스크랩 영역-->
-                            <td>
-                                <div class="scrapIconYesArea" id="scrapIconArea${posts.no}">
-                                    <c:if test="${posts.scrapResult == 1}">
-                                        <input type="image" id="hiddenYesScrap${posts.no}" value=${posts.scrapResult} src="/resources/images/IconNoScrap.png" width=22px height=22px onclick="scrapClick(${posts.no})">
-                                    </c:if>
-                                </div>
-                                <div class="scrapIconNoArea" id="scrapIconArea${posts.no}">
-                                    <c:if test="${posts.scrapResult == 0}">
-                                        <input type="image" id="hiddenNoScrap${posts.no}" value=${posts.scrapResult} src="/resources/images/IconYesScrap.png" width=25px height=26px onclick="scrapClick(${posts.no})">
-                                    </c:if>
-                                </div>
-                            </td>
-                        </div>
-                        <!--스크랩 영역-->
-                        <td>
-                            <div class="scrapIconYesArea" id="scrapIconArea${posts.no}">
-                                <c:if test="${posts.scrapResult == 1}">
-                                    <input type="image" id="hiddenYesScrap${posts.no}"
-                                           value=${posts.scrapResult} src="<%=request.getContextPath()%>/images/IconNoScrap.png"
-                                           width=22px height=22px onclick="scrapClick(${posts.no})">
-                                </c:if>
-                            </div>
-                            <div class="scrapIconNoArea" id="scrapIconArea${posts.no}">
-                                <c:if test="${posts.scrapResult == 0}">
-                                    <input type="image" id="hiddenNoScrap${posts.no}"
-                                           value=${posts.scrapResult} src="<%=request.getContextPath()%>/images/IconYesScrap.png"
-                                           width=25px height=26px onclick="scrapClick(${posts.no})">
-                                </c:if>
-                            </div>
-                        </td>
                     </div>
 
                     <div class="board-footer">
+                        <!--[스크랩 버튼]-->
+                        <div class="scrap_wrap">
+                            <c:if test="${sessionScope.loginBean.authority == '일반'}" >
+                                <div class="scrapIconYesArea" id="scrapIconArea${posts.no}">
+                                    <c:if test="${result == 1}">
+                                        <input type="image" id="hiddenYesScrap${posts.no}"
+                                               value=${result} src="/resources/images/IconYesScrap.png"
+                                               width=30px height=30px onclick="scrapClick(${posts.no})">
+                                    </c:if>
+                                </div>
+                                <div class="scrapIconNoArea" id="scrapIconArea${posts.no}">
+                                    <c:if test="${result == 0}">
+                                        <input type="image" id="hiddenNoScrap${posts.no}"
+                                               value=${result} src="/resources/images/IconNoScrap.png"
+                                               width=33px height=34px onclick="scrapClick(${posts.no})">
+                                    </c:if>
+                                </div>
+                            </c:if>
+                        </div>
+
                         <c:if test="${post.writer == sessionScope.loginBean.email}">
                             <button type="button" class="btn btn-outline-primary"
                                     onclick="location.href='/boards/${board_id}/${no}/edit?page=${page}'">수정
@@ -298,6 +290,7 @@
                         <button type="button" class="btn btn-outline-secondary"
                                 onclick="history.go(-1);">뒤로가기
                         </button>
+
                     </div>
                 </div>
             </div>
