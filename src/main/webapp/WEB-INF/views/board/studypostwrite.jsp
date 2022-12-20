@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file = "../common/commonlist.jsp" %>
 <html>
@@ -12,25 +12,25 @@
         let title = $("#title").val()
         let content = $("#content").val()
         let post1 = {'title': title, 'content': content};
-        $.ajax({
-            url: '/study/${board_id}?page=${page}',
-            method: 'POST',
-            contentType: 'application/json;charset=utf-8',
-            data: JSON.stringify(post1),
-            success: function (data) {
-                if (data.result == 1) {
-                    alert("글 작성 성공");
-                    matchingInsert(data.no);
-                } else {
-                    alert("글 작성 실패");
+            $.ajax({
+                url: '/study/${board_id}?page=${page}',
+                method: 'POST',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(post1),
+                success: function (data) {
+                    if (data.result == 1) {
+                        alert("글 작성 성공");
+                        matchingInsert(data.no);
+                    } else {
+                        alert("글 작성 실패");
+                        return false;
+                    }
+                },
+                error: function (error, status, msg) {
+                    alert("상태코드 " + status + "에러메시지" + msg);
                     return false;
-                }
-            },
-            error: function (error, status, msg) {
-                alert("상태코드 " + status + "에러메시지" + msg);
-                return false;
-            },
-        })
+                },
+            })
     }
 
     function matchingInsert(no){
@@ -38,7 +38,7 @@
         let deadline = $("#deadline").val();
         let data = {'total_members': total_members, 'deadline': deadline};
         $.ajax({
-            url: '/study/macthing/${board_id}/'+no,
+            url: '/study/${board_id}/'+no,
             method: 'POST',
             contentType: 'application/json;charset=utf-8',
             data: JSON.stringify(data),
@@ -60,16 +60,13 @@
     }
 
 </script>
-
 <body>
 <%@ include file = "../common/header.jsp" %>
 <div class="my-5">
     <main class="mb-4">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
-                <form action="/boards/${board.id}" method=post>
-                    <input type="hidden" name="page" value="${page}">
-                    <input type="hidden" name="writer" value="${sessionScope.email}">
+                <form method=post>
                     <div class="container List-container">
                         <div class="row mt-1 header">
                             <div class="col-8">
@@ -82,19 +79,26 @@
                             <h5 class="col-1"></h5>
                             <p class="col-8"></p>
                             <p class="col-2"></p>
+                            <p>매칭 인원 수</p>
+                                <select class="form-select" id="total_members" aria-label="Default select example">
+                                    <option selected>매칭 인원 수를 선택하세요.</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            <p>매칭 기간</p>
+                                <select class="form-select" id="deadline" aria-label="Default select example">
+                                    <option selected>매칭 기간을 선택하세요.</option>
+                                    <option value="1">1일</option>
+                                    <option value="2">2일</option>
+                                    <option value="3">3일</option>
+                                    <option value="4">4일</option>
+                                    <option value="5">5일</option>
+                                    <option value="6">6일</option>
+                                    <option value="7">7일</option>
+                                </select>
                         </div>
-                        <c:if test="${sessionScope.loginBean.authority == '일반' && board.id == 300}">
-                            <p>매칭 인원 수 (최소 인원 : 2명)</p>
-                            <select class="form-select" id="total_members" aria-label="Default select example">
-                                <option selected>매칭 인원 수를 선택하세요.</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <p>매칭 마감일</p>
-                            <input type="date" id="deadline">
-                        </c:if>
                         <div class="post-container">
                             <h5 class="content-title">내용</h5>
                             <div class="content">
@@ -103,12 +107,7 @@
                             </div>
                         </div>
                         <div class="board-footer">
-                            <c:if test="${sessionScope.loginBean.authority == '기업' && (board.id == 100 || board.id == 200)}">
-                                <button type="submit" class="btn btn-outline-primary">작성</button>
-                            </c:if>
-                            <c:if test="${sessionScope.loginBean.authority == '일반' && board.id == 300}">
-                                <button type="button" class="btn btn-outline-primary" onclick="postInsert()">작성</button>
-                            </c:if>
+                            <button type="button" class="btn btn-outline-primary" onclick="postInsert()">작성</button>
                             <button type="button" class="btn btn-outline-secondary"
                                     onclick="history.go(-1);">취소</button>
                         </div>

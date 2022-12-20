@@ -56,7 +56,7 @@
                         <div class="post-container">
                             <h5 class="content-title">내용</h5>
                             <div class="content">
-							<textarea class="form-control" id="content"  name="content" rows="3"
+							<textarea class="form-control" id="content" name="content" rows="3"
                                       style="width:90%; height:250px; resize:none;" maxlength="300"
                                       required>${PostBean.content}</textarea>
                             </div>

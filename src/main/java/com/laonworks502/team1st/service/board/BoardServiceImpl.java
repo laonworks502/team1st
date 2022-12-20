@@ -4,6 +4,7 @@ import com.laonworks502.team1st.dao.board.BoardDao;
 import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.post.PostListBean;
+import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,4 +60,5 @@ public class BoardServiceImpl implements BoardService {
     public int deletePost(int no) throws Exception {
         return boardDao.deletePost(no);
     }
+
 }

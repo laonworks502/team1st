@@ -58,6 +58,4 @@
         delete from posts where no = #{no}
     </delete>
 
-
-
 </mapper>

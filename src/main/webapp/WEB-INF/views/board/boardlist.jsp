@@ -83,7 +83,7 @@
                             onClick="location.href='/boards/${board.id}/write?page=${page}'">글 작성
                     </button>
                 </c:if>
-                <c:if test="${sessionScope.loginBean.authority == '일반' && board.id == '300'}">
+                <c:if test="${sessionScope.loginBean.authority == '일반' && board_id == '300'}">
                     <button type="button" class="btn btn-primary float-end"
                             onClick="location.href='/boards/${board.id}/write?page=${page}'">글 작성
                     </button>

@@ -3,6 +3,7 @@ package com.laonworks502.team1st.dao.board;
 import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.post.PostListBean;
+import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,4 +22,5 @@ public interface BoardDao {
     PostBean getPostByNo(int board_id, int no) throws Exception;
     int amendPost(PostBean postBean) throws Exception;
     int deletePost(int no) throws Exception;
+
 }

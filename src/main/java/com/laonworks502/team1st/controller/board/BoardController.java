@@ -4,10 +4,12 @@ import com.laonworks502.team1st.model.board.BoardBean;
 import com.laonworks502.team1st.model.board.Pagination;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.post.PostListBean;
+import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
 import com.laonworks502.team1st.model.scrap.ScrapBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.board.BoardService;
 import com.laonworks502.team1st.service.scrap.ScrapServiceImpl;
+import com.laonworks502.team1st.service.studygroup.StudyGroupServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -32,6 +36,9 @@ public class BoardController {
 
     @Autowired
     private ScrapServiceImpl ss;
+
+    @Autowired
+    private StudyGroupServiceImpl studyGroupService;
 
     // 글 작성 폼
     @GetMapping(value = "/{board_id}/write")
@@ -69,8 +76,6 @@ public class BoardController {
         LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
         post.setWriter(loginBean.getEmail());
 
-
-
         boardService.writePost(post);
         int no = post.getNo();
 
@@ -86,7 +91,11 @@ public class BoardController {
     public ModelAndView getBoardList(
             @PathVariable(value = "board_id") int board_id,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-            HttpSession session) throws Exception {
+            HttpSession Session) throws Exception {
+
+        LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
+
+        String email = loginBean.getEmail();
 
         if (boardService.checkBoardExist(board_id) != 1) {
             ModelAndView modelAndView = new ModelAndView("board/wrong-access");
@@ -150,7 +159,7 @@ public class BoardController {
                                     @PathVariable(value = "no") int no,
                                     @RequestParam(value = "page",required = false, defaultValue = "1") Integer page ,
                                     HttpSession session)throws Exception {
-        
+                                    
         ModelAndView modelAndView = new ModelAndView("board/postview");
 
         if (boardService.checkBoardExist(board_id) != 1) {
@@ -180,6 +189,15 @@ public class BoardController {
         BoardBean board = boardService.getBoardById(board_id);
         modelAndView.addObject("board", board);
         modelAndView.addObject("page", page);
+
+        log.info("post.getWriter() = {}", post.getWriter());
+
+        if(board_id == 300){
+            StudyGroupBean sgb = studyGroupService.getStudyByNo(no, post.getWriter());
+            int studyCount = studyGroupService.countAllMatching(no, post.getWriter());
+            modelAndView.addObject("sgb", sgb);
+            modelAndView.addObject("studyCount", studyCount);
+        }
 
         return modelAndView;
     }
@@ -264,6 +282,5 @@ public class BoardController {
 
         return result;       // 글 목록 메소드로 리턴
     }
-
 
 }
