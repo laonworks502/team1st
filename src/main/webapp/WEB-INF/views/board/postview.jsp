@@ -159,7 +159,7 @@
                     </div>
                     <div>
                         <h5 class="content-title">작성일</h5>
-                        ${post.date}
+                        <fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd HH:mm"/>
                         <%--<input type="date" name="date" value="${post.date}" readonly>--%>
                     </div>
                     <div class="post-container">

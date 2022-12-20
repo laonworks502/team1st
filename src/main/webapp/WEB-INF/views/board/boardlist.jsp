@@ -109,8 +109,9 @@
                             <td
                                 onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">${posts.writerName}</td>
                             <td
-                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">${posts.date}</td>
-                            <td >
+                                onclick="location.href='/boards/${board.id}/${posts.no}?page=${pg.page}'">
+                                <fmt:formatDate value="${posts.date}" pattern="yyyy-MM-dd HH:mm"/></td>
+                            <td>
                                 <c:if test="${sessionScope.loginBean.authority == '일반'}" >
                                     <div class="scrapIconYesArea" id="scrapIconArea${posts.no}">
                                         <c:if test="${posts.scrapResult == 0}">
