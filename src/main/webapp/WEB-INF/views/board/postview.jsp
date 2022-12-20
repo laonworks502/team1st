@@ -148,36 +148,8 @@
             }
 
         });//$.ajax
+    }
 
-    };
-
-    function scrapClick(no){
-        alert(no);
-        <!--[클릭 ajax]-->
-        $.ajax({
-            method: 'POST',
-            url: "/scrap/" + no, //@PathVariable로 받음
-            //data: no1,          //@RequestBody로 받음
-            //data: JSON.stringify(no1),
-            contentType:'application/json;charset=utf-8',
-            success: function (data) {
-                alert(data);
-                if(data == 1){	//스크랩 O
-                    $("#hiddenNoScrap"+no).show();
-                    $("#hiddenYesScrap"+no).hide();
-                    alert("in");
-                }else{        //스크랩 X
-                    $("#hiddenYesScrap"+no).show();
-                    $("#hiddenNoScrap"+no).hide();
-                    alert("out");
-                }
-                location.reload();
-            }
-            ,error: function (e) {
-                alert("data error" + e);
-            }
-        });//$.ajax
-    };
     JSON.stringify({"email" : '${post.writer}'});
     alert(JSON.stringify({"email" : '${post.writer}'}));
 
