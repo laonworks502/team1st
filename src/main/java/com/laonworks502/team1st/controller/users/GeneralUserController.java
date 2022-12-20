@@ -2,7 +2,6 @@ package com.laonworks502.team1st.controller.users;
 
 import com.laonworks502.team1st.SHA256Util;
 import com.laonworks502.team1st.model.scrap.ScrapListBean;
-import com.laonworks502.team1st.model.scrap.ScrapListBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.users.CompanyUserServiceImpl;
@@ -32,43 +31,7 @@ public class GeneralUserController {
     @Autowired
     private CompanyUserServiceImpl cus;
 
-    // 로그인 후 페이지
-//    @RequestMapping("/mainmypage")
-//    public String mainmypage(HttpSession session,
-//                             @ModelAttribute GeneralUserBean gub) throws Exception{
-//        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
-//        String email = loginBean.getEmail();
-//
-//        return "generaluser/mainMypage";
-//    }
-
-
 /*
-
-    @RequestMapping(value = "/totalscrap")
-    public String totalscrap(HttpSession session,
-                             Model model,
-                             @ModelAttribute ScrapListBean myminiscrap100,
-                             @ModelAttribute ScrapListBean myminiscrap200,
-                             @ModelAttribute ScrapListBean myminiscrap300
-                             )throws Exception{
-
-        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
-        String email = loginBean.getEmail();
-
-        GeneralUserBean gub = gus.checkGeneraluser(email);
-
-        log.info(gub.getEmail() + "의 스크랩내역");
-
-        model.addAttribute("gub", gub);
-
-        model.addAttribute("myminiscrap100",myminiscrap100);
-        model.addAttribute("myminiscrap200",myminiscrap200);
-        model.addAttribute("myminiscrap300",myminiscrap300);
-
-        return "generaluser/totalscrap";
-    }
-
     // 일반 회원 마이페이지
     @RequestMapping(value = "/generalmypage")
     public String generalmypage(HttpSession session,
@@ -99,7 +62,7 @@ public class GeneralUserController {
 */
 
     // 회원가입 폼
-    @RequestMapping(value = "/generaluserinsert")
+    @RequestMapping(value = "/general-user-insert")
     public String generaluserinsert(GeneralUserBean gub) throws  Exception{
 
         log.info("회원가입 페이지");
@@ -107,7 +70,7 @@ public class GeneralUserController {
     }
 
     // 회원가입 실행
-    @RequestMapping("generaluserinsert_ok")
+    @RequestMapping("/general-user-insert-ok")
     public String generaluserinsert_ok(GeneralUserBean gub,
                                        @RequestParam("passwd") String passwd,
                                        Model model) throws Exception {
@@ -122,30 +85,36 @@ public class GeneralUserController {
         log.info("비밀번호 암호화 저장 : " + gub.getPasswd());
         log.info("회원가입 완료");
 
-        return "generaluser/loginForm"; // 가입 후 로그인페이지로 이동
+        return "generaluser/loginForm"; // 가입 후 일반회원 로그인페이지로 이동
     }
 
-    // 이메일중복체크
+    // 이메일 중복 체크
     @PostMapping("/useremailcheck")
     @ResponseBody
     public int generalemailcheck(@RequestParam("email") String email) throws Exception{
 
         int cnt = gus.emailDuplicatecheck(email);
 
+        // generalinsert 뷰 파일에서 이메일체크시 checkgeneral.js 에 있는
+        // 이메일 입력하는 input태그에 oninput시 checkemailch() 함수 실행하도록 설정.
+        // checkemailch()에 cnt값을 return해서 이메일 중복 판단
+
         return cnt;
     }
 
     // 회원수정 폼
-    @RequestMapping("/generaluseredit")
-    public String generaluseredit(HttpSession session, Model model,
-                                  @ModelAttribute GeneralUserBean gub) throws Exception {
+    @RequestMapping("/general-user-edit")
+    public String generaluseredit(HttpSession session,
+                                  Model model,
+                                  GeneralUserBean gub) throws Exception {
 
-		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
-		String email = loginBean.getEmail();
+        // LoginBean에는 2개의 컬럼 존재 : email, authority(기업/일반 구분하는 역할)이 존재.
+        // 세션을 불러들임
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        String email = loginBean.getEmail();    // 세션값의 email불러오기
 
-        gub = gus.checkGeneraluser(email);
-
-        model.addAttribute("gub",gub);
+		gub = gus.checkGeneraluser(email);      // 세션으로 불러들인 email을 변수삼아, 해당 email의 정보 불러오는 함수
+        model.addAttribute("gub",gub);  // model(name, value) 로 뷰에 넘겨줌.
 
         log.info("회원수정 페이지");
 
@@ -153,7 +122,7 @@ public class GeneralUserController {
     }
 
     // 회원수정 실행
-    @RequestMapping(value="/generaluseredit_ok", method = RequestMethod.POST)    // 수정시 method = RequestMethod.POST필수
+    @RequestMapping(value="/general-user-edit-ok", method = RequestMethod.POST)    // 수정시 method = RequestMethod.POST필수
     public String generaluseredit_ok(HttpSession session,
                                      HttpServletRequest request,
                                      @RequestParam("passconfirm") String passconfirm,
@@ -164,32 +133,31 @@ public class GeneralUserController {
         GeneralUserBean old = gus.checkGeneraluser(gub.getEmail());
 
         log.info(gub.getEmail());
-        log.info("old.getPasswd() : "+old.getPasswd());
+        log.info("general_user테이블의 passwd컬럼 : " + old.getPasswd());
 
         String salt = old.getSalt();
-        log.info(salt);
-        log.info("탈퇴폼에서 입력한 값 암호화 : " + SHA256Util.getEncrypt_gu(passconfirm, salt));
+        log.info("salt값 : " + salt);
+        log.info("수정폼 입력값 암호화 : " + SHA256Util.getEncrypt_gu(passconfirm, salt));
 
-        int result1 = 0;
+        int result = 0;
         if(old.getPasswd().equals(SHA256Util.getEncrypt_gu(passconfirm, salt))){
 
-            int result = gus.updateGeneraluser(gub);
-            if(result == 1) log.info("[" +gub.getEmail() + "] 의 정보 수정 성공");
-
-            return "redirect:/generalmypage";
-
+            result = 3;
+            gus.updateGeneraluser(gub);
+            log.info("[" +gub.getEmail() + "] 의 정보 수정 성공");
+//            return "redirect:/scrap/generalmypage";
         }else{
-            result1 = 2;
+            result = 2;
             log.info("비밀번호 틀림");
-            model.addAttribute("result", result1);
-
-            return "generaluser/loginResult";
         }
+        model.addAttribute("result", result);
+
+        return "generaluser/loginResult";
 
     }
 
     // 회원삭제 폼
-    @RequestMapping("/generaluserdelete")
+    @RequestMapping("/general-user-delete")
     public String generaluserdelete(HttpSession session,
                                     GeneralUserBean gub,
                                     Model model) throws Exception {
@@ -207,7 +175,7 @@ public class GeneralUserController {
     }
 
     // 회원삭제 실행
-    @RequestMapping("generaluserdelete_ok")
+    @RequestMapping("general-user-delete-ok")
     public String generaluserdelete_ok(@RequestParam("exit_reason") String exit_reason,
                                        @RequestParam("passconfirm") String passconfirm,
                                        HttpSession session,
@@ -224,31 +192,30 @@ public class GeneralUserController {
         String salt = old.getSalt();    // 바로 gub.getSalt 호출하면 null 값이 나와서 String으로 변환.
 
         log.info(salt);
-        log.info("탈퇴폼에서 입력한 값 암호화 : " + SHA256Util.getEncrypt_gu(passconfirm, salt));
+        log.info("탈퇴폼에서 입력한 passconfirm값 암호화 : " + SHA256Util.getEncrypt_gu(passconfirm, salt));
 
         int result1 = 0;
         if(old.getPasswd().equals(SHA256Util.getEncrypt_gu(passconfirm, salt))){
 
-            int result = gus.deleteGeneraluser(gub);
-            if(result == 1) log.info("[" + gub.getEmail() +"] 의 탈퇴사유 : " + gub.getExit_reason());
+            gus.deleteGeneraluser(gub);
+            log.info("[" + gub.getEmail() +"] 의 탈퇴사유 : " + gub.getExit_reason());
 
             session.invalidate();
 
             result1 = 4;
-            model.addAttribute("result",result1);
 
         }else{
             result1 = 2;
             log.info("비밀번호 틀림");
-            model.addAttribute("result", result1);
-
         }
+
+        model.addAttribute("result", result1);
 
         return "generaluser/loginResult";
     }
 
     // 이력서 업로드
-    @RequestMapping(value="resumeupload", method = RequestMethod.POST)
+    @RequestMapping(value="resume-upload", method = RequestMethod.POST)
     public String resumeupload(@RequestParam("file") MultipartFile file,
                          HttpSession session,
                          HttpServletRequest request,
@@ -264,11 +231,11 @@ public class GeneralUserController {
         long size = file.getSize(); //파일 사이즈
 
         log.info("파일명 : "  + fileRealName);
-        log.info("용량크기(byte) : " + size);
+        log.info("용량크기 : " + size + " byte");
 
         // 서버에 저장할 파일이름 fileextension으로 .jsp이런식의  확장자 명을 구함
         String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-        log.info(fileExtension);
+        log.info("확장자명 : " + fileExtension);
         String uploadFolder = "C:\\test\\upload";
 
 		/* UUID 설명 :
@@ -279,19 +246,16 @@ public class GeneralUserController {
 		 */
         // 파일명 랜덤설정 함수인 UUID 설정 부분. 현재 컨트롤러에서 사용하지는 않을 것임.
         UUID uuid = UUID.randomUUID();
-        log.info(uuid.toString());
+        log.info("UUID실행시" + uuid.toString());
         String[] uuids = uuid.toString().split("-");
 
         String uniqueName = uuids[0];
-        log.info("생성된 고유문자열:" + uniqueName);
-        log.info("확장자명:" + fileExtension);
+        log.info("UUID로 파일명 저장시 : " + uniqueName + fileExtension);
 
         // path + uniqueName
         String resume = uniqueName+fileExtension;
         // uploadFolder + "\\" +
         log.info("resume = "+resume);
-        // 파일명 랜덤설정 함수인 UUID 설정 부분
-
 
         File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  // uuid 적용할시
         File file1 = new File(uploadFolder + "\\" + fileRealName);
@@ -310,7 +274,7 @@ public class GeneralUserController {
             e.printStackTrace();
         }
 
-        return "generaluser/generalmypage";
+        return "redirect:/scrap/generalmypage";
     }
 
     // 이력서 다운로드
@@ -331,12 +295,12 @@ public class GeneralUserController {
         log.info("download...");
 
         String path = uploadFolder + "\\" + resume;
-        log.info("path=" + path);
+        log.info("파일을 가져올 path = " + path);
 
         File file = new File(path);     // path = uploadFolder+"\\"+uniqueName + fileExtension;
         String downName = file.getName(); //다운로드 받을 파일명을 절대경로로  구해옴
 
-        log.info(downName);
+        log.info("다운받은 파일 : " + downName);
 
         // 이 부분이 한글 파일명이 깨지는 것을 방지해 줍니다
         downName = new String(downName.getBytes("utf-8"), "iso-8859-1");

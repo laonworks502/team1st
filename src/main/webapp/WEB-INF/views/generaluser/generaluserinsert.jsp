@@ -9,13 +9,16 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/resources/js/checkgeneral.js"></script>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 </head>
 
 <body>
 
-<form action="generaluserinsert_ok" onsubmit="return checkch()" method="post" align="center" name="insertform" style="margin-top: 15%;">
-    <h2>회원 가입</h2>
+<form action="general-user-insert-ok" onsubmit="return checkch()" method="post" align="center" name="insertform" style="margin-top: 15%;">
+    <h2>일반 회원 가입</h2>
     <table align="center">
         <tr>
             <td>이메일</td>
@@ -90,11 +93,6 @@
         </tr>
     </table>
 </form>
-
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/checkgeneral.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-
 
 <script>
     //우편번호, 주소 Daum API
