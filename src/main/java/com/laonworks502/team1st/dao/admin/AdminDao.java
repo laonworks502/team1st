@@ -69,4 +69,13 @@ public interface AdminDao {
 
     //정규직 게시글 삭제
     int fulltimePostDelte(int no) throws Exception;
+
+    //countAllParttimePosts - 전체 파트타임 게시글 수 구하기
+    public int countAllParttimePosts() throws Exception;
+
+    //parttimeList
+    List<PostBean> parttimePostList(Integer page) throws Exception;
+
+    //파트타임 게시글 삭제
+    public int parttimePostDelte(int no) throws Exception;
 }

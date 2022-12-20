@@ -281,7 +281,6 @@ public class AdminController {
 		return result;
 	}
 
-
 	// 전체 기업 회원 목록 페이지
 	@RequestMapping("companyuserslistpage")
 	public String companyuserslistpage(HttpSession session, Model model) throws Exception {
@@ -414,4 +413,55 @@ public class AdminController {
 
 		return result;
 	}
+
+	// 파트타임 게시판 페이지
+	@RequestMapping("parttimeboardpage")
+	public String parttimeboardpage(HttpSession session, Model model) throws Exception {
+
+		// 전체 포스팅 수
+		int totalParttimePosts = adminservice.countAllParttimePosts();
+
+		log.info("totalParttimePosts: " + totalParttimePosts);
+
+		model.addAttribute("totalParttimePosts", totalParttimePosts);
+
+		return "admin/parttimeboard";
+	}
+
+	// 파트타임 게시판 테이블
+	@GetMapping("parttimeboard")
+	@ResponseBody
+	public List<PostBean> parttimeboard(
+			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
+
+		log.info("parttimeboard 진입");
+
+		AdminPagination adminpg = new AdminPagination(page, 20);
+		log.info("adminpg: "+adminpg);
+		model.addAttribute("adminpg", adminpg);
+
+		List<PostBean> parttimePostList = adminservice.parttimePostList(page);
+		log.info("parttimePostList: "+parttimePostList);
+		model.addAttribute("parttimePostList", parttimePostList);
+
+		return parttimePostList;
+	}
+
+	// 파트타임 게시판 게시글 삭제
+	@DeleteMapping ("/parttimepostdelete")
+	@ResponseBody
+	public Integer parttimepostdelete (
+			@RequestBody PostBean postBean) throws Exception {
+
+		log.info("파트타임 게시판 게시글 삭제 컨트롤러 진입 ");
+
+		//파트타임 게시판 게시글 삭제
+		int result = adminservice.parttimePostDelte(postBean.getNo());
+
+		log.info(String.valueOf(postBean.getNo()));
+		log.info("파트타임 게시판 게시글 삭제 성공");
+
+		return result;
+	}
+
 }

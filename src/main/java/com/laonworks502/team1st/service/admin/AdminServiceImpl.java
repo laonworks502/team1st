@@ -11,7 +11,6 @@ import com.laonworks502.team1st.model.users.GeneralUserBean;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.stereotype.Service;
 
 @Service("admin")
@@ -80,6 +79,12 @@ public class AdminServiceImpl implements AdminService {
         return admindao.generalUsersList(page);
     }
 
+    //일반 회원 삭제
+    @Override
+    public int generalUserDelete(String email) throws Exception{
+        return admindao.generalUserDelete(email);
+    }
+
     //companyusers - 전체 기업 회원 수 구하기
     @Override
     public int countAllCompanyUsers() throws Exception{
@@ -90,6 +95,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<CompanyUserBean> companyUsersList(Integer page) throws Exception{
         return admindao.companyUsersList(page);
+    }
+
+    //기업 회원 삭제
+    @Override
+    public int companyUserDelete(String email) throws Exception{
+        return admindao.companyUserDelete(email);
     }
 
     //companies - 전체 기업 수 구하기
@@ -116,22 +127,28 @@ public class AdminServiceImpl implements AdminService {
         return admindao.fulltimePostList(page);
     }
 
-    //일반 회원 삭제
-    @Override
-    public int generalUserDelete(String email) throws Exception{
-        return admindao.generalUserDelete(email);
-    }
-
-    //기업 회원 삭제
-    @Override
-    public int companyUserDelete(String email) throws Exception{
-        return admindao.companyUserDelete(email);
-    }
-
-    //일반 회원 삭제
+    //정규직 게시글 삭제
     @Override
     public int fulltimePostDelte(int no) throws Exception{
         return admindao.fulltimePostDelte(no);
+    }
+
+    //countAllParttimePosts - 전체 정규직 게시글 수 구하기
+    @Override
+    public int countAllParttimePosts() throws Exception{
+        return admindao.countAllParttimePosts();
+    }
+
+    //parttimeList
+    @Override
+    public List<PostBean> parttimePostList(Integer page) throws Exception{
+        return admindao.parttimePostList(page);
+    }
+
+    //파트타임 게시글 삭제
+    @Override
+    public int parttimePostDelte(int no) throws Exception{
+        return admindao.parttimePostDelte(no);
     }
 
 }

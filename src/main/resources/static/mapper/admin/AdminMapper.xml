@@ -119,9 +119,8 @@ insert into admin (id, passwd, salt)  values('admin', #{passwd}, #{salt})
   /*select company_name, field, tel1, tel2, tel3, date_format(foundation_date, '%Y-%m-%d')as foundation_date
    from companies order by company_name asc*/
  /* select no, title, writerName, date, date from posts where*/
-  SELECT posts.no, posts.title, posts.writer, general_users.name as writerName, posts.date
-  FROM posts JOIN general_users ON posts.writer = general_users.email
-
+  SELECT board_id, posts.no, posts.title, posts.writer, general_users.name as writerName, posts.date
+  FROM posts JOIN general_users ON posts.writer = general_users.email where board_id = '100'
  </select>
 
  <!-- 정규직 게시글 삭제-->
@@ -129,10 +128,16 @@ insert into admin (id, passwd, salt)  values('admin', #{passwd}, #{salt})
 delete from posts where no = #{no}
  </delete>
 
- <!-- 단기 게시글 갯수 구하기 -->
-<!-- <select id="countAllParttimePosts" resultType="java.lang.Integer">-->
-<!--  select count(*) from posts where board_id = '200'-->
-<!-- </select>-->
+<!-- 파트타임 게시글 갯수 구하기 -->
+ <select id="countAllParttimePosts" resultType="java.lang.Integer">
+  select count(*) from posts where board_id = '200'
+ </select>
+
+ <!-- 파트타임 게시물 목록 -->
+ <select id="parttimePostList" resultType="com.laonworks502.team1st.model.post.PostBean">
+  SELECT board_id, posts.no, posts.title, posts.writer, general_users.name as writerName, posts.date
+  FROM posts JOIN general_users ON posts.writer = general_users.email where board_id = '200'
+ </select>
 
  <!-- 스터디 게시글 갯수 구하기-->
  <!-- <select id="countAllStudies" resultType="java.lang.Integer">-->
