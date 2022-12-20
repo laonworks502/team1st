@@ -18,21 +18,21 @@
         <div class="card mb-4">
             <div class="card-body">
                 <table class="table table-hover table-striped">
-                    <c:if test="${applies.size() == 0}">
+                    <c:if test="${empty applies}">
                         <tr>
                             <th>
-                                지원 한 내역이 없습니다.
+                                <span>지원 한 내역이 없습니다.</span>
                             </th>
                         </tr>
 
                     </c:if>
-                    <thead>
-                    <c:if test="${applies.size() != 0}">
-                        <tr>
-                            <th>지원글</th>
-                            <th>지원시간</th>
-                            <th>지원취소</th>
-                        </tr>
+                    <c:if test="${!empty applies}">
+                        <thead>
+                            <tr>
+                                <th>지원글</th>
+                                <th>지원시간</th>
+                                <th>지원취소</th>
+                            </tr>
                         </thead>
                         <tbody>
                         <c:forEach  var="applies" items="${applies}">
@@ -42,7 +42,7 @@
                                     <fmt:formatDate value="${applies.date}" pattern="yyyy-MM-dd HH:mm"/></td>
                                 <td style="width: 200px"><button type="button" class="btn btn-danger"
                                                                  onclick="location.href='/apply/applies/${applies.no}'">지원취소</button></td>
-                                                                 <%--onclick="cancelApply(${applies.no})">지원취소</button></td--%>>
+                                                                 <%--onclick="cancelApply(${applies.no})">지원취소</button></td>--%>
                             </tr>
                         </c:forEach>
                         </tbody>
