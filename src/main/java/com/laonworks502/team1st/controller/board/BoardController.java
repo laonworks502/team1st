@@ -179,8 +179,10 @@ public class BoardController {
         PostBean post = boardService.getPostByNo(board_id, no);
         post.setContent(post.getContent().replace("\n", "<br>"));
         
-        modelAndView.addObject("post", post);
-        
+        modelAndView.addObject("posts", post);
+
+
+
 
         BoardBean board = boardService.getBoardById(board_id);
         modelAndView.addObject("board", board);
