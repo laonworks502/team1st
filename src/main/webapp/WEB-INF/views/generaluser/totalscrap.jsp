@@ -3,26 +3,125 @@
 <html>
 <head>
     <title>마이 스크랩 더보기</title>
+
+    <%--<link rel="stylesheet" href="/resources/css/decototalscrap.css" />--%>
+
+    <style>
+        *{
+            padding: 0;
+            margin:0;
+        }
+
+        header{
+            width:1180px;
+            min-width: 1180px;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        main {
+            width:1180px;
+            min-width: 1180px;
+        }
+
+        ul,li {
+            list-style: none;
+        }
+        .subject{
+            margin: 50px 0px 50px 0px;
+
+        }
+    </style>
+    <!--[스크랩 버튼]-->
+    <script>
+        function scrapClick(no){
+            alert(no);
+            <!--[클릭 ajax]-->
+            $.ajax({
+                method: 'POST',
+                url: "/scrap/" + no, //@PathVariable로 받음
+                //data: no1,          //@RequestBody로 받음
+                //data: JSON.stringify(no1),
+                contentType:'application/json;charset=utf-8',
+                success: function (data) {
+                    alert(data);
+                    if(data == 1){	//스크랩 O
+                        $("#hiddenNoScrap"+no).show();
+                        $("#hiddenYesScrap"+no).hide();
+                        alert("in");
+                    }else{        //스크랩 X
+                        $("#hiddenYesScrap"+no).show();
+                        $("#hiddenNoScrap"+no).hide();
+
+                        alert("out");
+                    }
+                    location.reload();
+                }
+                ,error: function (e) {
+                    alert("data error" + e);
+                }
+
+            });//$.ajax
+
+        }
+    </script>
 </head>
 <body>
-<header></header>
+<header>
+    <%@ include file = "../common/header.jsp" %>
+</header>
 <main>
     <div class="myscrab_detaillist">
+        <div class="totalscrap_total_wrap">
+            <div class="totalscrap_subject_wrap">
+                <ul class="subject" >
+                    <h3>전체 스크랩</h3>
+                </ul>
+            </div>
+            <div class="myscrap_totallist_wrap">
+                <li class="board_subject">
+                    <h4>${boardName} 게시판</h4>
+                </li>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>제목</th>
+                                <th>작성일</th>
+                                <th>스크랩</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="myscrap" items="${myscrap}">
+                                    <tr>
+                                        <td onclick="location.href='/boards/${myscrap.board_id}/${myscrap.no}'">${myscrap.title}</td>
+                                        <td>${myscrap.date}</td>
+                                        <td>
+                                            <div class="scrapIconYesArea" id="scrapIconArea${myscrap.no}">
+                                                <input type="image" id="hiddenYesScrap${myscrap.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myscrap.no})">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-        <ul class="subject">
-            <h3>내 전체 스크랩</h3>
-        </ul>
-        <div class="myscrap_obj">
-
-            <li class="board_subject">
-                <h4>${boardName} 게시판</h4>
-            </li>
-            <c:forEach var="myscrap" items="${myscrap}">
-                ${myscrap.title}
-                ${myscrap.content}
-                ${myscrap.date}
-            </c:forEach>
         </div>
+
+
         <div class="myscrap_pageination">
             <c:if test="${listcount>0}">
                 <!-- 1페이지로 이동 -->

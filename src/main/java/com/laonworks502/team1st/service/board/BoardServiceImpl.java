@@ -16,7 +16,12 @@ public class BoardServiceImpl implements BoardService {
     private BoardDao boardDao;
 
     @Override
-    public int writePost(PostBean postBean) throws Exception{
+    public int checkBoardExist(int board_id) throws Exception {
+        return boardDao.checkBoardExist(board_id);
+    }
+
+    @Override
+    public int writePost(PostBean postBean) throws Exception {
         return boardDao.writePost(postBean);
     }
 

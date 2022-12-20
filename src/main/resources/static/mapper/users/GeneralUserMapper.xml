@@ -4,12 +4,12 @@
 
 <!--회원 가입-->
 <insert id="joinGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
-    insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, register_date)
-    values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3}, current_timestamp);
+    insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, register_date, resume, exit_reason, salt)
+    values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3}, current_timestamp, null, null, #{salt});
 </insert>
 
 <!--insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, register_date,
-resume(null가능, exit_reason(null가능)) values('sky1234@naver.com', '1234', 'bcbc', '우편번호', '주소1', '주소2', '010',
+resume(null가능, exit_reason(null가능), salt) values('sky1234@naver.com', '1234', 'bcbc', '우편번호', '주소1', '주소2', '010',
 '2222', '2222', current_timestamp,'','');
 -->
 
@@ -25,23 +25,37 @@ resume(null가능, exit_reason(null가능)) values('sky1234@naver.com', '1234', 
     select * from general_users where email = #{email} and exit_reason is null;
 </select>
 
+<!-- 회원 정보 수정 -->
 <update id="updateGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
 	update general_users
 	set name = #{name}, postal_code=#{postal_code}, address1=#{address1}, address2=#{address2}, tel1=#{tel1}, tel2=#{tel2},
 	    tel3=#{tel3}
 	where email = #{email}
 </update>
-
+	
+<!-- 회원 탈퇴 -->	
 <update id="deleteGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
 update general_users
 	set exit_reason = #{exit_reason}
 	where email = #{email} limit 1
 </update>
-
+	
+<!-- 이력서 업로드 -->
 <update id="resumeupload" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean" >
 update general_users
 	set resume = #{resume}
 	where email = #{email} limit 1
 </update>
+	
+<!-- 로그인 하려는 email의 salt값 불러오기 -->	
+<select id="getSaltByemail" parameterType="com.laonworks502.team1st.model.users.UserBean" resultType="String">
+	select salt from general_users where email = #{email}
+</select>
+
+<!-- 회원가입 ( 암호화 추가 ) -->
+<insert id="addGeneralUser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
+    insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, register_date, resume, exit_reason, salt)
+    values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3}, current_timestamp, null, null, #{salt});
+</insert>
 
 </mapper>

@@ -2,9 +2,8 @@ package com.laonworks502.team1st.model.company;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class CompanyBean {
@@ -16,7 +15,5 @@ public class CompanyBean {
     private String tel1;
     private String tel2;
     private String tel3;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date foundation_date;
-
 }

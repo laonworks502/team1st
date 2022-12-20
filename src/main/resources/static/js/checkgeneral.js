@@ -10,13 +10,12 @@ function checkemailch(){
 			if(cnt != 1 && email.length > 0 ){ // 사용가능 이메일
 				$('.email_ok').css("display","inline-block");
 				$('.email_already').css("display","none");
-
 				check = 0;
+
 			}else if(cnt == 1 && email.length > 0 ){ // 중복된 이메일
 				$('.email_ok').css("display","none");
 				$('.email_already').css("display","inline-block");
-
-				check = 1;    // 중복
+				check = 1;    // 중복 확인
 
 			}else{ // 이메일에 아무것도 입력하지 않을 경우, 중복검사 문구 모두 안보이게 설정
 				$('.email_ok').css("display","none");
@@ -72,7 +71,6 @@ function checkch(){
 	 }
 
 
-//ㅁㄴㅇ
 	 if($.trim($("#passconfirm").val())==""){
 		 alert("비밀번호확인을 입력하세요!");
 		 $("#passconfirm").val("").focus();

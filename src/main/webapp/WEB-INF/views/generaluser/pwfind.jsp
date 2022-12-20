@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@include file = "../common/commonlist.jsp" %>
 
@@ -10,7 +10,7 @@
 
 	<%--[외부 파일 ] --%>
 	<link rel="stylesheet"
-		  href="<%=request.getContextPath() %>/css/decopwfind.css">
+		  href="/resources/css/decopwfind.css">
 
 	<script>
 		function check() {
