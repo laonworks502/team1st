@@ -68,7 +68,7 @@ public interface AdminDao {
     List<PostBean> fulltimePostList(Integer page) throws Exception;
 
     //정규직 게시글 삭제
-    int fulltimePostDelte(int no) throws Exception;
+    int fulltimePostDelete(int no) throws Exception;
 
     //countAllParttimePosts - 전체 파트타임 게시글 수 구하기
     int countAllParttimePosts() throws Exception;
@@ -77,5 +77,14 @@ public interface AdminDao {
     List<PostBean> parttimePostList(Integer page) throws Exception;
 
     //파트타임 게시글 삭제
-    public int parttimePostDelte(int no) throws Exception;
+    int parttimePostDelete(int no) throws Exception;
+
+    //countAllStudies - 전체 스터디 수
+    int countAllStudies() throws Exception;
+
+    //studyList
+    List<PostBean> studyList(Integer page) throws Exception;
+
+    //스터디 삭제
+    int studyDelete(int no) throws Exception;
 }

@@ -74,7 +74,7 @@
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" id="fulltimeBoard" onclick="fulltimeBoardPage(); fulltimeBoadList();">정규직 게시판</a></li>
 							<li><a class="dropdown-item" id="parttimeBoard" onclick="parttimeBoardPage(); parttimeBoadList();">파트타임 게시판</a></li>
-							<li>
+							<li><a class="dropdown-item" id="studiesList" onclick="studiesPage(); studyList();">스터디 목록</a></li>
 						</ul>
 					</li>
 
@@ -264,21 +264,6 @@
 		//alert(email);
 
 	}
-
-	function adminGeneralDelete(email) {
-		console.log('Delete button clicked for email:', email);
-		// Make a DELETE request to the server to delete the user with the specified email
-		fetch(`/api/users/${email}`, {method: 'DELETE'})
-				.then(response => {
-					console.log('DELETE request successful:', response.ok);
-					// If the request was successful, reload the page
-					if (response.ok) {
-						location.reload();
-					}
-				});
-	}
-
-	//onclick="location.href='/admingeneraluserdelete'"
 
 	//전체 기업 회원 목록 페이지
 	function companyUsersListPage() {
@@ -567,6 +552,81 @@
 		}
 	}
 
+	//스터디 게시판 페이지
+	function studiesPage() {
+		$('#chart').load('studiespage')
+	}
+
+	//스터디 목록
+	function studyList() {
+
+		$('#ajaxGeneralList').hide()
+		$('#ajaxCompanyUsersList').hide()
+		$('#ajaxCompanyList').show()
+		$.ajax({
+			url: '/studylist',
+			type : 'get',
+			dataType : 'json',
+			async : false,
+			success : function(data) {
+				console.log(data);
+				ajaxHtml(data);
+
+			},
+			error : function() {
+				alert("error");
+			}
+		});
+
+		function ajaxHtml(result) {
+			var html = "<table class='table'>";
+			html += "<tr>";
+			html += "<td>제목</td>";
+			html += "<td>작성자</td>";
+			html += "<td>작성일</td>";
+			html += "</tr>";
+
+			$.each(result, function(index, obj) {
+
+				html += "<tr>";
+				html += "<td hidden>" + obj.no + "</td>";
+				html += "<td>" + obj.title + "</td>";
+				html += "<td>" + obj.writerName + "</td>";
+				html += "<td>" + obj.date + "</td>";
+				html += "<td><button type='button' onclick='javascript:studyDelete(\""+obj.no+"\")'>삭제</button> </td>";
+				html += "</tr>";
+
+			})
+			html += "</table>";
+
+			$("#ajaxCompanyList").html(html);
+
+		}
+
+	}
+
+	//스터디 삭제
+	function studyDelete(no){
+		var result = confirm('해당 게시물을 삭제하시겠습니까? 삭제 후 복구는 불가능합니다.');
+		if(result) {
+			$.ajax({
+				url: "/studydelete",
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				data: JSON.stringify({ 'no' : no }),
+				success: function(result) {
+					if(result == 1) {
+						alert('게시물이 삭제되었습니다.');
+					}else {
+						alert('게시물 삭제 실패');
+					}
+					console.log(result);
+				}
+			});
+		}
+	}
 
 </script>
 

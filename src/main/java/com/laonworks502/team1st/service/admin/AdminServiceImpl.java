@@ -129,8 +129,8 @@ public class AdminServiceImpl implements AdminService {
 
     //정규직 게시글 삭제
     @Override
-    public int fulltimePostDelte(int no) throws Exception{
-        return admindao.fulltimePostDelte(no);
+    public int fulltimePostDelete(int no) throws Exception{
+        return admindao.fulltimePostDelete(no);
     }
 
     //countAllParttimePosts - 전체 정규직 게시글 수 구하기
@@ -147,8 +147,26 @@ public class AdminServiceImpl implements AdminService {
 
     //파트타임 게시글 삭제
     @Override
-    public int parttimePostDelte(int no) throws Exception{
-        return admindao.parttimePostDelte(no);
+    public int parttimePostDelete(int no) throws Exception{
+        return admindao.parttimePostDelete(no);
+    }
+
+    //전체 스터디 수
+    @Override
+    public int countAllStudies() throws Exception{
+        return admindao.countAllStudies();
+    }
+
+    //studyList
+    @Override
+    public List<PostBean> studyList(Integer page) throws Exception{
+        return admindao.studyList(page);
+    }
+
+    //스터디 삭제
+    @Override
+    public int studyDelete(int no) throws Exception{
+        return admindao.studyDelete(no);
     }
 
 }

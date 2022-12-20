@@ -406,7 +406,7 @@ public class AdminController {
 		log.info("정규직 게시판 게시글 삭제 컨트롤러 진입 ");
 
 		//정규직 게시판 게시글 삭제
-		int result = adminservice.fulltimePostDelte(postBean.getNo());
+		int result = adminservice.fulltimePostDelete(postBean.getNo());
 
 		log.info(String.valueOf(postBean.getNo()));
 		log.info("정규직 게시판 게시글 삭제 성공");
@@ -456,7 +456,7 @@ public class AdminController {
 		log.info("파트타임 게시판 게시글 삭제 컨트롤러 진입 ");
 
 		//파트타임 게시판 게시글 삭제
-		int result = adminservice.parttimePostDelte(postBean.getNo());
+		int result = adminservice.parttimePostDelete(postBean.getNo());
 
 		log.info(String.valueOf(postBean.getNo()));
 		log.info("파트타임 게시판 게시글 삭제 성공");
@@ -464,4 +464,55 @@ public class AdminController {
 		return result;
 	}
 
+	//스터디 페이지
+	@RequestMapping("studiespage")
+	public String studiespage(HttpSession session, Model model) throws Exception {
+
+		// 전체 포스팅 수
+		int totalStudies = adminservice.countAllStudies();
+
+		log.info("totalStudies: " + totalStudies);
+
+		model.addAttribute("totalStudies", totalStudies);
+
+		return "admin/studies";
+	}
+
+	//스터디 목록
+	@GetMapping("studylist")
+	@ResponseBody
+	public List<PostBean> studylist(
+			@RequestParam(value = "page",required = false, defaultValue = "1") Integer page, Model model) throws Exception {
+
+		log.info("studylist 진입");
+
+		AdminPagination adminpg = new AdminPagination(page, 20);
+		log.info("adminpg: "+adminpg);
+		model.addAttribute("adminpg", adminpg);
+
+		List<PostBean> studyList = adminservice.studyList(page);
+		log.info("studyList: "+studyList);
+		model.addAttribute("studyList", studyList);
+
+		return studyList;
+	}
+
+	// 스터디 삭제
+	@DeleteMapping ("/studydelete")
+	@ResponseBody
+	public Integer studydelete (
+			@RequestBody PostBean postBean) throws Exception {
+
+		log.info("스터디 삭제 컨트롤러 진입 ");
+
+		//파트타임 게시판 게시글 삭제
+		int result = adminservice.studyDelete(postBean.getNo());
+
+		log.info(String.valueOf(postBean.getNo()));
+		log.info("스터디 삭제 성공");
+
+		return result;
+	}
+
 }
+

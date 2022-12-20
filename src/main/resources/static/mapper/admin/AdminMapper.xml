@@ -124,7 +124,7 @@ insert into admin (id, passwd, salt)  values('admin', #{passwd}, #{salt})
  </select>
 
  <!-- 정규직 게시글 삭제-->
- <delete id="fulltimePostDelte" parameterType="int">
+ <delete id="fulltimePostDelete" parameterType="int">
 delete from posts where no = #{no}
  </delete>
 
@@ -139,14 +139,26 @@ delete from posts where no = #{no}
   FROM posts JOIN company_users ON posts.writer = company_users.email where board_id = '200'
  </select>
 
+ <!-- 파트타임 게시글 삭제-->
+ <delete id="parttimePostDelete" parameterType="int">
+  delete from posts where no = #{no}
+ </delete>
+
  <!-- 스터디 게시글 갯수 구하기-->
- <!-- <select id="countAllStudies" resultType="java.lang.Integer">-->
-<!--  select count(*) from posts where board_id = '300'-->
-<!-- </select>-->
+  <select id="countAllStudies" resultType="java.lang.Integer">
+  select count(*) from posts where board_id = '300'
+ </select>
 
-<!-- SELECT board_id, posts.no, posts.title, posts.writer, general_users.name as writerName, posts.date-->
-<!-- FROM posts JOIN company_users ON posts.writer = general_users.email where board_id = '300'-->
+ <!-- 스터디 게시글 목록 -->
+ <select id="studyList" resultType="com.laonworks502.team1st.model.post.PostBean">
+ SELECT board_id, posts.no, posts.title, posts.writer, general_users.name as writerName, posts.date
+ FROM posts JOIN general_users ON posts.writer = general_users.email where board_id = '300'
+ </select>
 
+ <!-- 스터디 삭제-->
+ <delete id="studyDelete" parameterType="int">
+  delete from posts where no = #{no}
+ </delete>
 
 </mapper>
 
