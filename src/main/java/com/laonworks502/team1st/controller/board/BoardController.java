@@ -100,13 +100,7 @@ public class BoardController {
         Pagination pg = new Pagination(board_id, page, postTotal, 10);
         log.info("페이지 값 : {}", pg.getPage());
 
-        if (page > pg.getPagesTotal()) {
-            modelAndView.setViewName("board/wrong-access");
-            return modelAndView;
-        }
-
-
-        if (page > pg.getPagesTotal()) {
+        if (page > pg.getPagesTotal()&&pg.getPagesTotal() != 0) {
             modelAndView.setViewName("board/wrong-access");
             return modelAndView;
         }
