@@ -8,30 +8,140 @@
 <title>관리자 메인</title>
 </head>
 <body>
+<nav class="navbar bg-light fixed-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">관리자님, 환영합니다.</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasNavbarLabel">관리자님, 환영합니다.</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</a>
+					</li>
+
+					<li class="nav-item ">
+						<a class="nav-link" aria-current="page" href="/adminmain">관리자 홈</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="#">Client-Side Main</a>
+					</li>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							회원 통계
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								일반회원
+							</li>
+							<li><a class="dropdown-item" id="userJoinChartDateButton" onclick="joinChartDate()">일별 가입자</a></li>
+							<li><a class="dropdown-item" id="userJoinChartWeekButton" onclick="joinChartWeek()">주별 가입자</a></li>
+							<li><a class="dropdown-item" id="userJoinChartMonthButton" onclick="joinChartMonth()">월별 가입자</a></li>
+							<li>
+								<hr class="dropdown-divider"> 기업회원
+							</li>
+							<li><a class="dropdown-item" id="companyJoinChartDateButton" onclick="companyJoinChartDate()">일별 가입자</a></li>
+							<li><a class="dropdown-item" id="companyJoinChartWeekButton" onclick="companyJoinChartWeek()">주별 가입자</a></li>
+							<li><a class="dropdown-item" id="companyJoinChartMonthButton" onclick="companyJoinChartMonth()">월별 가입자</a></li>
+						</ul>
+					</li>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							회원 관리
+						</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" id="generalUsersList" onclick="generalUsersListPage(); generalUsersList();">일반회원</a></li>
+							<li><a class="dropdown-item" id="companyUsersList" onclick="companyUsersListPage(); companyUsersList();">기업회원</a></li>
+							<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">기업</a></li>
+							<%--								<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">탈퇴 기업회원</a></li>--%>
+							<%--								<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">탈퇴 일반회원</a></li>--%>
+							<li>
+						</ul>
+					</li>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							게시판 관리
+						</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" id="fulltimeBoard" onclick="fulltimeBoardPage(); fulltimeBoadList();">정규직 게시판</a></li>
+							<li><a class="dropdown-item" id="parttimeBoard" onclick="parttimeBoardPage(); parttimeBoadList();">파트타임 게시판</a></li>
+							<li>
+						</ul>
+					</li>
+
+				</ul>
+				<%--					<form class="d-flex mt-3" role="search">
+                                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit">Search</button>
+                                    </form>--%>
+			</div>
+		</div>
+	</div>
+</nav>
+
+
+
+<%--	<button type="button" class="btn text-black" style="background-color: #fff; border-color: #000;" onClick="location.href='/main">Client side 메인</button>--%>
+
+<%--	<button type="button" class="btn text-black"--%>
+<%--		style="background-color: #fff; border-color: #000;"--%>
+<%--		onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</button>--%>
+
+<%--<button type="button" class="btn text-black" id="userJoinChartDateButton" value="일반회원 일별 가입자 수" style="background-color: #fff; border-color: #000;"
+    onclick="joinChartDate()" >일반회원 일별 가입자</button>
+
+<button type="button" class="btn text-black" id="userJoinChartWeekButton" value="일반회원 주별 가입자 수" style="background-color: #fff; border-color: #000;"
+    onclick="joinChartWeek()">일반회원 주별 가입자</button>
+
+<button type="button" class="btn text-black" id="userJoinChartMonthButton" value="일반회원 월별 가입자 수" style="background-color: #fff; border-color: #000;"
+    onclick="joinChartMonth()">일반회원 월별 가입자</button>
+
+<button type="button" class="btn text-black" id="companyJoinChartDateButton" value="기업회원 일별 가입자 수" style="background-color: #fff; border-color: #000;"
+    onclick="companyJoinChartDate()">기업회원 일별 가입자</button>
+
+<button type="button" class="btn text-black" id="companyJoinChartWeekButton" value="기업회원 주별 가입자 수" style="background-color: #fff; border-color: #000;"
+    onclick="companyJoinChartWeek()">기업회원 주별 가입자</button>
+
+<button type="button" class="btn text-black" id="companyJoinChartMonthButton" value="기업회원 월별 가입자 수" style="background-color: #fff; border-color: #000;"
+    onclick="companyJoinChartMonth()">기업회원 월별 가입자</button>
+
+<button type="button" class="btn text-black" id="generalUsersList" value="일반 회원 목록" style="background-color: #fff; border-color: #000;"
+    onclick="generalUsersListPage(); generalUsersList();">일반 회원 목록</button>
+
+<button type="button" class="btn text-black" id="companyUsersList" value="기업 회원 목록" style="background-color: #fff; border-color: #000;"
+        onclick="companyUsersListPage(); companyUsersList();">기업 회원 목록</button>
+
+<button type="button" class="btn text-black" id="companyList" value="기업 목록" style="background-color: #fff; border-color: #000;"
+        onclick="companyListPage(); companyList();">기업 목록</button>--%>
+
+<%--	<button type="button" class="btn text-black" id="fulltimeBoard" value="정규 구인 게시판" style="background-color: #fff; border-color: #000;"--%>
+<%--			onclick="fulltimeBoardPage(); fulltimeBoadList();">정규 구인 게시판</button>--%>
+
+<main style="margin-top:60px;">
+	<!-- 그래프 나타나는 곳  -->
+	<div id="chart"></div>
+	<!-- 목록 나타나는 곳 -->
+	<div id="ajaxGeneralList"></div>
+	<div id="ajaxCompanyUsersList"></div>
+	<div id="ajaxCompanyList"></div>
+</main>
+<!-- 	<table>
+	<tbody id="ajaxList"></tbody>
+	</table> -->
+
+<!-- <script type="text/javascript" src="/js/admin/adminmainjs.js"></script> -->
+
 
 <script>
-
-	if (currentURL === navItemURL || currentURL.includes(navItemURL)) {
-		navItem.classList.add('active');
-	}
-
-	// Get the current page URL
-	var currentURL = window.location.href;
-
-	// Get all the navigation items
-	var navItems = document.querySelectorAll('.navbar-nav .nav-item a');
-
-	// Loop through the navigation items
-	for (var i = 0; i < navItems.length; i++) {
-		var navItem = navItems[i];
-		var navItemURL = navItem.getAttribute('href');
-
-		// If the current page URL and the navigation item URL match, add the "active" class to the navigation item
-		if (currentURL === navItemURL) {
-			navItem.classList.add('active');
-		}
-	}
-
 
 	//일반회원 일별 가입자 수
 	function joinChartDate() {
@@ -383,7 +493,7 @@
 
 	//파트타임 구인구직 게시판 페이지
 	function parttimeBoardPage() {
-		$('#chart').load('fulltimeboardpage')
+		$('#chart').load('parttimeboardpage')
 	}
 
 	//파트타임 구인구직 게시판 목록
@@ -422,7 +532,7 @@
 				html += "<td>" + obj.title + "</td>";
 				html += "<td>" + obj.writerName + "</td>";
 				html += "<td>" + obj.date + "</td>";
-				html += "<td><button type='button' onclick='javascript:fulltimePostDelete(\""+obj.no+"\")'>삭제</button> </td>";
+				html += "<td><button type='button' onclick='javascript:parttimePostDelete(\""+obj.no+"\")'>삭제</button> </td>";
 				html += "</tr>";
 
 			})
@@ -435,7 +545,7 @@
 	}
 
 	//파트타임 게시글 삭제
-	function parttimepostdelete(no){
+	function parttimePostDelete(no){
 		var result = confirm('해당 게시물을 삭제하시겠습니까? 삭제 후 복구는 불가능합니다.');
 		if(result) {
 			$.ajax({
@@ -459,138 +569,6 @@
 
 
 </script>
-
-	<nav class="navbar bg-light fixed-top">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">관리자님, 환영합니다.</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-				<div class="offcanvas-header">
-					<h5 class="offcanvas-title" id="offcanvasNavbarLabel">관리자님, 환영합니다.</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-				</div>
-				<div class="offcanvas-body">
-					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-						<li class="nav-item">
-							<a class="nav-link" aria-current="page" onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</a>
-						</li>
-
-						<li class="nav-item ">
-							<a class="nav-link" aria-current="page" href="/adminmain">관리자 홈</a>
-						</li>
-
-						<li class="nav-item">
-							<a class="nav-link" href="#">Client-Side Main</a>
-						</li>
-
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								회원 통계
-							</a>
-							<ul class="dropdown-menu">
-								<li>
-									일반회원
-								</li>
-								<li><a class="dropdown-item" id="userJoinChartDateButton" onclick="joinChartDate()">일별 가입자</a></li>
-								<li><a class="dropdown-item" id="userJoinChartWeekButton" onclick="joinChartWeek()">주별 가입자</a></li>
-								<li><a class="dropdown-item" id="userJoinChartMonthButton" onclick="joinChartMonth()">월별 가입자</a></li>
-								<li>
-									<hr class="dropdown-divider"> 기업회원
-								</li>
-								<li><a class="dropdown-item" id="companyJoinChartDateButton" onclick="companyJoinChartDate()">일별 가입자</a></li>
-								<li><a class="dropdown-item" id="companyJoinChartWeekButton" onclick="companyJoinChartWeek()">주별 가입자</a></li>
-								<li><a class="dropdown-item" id="companyJoinChartMonthButton" onclick="companyJoinChartMonth()">월별 가입자</a></li>
-							</ul>
-						</li>
-
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								회원 관리
-							</a>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" id="generalUsersList" onclick="generalUsersListPage(); generalUsersList();">일반회원</a></li>
-								<li><a class="dropdown-item" id="companyUsersList" onclick="companyUsersListPage(); companyUsersList();">기업회원</a></li>
-								<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">기업</a></li>
-<%--								<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">탈퇴 기업회원</a></li>--%>
-<%--								<li><a class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">탈퇴 일반회원</a></li>--%>
-								<li>
-							</ul>
-						</li>
-
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								게시판 관리
-							</a>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" id="fulltimeBoard" onclick="fulltimeBoardPage(); fulltimeBoadList();">정규직 게시판</a></li>
-								<li><a class="dropdown-item" id="parttimeBoard" onclick="parttimeBoardPage(); parttimeBoadList();">파트타임 게시판</a></li>
-								<li>
-							</ul>
-						</li>
-
-					</ul>
-<%--					<form class="d-flex mt-3" role="search">
-						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-success" type="submit">Search</button>
-					</form>--%>
-				</div>
-			</div>
-		</div>
-	</nav>
-
-
-	
-<%--	<button type="button" class="btn text-black" style="background-color: #fff; border-color: #000;" onClick="location.href='/main">Client side 메인</button>--%>
-
-<%--	<button type="button" class="btn text-black"--%>
-<%--		style="background-color: #fff; border-color: #000;"--%>
-<%--		onClick="location.href='adminlogout'; alert('로그아웃 되었습니다.');">로그아웃</button>--%>
-
-	<%--<button type="button" class="btn text-black" id="userJoinChartDateButton" value="일반회원 일별 가입자 수" style="background-color: #fff; border-color: #000;"
-		onclick="joinChartDate()" >일반회원 일별 가입자</button>    
-
-	<button type="button" class="btn text-black" id="userJoinChartWeekButton" value="일반회원 주별 가입자 수" style="background-color: #fff; border-color: #000;"
-		onclick="joinChartWeek()">일반회원 주별 가입자</button>
-
-	<button type="button" class="btn text-black" id="userJoinChartMonthButton" value="일반회원 월별 가입자 수" style="background-color: #fff; border-color: #000;"
-		onclick="joinChartMonth()">일반회원 월별 가입자</button>
-
-	<button type="button" class="btn text-black" id="companyJoinChartDateButton" value="기업회원 일별 가입자 수" style="background-color: #fff; border-color: #000;"
-		onclick="companyJoinChartDate()">기업회원 일별 가입자</button>
-		
-	<button type="button" class="btn text-black" id="companyJoinChartWeekButton" value="기업회원 주별 가입자 수" style="background-color: #fff; border-color: #000;"
-		onclick="companyJoinChartWeek()">기업회원 주별 가입자</button>
-		
-	<button type="button" class="btn text-black" id="companyJoinChartMonthButton" value="기업회원 월별 가입자 수" style="background-color: #fff; border-color: #000;"
-		onclick="companyJoinChartMonth()">기업회원 월별 가입자</button>
-
-	<button type="button" class="btn text-black" id="generalUsersList" value="일반 회원 목록" style="background-color: #fff; border-color: #000;"
-		onclick="generalUsersListPage(); generalUsersList();">일반 회원 목록</button>
-
-	<button type="button" class="btn text-black" id="companyUsersList" value="기업 회원 목록" style="background-color: #fff; border-color: #000;"
-			onclick="companyUsersListPage(); companyUsersList();">기업 회원 목록</button>
-
-	<button type="button" class="btn text-black" id="companyList" value="기업 목록" style="background-color: #fff; border-color: #000;"
-			onclick="companyListPage(); companyList();">기업 목록</button>--%>
-
-<%--	<button type="button" class="btn text-black" id="fulltimeBoard" value="정규 구인 게시판" style="background-color: #fff; border-color: #000;"--%>
-<%--			onclick="fulltimeBoardPage(); fulltimeBoadList();">정규 구인 게시판</button>--%>
-
-	<main style="margin-top:60px;">
-		<!-- 그래프 나타나는 곳  -->
-		<div id="chart"></div>
-		<!-- 목록 나타나는 곳 -->
-		<div id="ajaxGeneralList"></div>
-		<div id="ajaxCompanyUsersList"></div>
-		<div id="ajaxCompanyList"></div>
-	</main>
-<!-- 	<table>
-	<tbody id="ajaxList"></tbody>
-	</table> -->
-
-<!-- <script type="text/javascript" src="/js/admin/adminmainjs.js"></script> -->
 
 
 </body>

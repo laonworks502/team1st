@@ -71,7 +71,7 @@ public interface AdminDao {
     int fulltimePostDelte(int no) throws Exception;
 
     //countAllParttimePosts - 전체 파트타임 게시글 수 구하기
-    public int countAllParttimePosts() throws Exception;
+    int countAllParttimePosts() throws Exception;
 
     //parttimeList
     List<PostBean> parttimePostList(Integer page) throws Exception;
