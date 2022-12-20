@@ -224,11 +224,9 @@
 			$.each(result, function(index, obj) {
 
 				html += "<tr>";
-				html += "<td>" + obj.name + "</td>";
-				html += "<td>" + obj.email + "</td>";
-				html += "<td>" + obj.tel1 + "-";
-				html += obj.tel2 + "-";
-				html += obj.tel3 + "</td>"  ;
+				html += "<td>" + obj.name.substring(0, 1) + "***" + "</td>";
+				html += "<td>" + obj.email.substring(0, 1) + "***" + obj.email.substring(obj.email.indexOf("@")) + "</td>";
+				html += "<td>" + obj.tel1 + "-" + obj.tel2.substring(0, 0) + "****" + "-" + obj.tel3 + "</td>"  ;
 				html += "<td>" + obj.register_date + "</td>";
 				html += "<td><button type='button' onclick='javascript:adminGeneralDelete(\""+obj.email+"\")'>삭제</button> </td>";
 				html += "</tr>";
@@ -306,11 +304,9 @@
 
 				html += "<tr>";
 				html += "<td>" + obj.company_name + "</td>";
-				html += "<td>" + obj.name + "</td>";
-				html += "<td>" + obj.email + "</td>";
-				html += "<td>" + obj.tel1 + "-";
-				html += obj.tel2 + "-";
-				html += obj.tel3 + "</td>"  ;
+				html += "<td>" + obj.name.substring(0, 1) + "***" + "</td>";
+				html += "<td>" + obj.email.substring(0, 1) + "***" + obj.email.substring(obj.email.indexOf("@")) + "</td>";
+				html += "<td>" + obj.tel1 + "-" + obj.tel2.substring(0, 0) + "****" + "-" + obj.tel3 + "</td>"  ;
 				html += "<td>" + obj.register_date + "</td>";
 				html += "<td><button type='button' onclick='javascript:adminCompanyUserDelete(\""+obj.email+"\")'>삭제</button> </td>";
 				html += "</tr>";
