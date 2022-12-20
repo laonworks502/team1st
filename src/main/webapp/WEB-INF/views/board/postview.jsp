@@ -188,7 +188,7 @@
                             <h5 class="content-title">글 상세보기</h5>
                             <h5 class="content-title">제목</h5>
                             <div style="width: 300px">
-                                <input type="text" name="title" style="width: 250%" value="${post.title}"
+                                <input type="text" name="title" style="width: 250%" value="${posts.title}"
                                        maxlength="50" readonly>
                             </div>
                         </div>
@@ -198,7 +198,7 @@
                     </div>
 
                     <%-- 매칭 관련 내용--%>
-                    <c:if test="${post.board_id == 300}">
+                    <c:if test="${posts.board_id == 300}">
                         <p>총 매칭 인원</p>
                         ${sgb.total_members}
                         <p>매칭 가능 인원</p>
@@ -211,7 +211,7 @@
 
                     <div>
                         <h5 class="content-title">작성일</h5>
-                        <fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd HH:mm"/>
+                        <fmt:formatDate value="${posts.date}" pattern="yyyy-MM-dd HH:mm"/>
                         <%--<input type="date" name="date" value="${post.date}" readonly>--%>
                     </div>
                     <div class="post-container">
@@ -219,7 +219,7 @@
                         <div class="content">
                                 <textarea class="form-control" name="content" rows="3"
                                           style="width:90%; height:600px; resize:none;"
-                                          readonly>${post.content}</textarea>
+                                          readonly>${posts.content}</textarea>
                             </div>
                     </div>
 
@@ -244,7 +244,7 @@
                             </c:if>
                         </div>
 
-                        <c:if test="${post.writer == sessionScope.loginBean.email}">
+                        <c:if test="${posts.writer == sessionScope.loginBean.email}">
                             <button type="button" class="btn btn-outline-primary"
                                     onclick="location.href='/boards/${board_id}/${no}/edit?page=${page}'">수정
                             </button>
