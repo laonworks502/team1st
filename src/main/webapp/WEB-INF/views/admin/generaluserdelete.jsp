@@ -7,7 +7,7 @@
 </head>
 <body>
 <script>
-  alert("일반 회원 삭제가 완료되었습니다");
+  alert("삭제가 완료되었습니다");
 </script>
 
 </body>
