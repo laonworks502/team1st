@@ -91,11 +91,7 @@ public class BoardController {
     public ModelAndView getBoardList(
             @PathVariable(value = "board_id") int board_id,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-            HttpSession Session) throws Exception {
-
-        LoginBean loginBean = (LoginBean) Session.getAttribute("loginBean");
-
-        String email = loginBean.getEmail();
+            HttpSession session) throws Exception {
 
         if (boardService.checkBoardExist(board_id) != 1) {
             ModelAndView modelAndView = new ModelAndView("board/wrong-access");
