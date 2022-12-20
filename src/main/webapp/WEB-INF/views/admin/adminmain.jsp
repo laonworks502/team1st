@@ -252,6 +252,8 @@
 				success: function(result) {
 					if(result == 1) {
 						alert('삭제되었습니다.');
+						generalUsersListPage();
+						generalUsersList();
 					}else {
 						alert('삭제 실패');
 					}
@@ -332,6 +334,8 @@
 				success: function(result) {
 					if(result == 1) {
 						alert('삭제되었습니다.');
+						companyUsersListPage();
+						companyUsersList();
 					}else {
 						alert('삭제 실패');
 					}
@@ -463,6 +467,8 @@
 				success: function(result) {
 					if(result == 1) {
 						alert('게시물이 삭제되었습니다.');
+						fulltimeBoardPage();
+						fulltimeBoadList();
 					}else {
 						alert('게시물 삭제 실패');
 					}
@@ -539,6 +545,8 @@
 				success: function(result) {
 					if(result == 1) {
 						alert('게시물이 삭제되었습니다.');
+						parttimeBoardPage();
+						parttimeBoadList();
 					}else {
 						alert('게시물 삭제 실패');
 					}
@@ -615,6 +623,8 @@
 				success: function(result) {
 					if(result == 1) {
 						alert('게시물이 삭제되었습니다.');
+						studiesPage();
+						studyList();
 					}else {
 						alert('게시물 삭제 실패');
 					}
