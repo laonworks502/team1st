@@ -17,7 +17,7 @@
 	<li><button onclick="btnLogout()">로그아웃</button><br></li>
 	<li><button onclick="location='/'">메인</button><br></li>
 	<li><button onclick="location='companywritelist'">내가 작성한 글</button><br></li>
-	<li><button onclick="location.href='apply/applicants'">지원자 목록보기</button><br></li>
+	<li><button onclick="location.href='apply/jobposts'">내가 작성한 구인글</button><br></li>
 </ul>
 
 </body>
