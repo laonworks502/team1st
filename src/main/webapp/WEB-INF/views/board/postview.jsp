@@ -150,14 +150,14 @@
         });//$.ajax
     }
 
-    JSON.stringify({"email" : '${post.writer}'});
-    alert(JSON.stringify({"email" : '${post.writer}'}));
+    JSON.stringify({"email" : '${posts.writer}'});
+    alert(JSON.stringify({"email" : '${posts.writer}'}));
 
     function joinStudy(){
         $.ajax({
             method: 'POST',
             url: "/study/matching/${no}",
-            data:'${post.writer}',
+            data:'${posts.writer}',
             contentType:'application/json;charset=utf-8',
             success: function (data){
                 if(data == 1){
