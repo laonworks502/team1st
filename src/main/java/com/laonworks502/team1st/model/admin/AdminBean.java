@@ -9,5 +9,5 @@ import org.apache.ibatis.type.Alias;
 public class AdminBean {
     private String id;
     private String passwd;
-
+    private String salt;
 }
