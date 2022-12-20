@@ -2,6 +2,7 @@ package com.laonworks502.team1st.service.users;
 
 import com.laonworks502.team1st.dao.users.CheckApplyDao;
 import com.laonworks502.team1st.model.applicant.ApplicantBean;
+import com.laonworks502.team1st.model.users.JobPostBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,12 @@ public class CheckApplyServiceImpl implements CheckApplyService{
 
     @Autowired
     private CheckApplyDao checkApplyDao;
+
+    // 구인글 목록
+    @Override
+    public List<JobPostBean> getJobPosts(String email) throws Exception {
+        return checkApplyDao.getJobPosts(email);
+    }
 
     // 지원자 목록 보기
     @Override
