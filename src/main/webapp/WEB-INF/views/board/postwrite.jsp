@@ -58,6 +58,7 @@
             }
         })
     }
+
 </script>
 
 <body>
@@ -81,8 +82,9 @@
                             <h5 class="col-1"></h5>
                             <p class="col-8"></p>
                             <p class="col-2"></p>
-                            <c:if test="${sessionScope.loginBean.authority == '일반' && board.id == 300}">
-                            <p>매칭 인원 수</p>
+                        </div>
+                        <c:if test="${sessionScope.loginBean.authority == '일반' && board.id == 300}">
+                            <p>매칭 인원 수 (최소 인원 : 2명)</p>
                             <select class="form-select" id="total_members" aria-label="Default select example">
                                 <option selected>매칭 인원 수를 선택하세요.</option>
                                 <option value="2">2</option>
@@ -90,19 +92,9 @@
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
-                            <p>매칭 기간</p>
-                            <select class="form-select" id="deadline" aria-label="Default select example">
-                                <option selected>매칭 기간을 선택하세요.</option>
-                                <option value="1">1일</option>
-                                <option value="2">2일</option>
-                                <option value="3">3일</option>
-                                <option value="4">4일</option>
-                                <option value="5">5일</option>
-                                <option value="6">6일</option>
-                                <option value="7">7일</option>
-                            </select>
-                            </c:if>
-                        </div>
+                            <p>매칭 마감일</p>
+                            <input type="date" id="deadline">
+                        </c:if>
                         <div class="post-container">
                             <h5 class="content-title">내용</h5>
                             <div class="content">

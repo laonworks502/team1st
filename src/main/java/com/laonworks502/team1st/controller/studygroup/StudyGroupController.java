@@ -77,7 +77,7 @@ public class StudyGroupController {
     // 매칭 테이블 생성
     @ResponseBody
     @PostMapping(value = "/macthing/{board_id}/{no}")
-    public <studyBean> Integer macthingCreate(
+    public <studyBean> Integer createmacthing(
             @PathVariable(value = "board_id") int board_id,
             @PathVariable(value = "no") int no,
             @RequestBody StudyGroupBean studyBean,
@@ -87,12 +87,49 @@ public class StudyGroupController {
 
         LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
         studyBean.setHost_email(loginBean.getEmail());
+        studyBean.setMembers_email(loginBean.getEmail());
 
         int result = studyGroupService.createMatching(studyBean);
         if(result == 0){
             // no 값으로 작성 글 delete 메소드
             int deleteResult = boardService.deletePost(no);
         }
+
+        return result;
+    }
+
+    // 스터디 매칭 참여
+    @ResponseBody
+    @PostMapping(value = "/matching/{no}")
+    public Integer insertMatching(
+            @PathVariable(value = "no") int no,
+            @RequestBody String email,
+            HttpSession session) throws Exception {
+
+        log.info("들어옴 {}", email);
+
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+
+        StudyGroupBean studyGroupBean = studyGroupService.getStudyByNo(no, email);
+        studyGroupBean.setMembers_email(loginBean.getEmail());
+
+        int result = studyGroupService.createMatching(studyGroupBean);
+
+        return result;
+    }
+    
+    // 스터디 매칭 참여 가능 여부
+    @ResponseBody
+    @GetMapping(value = "/{no}")
+    public Integer selectMatching(@PathVariable(value = "no") int no,
+                               HttpSession session) throws Exception {
+
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
+        int result = studyGroupService.searchMatching(no, email);
+
+        log.info("result = {}", result);
 
         return result;
     }

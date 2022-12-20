@@ -123,7 +123,7 @@ public class BoardController {
     @GetMapping(value = "/{board_id}/{no}")
     public ModelAndView getPostByNo(@PathVariable(value = "board_id") int board_id,
                                     @PathVariable(value = "no") int no,
-                                    @RequestParam(value = "page",required = false, defaultValue = "1") Integer page )throws Exception {
+                                    @RequestParam(value = "page",required = false, defaultValue = "1") Integer page)throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("board/postview");
 
@@ -136,9 +136,13 @@ public class BoardController {
         modelAndView.addObject("board", board);
         modelAndView.addObject("page", page);
 
+        log.info("post.getWriter() = {}", post.getWriter());
+
         if(board_id == 300){
-            StudyGroupBean sgb = studyGroupService.getStudyByNo(no);
+            StudyGroupBean sgb = studyGroupService.getStudyByNo(no, post.getWriter());
+            int studyCount = studyGroupService.countAllMatching(no, post.getWriter());
             modelAndView.addObject("sgb", sgb);
+            modelAndView.addObject("studyCount", studyCount);
         }
 
         return modelAndView;

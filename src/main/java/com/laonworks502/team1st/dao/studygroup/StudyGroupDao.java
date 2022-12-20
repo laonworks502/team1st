@@ -7,7 +7,11 @@ public interface StudyGroupDao {
 
     int createMatching(StudyGroupBean studyBean);
 
-    StudyGroupBean getStudyByNo(int no);
+    StudyGroupBean getStudyByNo(int no, String email);
+
+    int countAllMatching(int no, String email);
+
+    int searchMatching(int no, String email);
 }
 
 

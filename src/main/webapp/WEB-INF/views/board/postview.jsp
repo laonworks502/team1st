@@ -33,22 +33,40 @@
         });//$.ajax*/
 
         // 지원 유무 판별 ajax
-            $.ajax({
-                url: '/apply/${no}',
-                method: 'GET',
-                contentType: 'application/json;charset=utf-8',
-                success: function (result) {
-                    if (result == 1) {
-                        $('#apply').attr('disabled', true);
-                    } else {
-                        $('#apply').attr('disabled', false);
-                    }
-                },
-                error: function (error, status, msg) {
-                    alert("상태코드 " + status + "에러메시지" + msg);
-                    return false;
-                },
-            })
+        $.ajax({
+            url: '/apply/${no}',
+            method: 'GET',
+            contentType: 'application/json;charset=utf-8',
+            success: function (result) {
+                if (result == 1) {
+                    $('#apply').attr('disabled', true);
+                } else {
+                    $('#apply').attr('disabled', false);
+                }
+            },
+            error: function (error, status, msg) {
+                alert("상태코드 " + status + "에러메시지" + msg);
+                return false;
+            },
+        })
+
+        // 스터디 참여 가능 여부 판별 ajax
+        $.ajax({
+            url: '/study/${no}',
+            method: 'GET',
+            contentType: 'application/json;charset=utf-8',
+            success: function (result) {
+                if (result == 1) {
+                    $('#joinStudy').attr('disabled', true);
+                } else {
+                    $('#joinStudy').attr('disabled', false);
+                }
+            },
+            error: function (error, status, msg) {
+                alert("상태코드 " + status + "에러메시지" + msg);
+                return false;
+            },
+        })
 
     });
 
@@ -129,38 +147,57 @@
             }
 
         });//$.ajax
+    };
 
-            function scrapClick(no){
-                alert(no);
-                <!--[클릭 ajax]-->
-                $.ajax({
-                    method: 'POST',
-                    url: "/scrap/" + no, //@PathVariable로 받음
-                    //data: no1,          //@RequestBody로 받음
-                    //data: JSON.stringify(no1),
-                    contentType:'application/json;charset=utf-8',
-                    success: function (data) {
-                        alert(data);
-                        if(data == 1){	//스크랩 O
-                            $("#hiddenNoScrap"+no).show();
-                            $("#hiddenYesScrap"+no).hide();
-                            alert("in");
-                        }else{        //스크랩 X
-                            $("#hiddenYesScrap"+no).show();
-                            $("#hiddenNoScrap"+no).hide();
+    function scrapClick(no){
+        alert(no);
+        <!--[클릭 ajax]-->
+        $.ajax({
+            method: 'POST',
+            url: "/scrap/" + no, //@PathVariable로 받음
+            //data: no1,          //@RequestBody로 받음
+            //data: JSON.stringify(no1),
+            contentType:'application/json;charset=utf-8',
+            success: function (data) {
+                alert(data);
+                if(data == 1){	//스크랩 O
+                    $("#hiddenNoScrap"+no).show();
+                    $("#hiddenYesScrap"+no).hide();
+                    alert("in");
+                }else{        //스크랩 X
+                    $("#hiddenYesScrap"+no).show();
+                    $("#hiddenNoScrap"+no).hide();
+                    alert("out");
+                }
+                location.reload();
+            }
+            ,error: function (e) {
+                alert("data error" + e);
+            }
+        });//$.ajax
+    };
+    JSON.stringify({"email" : '${post.writer}'});
+    alert(JSON.stringify({"email" : '${post.writer}'}));
 
+    function joinStudy(){
+        $.ajax({
+            method: 'POST',
+            url: "/study/matching/${no}",
+            data:'${post.writer}',
+            contentType:'application/json;charset=utf-8',
+            success: function (data){
+                if(data == 1){
+                    alert("참여 완료");
+                    $('#joinStudy').attr('disabled', true);
+                }else{
+                    alert("참여 실패. 다시 시도해주세요.")
+                    return false;
+                }
+            }, error: function (){
 
-                            alert("out");
-                        }
-                        location.reload();
-                    }
-                    ,error: function (e) {
-                        alert("data error" + e);
-                    }
-
-                });//$.ajax
-            };
-    });
+            }
+        });
+    }
 
 </script>
 
@@ -183,13 +220,20 @@
                         <h5 class="col-1"></h5>
                         <p class="col-8"></p>
                         <p class="col-2"></p>
-                        <c:if test="${post.board_id} == 300">
-                            <p>매칭 인원</p>
-                            ${sgb.total_members}
-                            <p>매칭일</p>
-                            ${sgb.date}
-                        </c:if>
                     </div>
+
+                    <%-- 매칭 관련 내용--%>
+                    <c:if test="${post.board_id == 300}">
+                        <p>총 매칭 인원</p>
+                        ${sgb.total_members}
+                        <p>매칭 가능 인원</p>
+                        ${sgb.total_members - studyCount}
+                        <p>매칭 가능일</p>
+                        <fmt:formatDate value="${sgb.date}" pattern="yyyy. MM. dd"/> - <fmt:formatDate value="${sgb.deadline}" pattern="yyyy. MM. dd"/>
+                        <br>
+                        <button type="button" class="btn btn-success" id="joinStudy" onclick="joinStudy()">참여하기</button>
+                    </c:if>
+
                     <div>
                         <h5 class="content-title">작성일</h5>
                         ${post.date}

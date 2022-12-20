@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -13,6 +14,5 @@ public class StudyGroupBean {
     private int total_members;
     private String members_email;
     private Timestamp date;
-    private int deadline;
-
+    private Date deadline;
 }
