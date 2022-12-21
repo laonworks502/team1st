@@ -58,7 +58,6 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">전체 회원 수(일반 회원): ${totalUsers}</div>
 			<div class="panel-body">
-
 				<div id="ajaxGeneralUsersList"></div>
 				<!-- 회원 목록 출력 -->
 				<!-- <button type="button" onclick="generalUsersList()"></button> -->
