@@ -39,6 +39,6 @@ public interface GeneralUserDao {
 
     int countAllGeneralPosts(String writer) throws Exception;
 
-    List<PostBean> myboardlist(@Param("writer") String writer, @Param("startPostNo") int startPostNo,
+    List<PostBean> getGeneralBoardList(@Param("writer") String writer, @Param("startPostNo") int startPostNo,
                                               @Param("PAGES_COUNT") int pages_COUNT) throws Exception;
 }

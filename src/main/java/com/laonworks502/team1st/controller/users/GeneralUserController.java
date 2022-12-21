@@ -1,6 +1,8 @@
 package com.laonworks502.team1st.controller.users;
 
 import com.laonworks502.team1st.SHA256Util;
+import com.laonworks502.team1st.model.board.Pagination;
+import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.scrap.ScrapListBean;
 import com.laonworks502.team1st.model.users.GeneralUserBean;
 import com.laonworks502.team1st.model.users.LoginBean;
@@ -212,6 +214,35 @@ public class GeneralUserController {
         model.addAttribute("result", result1);
 
         return "generaluser/loginResult";
+    }
+
+    @RequestMapping("general-boardlist")
+    public String generalmyboardlist(@RequestParam(value = "page", required = false, defaultValue = "1")
+                                     Integer page, HttpServletRequest request, GeneralUserBean gub,
+                                     HttpSession session, Model model, String writer) throws Exception{
+
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
+        gub = gus.checkGeneraluser(email);
+
+        log.info(gub.getEmail() + " 의 작성한 게시글 목록 in");
+
+        // 기업회원이 작성한 모든 총 게시물 수 구하기
+        writer = gub.getEmail();
+        int postTotal = gus.countAllGeneralPosts(writer);
+        log.info("회원 총 게시물 수:" + postTotal);
+
+        Pagination pg = new Pagination(100, postTotal, 10);
+        model.addAttribute("pg", pg);
+
+        // 리스트 담기
+        List<PostBean> postList = gus.getGeneralBoardList(writer, pg.getStartPostNo(), pg.getPAGES_COUNT());
+
+        model.addAttribute("posts", postList);
+        model.addAttribute("gub", gub);
+
+        return "generaluser/general-boardlist";
     }
 
     // 이력서 업로드

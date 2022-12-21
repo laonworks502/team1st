@@ -2,18 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.laonworks502.team1st.dao.users.GeneralUserDao">
 
-<!--회원 가입-->
-<insert id="joinGeneraluser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
+<!-- 회원가입 ( 암호화 추가 ) -->
+<insert id="addGeneralUser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
     insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3,
     register_date, resume, exit_reason, salt)
     values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3},
     current_timestamp, null, null, #{salt});
 </insert>
-
-<!--insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3, register_date,
-resume(null가능, exit_reason(null가능), salt) values('sky1234@naver.com', '1234', 'bcbc', '우편번호', '주소1', '주소2', '010',
-'2222', '2222', current_timestamp,'','');
--->
 
 <!--email 중복 체크, 1개 이상이면 가입불가-->
 <select id="emailDuplicatecheck" parameterType="String" resultType="int">
@@ -22,7 +17,6 @@ resume(null가능, exit_reason(null가능), salt) values('sky1234@naver.com', '1
         	  union select email from company_users) as gcunion
         WHERE email = #{email}
 	</select>
-
 
 <!-- 로그인 계정의 정보 수집 -->
 <select id="checkGeneraluser" parameterType="String" resultType="com.laonworks502.team1st.model.users.GeneralUserBean">
@@ -58,14 +52,6 @@ update general_users
 	select salt from general_users where email = #{email}
 </select>
 
-<!-- 회원가입 ( 암호화 추가 ) -->
-<insert id="addGeneralUser" parameterType="com.laonworks502.team1st.model.users.GeneralUserBean">
-    insert into general_users(email, passwd, name, postal_code, address1, address2, tel1, tel2, tel3,
-    register_date, resume, exit_reason, salt)
-    values(#{email}, #{passwd}, #{name}, #{postal_code}, #{address1}, #{address2}, #{tel1}, #{tel2}, #{tel3},
-    current_timestamp, null, null, #{salt});
-</insert>
-
 <!-- 일반회원의 게시물 전체 개수 -->
 <select id="countAllGeneralPosts" parameterType="String" resultType="int">
     select count(writer) from posts where writer = #{writer}
@@ -73,7 +59,7 @@ update general_users
 
 <!-- 일반회원 글 리스트 불러 오기 -->
 <select id="getGeneralBoardList" resultType="com.laonworks502.team1st.model.post.PostBean">
-    select no, board_id, writer, content, date
+    select no, board_id, writer, title, date
     from posts
     where writer = #{writer}
     order by no desc limit #{startPostNo}, #{PAGES_COUNT}
