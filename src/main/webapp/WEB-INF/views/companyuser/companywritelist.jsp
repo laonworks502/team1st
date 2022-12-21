@@ -9,7 +9,9 @@
 </head>
 <body>
 
-	<div class="card-body">
+	<div class="card-body" style="margin: 10%;">
+		<h2>내가 작성한 글 목록</h2>
+		<button class="btn btn-warning" type="button" style="float: right" onclick="location='/companymypage'">마이페이지</button>
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>

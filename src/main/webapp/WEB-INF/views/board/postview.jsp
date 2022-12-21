@@ -148,44 +148,16 @@
             }
 
         });//$.ajax
+    }
 
-    };
-
-    function scrapClick(no){
-        alert(no);
-        <!--[클릭 ajax]-->
-        $.ajax({
-            method: 'POST',
-            url: "/scrap/" + no, //@PathVariable로 받음
-            //data: no1,          //@RequestBody로 받음
-            //data: JSON.stringify(no1),
-            contentType:'application/json;charset=utf-8',
-            success: function (data) {
-                alert(data);
-                if(data == 1){	//스크랩 O
-                    $("#hiddenNoScrap"+no).show();
-                    $("#hiddenYesScrap"+no).hide();
-                    alert("in");
-                }else{        //스크랩 X
-                    $("#hiddenYesScrap"+no).show();
-                    $("#hiddenNoScrap"+no).hide();
-                    alert("out");
-                }
-                location.reload();
-            }
-            ,error: function (e) {
-                alert("data error" + e);
-            }
-        });//$.ajax
-    };
-    JSON.stringify({"email" : '${post.writer}'});
-    alert(JSON.stringify({"email" : '${post.writer}'}));
+    JSON.stringify({"email" : '${posts.writer}'});
+    alert(JSON.stringify({"email" : '${posts.writer}'}));
 
     function joinStudy(){
         $.ajax({
             method: 'POST',
             url: "/study/matching/${no}",
-            data:'${post.writer}',
+            data:'${posts.writer}',
             contentType:'application/json;charset=utf-8',
             success: function (data){
                 if(data == 1){
@@ -216,7 +188,7 @@
                             <h5 class="content-title">글 상세보기</h5>
                             <h5 class="content-title">제목</h5>
                             <div style="width: 300px">
-                                <input type="text" name="title" style="width: 250%" value="${post.title}"
+                                <input type="text" name="title" style="width: 250%" value="${posts.title}"
                                        maxlength="50" readonly>
                             </div>
                         </div>
@@ -226,7 +198,7 @@
                     </div>
 
                     <%-- 매칭 관련 내용--%>
-                    <c:if test="${post.board_id == 300}">
+                    <c:if test="${posts.board_id == 300}">
                         <p>총 매칭 인원</p>
                         ${sgb.total_members}
                         <p>매칭 가능 인원</p>
@@ -239,7 +211,7 @@
 
                     <div>
                         <h5 class="content-title">작성일</h5>
-                        <fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd HH:mm"/>
+                        <fmt:formatDate value="${posts.date}" pattern="yyyy-MM-dd HH:mm"/>
                         <%--<input type="date" name="date" value="${post.date}" readonly>--%>
                     </div>
                     <div class="post-container">
@@ -247,7 +219,7 @@
                         <div class="content">
                                 <textarea class="form-control" name="content" rows="3"
                                           style="width:90%; height:600px; resize:none;"
-                                          readonly>${post.content}</textarea>
+                                          readonly>${posts.content}</textarea>
                             </div>
                     </div>
 
@@ -272,7 +244,7 @@
                             </c:if>
                         </div>
 
-                        <c:if test="${post.writer == sessionScope.loginBean.email}">
+                        <c:if test="${posts.writer == sessionScope.loginBean.email}">
                             <button type="button" class="btn btn-outline-primary"
                                     onclick="location.href='/boards/${board_id}/${no}/edit?page=${page}'">수정
                             </button>

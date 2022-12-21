@@ -1,6 +1,7 @@
 package com.laonworks502.team1st.controller.users;
 
 import com.laonworks502.team1st.model.applicant.ApplicantBean;
+import com.laonworks502.team1st.model.users.JobPostBean;
 import com.laonworks502.team1st.model.users.LoginBean;
 import com.laonworks502.team1st.service.users.CheckApplyService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +24,26 @@ public class CheckApplyController {
     @Qualifier("CheckApplyService")
     private CheckApplyService checkApplyService;
 
+    // 공고 불러오기
+    @GetMapping(value = "/jobposts")
+    public ModelAndView getCompanyPosts(HttpSession session) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/companyuser/my-job-posts");
+
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
+        List<JobPostBean> posts = checkApplyService.getJobPosts(email);
+
+        log.info("값 전달 확인 : {}", posts);
+
+        modelAndView.addObject("posts", posts);
+
+        return modelAndView;
+    }
+
     // 지원자 목록 보기
-    @GetMapping(value = "/applicants")
-    public ModelAndView getApplicants(@RequestParam(value = "no") int no) throws Exception {
+    @GetMapping(value = "/jobposts/{no}")
+    public ModelAndView getApplicants(@PathVariable(value = "no") int no) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/companyuser/applicants-list");
 
         List<ApplicantBean> applicants = checkApplyService.getApplicants(no);

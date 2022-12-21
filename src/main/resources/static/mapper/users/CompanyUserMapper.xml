@@ -48,7 +48,7 @@
 		 from companies where company_name= #{company_name}
 	</select>
 
-	<!--[비번 찾기) 메일 보내기] -->
+	<!--[비번 찾기] 메일 보내기] -->
 	<select id="findPasswdUser"
 		resultType="com.laonworks502.team1st.model.users.UserBean"
 		parameterType="com.laonworks502.team1st.model.users.UserBean">
@@ -75,7 +75,7 @@
 
     <!-- 기업회원 글 리스트 불러 오기 -->
     <select id="getCompanyBoardList" resultType="com.laonworks502.team1st.model.post.PostBean">
-        select no,board_id,writer,content,date from posts where writer = #{writer} order by no desc
+        select no,board_id,writer,title,date from posts where writer = #{writer} order by no desc
             limit #{startPostNo}, #{PAGES_COUNT}
     </select>
 
