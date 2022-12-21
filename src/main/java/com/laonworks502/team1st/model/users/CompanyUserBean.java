@@ -1,9 +1,12 @@
 package com.laonworks502.team1st.model.users;
 
+import java.sql.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+
 
 @Getter
 @Setter
