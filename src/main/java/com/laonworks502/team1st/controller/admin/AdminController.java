@@ -505,7 +505,7 @@ public class AdminController {
 
 		log.info("스터디 삭제 컨트롤러 진입 ");
 
-		//파트타임 게시판 게시글 삭제
+		//스터디 삭제
 		int result = adminservice.studyDelete(postBean.getNo());
 
 		log.info(String.valueOf(postBean.getNo()));

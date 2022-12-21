@@ -6,51 +6,7 @@
 <head>
     <title>마이 페이지</title>
 
-<%--  <link rel="stylesheet" href="/resources/css/decomypage.css" />--%>
-    <style>
-        *{
-            padding: 0;
-            margin:0;
-            padding: 20px;
-        }
-
-        header{
-            width:1180px;
-            min-width: 1180px;
-            background-color: antiquewhite;
-        }
-
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-flow: column nowrap;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-        }
-
-        main {
-            width:1180px;
-            min-width: 1180px;
-            margin: 0 auto;
-        }
-
-        ul,li {
-            list-style: none;
-        }
-        .mypage_list{
-            margin-top: 50px;
-        }
-        .subject{
-            margin: 50px 0px 50px 0px;
-
-        }
-        .myscrap_total_wrap{
-            margin-bottom: 80px;
-        }
-    </style>
+    <link rel="stylesheet" href="/resources/css/decomypage.css" />
 
     <!--[스크랩 버튼]-->
     <script>
@@ -147,9 +103,7 @@
         <!--스크랩 영역-->
         <div class="myscrap_total_wrap">
             <div class="myscrap_subject_wrap">
-                <ul class="subject" >
-                    <h3>내 스크랩</h3>
-                </ul>
+                <strong><h3>내 스크랩</h3></strong>
             </div>
             <div class="myscrap_minilist_wrap">
                 <li class="board_subject">

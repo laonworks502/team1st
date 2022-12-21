@@ -166,6 +166,7 @@
             }
 
         });//$.ajax
+    }
 
     };
 
@@ -258,6 +259,7 @@
                     <div>
                         <h5 class="content-title">작성일</h5>
                         <p><fmt:formatDate value="${posts.date}" pattern="yyyy-MM-dd HH:mm"/></p>
+
                     </div>
                     <div class="post-container">
                         <h5 class="content-title">내용</h5>
@@ -265,6 +267,7 @@
                             <textarea class="form-control" name="content" rows="3"
                                       style="width:100%; height:600px; resize:none;"
                                       readonly>${posts.content}</textarea>
+
                             </div>
                     </div>
 
