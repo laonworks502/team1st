@@ -72,6 +72,7 @@
             <input type="button" value="로그아웃" class="input_button" onclick="location='/loginselect'">
             <input type="button" value="회원수정" class="input_button" onclick="location='/general-user-edit'">
             <input type="button" value="회원탈퇴" class="input_button" onclick="location='/general-user-delete'">
+
             <%--<input type="button" value="스크랩목록" class="input_button" onclick="location='/totalscrap'">--%>
             <br><br>
             <input type="button" value="내 지원내역" class="input_button" onclick="location.href='/apply/applies'">

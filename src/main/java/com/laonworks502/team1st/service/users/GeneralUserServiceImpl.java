@@ -84,8 +84,8 @@ public class GeneralUserServiceImpl implements CommonUserService {
         return gud.countAllGeneralPosts(writer);
     }
 
-    public List<PostBean> myboardlist(@Param("writer") String writer, @Param("startPostNo") int startPostNo,
+    public List<PostBean> getGeneralBoardList(@Param("writer") String writer, @Param("startPostNo") int startPostNo,
                                       @Param("PAGES_COUNT") int pages_COUNT) throws Exception{
-        return gud.myboardlist(writer, startPostNo, pages_COUNT);
+        return gud.getGeneralBoardList(writer, startPostNo, pages_COUNT);
     }
 }

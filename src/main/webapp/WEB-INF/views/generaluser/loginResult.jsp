@@ -38,7 +38,7 @@
 <c:if test="${result == 3 }">
 	<script>
 		alert("수정이 완료되었습니다.");
-		history.go(-2);
+		location.href="/scrap/generalmypage";
 	</script>
 </c:if>
 
