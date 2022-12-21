@@ -224,11 +224,9 @@
 			$.each(result, function(index, obj) {
 
 				html += "<tr>";
-				html += "<td>" + obj.name + "</td>";
-				html += "<td>" + obj.email + "</td>";
-				html += "<td>" + obj.tel1 + "-";
-				html += obj.tel2 + "-";
-				html += obj.tel3 + "</td>"  ;
+				html += "<td>" + obj.name.substring(0, 1) + "***" + "</td>";
+				html += "<td>" + obj.email.substring(0, 1) + "***" + obj.email.substring(obj.email.indexOf("@")) + "</td>";
+				html += "<td>" + obj.tel1 + "-" + obj.tel2.substring(0, 0) + "****" + "-" + obj.tel3 + "</td>"  ;
 				html += "<td>" + obj.register_date + "</td>";
 				html += "<td><button type='button' onclick='javascript:adminGeneralDelete(\""+obj.email+"\")'>삭제</button> </td>";
 				html += "</tr>";
@@ -254,6 +252,8 @@
 				success: function(result) {
 					if(result == 1) {
 						alert('삭제되었습니다.');
+						generalUsersListPage();
+						generalUsersList();
 					}else {
 						alert('삭제 실패');
 					}
@@ -306,11 +306,9 @@
 
 				html += "<tr>";
 				html += "<td>" + obj.company_name + "</td>";
-				html += "<td>" + obj.name + "</td>";
-				html += "<td>" + obj.email + "</td>";
-				html += "<td>" + obj.tel1 + "-";
-				html += obj.tel2 + "-";
-				html += obj.tel3 + "</td>"  ;
+				html += "<td>" + obj.name.substring(0, 1) + "***" + "</td>";
+				html += "<td>" + obj.email.substring(0, 1) + "***" + obj.email.substring(obj.email.indexOf("@")) + "</td>";
+				html += "<td>" + obj.tel1 + "-" + obj.tel2.substring(0, 0) + "****" + "-" + obj.tel3 + "</td>"  ;
 				html += "<td>" + obj.register_date + "</td>";
 				html += "<td><button type='button' onclick='javascript:adminCompanyUserDelete(\""+obj.email+"\")'>삭제</button> </td>";
 				html += "</tr>";
@@ -336,6 +334,8 @@
 				success: function(result) {
 					if(result == 1) {
 						alert('삭제되었습니다.');
+						companyUsersListPage();
+						companyUsersList();
 					}else {
 						alert('삭제 실패');
 					}
@@ -467,6 +467,8 @@
 				success: function(result) {
 					if(result == 1) {
 						alert('게시물이 삭제되었습니다.');
+						fulltimeBoardPage();
+						fulltimeBoadList();
 					}else {
 						alert('게시물 삭제 실패');
 					}
@@ -543,6 +545,8 @@
 				success: function(result) {
 					if(result == 1) {
 						alert('게시물이 삭제되었습니다.');
+						parttimeBoardPage();
+						parttimeBoadList();
 					}else {
 						alert('게시물 삭제 실패');
 					}
@@ -619,6 +623,8 @@
 				success: function(result) {
 					if(result == 1) {
 						alert('게시물이 삭제되었습니다.');
+						studiesPage();
+						studyList();
 					}else {
 						alert('게시물 삭제 실패');
 					}
