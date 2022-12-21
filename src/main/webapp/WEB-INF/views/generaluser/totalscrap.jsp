@@ -4,43 +4,8 @@
 <head>
     <title>마이 스크랩 더보기</title>
 
-    <%--<link rel="stylesheet" href="/resources/css/decototalscrap.css" />--%>
+    <link rel="stylesheet" href="/resources/css/decototalscrap.css" />
 
-    <style>
-        *{
-            padding: 0;
-            margin:0;
-        }
-
-        header{
-            width:1180px;
-            min-width: 1180px;
-        }
-
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-flow: column nowrap;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-        }
-
-        main {
-            width:1180px;
-            min-width: 1180px;
-        }
-
-        ul,li {
-            list-style: none;
-        }
-        .subject{
-            margin: 50px 0px 50px 0px;
-
-        }
-    </style>
     <!--[스크랩 버튼]-->
     <script>
         function scrapClick(no){
@@ -83,9 +48,7 @@
     <div class="myscrab_detaillist">
         <div class="totalscrap_total_wrap">
             <div class="totalscrap_subject_wrap">
-                <ul class="subject" >
-                    <h3>전체 스크랩</h3>
-                </ul>
+                <strong><h3>전체 스크랩</h3></strong>
             </div>
             <div class="myscrap_totallist_wrap">
                 <li class="board_subject">
