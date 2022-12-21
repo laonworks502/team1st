@@ -3,7 +3,7 @@
 <mapper namespace="com.laonworks502.team1st.dao.board.ApplicantDao">
 
     <insert id="insertApply">
-        insert into applicants value (#{no}, #{email}, now())
+        insert into applicants (no, email, date) value (#{no}, #{email}, now())
     </insert>
 
     <select id="searchApply" resultType="int">

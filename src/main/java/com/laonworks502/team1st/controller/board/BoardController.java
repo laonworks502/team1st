@@ -131,7 +131,6 @@ public class BoardController {
                 postList.get(i).setScrapResult(ss.getBoardSearchList(email, postList.get(i).getNo()));
 
                 log.info("postList={}", postList.get(i).getScrapResult());
-
             }
         }
 
@@ -177,12 +176,9 @@ public class BoardController {
         }
 
         PostBean post = boardService.getPostByNo(board_id, no);
-        post.setContent(post.getContent().replace("\n", "<br>"));
+        // post.setContent(post.getContent().replace("\n", "<br>"));
         
         modelAndView.addObject("posts", post);
-
-
-
 
         BoardBean board = boardService.getBoardById(board_id);
         modelAndView.addObject("board", board);
@@ -210,7 +206,7 @@ public class BoardController {
 
         PostBean postBean = boardService.getPostByNo(board_id, no);
 
-        postBean.setContent(postBean.getContent().replace("\n", "<br>"));
+        // postBean.setContent(postBean.getContent().replace("\n", "<br>"));
 
         model.addAttribute("page", page);
         model.addAttribute("no", no);
