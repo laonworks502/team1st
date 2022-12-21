@@ -117,7 +117,9 @@
             <input type="button" value="회원수정" class="input_button" onclick="location='/general-user-edit'">
             <input type="button" value="회원탈퇴" class="input_button" onclick="location='/general-user-delete'">
             <%--<input type="button" value="스크랩목록" class="input_button" onclick="location='/totalscrap'">--%>
+            <br><br>
             <input type="button" value="내 지원내역" class="input_button" onclick="location.href='/apply/applies'">
+            <input type="button" value="스터디" class="input_button" onclick="location.href='/study/applies'">
 
             <!-- 파일 업로드에서는 enctype(인코딩타입)을 multipart/form-data로 반드시 설정 -->
             <form action="/resume-upload" method="post" enctype="multipart/form-data">

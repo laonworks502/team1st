@@ -2,6 +2,8 @@ package com.laonworks502.team1st.dao.studygroup;
 
 import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
 
+import java.util.List;
+
 public interface StudyGroupDao {
     int getPostCountByNo(int board_id, int no);
 
@@ -12,6 +14,8 @@ public interface StudyGroupDao {
     int countAllMatching(int no, String email);
 
     int searchMatching(int no, String email);
+
+    List<StudyGroupBean> getStudyList(String email);
 }
 
 

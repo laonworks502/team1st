@@ -6,6 +6,8 @@ import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudyGroupServiceImpl implements StudyGroupService {
 
@@ -35,6 +37,11 @@ public class StudyGroupServiceImpl implements StudyGroupService {
     @Override
     public int searchMatching(int no, String email) {
         return studyGroupDao.searchMatching(no, email);
+    }
+
+    @Override
+    public List<StudyGroupBean> getStudyList(String email) {
+        return studyGroupDao.getStudyList(email);
     }
 
 }
