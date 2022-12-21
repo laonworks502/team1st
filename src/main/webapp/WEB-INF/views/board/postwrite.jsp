@@ -1,36 +1,40 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file = "../common/commonlist.jsp" %>
+
 <html>
 <head>
     <meta charset="UTF-8">
     <title>글작성</title>
 </head>
-
+<script src="/resources/js/boardcheck.js"></script>
 <script>
     function postInsert() {
-        let title = $("#title").val()
-        let content = $("#content").val()
-        let post1 = {'title': title, 'content': content};
-        $.ajax({
-            url: '/study/${board_id}?page=${page}',
-            method: 'POST',
-            contentType: 'application/json;charset=utf-8',
-            data: JSON.stringify(post1),
-            success: function (data) {
-                if (data.result == 1) {
-                    alert("글 작성 성공");
-                    matchingInsert(data.no);
-                } else {
-                    alert("글 작성 실패");
+        let result = matchingCheck();
+        if(result){
+            let title = $("#title").val()
+            let content = $("#content").val()
+            let post1 = {'title': title, 'content': content};
+            $.ajax({
+                url: '/study/${board_id}?page=${page}',
+                method: 'POST',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(post1),
+                success: function (data) {
+                    if (data.result == 1) {
+                        alert("글 작성 성공");
+                        matchingInsert(data.no);
+                    } else {
+                        alert("글 작성 실패");
+                        return false;
+                    }
+                },
+                error: function (error, status, msg) {
+                    alert("상태코드 " + status + "에러메시지" + msg);
                     return false;
-                }
-            },
-            error: function (error, status, msg) {
-                alert("상태코드 " + status + "에러메시지" + msg);
-                return false;
-            },
-        })
+                },
+            })
+        }
     }
 
     function matchingInsert(no){
@@ -50,7 +54,6 @@
                     alert("매칭 생성 실패. 다시 시도해주세요.");
                     return false;
                 }
-
             },
             error: function (error, status, msg){
                 alert("상태코드 " + status + "에러메시지" + msg);
@@ -67,7 +70,7 @@
     <main class="mb-4">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
-                <form action="/boards/${board.id}" method=post>
+                <form action="/boards/${board.id}" onsubmit="return boardCheck()" method=post>
                     <input type="hidden" name="page" value="${page}">
                     <input type="hidden" name="writer" value="${sessionScope.email}">
                     <div class="container List-container">
@@ -86,7 +89,7 @@
                         <c:if test="${sessionScope.loginBean.authority == '일반' && board.id == 300}">
                             <p>매칭 인원 수 (최소 인원 : 2명)</p>
                             <select class="form-select" id="total_members" aria-label="Default select example">
-                                <option selected>매칭 인원 수를 선택하세요.</option>
+                                <option selected value="">매칭 인원 수를 선택하세요.</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
@@ -99,7 +102,7 @@
                             <h5 class="content-title">내용</h5>
                             <div class="content">
 							<textarea class="form-control" id="content" name="content" rows="3"
-                                      style="width:90%; height:600px; resize:none;" maxlength="2000" placeholder = "내용을 작성해주세요" required></textarea>
+                                      style="width:90%; height:600px; resize:none;" maxlength="2000" placeholder = "내용을 작성해주세요"></textarea>
                             </div>
                         </div>
                         <div class="board-footer">

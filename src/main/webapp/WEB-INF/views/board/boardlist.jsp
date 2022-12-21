@@ -78,7 +78,7 @@
 
         <div class="card mb-4">
             <div class="card-header">
-                <c:if test="${sessionScope.loginBean.authority == '기업' && (board.id == '100' || board.id == '200')}">
+                <c:if test="${sessionScope.loginBean.authority == '기업' && (board.id != '300')}">
                     <button type="button" class="btn btn-primary float-end"
                             onClick="location.href='/boards/${board.id}/write?page=${page}'">글 작성
                     </button>

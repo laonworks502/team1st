@@ -6,51 +6,7 @@
 <head>
     <title>마이 페이지</title>
 
-<%--  <link rel="stylesheet" href="/resources/css/decomypage.css" />--%>
-    <style>
-        *{
-            padding: 0;
-            margin:0;
-            padding: 20px;
-        }
-
-        header{
-            width:1180px;
-            min-width: 1180px;
-            background-color: antiquewhite;
-        }
-
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-flow: column nowrap;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-        }
-
-        main {
-            width:1180px;
-            min-width: 1180px;
-            margin: 0 auto;
-        }
-
-        ul,li {
-            list-style: none;
-        }
-        .mypage_list{
-            margin-top: 50px;
-        }
-        .subject{
-            margin: 50px 0px 50px 0px;
-
-        }
-        .myscrap_total_wrap{
-            margin-bottom: 80px;
-        }
-    </style>
+    <link rel="stylesheet" href="/resources/css/decomypage.css" />
 
     <!--[스크랩 버튼]-->
     <script>
@@ -116,8 +72,11 @@
             <input type="button" value="로그아웃" class="input_button" onclick="location='/loginselect'">
             <input type="button" value="회원수정" class="input_button" onclick="location='/general-user-edit'">
             <input type="button" value="회원탈퇴" class="input_button" onclick="location='/general-user-delete'">
+
+            <%--<input type="button" value="스크랩목록" class="input_button" onclick="location='/totalscrap'">--%>
+            <br><br>
             <input type="button" value="내 지원내역" class="input_button" onclick="location.href='/apply/applies'">
-            <input type="button" value="내 작성 글목록" class="input_button" onclick="location='/general-boardlist'">
+            <input type="button" value="스터디" class="input_button" onclick="location.href='/study/applies'">
 
             <!-- 파일 업로드에서는 enctype(인코딩타입)을 multipart/form-data로 반드시 설정 -->
             <form action="/resume-upload" method="post" enctype="multipart/form-data">
@@ -145,9 +104,7 @@
         <!--스크랩 영역-->
         <div class="myscrap_total_wrap">
             <div class="myscrap_subject_wrap">
-                <ul class="subject" >
-                    <h3>내 스크랩</h3>
-                </ul>
+                <strong><h3>내 스크랩</h3></strong>
             </div>
             <div class="myscrap_minilist_wrap">
                 <li class="board_subject">
