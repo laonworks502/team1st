@@ -253,7 +253,7 @@ public class GeneralUserController {
                          Model model,
                          GeneralUserBean gub) throws Exception{
 
-        // 파일 업로드 경로는 배포시 서버 측으로 설정해야한다.
+        // 파일 업로드 경로는 배포시 서버 측으로 설정해야한다!
 //		String email = (String)session.getAttribute("email"); => 대신 밑에 두 줄로 대체
         LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
         String email = loginBean.getEmail();
