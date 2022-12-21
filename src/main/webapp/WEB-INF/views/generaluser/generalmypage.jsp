@@ -43,9 +43,31 @@
 
         }
     </script>
+
 </head>
 <body>
     <%@ include file = "../common/header.jsp" %>
+
+    <script>
+        function nofile() {
+
+            var file_var = $('input[type=file][name=file]:checked').val();
+            // let file_var = document.getElementsByName("file");
+
+            console.log(file_var);
+            console.log(typeof file_var);
+            // console.log(file_var.value);
+
+            if(undefined === file_var){
+
+                alert("파일을 선택해주세요.");
+                return false;
+            }else {
+                return true;
+            }
+        }
+
+    </script>
 
     <main>
         <div class="mypage_list">
@@ -62,7 +84,7 @@
             <input type="button" value="스터디" class="input_button" onclick="location.href='/study/applies'">
 
             <!-- 파일 업로드에서는 enctype(인코딩타입)을 multipart/form-data로 반드시 설정 -->
-            <form action="/resume-upload" method="post" enctype="multipart/form-data">
+            <form action="/resume-upload" method="post" enctype="multipart/form-data" onsubmit="return nofile()">
 
                 <br>
                 <br>
@@ -71,15 +93,15 @@
                 이력서 선택 : <input type="file" name="file">
                 <input type="submit" value="업로드하기">
 
-                <br>
+            </form>
 
+                <br>
                 <br>
                 등록된 이력서 :
                 <a href="/download?resume=${gub.resume}">
                     ${gub.resume}
                 </a>
                 <br>
-            </form>
         </div>
 
         <!--스크랩 영역-->

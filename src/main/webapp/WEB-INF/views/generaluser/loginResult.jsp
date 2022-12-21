@@ -49,6 +49,19 @@
 	</script>
 </c:if>
 
+<c:if test="${result == 4 }">
+    <script>
+        alert("탈퇴가 완료되었습니다.");
+        location.href="/";
+    </script>
+</c:if>
+
+<c:if test="${result == 5 }">
+    <script>
+        alert("파일을 확인해주세요.");
+        location.href="/";
+    </script>
+</c:if>
 
 </body>
 </html>

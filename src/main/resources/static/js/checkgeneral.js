@@ -64,10 +64,6 @@ function checkch(){
 			 alert("영문,숫자를 혼합하여 입력해주세요.");
 			 return false;
 		 }
-		 // else {
-		 // 	console.log("통과");
-		 // 	return true;
-		 // } 사용가능, 사용불가능 구분이 안됨
 	 }
 
 
