@@ -41,8 +41,8 @@
                                 <td style="width: 250px">
                                     <fmt:formatDate value="${applies.date}" pattern="yyyy-MM-dd HH:mm"/></td>
                                 <td style="width: 200px"><button type="button" class="btn btn-danger"
-                                                                 onclick="location.href='/apply/applies/${applies.no}'">지원취소</button></td>
-                                                                 <%--onclick="cancelApply(${applies.no})">지원취소</button></td>--%>
+                                                                 <%--onclick="location.href='/apply/applies/${applies.no}'">지원취소</button></td>--%>
+                                                                 onclick="cancelApply(${applies.no})">지원취소</button></td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -54,9 +54,9 @@
     <script>
 
         function cancelApply(no) {
-            var confirm = confirm("정말로 지원을 취소하시겠습니까?");
-            if (confirm) {
-                location.href="/apply/applies"+no;
+            var confirmCheck = confirm("정말로 지원을 취소하시겠습니까?");
+            if (confirmCheck) {
+                location.href="/apply/applies/"+no;
             }
 
 
