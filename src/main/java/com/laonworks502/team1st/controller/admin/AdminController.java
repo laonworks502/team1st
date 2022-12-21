@@ -1,6 +1,5 @@
 package com.laonworks502.team1st.controller.admin;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import com.laonworks502.team1st.model.company.CompanyBean;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.CompanyUserBean;
