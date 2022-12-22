@@ -100,18 +100,43 @@
                             </button>
                         </li>
                         <li>
-                            <button class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">기업
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </li>
+                            <button class="dropdown-item" id="companyList" onclick="companyListPage(); companyList();">
+                                기업
+                            </button>
+                        </li>
+                    </ul>
+                </li>
 
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </nav>
+                <!-- 게시글 관리 -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown4" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        게시글 관리
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <button class="dropdown-item" id="fulltimeBoard"
+                                    onclick="fulltimeBoardPage(); fulltimeBoadList();">정규직 게시판
+                            </button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item" id="parttimeBoard"
+                                    onclick="parttimeBoardPage(); parttimeBoadList();">파트타임 게시판
+                            </button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item" id="studiesList" onclick="studiesPage(); studyList();">스터디목록
+                            </button>
+                        </li>
+                    </ul>
+                </li>
 
-                                <%--<nav class="navbar bg-light fixed-top">--%>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<%--<nav class="navbar bg-light fixed-top">--%>
 <%--    <div class="container-fluid">--%>
 <%--        <a class="navbar-brand" href="#">관리자님, 환영합니다.</a>--%>
 <%--        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"--%>
