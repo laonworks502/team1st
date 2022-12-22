@@ -48,7 +48,9 @@
                             <div class="col-8">
                                 <h5 class="content-title">글수정</h5>
                                 <h5 class="content-title">제목</h5>
-                                <input type="text" id="title" name="title" value="${PostBean.title}" required></div>
+                                <input type="text" id="title" name="title" style="width: 136%; height:35px;" value="${PostBean.title}" maxlength="50">
+
+                            </div>
                             <h5 class="col-1"></h5>
                             <p class="col-8"></p>
                             <p class="col-2"></p>
@@ -57,7 +59,7 @@
                             <h5 class="content-title">내용</h5>
                             <div class="content">
 							<textarea class="form-control" id="content" name="content" rows="3"
-                                      style="width:90%; height:250px; resize:none;" maxlength="300"
+                                      style="width:90%; height:500px; resize:none;" maxlength="300"
                                       required>${PostBean.content}</textarea>
                             </div>
                         </div>

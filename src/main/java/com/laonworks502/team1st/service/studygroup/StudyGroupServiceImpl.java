@@ -3,6 +3,7 @@ package com.laonworks502.team1st.service.studygroup;
 
 import com.laonworks502.team1st.dao.studygroup.StudyGroupDao;
 import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
+import com.laonworks502.team1st.model.studygroup.StudyListBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +41,13 @@ public class StudyGroupServiceImpl implements StudyGroupService {
     }
 
     @Override
-    public List<StudyGroupBean> getStudyList(String email) {
+    public List<StudyListBean> getStudyList(String email) {
         return studyGroupDao.getStudyList(email);
+    }
+
+    @Override
+    public int deleteStudy(int no, String email) {
+        return studyGroupDao.deleteStudy(no, email);
     }
 
 }

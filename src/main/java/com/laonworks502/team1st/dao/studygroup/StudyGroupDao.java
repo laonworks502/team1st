@@ -1,6 +1,7 @@
 package com.laonworks502.team1st.dao.studygroup;
 
 import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
+import com.laonworks502.team1st.model.studygroup.StudyListBean;
 
 import java.util.List;
 
@@ -15,7 +16,9 @@ public interface StudyGroupDao {
 
     int searchMatching(int no, String email);
 
-    List<StudyGroupBean> getStudyList(String email);
+    List<StudyListBean> getStudyList(String email);
+
+    int deleteStudy(int no, String email);
 }
 
 
