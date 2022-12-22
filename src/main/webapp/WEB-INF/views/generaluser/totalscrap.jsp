@@ -8,7 +8,7 @@
 
     <!--[스크랩 버튼]-->
     <script>
-        function scrapClick(no){
+        function scrapClick(no) {
             alert(no);
             <!--[클릭 ajax]-->
             $.ajax({
@@ -16,22 +16,21 @@
                 url: "/scrap/" + no, //@PathVariable로 받음
                 //data: no1,          //@RequestBody로 받음
                 //data: JSON.stringify(no1),
-                contentType:'application/json;charset=utf-8',
+                contentType: 'application/json;charset=utf-8',
                 success: function (data) {
                     alert(data);
-                    if(data == 1){	//스크랩 O
-                        $("#hiddenNoScrap"+no).show();
-                        $("#hiddenYesScrap"+no).hide();
-                        alert("in");
-                    }else{        //스크랩 X
-                        $("#hiddenYesScrap"+no).show();
-                        $("#hiddenNoScrap"+no).hide();
 
+                    if (data == 1) {	//스크랩 O
+                        $("#scrap_" + no).attr("value", 1);
+                        $("#scrap_" + no).attr("src", "/resources/images/IconYesScrap.png");
+                        alert("in");
+
+                    } else {        //스크랩 X
+                        location.href="/scrap/listTotalScrap/"+ ${board_id}
                         alert("out");
                     }
-                    location.reload();
                 }
-                ,error: function (e) {
+                , error: function (e) {
                     alert("data error" + e);
                 }
 
@@ -65,17 +64,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="myscrap" items="${myscrap}">
-                                    <tr>
-                                        <td onclick="location.href='/boards/${myscrap.board_id}/${myscrap.no}'">${myscrap.title}</td>
-                                        <td>${myscrap.date}</td>
-                                        <td>
-                                            <div class="scrapIconYesArea" id="scrapIconArea${myscrap.no}">
-                                                <input type="image" id="hiddenYesScrap${myscrap.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myscrap.no})">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                            <c:forEach var="myscrap" items="${myscrap}">
+                                <tr>
+                                    <td onclick="location.href='/boards/${myscrap.board_id}/${myscrap.no}'">${myscrap.title}</td>
+                                    <td>${myscrap.date}</td>
+                                    <td>
+                                        <div class="scrapIconYesArea" id="scrapIconArea${myscrap.no}">
+                                            <img src="/resources/images/IconYesScrap.png" value="${result}" id="scrap_${myscrap.no}" style="width:22px; height:22px;" onclick="scrapClick(${myscrap.no});">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -86,38 +85,34 @@
 
 
         <div class="myscrap_pageination">
-            <c:if test="${listcount>0}">
-                <!-- 1페이지로 이동 -->
-                <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=1" style="text-decoration:none">
-                    <i class="bi bi-chevron-double-left"></i>
-                </a>
-
-                <!-- 이전 블럭으로 이동 -->
-                <c:if test="${startPage > 10}">
-                    <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${stratPage-10}">
-                        <i class="bi bi-chevron-left"></i>
-                    </a>
-                </c:if>
-
-                <!-- 각 블럭에 10개의 페이지 출력 -->
-                <c:forEach var="i" begin="${startPage}" end="${endPage}">
-                    <c:if test="${i==page}">&nbsp;&nbsp;${i}&nbsp;&nbsp;</c:if> <!-- 현재페이지 -->
-                    <c:if test="${i!=page}"><a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${i}">
-                        &nbsp;&nbsp;${i}&nbsp;&nbsp;</a></c:if> <!-- 현재페이지가 아닌 경우 -->
-                </c:forEach>
-
-                <!-- 다음 블럭으로 이동 -->
-                <c:if test="${endPage < pageCount}">
-                    <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${startPage+10}">
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-                </c:if>
-
-                <!-- 마지막페이지로 이동 -->
-                <a href="<%=request.getContextPath()%>/mypage/mylikeList.do?page=${pageCount}" style="text-decoration:none">
-                    <i class="bi bi-chevron-double-right"></i>
-                </a>
-            </c:if>
+                <!-- 페이징 -->
+                <nav class="center" aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <c:if test="${page>1}">
+                                <a class="page-link" href="/boards/${board_id}?page=${page-1}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </c:if>
+                        </li>
+                        <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
+                            <li class="page-item" id="page-item${i}">
+                                <a class="page-link" href="/boards/${board_id}?page=${i}">${i}</a>
+                            </li>
+                        </c:forEach>
+                        <script>
+                            const pageItem=document.getElementById("page-item${page}");
+                            pageItem.classList.add('active')
+                        </script>
+                        <li class="page-item">
+                            <c:if test="${page < pg.pagesTotal}">
+                                <a class="page-link" href="/boards/${board_id}?page=${page+1}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </c:if>
+                        </li>
+                    </ul>
+                </nav>
         </div>
     </div>
 </main>
