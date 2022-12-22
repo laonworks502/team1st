@@ -40,25 +40,25 @@
 
         }
     </script>
+
 </head>
 <body>
     <%@ include file = "../common/header.jsp" %>
-<!-- 여기부터
-    <nav class="nav nav-pills nav-justified">
-        <c:forEach var="boardList" items="${sessionScope.boardList}">
-            <a class="nav-link" id="${boardList.id}" href="/boards/${boardList.id}">${boardList.name} 게시판</a>
-            <c:if test="${boardList.id == board.id}">
-                <script>
-                    const navActive = document.getElementById("${boardList.id}");
-                    navActive.classList.add('active')
-                </script>
-            </c:if>
-        </c:forEach>
-    </nav>
 
-    <input type="button" value="나의 글목록" class="input_button" onclick="location='/boards/${pb.board_id}/${pb.no}'">
-    <button onclick="location='/generalmyboardlist'">내가 작성한 글</button>
-    여기까지 -->
+    <script>
+        function nofile() {
+
+            var file_var = $("#file").val();
+            if($("#file").val() == ""){
+                alert("첨부파일을 선택해주세요");
+                return false;
+            }
+
+            console.log(file_var);
+            console.log(typeof file_var);
+        }
+
+    </script>
 
     <main>
         <div class="mypage_list">
@@ -70,32 +70,30 @@
             <input type="button" value="회원수정" class="input_button" onclick="location='/general-user-edit'">
             <input type="button" value="회원탈퇴" class="input_button" onclick="location='/general-user-delete'">
 
-            <%--<input type="button" value="스크랩목록" class="input_button" onclick="location='/totalscrap'">--%>
             <br><br>
+            <input type="button" value="내 작성 글목록" class="input_button" onclick="location='/general-boardlist'">
             <input type="button" value="내 지원내역" class="input_button" onclick="location.href='/apply/applies'">
-            <input type="button" value="스터디" class="input_button" onclick="location.href='/study/applies'">
+            <input type="button" value="스터디" class="input_button" onclick="location.href='/study/listForm'">
 
             <!-- 파일 업로드에서는 enctype(인코딩타입)을 multipart/form-data로 반드시 설정 -->
-            <form action="/resume-upload" method="post" enctype="multipart/form-data">
+            <form action="/resume-upload" method="post" enctype="multipart/form-data" onsubmit="return nofile()">
 
                 <br>
                 <br>
                 <br>이력서 업로드 : 파일 선택 후 업로드 버튼을 누르세요.
                 <br>
-                이력서 선택 : <input type="file" name="file">
+                이력서 선택 : <input type="file" id="file" name="file">
                 <input type="submit" value="업로드하기">
 
+            </form>
+
                 <br>
-
-                <%-- <a href="download.do?fname=<%=request.getContextPath()%>/upload/${fileName }"> --%>
-
                 <br>
                 등록된 이력서 :
                 <a href="/download?resume=${gub.resume}">
                     ${gub.resume}
                 </a>
                 <br>
-            </form>
         </div>
 
         <!--스크랩 영역-->

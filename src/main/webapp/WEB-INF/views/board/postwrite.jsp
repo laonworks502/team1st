@@ -76,30 +76,30 @@
                     <div class="container List-container">
                         <div class="row mt-1 header">
                             <div class="col-8">
-                                <h5 class="content-title">글작성</h5>
-                                <h5 class="content-title">제목</h5>
-                                <div style="width: 300px">
-                                    <input type="text" id="title" name="title" style="width: 250%" value="" maxlength="50">
-                                </div>
+                                <h3 class="content-title" style="font-weight: bolder">글작성</h3><br>
+                                <h5 class="content-title" style="font-weight: bolder">제목</h5>
+                                <div>
+                                    <input type="text" id="title" name="title" style="width: 136%; height:35px;" value="" maxlength="50">
+                                </div><br>
                             </div>
                             <h5 class="col-1"></h5>
                             <p class="col-8"></p>
                             <p class="col-2"></p>
                         </div>
                         <c:if test="${sessionScope.loginBean.authority == '일반' && board.id == 300}">
-                            <p>매칭 인원 수 (최소 인원 : 2명)</p>
-                            <select class="form-select" id="total_members" aria-label="Default select example">
-                                <option selected value="">매칭 인원 수를 선택하세요.</option>
+                            <h5 style="font-weight: bolder">매칭 인원수 (최소 인원 : 2명)</h5>
+                            <select class="form-select" id="total_members" aria-label="Default select example" style="width: 30%">
+                                <option selected value="">매칭 인원수를 선택하세요.</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
-                            </select>
-                            <p>매칭 마감일</p>
+                            </select><br>
+                            <h5 style="font-weight: bolder">매칭 마감일</h5>
                             <input type="date" id="deadline">
                         </c:if>
-                        <div class="post-container">
-                            <h5 class="content-title">내용</h5>
+                        <div class="post-container"><br>
+                            <h5 class="content-title" style="font-weight: bolder">내용</h5>
                             <div class="content">
 							<textarea class="form-control" id="content" name="content" rows="3"
                                       style="width:90%; height:600px; resize:none;" maxlength="2000" placeholder = "내용을 작성해주세요"></textarea>

@@ -47,6 +47,7 @@
             success: function (result) {
                 if (result == 1) {
                     $('#apply').attr('disabled', true);
+                    $('#apply').text('지원 완료');
                 } else {
                     $('#apply').attr('disabled', false);
                 }
@@ -98,6 +99,7 @@
                 if (result == 1) {
                     alert("지원 완료");
                     $('#apply').attr('disabled', true);
+                    $('#apply').text('지원 완료');
                 } else {
                     alert("지원 실패. 다시 시도해주세요.");
                     return false;
@@ -134,6 +136,7 @@
             })
         }
     }
+
 
     // 스크랩 버튼 클릭 시 ajax
     function scrapClick(no) {
@@ -179,6 +182,7 @@
                 if(data == 1){
                     alert("참여 완료");
                     $('#joinStudy').attr('disabled', true);
+                    $('#joinStudy').text('참여 완료');
                 }else{
                     alert("참여 실패. 다시 시도해주세요.")
                     return false;
@@ -201,39 +205,33 @@
                 <div class="container List-container">
                     <div class="row mt-1 header">
                         <div class="col-8">
-                            <h5 class="content-title">글 상세보기</h5>
+                            <h3 class="content-title" style="font-weight: bolder">글 상세보기</h3>
                             <%--<h5 class="content-title">제목</h5>--%>
                             <br>
                             <div style="width: 300px">
-                                <h5 name="title" style="width: 250%" >${posts.title}</h5>
+                                <h4 name="title" style="width: 250%; font-weight: bolder">${posts.title}</h4>
                             </div>
                         </div>
                         <h5 class="col-1"></h5>
                         <p class="col-8"></p>
                         <p class="col-2"></p>
                     </div>
-
+                    <div>
+                        <h6 class="content-title" style="font-weight: bolder">작성일: <fmt:formatDate value="${posts.date}" pattern="yyyy-MM-dd HH:mm"/></h6>
+                    </div>
                     <%-- 매칭 관련 내용--%>
                     <c:if test="${posts.board_id == 300}">
-                        <p>총 매칭 인원</p>
-                        <p>${sgb.total_members}명</p>
-                        <p>매칭 가능 인원</p>
-                        <p>${sgb.total_members - studyCount}명<p>
-                        <p>매칭 가능일</p>
-                        <p><fmt:formatDate value="${sgb.date}" pattern="yyyy. MM. dd"/> - <fmt:formatDate value="${sgb.deadline}" pattern="yyyy. MM. dd"/></p>
                         <br>
+                        <p>총 매칭 인원 : ${sgb.total_members}명</p>
+                        <p>매칭 가능 인원 : ${sgb.total_members - studyCount}명</p>
+                        <p>매칭 가능일 : <fmt:formatDate value="${sgb.date}" pattern="yyyy. MM. dd"/> - <fmt:formatDate value="${sgb.deadline}" pattern="yyyy. MM. dd"/></p>
                         <c:if test="${sessionScope.loginBean.authority == '일반'}">
-                            <button type="button" class="btn btn-success" id="joinStudy" onclick="joinStudy()">참여하기</button>
+                            <button type="button" class="btn btn-success" id="joinStudy" onclick="joinStudy()">참여하기</button><br><br>
                         </c:if>
                     </c:if>
 
-                    <div>
-                        <h5 class="content-title">작성일</h5>
-                        <p><fmt:formatDate value="${posts.date}" pattern="yyyy-MM-dd HH:mm"/></p>
-
-                    </div>
-                    <div class="post-container">
-                        <h5 class="content-title">내용</h5>
+                    <div class="post-container"><br>
+                        <h4 class="content-title" style="font-weight: bolder">내용</h4>
                         <div class="content">
                             <textarea class="form-control" name="content" rows="3"
                                       style="width:100%; height:600px; resize:none;"

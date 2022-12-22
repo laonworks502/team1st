@@ -6,6 +6,8 @@ import java.security.SecureRandom;
 
 public class SHA256 {
 
+	// Static변수는 메모리에 한번 할당되어 프로그램이 종료될 때 해제되는 변수로,
+	// 메모리에 한번 할당되므로 여러 객체가 해당 메모리를 공유하게 됩니다.
     public static String getSalt() {
     	
     	// 1. Random, byte 객체 생성
@@ -15,7 +17,7 @@ public class SHA256 {
     	// 2. 난수 생성
     	sr.nextBytes(salt);
     	
-    	// 3. byte to String (10진수의 문자열로 변경)
+    	// 3. byte to String (16진수의 문자열로 변경)
     	StringBuffer sb = new StringBuffer();
     	for(byte b : salt) {
     		sb.append(String.format("%02x", b));
@@ -33,7 +35,7 @@ public class SHA256 {
     	md.update((pwd+salt).getBytes());
     	byte[] pwdsalt = md.digest();
     	
-    	// 3. byte to String (10진수의 문자열로 변경)
+    	// 3. byte to String (16진수의 문자열로 변경)
     	StringBuffer sb = new StringBuffer();
     	for(byte b : pwdsalt) {
     		sb.append(String.format("%02x", b));
