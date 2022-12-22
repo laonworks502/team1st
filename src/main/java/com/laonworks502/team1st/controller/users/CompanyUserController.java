@@ -78,25 +78,28 @@ public class CompanyUserController {
 		int cnt = 0;
 		vali = false;
 
+		// 입력받은 email 검색
 		int em = cus.emailCheck(email);
-		if(em==0) {
+		if(em==0) { // 검색된 email이 0인경우 
 			
-			if(StringUtils.isEmpty(email)){
+			if(StringUtils.isEmpty(email)){ // 빈 칸일 경우 false
 				vali=false;
 			}
 			String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(email);
-			if(m.matches()) {
+			if(m.matches()) { // email형식에 맞으면 true
 				vali = true;
 			}
-			if(vali==false) {
+			if(vali==false) { // 유효하지 않은 email경우 1리턴
 				cnt=1;
-			}else {
+			}else {		// 유효한 email경우 0리턴
 				cnt=0;
+				log.info("ok_email");
 			}
-		}else {
+		}else {	// 검색된 email이 있을 경우 1리턴 
 			cnt=1;
+			log.info("already_email");
 		}
 		return cnt;
 	}
