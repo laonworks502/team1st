@@ -1,16 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ include file = "../common/commonlist.jsp" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8" />
-<title>관리자 메인</title>
-</head>
-<body>
 	<br>
 	<h4>기업회원 주별 회원수 추이</h4>
 	<br>
-	<div style="width: 400px; height: auto; align: center">
+	<div style="width: 800px; height: auto; align: center">
 				<canvas id="companyJoinChartWeek">
 				</canvas>
 	</div>
@@ -32,10 +24,4 @@
 		}
 
 	});
-
-	
-	
-	
 	</script>
-</body>		
-</html>

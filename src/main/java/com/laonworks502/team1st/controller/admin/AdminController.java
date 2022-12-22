@@ -1,6 +1,5 @@
 package com.laonworks502.team1st.controller.admin;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import com.laonworks502.team1st.model.company.CompanyBean;
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.users.CompanyUserBean;
@@ -53,14 +52,14 @@ public class AdminController {
 	}
 
 	// 관리자 로그인 폼으로 이동  
-	@RequestMapping("adminloginform")
+	@RequestMapping("/adminloginform")
 	public String adminloginform() throws Exception {
 
 		return "admin/adminloginform";
 	}
 	
 	// 관리자 로그인
-	@RequestMapping("adminlogin")
+	@RequestMapping("/adminlogin")
 	public String adminlogin(AdminBean adminbean, HttpSession session, Model model, @RequestParam("id") String id,
 			@RequestParam("passwd") String passwd) throws Exception {
 
@@ -95,7 +94,7 @@ public class AdminController {
 	}
 
 	// 관리자 메인
-	@RequestMapping("adminmain")
+	@RequestMapping("/adminmain")
 	public String adminmain(HttpSession session, Model model) throws Exception {
 
 		// 로그인 세션 유지
@@ -106,7 +105,7 @@ public class AdminController {
 	}
 
 	//관리자 로그아웃
-	@RequestMapping("adminlogout")
+	@RequestMapping("/adminlogout")
 	public String adminlogout(HttpSession session) throws Exception {
 
 		// 관리자 로그인 세션 종료
