@@ -43,7 +43,7 @@ function checkch(){
 	var regEmail = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 		if(!regEmail.test(email)){
 			alert("이메일 형식이 유효하지 않습니다.");
-			$("#member_email").val("").focus();
+			$("#email").val("").focus();
 			return false;
 		}
 	 if($.trim($("#passwd").val())==""){
