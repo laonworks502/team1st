@@ -50,7 +50,7 @@ function checkch(){
 		 return false;
 	 }else{
 		 var pw = $("#passwd").val();
-		 var num = pw.search(/[0-9]/g);
+		 var num1 = pw.search(/[0-9]/g);
 		 var eng = pw.search(/[a-z]/ig);
 
 		 if(pw.length < 8 || pw.length > 20){
@@ -60,14 +60,10 @@ function checkch(){
 		 }else if(pw.search(/\s/) != -1){
 			 alert("비밀번호는 공백 없이 입력해주세요.");
 			 return false;
-		 }else if(num < 0 || eng < 0 ){
+		 }else if(num1 < 0 || eng < 0 ){
 			 alert("영문,숫자를 혼합하여 입력해주세요.");
 			 return false;
 		 }
-		 // else {
-		 // 	console.log("통과");
-		 // 	return true;
-		 // } 사용가능, 사용불가능 구분이 안됨
 	 }
 
 
@@ -107,14 +103,29 @@ function checkch(){
 		$("#address2").val("").focus();
 		return false;
 	}
-	if($.trim($("#tel2").val())==""){
+
+	var regExp = /^[0-9]*$/;
+	var tel2 = $.trim($("#tel2").val());
+	var tel3 = $.trim($("#tel3").val());
+
+	if(($.trim($("#tel2").val())=="") ){
 		alert("전화번호를 입력하세요!");
 		$("#tel2").val("").focus();
+		return false;
+	}
+	if(!regExp.test(tel2)){
+		alert("전화번호는 숫자로 입력하세요!");
+		$("#tel2").focus();
 		return false;
 	}
 	if($.trim($("#tel3").val())==""){
 		alert("전화번호를 입력하세요!");
 		$("#tel3").val("").focus();
+		return false;
+	}
+	if(!regExp.test(tel3)){
+		alert("전화번호는 숫자로 입력하세요!");
+		$("#tel3").focus();
 		return false;
 	}
 

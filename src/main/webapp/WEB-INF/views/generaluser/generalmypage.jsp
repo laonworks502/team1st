@@ -43,9 +43,25 @@
 
         }
     </script>
+
 </head>
 <body>
     <%@ include file = "../common/header.jsp" %>
+
+    <script>
+        function nofile() {
+
+            var file_var = $("#file").val();
+            if($("#file").val() == ""){
+                alert("첨부파일을 선택해주세요");
+                return false;
+            }
+
+            console.log(file_var);
+            console.log(typeof file_var);
+        }
+
+    </script>
 
     <main>
         <div class="mypage_list">
@@ -63,24 +79,24 @@
             <input type="button" value="스터디" class="input_button" onclick="location.href='/study/listForm'">
 
             <!-- 파일 업로드에서는 enctype(인코딩타입)을 multipart/form-data로 반드시 설정 -->
-            <form action="/resume-upload" method="post" enctype="multipart/form-data">
+            <form action="/resume-upload" method="post" enctype="multipart/form-data" onsubmit="return nofile()">
 
                 <br>
                 <br>
                 <br>이력서 업로드 : 파일 선택 후 업로드 버튼을 누르세요.
                 <br>
-                이력서 선택 : <input type="file" name="file">
+                이력서 선택 : <input type="file" id="file" name="file">
                 <input type="submit" value="업로드하기">
 
-                <br>
+            </form>
 
+                <br>
                 <br>
                 등록된 이력서 :
                 <a href="/download?resume=${gub.resume}">
                     ${gub.resume}
                 </a>
                 <br>
-            </form>
         </div>
 
         <!--스크랩 영역-->

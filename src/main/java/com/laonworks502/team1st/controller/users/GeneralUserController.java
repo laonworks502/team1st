@@ -87,7 +87,7 @@ public class GeneralUserController {
         log.info("비밀번호 암호화 저장 : " + gub.getPasswd());
         log.info("회원가입 완료");
 
-        return "generaluser/loginForm"; // 가입 후 일반회원 로그인페이지로 이동
+        return "redirect:/general-login-form"; // 가입 후 일반회원 로그인페이지로 이동
     }
 
     // 이메일 중복 체크
@@ -216,6 +216,7 @@ public class GeneralUserController {
         return "generaluser/loginResult";
     }
 
+    // 내가 쓴 글 목록
     @RequestMapping("general-boardlist")
     public String generalmyboardlist(@RequestParam(value = "page", required = false, defaultValue = "1")
                                      Integer page, HttpServletRequest request, GeneralUserBean gub,
@@ -298,7 +299,6 @@ public class GeneralUserController {
             int result = gus.resumeupload(gub);
             if(result == 1) log.info("파일 업로드 -> " + gub.getResume());
             model.addAttribute("gub", gub);      // -> 모델 설정해야 곧바로 웹에 표시가능
-
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {
