@@ -1,12 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ include file = "../common/commonlist.jsp" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8" />
-<title>관리자 메인</title>
-</head>
-<body>
 	<br>
 	<h4>일반회원 주별 회원수 추이</h4>
 	<br>
@@ -33,9 +25,4 @@
 
 	});
 
-	
-	
-	
 	</script>
-</body>		
-</html>
