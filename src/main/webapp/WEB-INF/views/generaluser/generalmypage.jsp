@@ -46,22 +46,6 @@
 </head>
 <body>
     <%@ include file = "../common/header.jsp" %>
-<!-- 여기부터
-    <nav class="nav nav-pills nav-justified">
-        <c:forEach var="boardList" items="${sessionScope.boardList}">
-            <a class="nav-link" id="${boardList.id}" href="/boards/${boardList.id}">${boardList.name} 게시판</a>
-            <c:if test="${boardList.id == board.id}">
-                <script>
-                    const navActive = document.getElementById("${boardList.id}");
-                    navActive.classList.add('active')
-                </script>
-            </c:if>
-        </c:forEach>
-    </nav>
-
-    <input type="button" value="나의 글목록" class="input_button" onclick="location='/boards/${pb.board_id}/${pb.no}'">
-    <button onclick="location='/generalmyboardlist'">내가 작성한 글</button>
-    여기까지 -->
 
     <main>
         <div class="mypage_list">
@@ -73,8 +57,8 @@
             <input type="button" value="회원수정" class="input_button" onclick="location='/general-user-edit'">
             <input type="button" value="회원탈퇴" class="input_button" onclick="location='/general-user-delete'">
 
-            <%--<input type="button" value="스크랩목록" class="input_button" onclick="location='/totalscrap'">--%>
             <br><br>
+            <input type="button" value="내 작성 글목록" class="input_button" onclick="location='/general-boardlist'">
             <input type="button" value="내 지원내역" class="input_button" onclick="location.href='/apply/applies'">
             <input type="button" value="스터디" class="input_button" onclick="location.href='/study/listForm'">
 
@@ -89,8 +73,6 @@
                 <input type="submit" value="업로드하기">
 
                 <br>
-
-                <%-- <a href="download.do?fname=<%=request.getContextPath()%>/upload/${fileName }"> --%>
 
                 <br>
                 등록된 이력서 :
