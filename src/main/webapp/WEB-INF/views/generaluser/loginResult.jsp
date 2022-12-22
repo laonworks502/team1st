@@ -56,12 +56,6 @@
     </script>
 </c:if>
 
-<c:if test="${result == 5 }">
-    <script>
-        alert("파일을 확인해주세요.");
-        location.href="/";
-    </script>
-</c:if>
 
 </body>
 </html>
