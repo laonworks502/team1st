@@ -2,7 +2,7 @@
 	<br>
 	<h4>일반회원 월별 회원수 추이</h4>
 	<br>
-	<div style="width: 400px; height: auto; align: center">
+	<div style="width: 800px; height: auto; align: center">
 		<canvas id="userJoinChartMonth">
 				</canvas>
 	</div>
