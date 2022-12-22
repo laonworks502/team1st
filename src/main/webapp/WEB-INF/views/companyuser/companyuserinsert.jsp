@@ -35,11 +35,11 @@
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td class="rr"> <input type="text" name="email" id="email" oninput="checkemail()" /></td>
+					<td class="rr"> <input type="text" name="email" id="email" oninput="checkemail()" />
+						<br><a style="font-size: 9pt; font-weight:bold; color: red;">* 이메일 형식으로 입력해주세요.</a></td>
            			<td class="rr"> <span class="email_ok" style="color:green; display:none;">사용 가능</span>
            				 <span class="email_already" style="color:red; display:none;">사용 불가능</span>
-           				 </td>
-           			 
+           			</td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
