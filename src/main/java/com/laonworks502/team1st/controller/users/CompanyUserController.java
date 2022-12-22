@@ -1,11 +1,15 @@
 package com.laonworks502.team1st.controller.users;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.laonworks502.team1st.model.board.Pagination;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -66,20 +70,34 @@ public class CompanyUserController {
 		return "companyuser/companywritelist";
 	}
 
-	// 이메일 중복체크
+	// 이메일 중복체크 및 형식 검사
 	@PostMapping("/emailcheck")
 	@ResponseBody
-	public int emailCheck(@RequestParam("email") String email) throws Exception {
+	public int emailCheck(@RequestParam("email") String email, boolean vali) throws Exception {
+		
+		int cnt = 0;
+		vali = false;
 
-		int cnt = cus.emailCheck(email);
-
-		if (cnt == 0) { // 사용 가능
-			log.info("ok_email");
-		} else { // 중복, 사용 불가능
-			log.info("already_email");
+		int em = cus.emailCheck(email);
+		if(em==0) {
+			
+			if(StringUtils.isEmpty(email)){
+				vali=false;
+			}
+			String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
+			Pattern p = Pattern.compile(regex);
+			Matcher m = p.matcher(email);
+			if(m.matches()) {
+				vali = true;
+			}
+			if(vali==false) {
+				cnt=1;
+			}else {
+				cnt=0;
+			}
+		}else {
+			cnt=1;
 		}
-
-		log.info("emailcheck_ok!");
 		return cnt;
 	}
 
@@ -102,10 +120,12 @@ public class CompanyUserController {
 
 		// salt 생성
 		String salt = SHA256.getSalt();
+
+		// 생성된 salt저장
 		cub.setSalt(salt);
 		String passwd = cub.getPasswd();
 
-		// 최종 비밀번호 : 입력받은 passwd+salt 암호화
+		// 최종 비밀번호 : 입력받은 passwd + salt 를 암호화
 		String lastpwd = SHA256.getEncrypt(passwd, salt);
 		cub.setPasswd(lastpwd);
 
@@ -121,8 +141,7 @@ public class CompanyUserController {
 
 	// 기업 회원 수정
 	@RequestMapping("/update")
-	public String companyuserupdate(HttpServletRequest request, HttpSession session, Model model)
-			throws Exception {
+	public String companyuserupdate(HttpServletRequest request, HttpSession session, Model model) throws Exception {
 		log.info("수정컨트롤러");
 		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 		String email = loginBean.getEmail();
@@ -138,8 +157,7 @@ public class CompanyUserController {
 	// 기업 회원 수정
 	@RequestMapping("/companyuserupdate_ok")
 	public String companyuserupdate_ok(@RequestParam("passconfirm") String passconfirm, HttpSession session,
-			CompanyUserBean cub ,HttpServletRequest request, Model model) throws Exception {
-
+			CompanyUserBean cub, HttpServletRequest request, Model model) throws Exception {
 
 		// 이메일로 회원 검색
 		CompanyUserBean cubean = cus.getMember(cub.getEmail());
@@ -182,11 +200,11 @@ public class CompanyUserController {
 	// 기업 회원 탈퇴
 	@RequestMapping("/companyuserdelete_ok")
 	public String companyuserdelete_ok(@RequestParam("exit_reason") String exit_reason,
-			@RequestParam("passconfirm") String passconfirm, HttpSession session,
-			HttpServletRequest request, Model model) throws Exception {
+			@RequestParam("passconfirm") String passconfirm, HttpSession session, HttpServletRequest request,
+			Model model) throws Exception {
 		LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 		String email = loginBean.getEmail();
-		
+
 		// 이메일로 회원 검색
 		CompanyUserBean cub = cus.getMember(email);
 
@@ -195,7 +213,7 @@ public class CompanyUserController {
 
 		// 입력받은 (passconfirm+salt) 암호화
 		String pw = SHA256.getEncrypt(passconfirm, salt);
-		  
+
 		int result = 0;
 		if (cub.getPasswd().equals(pw)) { // 비밀번호가 일치하면 아래 탈퇴메소드 실행
 			// 탈퇴 사유 입력
@@ -205,17 +223,17 @@ public class CompanyUserController {
 			// 탈퇴 메서드 실행
 			cus.quitUser(cub);
 			log.info("companyuserdelete_ok");
- 
+
 			// 세션 종료
 			session.invalidate();
-			
+
 			result = 4;
 			model.addAttribute("result", result); // 회원 탈퇴 완료 후 메인으로 이동
-		} else {	// 불일치시 아래 오류페이지로 이동
+		} else { // 불일치시 아래 오류페이지로 이동
 			result = 3;
 			model.addAttribute("result", result);
 		}
 		return "companyuser/loginResult";
 	}
-	
+
 }
