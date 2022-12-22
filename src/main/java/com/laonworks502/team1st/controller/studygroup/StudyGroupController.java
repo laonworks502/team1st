@@ -2,8 +2,8 @@ package com.laonworks502.team1st.controller.studygroup;
 
 import com.laonworks502.team1st.model.post.PostBean;
 import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
+import com.laonworks502.team1st.model.studygroup.StudyListBean;
 import com.laonworks502.team1st.model.users.LoginBean;
-import com.laonworks502.team1st.service.board.BoardService;
 import com.laonworks502.team1st.service.board.BoardServiceImpl;
 import com.laonworks502.team1st.service.studygroup.StudyGroupServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @Slf4j
@@ -106,7 +105,7 @@ public class StudyGroupController {
             @RequestBody String email,
             HttpSession session) throws Exception {
 
-        log.info("들어옴 {}", email);
+        log.info("insertMatching in");
 
         LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
 
@@ -120,19 +119,101 @@ public class StudyGroupController {
     
     // 스터디 매칭 참여 가능 여부
     @ResponseBody
-    @GetMapping(value = "/{no}")
+    @GetMapping(value = "/check/{no}")
     public Integer selectMatching(@PathVariable(value = "no") int no,
-                               HttpSession session) throws Exception {
+                                  @RequestParam String email,
+                                  HttpSession session) throws Exception {
+
+        log.info("selectMatching in, email = {}",email);
 
         LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
-        String email = loginBean.getEmail();
+        String memberEmail = loginBean.getEmail();
 
-        int result = studyGroupService.searchMatching(no, email);
+        // 0 또는 1 리턴
+        int result = studyGroupService.searchMatching(no, memberEmail);
+
+        StudyGroupBean studyGroupBean = studyGroupService.getStudyByNo(no, email);
+        Date date = new Date();
+
+        log.info("데드라인: {}", studyGroupBean.getDeadline());
+        log.info("오늘 날짜: {}", date);
+        log.info("결과: {}",date.after(studyGroupBean.getDeadline()));
+
+        if(date.after(studyGroupBean.getDeadline())){ // date(현재 날짜)가 deadline보다 이후라면 == 날짜가 지난 경우 true 반환
+            result = 2; // 날짜 지남
+        }
+            
+        int count = studyGroupService.countAllMatching(no, email);
+            
+        if((studyGroupBean.getTotal_members() - count) <= 0){   // 매칭 인원이 0이거나 그보다 적을 경우
+            result = 3; // 매칭 완료
+        }
 
         log.info("result = {}", result);
 
         return result;
     }
+    
+    
+    
+    
+    // 마이페이지
+    
+    // 스터디 리스트 페이지 이동
+    @GetMapping(value = "/listForm")
+    public String studyList() throws Exception {
+        return "generaluser/studyList";
+    }
 
+    // 스터디 참여 목록
+    @ResponseBody
+    @GetMapping(value = "/list")
+    public List<StudyListBean> getStudyList(HttpSession session) throws Exception{
+
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
+        List<StudyListBean> studyListBeans = studyGroupService.getStudyList(email);
+        log.info("studyListBeans={}", studyListBeans);
+
+        log.info("{}", studyListBeans.size());
+
+        for (int i = 0; i < studyListBeans.size(); i++) {
+            log.info("studyListBeans={}", studyListBeans.get(i).getMember_count());
+            System.out.println(studyListBeans.get(i).getMember_count());
+            studyListBeans.get(i).setMember_count(studyGroupService.countAllMatching(studyListBeans.get(i).getNo(), studyListBeans.get(i).getHost_email()));
+            log.info("studyListBeans={}", studyListBeans.get(i).getMember_count());
+        }
+
+        return studyListBeans;
+    }
+
+    // 스터디 탈퇴
+    @ResponseBody
+    @DeleteMapping(value = "/1/{no}")
+    public Integer deleteStudy(@PathVariable (value = "no") int no,
+                               HttpSession session) throws Exception{
+
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
+        int result = studyGroupService.deleteStudy(no, email);
+
+        return result;
+    }
+
+    // 스터디 삭제
+    @ResponseBody
+    @DeleteMapping(value = "/2/{no}")
+    public Integer deleteMyStudy(@PathVariable (value = "no") int no,
+                                 HttpSession session) throws Exception{
+
+        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        String email = loginBean.getEmail();
+
+        int result = boardService.deletePost(no);
+
+        return result;
+    }
 
 }

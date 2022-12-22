@@ -3,8 +3,11 @@ package com.laonworks502.team1st.service.studygroup;
 
 import com.laonworks502.team1st.dao.studygroup.StudyGroupDao;
 import com.laonworks502.team1st.model.studygroup.StudyGroupBean;
+import com.laonworks502.team1st.model.studygroup.StudyListBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StudyGroupServiceImpl implements StudyGroupService {
@@ -35,6 +38,16 @@ public class StudyGroupServiceImpl implements StudyGroupService {
     @Override
     public int searchMatching(int no, String email) {
         return studyGroupDao.searchMatching(no, email);
+    }
+
+    @Override
+    public List<StudyListBean> getStudyList(String email) {
+        return studyGroupDao.getStudyList(email);
+    }
+
+    @Override
+    public int deleteStudy(int no, String email) {
+        return studyGroupDao.deleteStudy(no, email);
     }
 
 }

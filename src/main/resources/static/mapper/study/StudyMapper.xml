@@ -28,4 +28,15 @@
     <select id="searchMatching" resultType="int">
         select count(*) from study_groups where no = #{no} and members_email = #{email}
     </select>
+
+    <!-- 매칭 정보 전체 list select-->
+    <select id="getStudyList" resultType="com.laonworks502.team1st.model.studygroup.StudyListBean">
+        select posts.no, posts.title, posts.board_id, study_groups.host_email, study_groups.total_members, study_groups.members_email, study_groups.date, study_groups.deadline
+        from study_groups join posts on study_groups.no = posts.no where members_email = '${email}'
+    </select>
+
+    <!-- 참여한 매칭 삭제 (탈퇴하기) -->
+    <delete id="deleteStudy">
+        delete from study_groups where no = ${no} and members_email = #{email}
+    </delete>
 </mapper>

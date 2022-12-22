@@ -9,7 +9,13 @@
 <script>
 
     // [로드 되자마자 실행될 ajax]
-    $(document).ready(function () {
+    <c:if test="${sessionScope.loginBean.email != null && posts.board_id != 300}">
+        applyCheck();
+    </c:if>
+    <c:if test="${sessionScope.loginBean.email != null && posts.board_id == 300}">
+        studyCheck();
+    </c:if>
+    /*$(document).ready(function () {*/
 
         <!--[스크랩 버튼]-->
 /*        $.ajax({
@@ -32,6 +38,7 @@
 
         });//$.ajax*/
 
+    function applyCheck(){
         // 지원 유무 판별 ajax
         $.ajax({
             url: '/apply/${no}',
@@ -40,6 +47,7 @@
             success: function (result) {
                 if (result == 1) {
                     $('#apply').attr('disabled', true);
+                    $('#apply').text('지원 완료');
                 } else {
                     $('#apply').attr('disabled', false);
                 }
@@ -49,26 +57,37 @@
                 return false;
             },
         })
+    }
 
+        function studyCheck(){
         // 스터디 참여 가능 여부 판별 ajax
-        $.ajax({
-            url: '/study/${no}',
-            method: 'GET',
-            contentType: 'application/json;charset=utf-8',
-            success: function (result) {
-                if (result == 1) {
-                    $('#joinStudy').attr('disabled', true);
-                } else {
-                    $('#joinStudy').attr('disabled', false);
-                }
-            },
-            error: function (error, status, msg) {
-                alert("상태코드 " + status + "에러메시지" + msg);
-                return false;
-            },
-        })
+            $.ajax({
+                url: '/study/check/${no}',
+                method: 'GET',
+                 data: {email: '${posts.writer}'},
+                contentType: 'application/json;charset=utf-8',
+                success: function (result) {
+                    if (result == 0) {
+                        $('#joinStudy').attr('disabled', false);
+                    } else if(result == 1) {
+                        $('#joinStudy').attr('disabled', true);
+                        $('#joinStudy').text('참여 완료');
+                    } else if(result == 2){
+                        $('#joinStudy').attr('disabled', true);
+                        $('#joinStudy').text('기간이 지난 매칭입니다.');
+                    }else if(result == 3){
+                        $('#joinStudy').attr('disabled', true);
+                        $('#joinStudy').text('매칭이 종료되었습니다.');
+                    }
+                },
+                error: function (error, status, msg) {
+                    alert("상태코드 " + status + "에러메시지" + msg);
+                    return false;
+                },
+            })
+        }
 
-    });
+   /* });*/
 
     // 지원 ajax
     function apply() {
@@ -80,6 +99,7 @@
                 if (result == 1) {
                     alert("지원 완료");
                     $('#apply').attr('disabled', true);
+                    $('#apply').text('지원 완료');
                 } else {
                     alert("지원 실패. 다시 시도해주세요.");
                     return false;
@@ -117,8 +137,7 @@
         }
     }
 
-    // 스크랩 버튼 클릭 시 ajax
-    function scrapClick(no) {
+    function scrapClick(no){
         alert(no);
         <!--[클릭 ajax]-->
         $.ajax({
@@ -126,32 +145,25 @@
             url: "/scrap/" + no, //@PathVariable로 받음
             //data: no1,          //@RequestBody로 받음
             //data: JSON.stringify(no1),
-            contentType: 'application/json;charset=utf-8',
+            contentType:'application/json;charset=utf-8',
             success: function (data) {
                 alert(data);
-
-                if (data == 1) {	//스크랩 O
-                    $("#hiddenNoScrap" + no).show();
-                    $("#hiddenYesScrap" + no).hide();
-
+                if(data == 1){	//스크랩 O
+                    $("#hiddenNoScrap"+no).show();
+                    $("#hiddenYesScrap"+no).hide();
                     alert("in");
-                } else {        //스크랩 X
-                    $("#hiddenYesScrap" + no).show();
-                    $("#hiddenNoScrap" + no).hide();
-
+                }else{        //스크랩 X
+                    $("#hiddenYesScrap"+no).show();
+                    $("#hiddenNoScrap"+no).hide();
                     alert("out");
                 }
                 location.reload();
             }
-            , error: function (e) {
+            ,error: function (e) {
                 alert("data error" + e);
             }
-
         });//$.ajax
-    }
-
-    JSON.stringify({"email" : '${posts.writer}'});
-    alert(JSON.stringify({"email" : '${posts.writer}'}));
+    };
 
     function joinStudy(){
         $.ajax({
@@ -163,6 +175,7 @@
                 if(data == 1){
                     alert("참여 완료");
                     $('#joinStudy').attr('disabled', true);
+                    $('#joinStudy').text('참여 완료');
                 }else{
                     alert("참여 실패. 다시 시도해주세요.")
                     return false;
@@ -185,41 +198,38 @@
                 <div class="container List-container">
                     <div class="row mt-1 header">
                         <div class="col-8">
-                            <h5 class="content-title">글 상세보기</h5>
-                            <h5 class="content-title">제목</h5>
+                            <h3 class="content-title" style="font-weight: bolder">글 상세보기</h3>
+                            <%--<h5 class="content-title">제목</h5>--%>
+                            <br>
                             <div style="width: 300px">
-                                <input type="text" name="title" style="width: 250%" value="${posts.title}"
-                                       maxlength="50" readonly>
+                                <h4 name="title" style="width: 250%; font-weight: bolder">${posts.title}</h4>
                             </div>
                         </div>
                         <h5 class="col-1"></h5>
                         <p class="col-8"></p>
                         <p class="col-2"></p>
                     </div>
-
+                    <div>
+                        <h6 class="content-title" style="font-weight: bolder">작성일: <fmt:formatDate value="${posts.date}" pattern="yyyy-MM-dd HH:mm"/></h6>
+                    </div>
                     <%-- 매칭 관련 내용--%>
                     <c:if test="${posts.board_id == 300}">
-                        <p>총 매칭 인원</p>
-                        ${sgb.total_members}
-                        <p>매칭 가능 인원</p>
-                        ${sgb.total_members - studyCount}
-                        <p>매칭 가능일</p>
-                        <fmt:formatDate value="${sgb.date}" pattern="yyyy. MM. dd"/> - <fmt:formatDate value="${sgb.deadline}" pattern="yyyy. MM. dd"/>
                         <br>
-                        <button type="button" class="btn btn-success" id="joinStudy" onclick="joinStudy()">참여하기</button>
+                        <p>총 매칭 인원 : ${sgb.total_members}명</p>
+                        <p>매칭 가능 인원 : ${sgb.total_members - studyCount}명</p>
+                        <p>매칭 가능일 : <fmt:formatDate value="${sgb.date}" pattern="yyyy. MM. dd"/> - <fmt:formatDate value="${sgb.deadline}" pattern="yyyy. MM. dd"/></p>
+                        <c:if test="${sessionScope.loginBean.authority == '일반'}">
+                            <button type="button" class="btn btn-success" id="joinStudy" onclick="joinStudy()">참여하기</button><br><br>
+                        </c:if>
                     </c:if>
 
-                    <div>
-                        <h5 class="content-title">작성일</h5>
-                        <fmt:formatDate value="${posts.date}" pattern="yyyy-MM-dd HH:mm"/>
-                        <%--<input type="date" name="date" value="${post.date}" readonly>--%>
-                    </div>
-                    <div class="post-container">
-                        <h5 class="content-title">내용</h5>
+                    <div class="post-container"><br>
+                        <h4 class="content-title" style="font-weight: bolder">내용</h4>
                         <div class="content">
-                                <textarea class="form-control" name="content" rows="3"
-                                          style="width:90%; height:600px; resize:none;"
-                                          readonly>${posts.content}</textarea>
+                            <textarea class="form-control" name="content" rows="3"
+                                      style="width:100%; height:600px; resize:none;"
+                                      readonly>${posts.content}</textarea>
+
                             </div>
                     </div>
 
@@ -253,7 +263,7 @@
                             </button>
                         </c:if>
 
-                        <c:if test="${sessionScope.loginBean.authority == '일반' && (board.id == '100' || board.id == '200')}">
+                        <c:if test="${sessionScope.loginBean.authority == '일반' && (board.id != '300')}">
                             <button type="button" class="btn btn-success" id="apply"
                                     onclick="apply()">지원하기
                             </button>

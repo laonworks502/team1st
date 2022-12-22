@@ -72,13 +72,13 @@
 <%@ include file = "../common/header.jsp" %>
 <main class="mt-2 pt-2">
     <div class="container-fluid px-4">
-        <h1 class="mt-4">${board.name} 게시판</h1>
+        <h1 class="mt-4" style="font-weight: bolder">${board.name} 게시판</h1>
         <h5 style="margin-bottom: 50px"> ${pg.postsTotal}개의 글이 기다리고 있어요!</h5>
 
 
         <div class="card mb-4">
             <div class="card-header">
-                <c:if test="${sessionScope.loginBean.authority == '기업' && (board.id == '100' || board.id == '200')}">
+                <c:if test="${sessionScope.loginBean.authority == '기업' && (board.id != '300')}">
                     <button type="button" class="btn btn-primary float-end"
                             onClick="location.href='/boards/${board.id}/write?page=${page}'">글 작성
                     </button>
