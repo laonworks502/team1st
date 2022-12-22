@@ -51,20 +51,14 @@
     <script>
         function nofile() {
 
-            var file_var = $('input[type=file][name=file]:checked').val();
-            // let file_var = document.getElementsByName("file");
+            var file_var = $("#file").val();
+            if($("#file").val() == ""){
+                alert("첨부파일을 선택해주세요");
+                return false;
+            }
 
             console.log(file_var);
             console.log(typeof file_var);
-            // console.log(file_var.value);
-
-            if(undefined === file_var){
-
-                alert("파일을 선택해주세요.");
-                return false;
-            }else {
-                return true;
-            }
         }
 
     </script>
@@ -90,7 +84,7 @@
                 <br>
                 <br>이력서 업로드 : 파일 선택 후 업로드 버튼을 누르세요.
                 <br>
-                이력서 선택 : <input type="file" name="file">
+                이력서 선택 : <input type="file" id="file" name="file">
                 <input type="submit" value="업로드하기">
 
             </form>
