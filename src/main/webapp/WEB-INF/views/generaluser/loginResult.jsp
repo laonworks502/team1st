@@ -49,13 +49,5 @@
 	</script>
 </c:if>
 
-<c:if test="${result == 4 }">
-    <script>
-        alert("탈퇴가 완료되었습니다.");
-        location.href="/";
-    </script>
-</c:if>
-
-
 </body>
 </html>
