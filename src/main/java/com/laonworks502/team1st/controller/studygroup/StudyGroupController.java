@@ -52,7 +52,7 @@ public class StudyGroupController {
 
         postBean.setBoard_id(board_id);
 
-        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
         postBean.setWriter(loginBean.getEmail());
 
         // select key로 얻은 no 값을 보낸 postBean에 set해줌
@@ -63,8 +63,8 @@ public class StudyGroupController {
         int result = studyGroupService.getPostCountByNo(board_id, no);
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("no",no);
-        map.put("result",result);
+        map.put("no", no);
+        map.put("result", result);
 
         log.info("no: {}", no);
         log.info("result: {}", result);
@@ -83,12 +83,12 @@ public class StudyGroupController {
 
         studyBean.setNo(no);
 
-        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
         studyBean.setHost_email(loginBean.getEmail());
         studyBean.setMembers_email(loginBean.getEmail());
 
         int result = studyGroupService.createMatching(studyBean);
-        if(result == 0){
+        if (result == 0) {
             // no 값으로 작성 글 delete 메소드
             int deleteResult = boardService.deletePost(no);
         }
@@ -115,7 +115,7 @@ public class StudyGroupController {
 
         return result;
     }
-    
+
     // 스터디 매칭 참여 가능 여부
     @ResponseBody
     @GetMapping(value = "/check/{no}")
@@ -123,9 +123,9 @@ public class StudyGroupController {
                                   @RequestParam String email,
                                   HttpSession session) throws Exception {
 
-        log.info("selectMatching in, email = {}",email);
+        log.info("selectMatching in, email = {}", email);
 
-        LoginBean loginBean = (LoginBean)session.getAttribute("loginBean");
+        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
         String memberEmail = loginBean.getEmail();
 
         // 0 또는 1 리턴
@@ -136,15 +136,15 @@ public class StudyGroupController {
 
         log.info("데드라인: {}", studyGroupBean.getDeadline());
         log.info("오늘 날짜: {}", date);
-        log.info("결과: {}",date.after(studyGroupBean.getDeadline()));
+        log.info("결과: {}", date.after(studyGroupBean.getDeadline()));
 
-        if(date.after(studyGroupBean.getDeadline())){ // date(현재 날짜)가 deadline보다 이후라면 == 날짜가 지난 경우 true 반환
+        if (date.after(studyGroupBean.getDeadline())) { // date(현재 날짜)가 deadline보다 이후라면 == 날짜가 지난 경우 true 반환
             result = 2; // 날짜 지남
         }
-            
+
         int count = studyGroupService.countAllMatching(no, email);
-            
-        if((studyGroupBean.getTotal_members() - count) <= 0){   // 매칭 인원이 0이거나 그보다 적을 경우
+
+        if ((studyGroupBean.getTotal_members() - count) <= 0) {   // 매칭 인원이 0이거나 그보다 적을 경우
             result = 3; // 매칭 완료
         }
 
@@ -152,6 +152,7 @@ public class StudyGroupController {
 
         return result;
     }
+}
     
     
     
@@ -159,6 +160,7 @@ public class StudyGroupController {
     // 마이페이지
     
     // 스터디 참여 목록
+/*
     @GetMapping(value = "/list")
     public String getSutdyList(HttpSession session) throws Exception{
 
@@ -172,3 +174,4 @@ public class StudyGroupController {
     }
 
 }
+*/

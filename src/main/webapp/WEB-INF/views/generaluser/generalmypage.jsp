@@ -10,7 +10,7 @@
 
     <!--[스크랩 버튼]-->
     <script>
-        function scrapClick(no){
+        function scrapClick(no) {
             alert(no);
             <!--[클릭 ajax]-->
             $.ajax({
@@ -18,24 +18,21 @@
                 url: "/scrap/" + no, //@PathVariable로 받음
                 //data: no1,          //@RequestBody로 받음
                 //data: JSON.stringify(no1),
-                contentType:'application/json;charset=utf-8',
+                contentType: 'application/json;charset=utf-8',
                 success: function (data) {
                     alert(data);
-                    if(data == 1){	//스크랩 O
-                        $("#hiddenNoScrap"+no).show();
-                        $("#hiddenYesScrap"+no).hide();
 
+                    if (data == 1) {	//스크랩 O
+                        $("#scrap_" + no).attr("value", 1);
+                        $("#scrap_" + no).attr("src", "/resources/images/IconYesScrap.png");
                         alert("in");
-                    }else{        //스크랩 X
-                        $("#hiddenYesScrap"+no).show();
-                        $("#hiddenNoScrap"+no).hide();
-
+                    } else {        //스크랩 X
+                        location.href="/scrap/generalmypage"
 
                         alert("out");
                     }
-                    location.reload();
                 }
-                ,error: function (e) {
+                , error: function (e) {
                     alert("data error" + e);
                 }
 
@@ -132,7 +129,7 @@
                                     <td>${myminiscrap100.date}</td>
                                     <td>
                                         <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap100.no}">
-                                            <input type="image" id="hiddenYesScrap${myminiscrap100.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap100.no})">
+                                            <img src="/resources/images/IconYesScrap.png" value="${result}" id="scrap_${myminiscrap100.no}" style="width:22px; height:22px;" onclick="scrapClick(${myminiscrap100.no});">
                                         </div>
                                     </td>
                                 </tr>
@@ -163,17 +160,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="myminiscrap200" items="${myminiscrap200}">
-                                <tr>
-                                    <td onclick="location.href='/boards/${myminiscrap200.board_id}/${myminiscrap200.no}'">${myminiscrap200.title}</td>
-                                    <td>${myminiscrap200.date}</td>
-                                    <td>
-                                        <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap200.no}">
-                                            <input type="image" id="hiddenYesScrap${myminiscrap200.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap200.no})">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                                <c:forEach var="myminiscrap200" items="${myminiscrap200}">
+                                    <tr>
+                                        <td onclick="location.href='/boards/${myminiscrap200.board_id}/${myminiscrap200.no}'">${myminiscrap200.title}</td>
+                                        <td>${myminiscrap200.date}</td>
+                                        <td>
+                                            <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap200.no}">
+                                                <img src="/resources/images/IconYesScrap.png" value="${result}" id="scrap_${myminiscrap200.no}" style="width:22px; height:22px;" onclick="scrapClick(${myminiscrap200.no});">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -206,7 +203,7 @@
                                         <td>${myminiscrap300.date}</td>
                                         <td>
                                             <div class="scrapIconYesArea" id="scrapIconArea${myminiscrap300.no}">
-                                                <input type="image" id="hiddenYesScrap${myminiscrap300.no}"  src="/resources/images/IconYesScrap.png" width=22px height=22px onclick="scrapClick(${myminiscrap300.no})">
+                                                <img src="/resources/images/IconYesScrap.png" value="${result}" id="scrap_${myminiscrap300.no}" style="width:22px; height:22px;" onclick="scrapClick(${myminiscrap300.no});">
                                             </div>
                                         </td>
                                     </tr>

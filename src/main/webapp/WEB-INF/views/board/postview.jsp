@@ -149,54 +149,25 @@
                 alert(data);
 
                 if (data == 1) {	//스크랩 O
-                    $("#hiddenNoScrap" + no).show();
-                    $("#hiddenYesScrap" + no).hide();
-
+                    $("#scrap_" + no).attr("value", 1);
+                    $("#scrap_" + no).attr("src", "/resources/images/IconYesScrap.png");
                     alert("in");
                 } else {        //스크랩 X
-                    $("#hiddenYesScrap" + no).show();
-                    $("#hiddenNoScrap" + no).hide();
+
+                    $("#scrap_" + no).attr("value", 0);
+                    $("#scrap_" + no).attr("src", "/resources/images/IconNoScrap.png");
 
                     alert("out");
                 }
-                location.reload();
             }
             , error: function (e) {
                 alert("data error" + e);
             }
 
         });//$.ajax
+
     }
 
-    };
-
-    function scrapClick(no){
-        alert(no);
-        <!--[클릭 ajax]-->
-        $.ajax({
-            method: 'POST',
-            url: "/scrap/" + no, //@PathVariable로 받음
-            //data: no1,          //@RequestBody로 받음
-            //data: JSON.stringify(no1),
-            contentType:'application/json;charset=utf-8',
-            success: function (data) {
-                alert(data);
-                if(data == 1){	//스크랩 O
-                    $("#hiddenNoScrap"+no).show();
-                    $("#hiddenYesScrap"+no).hide();
-                    alert("in");
-                }else{        //스크랩 X
-                    $("#hiddenYesScrap"+no).show();
-                    $("#hiddenNoScrap"+no).hide();
-                    alert("out");
-                }
-                location.reload();
-            }
-            ,error: function (e) {
-                alert("data error" + e);
-            }
-        });//$.ajax
-    };
 
     function joinStudy(){
         $.ajax({
@@ -275,23 +246,13 @@
                         <!--[스크랩 버튼]-->
                         <div class="scrap_wrap">
                             <c:if test="${sessionScope.loginBean.authority == '일반'}" >
-                                <div class="scrapIconYesArea" id="scrapIconArea${posts.no}">
-                                    <c:if test="${result == 1}">
-                                        <input type="image" id="hiddenYesScrap${posts.no}"
-                                               value=${result} src="/resources/images/IconYesScrap.png"
-                                               width=30px height=30px onclick="scrapClick(${posts.no})">
-                                    </c:if>
-                                </div>
-                                <div class="scrapIconNoArea" id="scrapIconArea${posts.no}">
-                                    <c:if test="${result == 0}">
-                                        <input type="image" id="hiddenNoScrap${posts.no}"
-                                               value=${result} src="/resources/images/IconNoScrap.png"
-                                               width=33px height=34px onclick="scrapClick(${posts.no})">
-                                    </c:if>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${result == 1}"><c:set var="img_name" value="IconYesScrap.png" /> </c:when>
+                                    <c:when test="${result == 0}"><c:set var="img_name" value="IconNoScrap.png" /></c:when>
+                                </c:choose>
+                                <img src="/resources/images/${img_name}" value="${result}" id="scrap_${posts.no}" style="width:30px; height:30px;" onclick="scrapClick(${posts.no});">
                             </c:if>
                         </div>
-
                         <c:if test="${posts.writer == sessionScope.loginBean.email}">
                             <button type="button" class="btn btn-outline-primary"
                                     onclick="location.href='/boards/${board_id}/${no}/edit?page=${page}'">수정

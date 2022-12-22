@@ -125,34 +125,7 @@ public class ScrapController {
         return boardSearchList;
     }
 */
-    // 일반 회원 마이페이지
-/*
-    @RequestMapping(value = "/generalmypage")
-    public String generalmypage(HttpSession session,
-                                Model model,
-                                @ModelAttribute ScrapListBean myminiscrap100,
-                                @ModelAttribute ScrapListBean myminiscrap200,
-                                @ModelAttribute ScrapListBean myminiscrap300
 
-//                                @ModelAttribute GeneralUserBean gub
-    )throws Exception{
-
-        LoginBean loginBean = (LoginBean) session.getAttribute("loginBean");
-        String email = loginBean.getEmail();
-
-        GeneralUserBean gub = gus.checkGeneraluser(email);
-
-        log.info("generalmypage:" + gub.getEmail());
-
-        model.addAttribute("gub", gub);
-
-        model.addAttribute("myminiscrap100",myminiscrap100);
-        model.addAttribute("myminiscrap200",myminiscrap200);
-        model.addAttribute("myminiscrap300",myminiscrap300);
-
-        return "generaluser/generalmypage";
-    }
-*/
 
     /*[마이페이지) 미니 스크랩 리스트 ]*/
     @GetMapping("/generalmypage")
@@ -213,6 +186,8 @@ public class ScrapController {
         Pagination pg = new Pagination(board_id, page, listcount, 50);
 
         model.addAttribute("pg",pg);
+        model.addAttribute("page",page);
+
 
         //스크랩 리스트 전체 출력
         List<ScrapListBean> myscrap = ss.listTotalScrap(email, board_id ,pg.getStartPostNo(),pg.getPAGES_COUNT()); //[listScrap() : 스크랩 리스트 출력 메소드]
@@ -224,6 +199,7 @@ public class ScrapController {
         String boardName = bs.getBoardNameById(board_id); //[getBoardNameById() : 이름 구하는 메소드]
 
         model.addAttribute("boardName",boardName);
+        model.addAttribute("board_id",board_id);
 
         return "generaluser/totalscrap";
     }
