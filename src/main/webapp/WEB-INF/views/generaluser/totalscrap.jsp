@@ -37,7 +37,15 @@
             });//$.ajax
 
         }
+
+        //[스크랩 갯수 게시판 당 50개 제한]
+        function maxScrapCount(){
+            if (${postTotal} > 20) {
+                alert("스크랩은 최대 50개 가능합니다.");
+            }
+        }
     </script>
+
 </head>
 <body>
 <header>
@@ -81,38 +89,6 @@
                 </div>
             </div>
 
-        </div>
-
-
-        <div class="myscrap_pageination">
-                <!-- 페이징 -->
-                <nav class="center" aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <c:if test="${page>1}">
-                                <a class="page-link" href="/boards/${board_id}?page=${page-1}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </c:if>
-                        </li>
-                        <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
-                            <li class="page-item" id="page-item${i}">
-                                <a class="page-link" href="/boards/${board_id}?page=${i}">${i}</a>
-                            </li>
-                        </c:forEach>
-                        <script>
-                            const pageItem=document.getElementById("page-item${page}");
-                            pageItem.classList.add('active')
-                        </script>
-                        <li class="page-item">
-                            <c:if test="${page < pg.pagesTotal}">
-                                <a class="page-link" href="/boards/${board_id}?page=${page+1}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </c:if>
-                        </li>
-                    </ul>
-                </nav>
         </div>
     </div>
 </main>
