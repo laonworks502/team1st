@@ -184,8 +184,8 @@ public class ScrapController {
 
         int postTotal = bs.countAllPosts(board_id); // [countAllPosts() : 게시판 전체 게시물수 구하는 메소드]
 
-        log.info("postTotal"+postTotal);
-        model.addAttribute("postTotal",postTotal);
+        //log.info("postTotal"+postTotal);
+        //model.addAttribute("postTotal",postTotal);
 
         //스크랩 페이지네이션
         Pagination pg = new Pagination(board_id, page, listcount, 50);

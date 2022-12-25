@@ -37,13 +37,6 @@
             });//$.ajax
 
         }
-
-        //[스크랩 갯수 게시판 당 50개 제한]
-        function maxScrapCount(){
-            if (${postTotal} > 20) {
-                alert("스크랩은 최대 50개 가능합니다.");
-            }
-        }
     </script>
 
 </head>
