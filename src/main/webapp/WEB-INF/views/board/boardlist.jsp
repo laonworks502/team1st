@@ -11,7 +11,7 @@
     <script>
         // 스크랩 버튼 클릭 시 ajax
         function scrapClick(no) {
-            alert(no);
+            /*alert(no);*/
             <!--[클릭 ajax]-->
             $.ajax({
                 method: 'POST',
@@ -20,18 +20,18 @@
                 //data: JSON.stringify(no1),
                 contentType: 'application/json;charset=utf-8',
                 success: function (data) {
-                    alert(data);
+                    /*alert(data);*/
 
                     if (data == 1) {	//스크랩 O
                         $("#scrap_" + no).attr("value", 1);
                         $("#scrap_" + no).attr("src", "/resources/images/IconYesScrap.png");
-                        alert("in");
+                        /*alert("in");*/
                     } else {        //스크랩 X
 
                         $("#scrap_" + no).attr("value", 0);
                         $("#scrap_" + no).attr("src", "/resources/images/IconNoScrap.png");
 
-                        alert("out");
+                        /*alert("out");*/
                     }
                 }
                 , error: function (e) {
