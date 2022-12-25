@@ -182,6 +182,11 @@ public class ScrapController {
 
         int listcount = ss.getCount(email); // [getCount() : 총 리스트 수 구해오는 메소드]
 
+        int postTotal = bs.countAllPosts(board_id); // [countAllPosts() : 게시판 전체 게시물수 구하는 메소드]
+
+        //log.info("postTotal"+postTotal);
+        //model.addAttribute("postTotal",postTotal);
+
         //스크랩 페이지네이션
         Pagination pg = new Pagination(board_id, page, listcount, 50);
 
@@ -192,7 +197,9 @@ public class ScrapController {
         //스크랩 리스트 전체 출력
         List<ScrapListBean> myscrap = ss.listTotalScrap(email, board_id ,pg.getStartPostNo(),pg.getPAGES_COUNT()); //[listScrap() : 스크랩 리스트 출력 메소드]
 
+        log.info("myscrap {}", myscrap.size());
         log.info("myscrap"+myscrap);
+
 
         model.addAttribute("myscrap", myscrap);
 
