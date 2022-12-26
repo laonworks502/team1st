@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.laonworks502.team1st.dao.*">
+<mapper namespace="com.laonworks502.team1st.dao.scrap.ScrapDao">
 
+    <!--[스크랩 검색]-->
+    <select id="searchScrap" resultType="int" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
+        select count(*) from scraps where user_email = #{user_email} and no = #{no}
+    </select>
+
+    <!--[스크랩 삭제]-->
+    <delete id="deleteScrap" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
+        delete from scraps where user_email = #{user_email} and no = #{no}
+    </delete>
+
+    <!--[스크랩 생성]-->
+    <insert id="insertScrap" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
+        insert into scraps values (#{user_email},#{no},sysdate())
+    </insert>
+
+    <!--[스크랩 리스트)총 리스트 수]-->
+    <select id="getCount" resultType="int" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
+        select count(*) from scraps where user_email = #{user_email}
+    </select>
+
+    <!--[스크랩 전체 출력 리스트]-->
+    <select id="listTotalScrap" resultType="com.laonworks502.team1st.model.scrap.ScrapListBean" parameterType="com.laonworks502.team1st.model.scrap.ScrapListBean">
+        select posts.no, posts.board_id, posts.title, posts.content, scraps.user_email, scraps.date from posts join scraps on posts.no = scraps.no where user_email = #{user_email} and board_id = #{board_id} order by scraps.date desc
+            limit 50
+    </select>
+
+    <!--[스크랩 미니 리스트 출력 메소드]-->
+    <select id="listMiniScrap" resultType="com.laonworks502.team1st.model.scrap.ScrapListBean" parameterType="com.laonworks502.team1st.model.scrap.ScrapListBean">
+        select posts.no, posts.board_id, posts.title, posts.content, scraps.user_email, scraps.date from posts join scraps on posts.no = scraps.no where user_email = #{user_email} and board_id = #{board_id} order by scraps.date desc
+            limit 3
+    </select>
+
+    <!--[전체 해당 페이지에 대한 검색]-->
+    <select id="getBoardSearchList" resultType="int" parameterType="com.laonworks502.team1st.model.scrap.ScrapBean">
+        select count(*) from scraps where user_email = #{user_email} and no = #{no}
+    </select>
 </mapper>
